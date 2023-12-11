@@ -1,11 +1,10 @@
 import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Features/home/presentation/views/home_view.dart';
+import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
+  static const kOnBoardingView = '/onBoardingView';
   static const kHomeView = '/homeView';
-  static const kBookDetailsView = '/bookDetailsView';
-  static const kSearchView = '/searchView';
 
   static final router = GoRouter(
     routes: [
@@ -14,8 +13,8 @@ abstract class AppRouter {
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
-        path: kHomeView,
-        builder: (context, state) => const HomeView(),
+        path: kOnBoardingView,
+        builder: (context, state) => const OnBoardingView(),
       ),
     ],
   );

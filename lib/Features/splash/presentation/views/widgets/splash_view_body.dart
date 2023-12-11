@@ -19,7 +19,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
     initAnimation();
-    navigateToHome();
+    navigateToOnBoarding();
   }
 
   @override
@@ -58,19 +58,19 @@ class _SplashViewBodyState extends State<SplashViewBody>
     animationController.forward();
   }
 
-  void navigateToHome() {
+  void navigateToOnBoarding() {
     Future.delayed(
       const Duration(seconds: 3),
       () {
         /*
         GET CODE (BEFORE GO ROUTER):
         Get.to(
-          const HomeView(),
+          const OnBoardingView(),
           transition: Transition.rightToLeft,
           duration: kTransitionDuration,
         );
         */
-        GoRouter.of(context).push(AppRouter.kHomeView);
+        GoRouter.of(context).push(AppRouter.kOnBoardingView);
       },
     );
   }
