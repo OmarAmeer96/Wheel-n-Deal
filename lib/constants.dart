@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const kPrimaryColor = Color(0xFFFF981A);
+
 const kSplashColor = Color(0xFF1D272F);
 
 const kManropeLight = 'Manrope-Light';
