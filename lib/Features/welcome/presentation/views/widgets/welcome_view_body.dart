@@ -10,29 +10,31 @@ class WelcomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(AssetsData.welcomeLogo),
-        CustomMainButton(
-          text: "Login",
-          color: const Color(0xffFF981A),
-          onPressed: () {
-            GoRouter.of(context).push(AppRouter.kLoginView);
-          },
-        ),
-        const SizedBox(
-          height: 22,
-        ),
-        CustomMainButton(
-          text: "Register",
-          onPressed: () {
-            GoRouter.of(context).push(AppRouter.kRegisterView);
-          },
-          color: const Color(0xffF3F3F3),
-          textColor: const Color(0xff1D272F),
-          borderSideColor: const Color(0xff1D272F),
-        ),
-      ],
+    return SafeArea(
+      child: Column(
+        children: [
+          Image.asset(AssetsData.welcomeLogo),
+          CustomMainButton(
+            text: "Login",
+            color: const Color(0xffFF981A),
+            onPressed: () {
+              GoRouter.of(context).push(AppRouter.kLoginView);
+            },
+          ),
+          const SizedBox(
+            height: 22,
+          ),
+          CustomMainButton(
+            text: "Register",
+            onPressed: () {
+              GoRouter.of(context).push(AppRouter.kRegisterView);
+            },
+            color: const Color(0xffF3F3F3),
+            textColor: const Color(0xff1D272F),
+            borderSideColor: const Color(0xff1D272F),
+          ),
+        ],
+      ),
     );
   }
 }
