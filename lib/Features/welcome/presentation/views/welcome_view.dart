@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wheel_n_deal/Features/welcome/presentation/widgets/welcome_view_body.dart';
+import 'package:wheel_n_deal/Features/welcome/presentation/views/widgets/welcome_view_body.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});

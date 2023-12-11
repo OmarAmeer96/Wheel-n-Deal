@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
-import 'package:wheel_n_deal/Features/welcome/presentation/welcome_view.dart';
+import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
-import '../../Features/auth/login/presentation/login_view.dart';
-import '../../Features/auth/register/presentation/register_view.dart';
+import '../../Features/auth/login/presentation/views/login_view.dart';
+import '../../Features/auth/register/presentation/views/register_view.dart';
 
 abstract class AppRouter {
   static const kOnBoardingView = '/onBoardingView';
