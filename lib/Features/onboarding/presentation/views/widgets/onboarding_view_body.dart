@@ -29,7 +29,7 @@ class OnBoardingViewBody extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      controllerColor: Color(0xff1D272F),
+      controllerColor: const Color(0xff1D272F),
       totalPage: 3,
       headerBackgroundColor: Colors.white,
       pageBackgroundColor: Colors.white,

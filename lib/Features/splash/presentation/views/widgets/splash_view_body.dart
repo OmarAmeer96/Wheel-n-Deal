@@ -62,14 +62,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        /*
-        GET CODE (BEFORE GO ROUTER):
-        Get.to(
-          const OnBoardingView(),
-          transition: Transition.rightToLeft,
-          duration: kTransitionDuration,
-        );
-        */
         GoRouter.of(context).push(AppRouter.kOnBoardingView);
       },
     );
