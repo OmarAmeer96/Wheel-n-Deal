@@ -10,4 +10,6 @@ class AssetsData {
   static const onBoardingImage3 = 'assets/images/onboarding3.jpg';
 
   static const welcomeLogo = 'assets/images/welcome_logo.png';
+
+  static const backArrow = 'assets/svg/backArrow.svg';
 }

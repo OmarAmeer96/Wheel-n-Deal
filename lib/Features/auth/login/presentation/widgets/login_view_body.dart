@@ -5,8 +5,10 @@ class LoginViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: LoginViewBody(),
+    return const SafeArea(
+      child: Column(
+        children: [Icon(Icons.abc_outlined)],
+      ),
     );
   }
 }

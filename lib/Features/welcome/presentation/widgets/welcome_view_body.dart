@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 
-import '../../../Core/utils/app_router.dart';
+import '../../../../Core/utils/app_router.dart';
 
 class WelcomeViewBody extends StatelessWidget {
   const WelcomeViewBody({super.key});
@@ -16,7 +16,9 @@ class WelcomeViewBody extends StatelessWidget {
         CustomMainButton(
           text: "Login",
           color: const Color(0xffFF981A),
-          onPressed: () {},
+          onPressed: () {
+            GoRouter.of(context).push(AppRouter.kLoginView);
+          },
         ),
         const SizedBox(
           height: 22,
