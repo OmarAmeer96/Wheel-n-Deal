@@ -7,9 +7,7 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Column(
-        children: [
-          Icon(Icons.abc_outlined),
-        ],
+        children: [],
       ),
     );
   }

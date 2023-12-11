@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Core/utils/build_app_bar.dart';
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/widgets/login_view_body.dart';
 
 class LoginView extends StatelessWidget {
@@ -6,8 +7,9 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: LoginViewBody(),
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: const LoginViewBody(),
     );
   }
 }
