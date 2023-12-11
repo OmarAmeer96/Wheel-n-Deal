@@ -18,7 +18,7 @@ class FadingLogo extends StatelessWidget {
         return Opacity(
           opacity: opacityAnimation.value,
           child: SvgPicture.asset(
-            AssetsData.logo,
+            AssetsData.splahsLogo,
             height: 65,
           ),
         );

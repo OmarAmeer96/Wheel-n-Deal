@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/widgets/fading_logo.dart';
-import 'package:wheel_n_deal/Features/splash/presentation/views/widgets/sliding_text.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -14,7 +13,6 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late Animation<Offset> slidingAnimation;
   late Animation<double> opacityAnimation;
 
   @override
@@ -40,10 +38,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
         const SizedBox(
           height: 20,
         ),
-        SlidingText(
-          slidingAnimation: slidingAnimation,
-          opacityAnimation: opacityAnimation,
-        ),
       ],
     );
   }
@@ -53,11 +47,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     );
-
-    // Sliding Animation
-    slidingAnimation =
-        Tween<Offset>(begin: const Offset(0, 10), end: Offset.zero)
-            .animate(animationController);
 
     // Opacity Animation
     opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
