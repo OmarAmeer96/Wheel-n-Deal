@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Core/utils/styles.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -6,10 +7,19 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Column(
-        children: [
-          Text("Welcome back! Glad to see you, Again!"),
-        ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Welcome back! Glad to see you, Again!",
+              style: Styles.manropeRegular,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,24 +1,10 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/constants.dart';
 
-// abstract class Styles {
-//   static const montserratRegular = TextStyle(
-//     fontSize: 18,
-//     fontFamily: kMontserratRegular,
-//   );
-//   static const montserratMedium = TextStyle(
-//     fontSize: 20,
-//     fontFamily: kMontserratMedium,
-//   );
-//   static const montserratSemiBold = TextStyle(
-//     fontSize: 22,
-//     fontFamily: kMontserratSemiBold,
-//   );
-//   static const montserratBold = TextStyle(
-//     fontSize: 24,
-//     fontFamily: kMontserratBold,
-//   );
-//   static const gtSectraFineRegular = TextStyle(
-//     fontSize: 24,
-//     fontFamily: kGtSectraFineRegular,
-//   );
-// }
+abstract class Styles {
+  static const manropeRegular = TextStyle(
+    fontSize: 38,
+    fontFamily: kManropeRegular,
+    fontWeight: FontWeight.w700,
+  );
+}

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xff100B20);
 const kSplashColor = Color(0xFF1D272F);
-const kTransitionDuration = Duration(milliseconds: 250);
-// const kTextColor1 = Color(0xff707070);
-const kMontserratRegular = 'Montserrat-Regular';
+
+const kManropeLight = 'Manrope-Light';
+const kManropeRegular = 'Manrope-Regular';
+const kManropeMedium = 'Manrope-Medium';
+const kManropeSemiBold = 'Manrope-SemiBold';
+const kManropeBold = 'Manrope-Bold';
+const kManropeExtraBold = 'Manrope-ExtraBold';
