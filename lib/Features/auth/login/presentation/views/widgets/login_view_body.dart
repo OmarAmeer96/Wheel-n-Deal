@@ -7,7 +7,9 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Column(
-        children: [],
+        children: [
+          Text("Welcome back! Glad to see you, Again!"),
+        ],
       ),
     );
   }
