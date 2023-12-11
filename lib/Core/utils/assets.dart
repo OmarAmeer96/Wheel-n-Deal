@@ -8,4 +8,6 @@ class AssetsData {
   static const onBoardingImage1 = 'assets/images/onboarding1.PNG';
   static const onBoardingImage2 = 'assets/images/onboarding2.jpg';
   static const onBoardingImage3 = 'assets/images/onboarding3.jpg';
+
+  static const welcomeLogo = 'assets/images/welcome_logo.png';
 }

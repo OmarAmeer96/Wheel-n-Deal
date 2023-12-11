@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 class CustomMainButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final Color color;
+  final Color textColor;
+  final Color borderSideColor;
 
-  const CustomMainButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+  const CustomMainButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.color,
+      this.textColor = Colors.white,
+      this.borderSideColor = Colors.transparent});
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +21,20 @@ class CustomMainButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
-        backgroundColor: const Color(0xff8D070F),
+        backgroundColor: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(19),
+          side: BorderSide(color: borderSideColor), // Add black border side
         ),
       ),
       child: Container(
         width: 367,
-        height: 67,
+        height: 49,
         alignment: Alignment.center,
         child: Text(
           text,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: textColor,
             fontSize: 19,
             fontFamily: "Gilroy-Reular",
             fontWeight: FontWeight.w500,

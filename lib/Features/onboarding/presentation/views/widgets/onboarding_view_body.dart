@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 
@@ -9,29 +11,25 @@ class OnBoardingViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(
-      finishButtonText: 'Register',
-      onFinish: () {},
-      finishButtonStyle: const FinishButtonStyle(
-        backgroundColor: Colors.deepOrange,
+      finishButtonText: 'Get Started',
+      onFinish: () {
+        GoRouter.of(context).push(AppRouter.kWelcomeView);
+      },
+      finishButtonStyle: FinishButtonStyle(
+        backgroundColor: const Color(0xffFF981A),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
       skipTextButton: const Text(
         'Skip',
         style: TextStyle(
           fontSize: 16,
-          color: Colors.deepOrange,
+          color: Color(0xffFF981A),
           fontWeight: FontWeight.w600,
         ),
       ),
-      trailing: const Text(
-        'Login',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.deepOrange,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      trailingFunction: () {},
-      controllerColor: Colors.deepOrange,
+      controllerColor: Color(0xff1D272F),
       totalPage: 3,
       headerBackgroundColor: Colors.white,
       pageBackgroundColor: Colors.white,
@@ -66,7 +64,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 'Cash on Delivery or E-payment',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.deepOrange,
+                  color: Color(0xff191D31),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -101,7 +99,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 'Delivery Right to Your Door Step',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.deepOrange,
+                  color: Color(0xff191D31),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w600,
                 ),
@@ -136,7 +134,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 'Welcome to Wheel en Deal',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.deepOrange,
+                  color: Color(0xff191D31),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w600,
                 ),
