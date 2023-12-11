@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
+import 'package:wheel_n_deal/Core/utils/responsive.dart';
 
 class OnBoardingViewBody extends StatelessWidget {
   const OnBoardingViewBody({super.key});
@@ -35,16 +37,16 @@ class OnBoardingViewBody extends StatelessWidget {
       pageBackgroundColor: Colors.white,
       background: [
         Image.asset(
-          'assets/images/test.png',
-          height: 400,
+          AssetsData.onBoardingImage1,
+          height: Responsive.screenWidth(context) * 1,
         ),
         Image.asset(
-          'assets/images/test.png',
-          height: 400,
+          AssetsData.onBoardingImage2,
+          height: Responsive.screenWidth(context) * 1,
         ),
         Image.asset(
-          'assets/images/test.png',
-          height: 400,
+          AssetsData.onBoardingImage3,
+          height: Responsive.screenWidth(context) * 1,
         ),
       ],
       speed: 1.8,
@@ -61,7 +63,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 480,
               ),
               Text(
-                'On your way...',
+                'Cash on Delivery or E-payment',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.deepOrange,
@@ -73,7 +75,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'to find the perfect looking Onboarding for your app?',
+                'Choose between Cash on Delivery or hassle-free Electronic payments for a seamless and secure transaction experience.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,
@@ -96,7 +98,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 480,
               ),
               Text(
-                'You’ve reached your destination.',
+                'Delivery Right to Your Door Step',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.deepOrange,
@@ -108,7 +110,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'Sliding with animation',
+                'Our delivery will ensure your items are delivered right to the door steps!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,
@@ -131,7 +133,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 480,
               ),
               Text(
-                'Start now!',
+                'Welcome to Wheel en Deal',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.deepOrange,
@@ -143,7 +145,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'Where everything is possible and customize your onboarding.',
+                'Wheel en Deal is the best solution to deliver and track goods from local and world shipping.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,
