@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 
 class FadingLogo extends StatelessWidget {
@@ -17,9 +16,9 @@ class FadingLogo extends StatelessWidget {
       builder: (context, _) {
         return Opacity(
           opacity: opacityAnimation.value,
-          child: SvgPicture.asset(
-            AssetsData.splahsLogo,
-            height: 65,
+          child: Image.asset(
+            AssetsData.splashLogoPng,
+            height: 310,
           ),
         );
       },

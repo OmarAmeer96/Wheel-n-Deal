@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Features/home/presentation/views/home_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
@@ -12,10 +13,10 @@ abstract class AppRouter {
         path: '/',
         builder: (context, state) => const SplashView(),
       ),
-      // GoRoute(
-      //   path: kHomeView,
-      //   builder: (context, state) => const HomeView(),
-      // ),
+      GoRoute(
+        path: kHomeView,
+        builder: (context, state) => const HomeView(),
+      ),
     ],
   );
 }
