@@ -8,3 +8,5 @@ const kManropeMedium = 'Manrope-Medium';
 const kManropeSemiBold = 'Manrope-SemiBold';
 const kManropeBold = 'Manrope-Bold';
 const kManropeExtraBold = 'Manrope-ExtraBold';
+
+const kPoppinsRegular = 'Poppins-Regular';

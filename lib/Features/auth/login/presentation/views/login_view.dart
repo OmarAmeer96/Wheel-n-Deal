@@ -14,7 +14,7 @@ class LoginView extends StatelessWidget {
           GoRouter.of(context).pop();
         },
       ),
-      body: const LoginViewBody(),
+      body: LoginViewBody(),
     );
   }
 }

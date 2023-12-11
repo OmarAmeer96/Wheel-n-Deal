@@ -96,6 +96,10 @@ flutter:
     - family: Manrope-ExtraBold
       fonts:
         - asset: assets/fonts/Manrope-ExtraBold.ttf
+    - family: Poppins-Regular
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
