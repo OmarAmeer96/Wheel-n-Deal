@@ -91,7 +91,6 @@ class LoginViewBody extends StatelessWidget {
                 onPressed: () {},
                 color: kPrimaryColor,
               ),
-              const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
