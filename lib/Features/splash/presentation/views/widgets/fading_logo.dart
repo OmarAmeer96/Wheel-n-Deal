@@ -1,4 +1,3 @@
-import 'package:bookly_app/Core/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
