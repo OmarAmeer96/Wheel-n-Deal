@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "124269518597",
+    "project_id": "wheel-n--deal",
+    "storage_bucket": "wheel-n--deal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124269518597:android:ebe52e6c6aff001983a16c",
+        "android_client_info": {
+          "package_name": "com.example.wheel_n_deal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTo_iit1wusOgTUSG7OXPuYIl-0eyuM-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
