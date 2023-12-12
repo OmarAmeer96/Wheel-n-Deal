@@ -34,14 +34,14 @@ class CustomEmailTextField extends StatelessWidget {
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),
-        labelText: 'Username',
         hintText: 'Enter Name',
         hintStyle: Styles.poppinsSemiBold16.copyWith(
-          color: const Color(0xFFA3A3A3),
-        ),
-        labelStyle: Styles.poppinsSemiBold16.copyWith(
           color: const Color(0xFF757575),
         ),
+        // labelText: 'Username',
+        // labelStyle: Styles.poppinsSemiBold16.copyWith(
+        //   color: const Color(0xFF757575),
+        // ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Color(0xFFA3A3A3), width: 1.0),

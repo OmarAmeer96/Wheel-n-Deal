@@ -51,13 +51,13 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),
-        labelText: widget.text,
-        labelStyle: Styles.poppinsSemiBold16.copyWith(
-          color: const Color(0xFF757575),
-        ),
-        hintText: 'Enter Name',
+        // labelText: widget.text,
+        // labelStyle: Styles.poppinsSemiBold16.copyWith(
+        //   color: const Color(0xFF757575),
+        // ),
+        hintText: 'Enter Password',
         hintStyle: Styles.poppinsSemiBold16.copyWith(
-          color: const Color(0xFFA3A3A3),
+          color: const Color(0xFF757575),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

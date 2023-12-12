@@ -44,12 +44,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       "Welcome back! Glad to see you, Again!",
                       style: Styles.manropeExtraBold32,
                     ),
                     SizedBox(
-                      height: 60,
+                      height: 70,
                     ),
                   ],
                 ),
@@ -60,6 +63,18 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Username',
+                        style: Styles.poppinsSemiBold16.copyWith(
+                          color: const Color(0xFFA3A3A3),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     CustomEmailTextField(
                       controller: _emailController,
                       onChanged: (data) {
@@ -75,7 +90,19 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       },
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Password',
+                        style: Styles.poppinsSemiBold16.copyWith(
+                          color: const Color(0xFFA3A3A3),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     CustomPasswordTextField(
                       controller: _passwordController,
@@ -93,7 +120,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       },
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 16,
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -105,7 +132,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       ),
                     ),
                     const SizedBox(
-                      height: 26,
+                      height: 30,
                     ),
                     CustomMainButton(
                       text: "Login",
