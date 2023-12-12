@@ -16,4 +16,6 @@ class AssetsData {
   static const userName = 'assets/svg/username.svg';
 
   static const passWord = 'assets/svg/password.svg';
+
+  static const welcomeLogo2 = 'assets/images/welcomeLogo.png';
 }

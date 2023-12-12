@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
+import 'package:wheel_n_deal/Core/utils/responsive.dart';
 
 import '../../../../../Core/utils/app_router.dart';
 
@@ -13,7 +14,15 @@ class WelcomeViewBody extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          Image.asset(AssetsData.welcomeLogo),
+          SizedBox(
+            height: Responsive.screenHeight(context) * 0.06,
+          ),
+          Image.asset(AssetsData.welcomeLogo2),
+          const Expanded(
+            child: SizedBox(
+              height: 22,
+            ),
+          ),
           CustomMainButton(
             text: "Login",
             color: const Color(0xffFF981A),
@@ -32,6 +41,9 @@ class WelcomeViewBody extends StatelessWidget {
             color: const Color(0xffF3F3F3),
             textColor: const Color(0xff1D272F),
             borderSideColor: const Color(0xff1D272F),
+          ),
+          SizedBox(
+            height: Responsive.screenHeight(context) * 0.2,
           ),
         ],
       ),
