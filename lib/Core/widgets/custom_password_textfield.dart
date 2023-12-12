@@ -1,25 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
-class CustomEmailTextField extends StatelessWidget {
-  const CustomEmailTextField({
+class CustomPasswordTextField extends StatefulWidget {
+  const CustomPasswordTextField({
     super.key,
+    required this.text,
     required this.onChanged,
     required this.controller,
     required this.validator,
   });
 
+  final String text;
   final Function(String) onChanged;
   final TextEditingController controller;
-  final String? Function(String?)? validator;
+  final String? Function(String?)? validator; // New validator attribute
+
+  @override
+  State<CustomPasswordTextField> createState() =>
+      _CustomPasswordTextFieldState();
+}
+
+class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
+  bool obscureText = true;
+
+  void _togglePasswordIcon() {
+    obscureText = !obscureText;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      onChanged: onChanged,
+      // Changed to TextFormField to support validation
+      controller: widget.controller,
+      obscureText: obscureText,
+      onChanged: widget.onChanged,
       enabled: true,
       style: Styles.poppinsSemiBold16.copyWith(
         color: Colors.black,
@@ -34,7 +51,7 @@ class CustomEmailTextField extends StatelessWidget {
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),
-        labelText: 'Username',
+        labelText: widget.text,
         labelStyle: Styles.poppinsSemiBold16.copyWith(
           color: const Color(0xFF757575),
         ),
@@ -56,10 +73,19 @@ class CustomEmailTextField extends StatelessWidget {
         ),
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
-          child: SvgPicture.asset(AssetsData.userName),
+          child: SvgPicture.asset(AssetsData.passWord),
+        ),
+        suffixIcon: InkWell(
+          onTap: () {
+            _togglePasswordIcon();
+          },
+          child: Icon(
+            obscureText ? Icons.visibility_off : Icons.visibility,
+            color: Colors.white,
+          ),
         ),
       ),
-      validator: validator,
+      validator: widget.validator,
     );
   }
 }

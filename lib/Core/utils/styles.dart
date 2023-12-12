@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 abstract class Styles {
-  static const manropeRegular32 = TextStyle(
+  static const manropeExtraBold32 = TextStyle(
     fontSize: 32,
     fontFamily: kManropeExtraBold,
     fontWeight: FontWeight.w700,
@@ -13,8 +13,13 @@ abstract class Styles {
     fontWeight: FontWeight.w600,
   );
   static const poppinsRegular = TextStyle(
-    fontSize: 15,
+    fontSize: 16,
     fontFamily: kPoppinsRegular,
     fontWeight: FontWeight.w500,
+  );
+  static const poppinsSemiBold16 = TextStyle(
+    fontSize: 16,
+    fontFamily: kPoppinsSemiBold,
+    fontWeight: FontWeight.w600,
   );
 }

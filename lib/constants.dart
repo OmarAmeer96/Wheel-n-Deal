@@ -12,3 +12,7 @@ const kManropeBold = 'Manrope-Bold';
 const kManropeExtraBold = 'Manrope-ExtraBold';
 
 const kPoppinsRegular = 'Poppins-Regular';
+const kPoppinsMedium = 'Poppins-Regular';
+const kPoppinsSemiBold = 'Poppins-Regular';
+const kPoppinsBold = 'Poppins-Regular';
+const kPoppinsExtraBold = 'Poppins-Regular';
