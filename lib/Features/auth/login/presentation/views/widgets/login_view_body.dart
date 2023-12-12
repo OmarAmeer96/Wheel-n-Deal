@@ -161,16 +161,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ),
               ),
             ),
-            const SliverFillRemaining(
+            SliverFillRemaining(
               hasScrollBody: false,
               child: Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, bottom: 15),
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 15),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don’t have an account?  "),
+                      Text(
+                        "Don’t have an account?  ",
+                        style: Styles.manropeRegular16.copyWith(
+                          color: const Color(0xFF191D31),
+                        ),
+                      ),
                       Text("Register Now"),
                     ],
                   ),
@@ -187,4 +192,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 bool isValidUsername(String username) {
   final usernameRegex = RegExp(r'^[a-zA-Z0-9_]{3,30}$');
   return usernameRegex.hasMatch(username);
+}
+
+void showSnackBar(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      elevation: 5,
+      showCloseIcon: true,
+      closeIconColor: Colors.white,
+      content: Text(text),
+    ),
+  );
 }
