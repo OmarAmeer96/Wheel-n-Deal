@@ -20,6 +20,14 @@ class FadingLogo extends StatelessWidget {
             AssetsData.splashLogoPng2,
             height: 310,
           ),
+          // Here
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 30),
+          //   child: Image.asset(
+          //     AssetsData.splashLogoPng3,
+          //     height: 310,
+          //   ),
+          // ),
         );
       },
     );

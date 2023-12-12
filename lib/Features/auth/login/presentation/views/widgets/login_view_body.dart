@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_email_textfiled.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_username_textfiled.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_password_textfield.dart';
 import 'package:wheel_n_deal/constants.dart';
 

@@ -35,6 +35,10 @@ class CustomEmailTextField extends StatelessWidget {
           minWidth: double.infinity,
         ),
         labelText: 'Username',
+        hintText: 'Enter Name',
+        hintStyle: Styles.poppinsSemiBold16.copyWith(
+          color: const Color(0xFFA3A3A3),
+        ),
         labelStyle: Styles.poppinsSemiBold16.copyWith(
           color: const Color(0xFF757575),
         ),

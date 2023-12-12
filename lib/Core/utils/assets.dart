@@ -2,8 +2,10 @@ class AssetsData {
   static const logo = 'assets/svg/Logo.svg';
 
   static const splashLogoSvg = 'assets/svg/splashLogo.svg';
+
   static const splashLogoPng = 'assets/images/splashLogo.png';
   static const splashLogoPng2 = 'assets/images/appLogo.PNG';
+  static const splashLogoPng3 = 'assets/images/appLogo2.png';
 
   static const onBoardingSvg1 = 'assets/svg/onboarding1.svg';
 
