@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/otp_verification_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/create_new_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/forgot_password_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/views/password_changed_view.dart';
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
@@ -23,6 +24,7 @@ abstract class AppRouter {
   static const kForgotPasswodView = '/forgotPasswodView';
   static const kOtpVerificationView = '/otpVerificationView';
   static const kCreateNewPasswordView = '/createNewPasswordView';
+  static const kPasswordChangedView = '/passwordChangedView';
 
   static final router = GoRouter(
     routes: [
@@ -69,6 +71,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCreateNewPasswordView,
         builder: (context, state) => const CreateNewPasswordView(),
+      ),
+      GoRoute(
+        path: kPasswordChangedView,
+        builder: (context, state) => const PasswordChangedView(),
       ),
     ],
   );
