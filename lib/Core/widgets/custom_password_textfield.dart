@@ -46,8 +46,8 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           color: const Color(0xFFA3A3A3),
         ),
         constraints: const BoxConstraints(
-          maxHeight: 60,
-          minHeight: 60,
+          maxHeight: 80,
+          minHeight: 80,
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),

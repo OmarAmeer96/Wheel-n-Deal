@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_username_textfiled.dart';
@@ -136,7 +138,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     ),
                     CustomMainButton(
                       text: "Login",
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (_form.currentState!.validate()) {
+                          // ignore: use_build_context_synchronously
+                          GoRouter.of(context).push(AppRouter.kUserHomeView);
+                        }
+                      },
                       color: kPrimaryColor,
                     ),
                     // For Register Screen
@@ -172,11 +179,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     children: [
                       Text(
                         "Don’t have an account?  ",
-                        style: Styles.manropeRegular16.copyWith(
+                        style: Styles.manropeRegular15.copyWith(
                           color: const Color(0xFF191D31),
                         ),
                       ),
-                      Text("Register Now"),
+                      InkWell(
+                        onTap: () {
+                          GoRouter.of(context).push(AppRouter.kRegisterView);
+                        },
+                        child: Text(
+                          "Register Now",
+                          style: Styles.manropeRegular15.copyWith(
+                            color: const Color(0xFFFF981A),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -192,15 +209,4 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 bool isValidUsername(String username) {
   final usernameRegex = RegExp(r'^[a-zA-Z0-9_]{3,30}$');
   return usernameRegex.hasMatch(username);
-}
-
-void showSnackBar(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      elevation: 5,
-      showCloseIcon: true,
-      closeIconColor: Colors.white,
-      content: Text(text),
-    ),
-  );
 }

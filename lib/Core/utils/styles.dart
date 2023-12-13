@@ -12,8 +12,8 @@ abstract class Styles {
     fontFamily: kManropeBold,
     fontWeight: FontWeight.w600,
   );
-  static const manropeRegular16 = TextStyle(
-    fontSize: 16,
+  static const manropeRegular15 = TextStyle(
+    fontSize: 15,
     fontFamily: kManropeSemiBold,
     fontWeight: FontWeight.w500,
   );
