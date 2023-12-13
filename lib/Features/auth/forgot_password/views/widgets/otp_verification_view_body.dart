@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/views/widgets/otp_text_fields_row.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class OtpVerificationViewBody extends StatelessWidget {
@@ -48,6 +49,7 @@ class OtpVerificationViewBody extends StatelessWidget {
                         height: 35,
                       ),
                       // Text Fields Here
+                      const OtpTextFieldsRow(),
                     ],
                   ),
                 ),
