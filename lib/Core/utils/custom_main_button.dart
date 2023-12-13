@@ -39,7 +39,7 @@ class CustomMainButton extends StatelessWidget {
         child: Text(
           text,
           style: Styles.manropeMedium18.copyWith(
-            color: Colors.white,
+            color: textColor,
           ),
         ),
       ),

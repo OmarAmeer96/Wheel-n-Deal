@@ -14,8 +14,10 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Placeholder(),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () {},
+      ),
     );
   }
 }

@@ -127,7 +127,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            GoRouter.of(context)
+                                .push(AppRouter.kForgotPasswodView);
+                          },
                           child: const Text(
                             "Forgot Password?",
                           ),
