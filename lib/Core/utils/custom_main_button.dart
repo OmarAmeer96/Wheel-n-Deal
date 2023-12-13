@@ -28,7 +28,7 @@ class CustomMainButton extends StatelessWidget {
         backgroundColor: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(19),
-          side: BorderSide(color: borderSideColor), // Add black border side
+          side: BorderSide(color: borderSideColor),
         ),
       ),
       child: Container(
