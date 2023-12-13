@@ -22,7 +22,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   String? rePassword;
 
-  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
 
   final _passwordController = TextEditingController();
 
@@ -78,7 +78,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         height: 5,
                       ),
                       CustomEmailTextField(
-                        controller: _emailController,
+                        controller: _usernameController,
                         onChanged: (data) {
                           username = data;
                         },

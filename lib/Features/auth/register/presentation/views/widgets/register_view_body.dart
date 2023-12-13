@@ -24,7 +24,9 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
 
   String? rePassword;
 
-  final _emailController = TextEditingController();
+  String? phoneNumber;
+
+  final _usernameController = TextEditingController();
 
   final _phoneNumberController = TextEditingController();
 
@@ -82,7 +84,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         height: 5,
                       ),
                       CustomEmailTextField(
-                        controller: _emailController,
+                        controller: _usernameController,
                         onChanged: (data) {
                           username = data;
                         },
@@ -110,7 +112,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       CustomPhoneNumberTextField(
                         controller: _phoneNumberController,
                         onChanged: (data) {
-                          rePassword = data;
+                          phoneNumber = data;
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
