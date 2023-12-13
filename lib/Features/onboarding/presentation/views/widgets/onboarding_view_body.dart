@@ -61,7 +61,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 480,
               ),
               Text(
-                'Cash on Delivery or E-payment',
+                'E- Payment In Different Ways',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xff191D31),
@@ -73,7 +73,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'Choose between Cash on Delivery or hassle-free Electronic payments for a seamless and secure transaction experience.',
+                'Free Eloctronic payments for seamless and secure transaction experience. to keep pace with technological development in the field of payment.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,

@@ -29,8 +29,7 @@ class CustomForgotPassTextField extends StatelessWidget {
           color: const Color(0xFFA3A3A3),
         ),
         constraints: const BoxConstraints(
-          maxHeight: 70,
-          minHeight: 70,
+          minHeight: 60,
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),
@@ -48,7 +47,7 @@ class CustomForgotPassTextField extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+          borderSide: const BorderSide(color: Colors.red, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -66,7 +65,10 @@ class CustomForgotPassTextField extends StatelessWidget {
               const SizedBox(
                 width: 7,
               ),
-              Image.asset(AssetsData.egyptFlagPng),
+              Image.asset(
+                AssetsData.egyptFlagPng,
+                height: 26,
+              ),
             ],
           ),
         ),
