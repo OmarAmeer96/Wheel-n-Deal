@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
+import 'package:wheel_n_deal/Core/utils/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_username_textfiled.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_password_textfield.dart';
@@ -15,7 +16,7 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  String? email;
+  String? username;
 
   String? password;
 
@@ -80,7 +81,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     CustomEmailTextField(
                       controller: _emailController,
                       onChanged: (data) {
-                        email = data;
+                        username = data;
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -204,9 +205,4 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       ),
     );
   }
-}
-
-bool isValidUsername(String username) {
-  final usernameRegex = RegExp(r'^[a-zA-Z0-9_]{3,30}$');
-  return usernameRegex.hasMatch(username);
 }
