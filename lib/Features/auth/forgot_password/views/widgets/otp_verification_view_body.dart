@@ -85,7 +85,7 @@ class OtpVerificationViewBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Didn’t received code?  ",
+                          "Didn’t receive the code?  ",
                           style: Styles.manropeRegular15.copyWith(
                             color: const Color(0xFF191D31),
                           ),
