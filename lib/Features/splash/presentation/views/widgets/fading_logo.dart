@@ -17,7 +17,7 @@ class FadingLogo extends StatelessWidget {
         return Opacity(
           opacity: opacityAnimation.value,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 45),
             child: Image.asset(
               AssetsData.splashLogoPng3,
               height: 310,

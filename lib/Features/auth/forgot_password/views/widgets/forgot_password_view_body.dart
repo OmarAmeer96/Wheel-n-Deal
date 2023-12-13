@@ -124,8 +124,9 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                         text: "Send Code",
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
-                            GoRouter.of(context)
-                                .push(AppRouter.kSuccessfulRegisterView);
+                            GoRouter.of(context).push(
+                              AppRouter.kOtpVerificationView,
+                            );
                           }
                         },
                         color: kPrimaryColor,
