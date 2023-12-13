@@ -27,10 +27,12 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
 
   final _form = GlobalKey<FormState>();
 
-  bool obscureText = true;
+  bool obscurePassText = true;
+  bool obscureRePassText = true;
 
   void _togglePasswordIcon() {
-    obscureText = !obscureText;
+    obscurePassText = !obscurePassText;
+    obscureRePassText = !obscureRePassText;
     setState(() {});
   }
 
@@ -72,7 +74,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Password',
+                          'New Password',
                           style: Styles.poppinsSemiBold16.copyWith(
                             color: const Color(0xFFA3A3A3),
                           ),
@@ -108,13 +110,13 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                             _togglePasswordIcon();
                           },
                           child: Icon(
-                            obscureText
+                            obscurePassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureText,
+                        obscureText: obscureRePassText,
                       ),
                       const SizedBox(
                         height: 14,
@@ -156,13 +158,13 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                             _togglePasswordIcon();
                           },
                           child: Icon(
-                            obscureText
+                            obscureRePassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureText,
+                        obscureText: obscurePassText,
                       ),
                       const SizedBox(
                         height: 35,
@@ -171,7 +173,9 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                         text: "Reset Password",
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
-                            GoRouter.of(context).push(AppRouter.kUserHomeView);
+                            GoRouter.of(context).push(
+                              AppRouter.kPasswordChangedView,
+                            );
                           }
                         },
                         color: kPrimaryColor,
