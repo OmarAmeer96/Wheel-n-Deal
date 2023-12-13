@@ -26,6 +26,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
 
   final _emailController = TextEditingController();
 
+  final _phoneNumberController = TextEditingController();
+
   final _passwordController = TextEditingController();
 
   final _rePasswordController = TextEditingController();
@@ -93,9 +95,6 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 6,
-                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -109,7 +108,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         height: 5,
                       ),
                       CustomPhoneNumberTextField(
-                        controller: _rePasswordController,
+                        controller: _phoneNumberController,
                         onChanged: (data) {
                           rePassword = data;
                         },
@@ -148,9 +147,6 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 6,
-                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -183,7 +179,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
                             // ignore: use_build_context_synchronously
-                            GoRouter.of(context).push(AppRouter.kUserHomeView);
+                            GoRouter.of(context)
+                                .push(AppRouter.kSuccessfulRegisterView);
                           }
                         },
                         color: kPrimaryColor,
@@ -212,7 +209,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
+                        onTap: () {
                             GoRouter.of(context).pop();
                           },
                           child: Text(

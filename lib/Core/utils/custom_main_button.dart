@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Core/utils/styles.dart';
 
 class CustomMainButton extends StatelessWidget {
   final String text;
@@ -6,14 +7,17 @@ class CustomMainButton extends StatelessWidget {
   final Color color;
   final Color textColor;
   final Color borderSideColor;
+  final double width;
 
-  const CustomMainButton(
-      {super.key,
-      required this.text,
-      required this.onPressed,
-      required this.color,
-      this.textColor = Colors.white,
-      this.borderSideColor = Colors.transparent});
+  const CustomMainButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    required this.color,
+    this.textColor = Colors.white,
+    this.borderSideColor = Colors.transparent,
+    this.width = double.infinity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +32,14 @@ class CustomMainButton extends StatelessWidget {
         ),
       ),
       child: Container(
-        width: 367,
+        // width: 367,
+        width: width,
         height: 49,
         alignment: Alignment.center,
         child: Text(
           text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 19,
-            fontFamily: "Gilroy-Reular",
-            fontWeight: FontWeight.w500,
+          style: Styles.manropeMedium18.copyWith(
+            color: Colors.white,
           ),
         ),
       ),

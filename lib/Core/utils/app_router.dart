@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
+import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/views/commuter_home_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
@@ -15,6 +16,7 @@ abstract class AppRouter {
   static const kLoginView = '/loginView';
   static const kUserHomeView = '/userHomeView';
   static const kCommuterHomeView = '/commuterHomeView';
+  static const kSuccessfulRegisterView = '/successfulRegisterView';
 
   static final router = GoRouter(
     routes: [
@@ -45,6 +47,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterHomeView,
         builder: (context, state) => const CommuterHomeView(),
+      ),
+      GoRoute(
+        path: kSuccessfulRegisterView,
+        builder: (context, state) => const SuccessfulRegisterView(),
       ),
     ],
   );

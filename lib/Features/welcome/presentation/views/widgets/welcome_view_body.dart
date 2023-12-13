@@ -23,24 +23,30 @@ class WelcomeViewBody extends StatelessWidget {
               height: 22,
             ),
           ),
-          CustomMainButton(
-            text: "Login",
-            color: const Color(0xffFF981A),
-            onPressed: () {
-              GoRouter.of(context).push(AppRouter.kLoginView);
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CustomMainButton(
+              text: "Login",
+              color: const Color(0xffFF981A),
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.kLoginView);
+              },
+            ),
           ),
           const SizedBox(
             height: 22,
           ),
-          CustomMainButton(
-            text: "Register",
-            onPressed: () {
-              GoRouter.of(context).push(AppRouter.kRegisterView);
-            },
-            color: const Color(0xffF3F3F3),
-            textColor: const Color(0xff1D272F),
-            borderSideColor: const Color(0xff1D272F),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: CustomMainButton(
+              text: "Register",
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.kRegisterView);
+              },
+              color: const Color(0xffF3F3F3),
+              textColor: const Color(0xff1D272F),
+              borderSideColor: const Color(0xff1D272F),
+            ),
           ),
           SizedBox(
             height: Responsive.screenHeight(context) * 0.2,
