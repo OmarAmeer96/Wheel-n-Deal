@@ -26,5 +26,10 @@ class AssetsData {
   static const phoneIcon = 'assets/svg/phoneIcon.svg';
 
   static const checkStar = 'assets/svg/checkStar.svg';
+
   static const checkStarPng = 'assets/images/checkStarPng.png';
+
+  static const egyptFlag = 'assets/svg/egyptFlag.svg';
+
+  static const egyptFlagPng = 'assets/images/Flag.png';
 }
