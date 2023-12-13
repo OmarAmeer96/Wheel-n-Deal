@@ -21,8 +21,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   String? password;
 
-  String? rePassword;
-
   final _usernameController = TextEditingController();
 
   final _passwordController = TextEditingController();

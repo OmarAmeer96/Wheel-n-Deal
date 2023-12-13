@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Features/auth/forgot_password/otp_verification_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/views/otp_verification_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/create_new_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/forgot_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';

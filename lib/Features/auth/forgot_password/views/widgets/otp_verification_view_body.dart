@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/widgets/otp_text_fields_row.dart';
@@ -64,7 +66,11 @@ class OtpVerificationViewBody extends StatelessWidget {
                       ),
                       CustomMainButton(
                         text: "Verify",
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kCreateNewPasswordView,
+                          );
+                        },
                         color: kPrimaryColor,
                       ),
                       const SizedBox(
