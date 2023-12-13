@@ -22,4 +22,6 @@ class AssetsData {
   static const passWord = 'assets/svg/password.svg';
 
   static const welcomeLogo2 = 'assets/images/welcomeLogo.png';
+
+  static const phoneIcon = 'assets/svg/phoneIcon.svg';
 }

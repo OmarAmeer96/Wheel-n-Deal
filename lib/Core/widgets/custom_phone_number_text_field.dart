@@ -1,43 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
-class CustomPasswordTextField extends StatefulWidget {
-  const CustomPasswordTextField({
+class CustomPhoneNumberTextField extends StatelessWidget {
+  const CustomPhoneNumberTextField({
     super.key,
-    this.text = '',
     required this.onChanged,
     required this.controller,
     required this.validator,
   });
 
-  final String text;
   final Function(String) onChanged;
   final TextEditingController controller;
-  final String? Function(String?)? validator; // New validator attribute
-
-  @override
-  State<CustomPasswordTextField> createState() =>
-      _CustomPasswordTextFieldState();
-}
-
-class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
-  bool obscureText = true;
-
-  void _togglePasswordIcon() {
-    obscureText = !obscureText;
-    setState(() {});
-  }
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // Changed to TextFormField to support validation
-      controller: widget.controller,
-      obscureText: obscureText,
-      onChanged: widget.onChanged,
+      controller: controller,
+      onChanged: onChanged,
       enabled: true,
+      keyboardType: TextInputType.phone,
       style: Styles.poppinsSemiBold16.copyWith(
         color: Colors.black,
       ),
@@ -51,11 +35,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),
-        // labelText: widget.text,
-        // labelStyle: Styles.poppinsSemiBold16.copyWith(
-        //   color: const Color(0xFF757575),
-        // ),
-        hintText: 'Enter Password',
+        hintText: 'Enter Phone Number',
         hintStyle: Styles.poppinsSemiBold16.copyWith(
           color: const Color(0xFF757575),
         ),
@@ -77,19 +57,10 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         ),
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
-          child: SvgPicture.asset(AssetsData.passWord),
-        ),
-        suffixIcon: InkWell(
-          onTap: () {
-            _togglePasswordIcon();
-          },
-          child: Icon(
-            obscureText ? Icons.visibility_off : Icons.visibility,
-            color: Colors.white,
-          ),
+          child: SvgPicture.asset(AssetsData.phoneIcon),
         ),
       ),
-      validator: widget.validator,
+      validator: validator,
     );
   }
 }
