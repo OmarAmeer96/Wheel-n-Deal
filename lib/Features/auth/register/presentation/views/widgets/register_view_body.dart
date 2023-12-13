@@ -177,7 +177,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         height: 35,
                       ),
                       CustomMainButton(
-                        text: "Login",
+                        text: "Register",
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
                             // ignore: use_build_context_synchronously
@@ -211,11 +211,11 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           ),
                         ),
                         InkWell(
-                        onTap: () {
+                          onTap: () {
                             GoRouter.of(context).pop();
                           },
                           child: Text(
-                            "Login Now",
+                            "Login",
                             style: Styles.manropeRegular15.copyWith(
                               color: const Color(0xFFFF981A),
                             ),

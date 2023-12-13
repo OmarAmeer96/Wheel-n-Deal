@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/build_app_bar.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/views/widgets/forgot_password_view_body.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -6,8 +8,13 @@ class ForgotPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ForgotPasswordViewBody(),
+    return Scaffold(
+      appBar: buildAppBar(
+        onPressed: () {
+          GoRouter.of(context).pop();
+        },
+      ),
+      body: const ForgotPasswordViewBody(),
     );
   }
 }
