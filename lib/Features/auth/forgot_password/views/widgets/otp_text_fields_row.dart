@@ -1,16 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/views/widgets/otp_text_fields_row_item.dart';
 
 class OtpTextFieldsRow extends StatelessWidget {
   const OtpTextFieldsRow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          height: 68,
-          width: 64,
-        )
+        OtpTextFieldsRowItem(
+          onChanged: (value) {
+            if (value.length == 1) {
+              FocusScope.of(context).nextFocus();
+            }
+          },
+        ),
+        OtpTextFieldsRowItem(
+          onChanged: (value) {
+            if (value.length == 1) {
+              FocusScope.of(context).nextFocus();
+            }
+          },
+        ),
+        OtpTextFieldsRowItem(
+          onChanged: (value) {
+            if (value.length == 1) {
+              FocusScope.of(context).nextFocus();
+            }
+          },
+        ),
+        OtpTextFieldsRowItem(
+          onChanged: (value) {
+            if (value.length == 1) {
+              FocusScope.of(context).nextFocus();
+            }
+          },
+        ),
       ],
     );
   }

@@ -63,7 +63,7 @@ class OtpVerificationViewBody extends StatelessWidget {
                         height: 40,
                       ),
                       CustomMainButton(
-                        text: "Send Code",
+                        text: "Verify",
                         onPressed: () {},
                         color: kPrimaryColor,
                       ),
