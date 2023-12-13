@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_forgot_pass_text_field.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_text_field.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class ForgotPasswordViewBody extends StatefulWidget {
@@ -72,11 +74,11 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     children: [
-                      CustomForgotPassTextField(
-                        controller: _phoneNumberController,
+                      CustomMainTextField(
                         onChanged: (data) {
                           phoneNumber = data;
                         },
+                        controller: _phoneNumberController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a phone number.';
@@ -85,6 +87,35 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                           }
                           return null;
                         },
+                        hintText: 'Enter Phone Number',
+                        borderColor: Colors.transparent,
+                        focusedBorderColor: Colors.transparent,
+                        enabledBorderColor: Colors.transparent,
+                        inputType: TextInputType.phone,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 21),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                "+20",
+                                style: Styles.poppinsSemiBold16,
+                              ),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Image.asset(
+                                AssetsData.egyptFlagPng,
+                                height: 26,
+                              ),
+                            ],
+                          ),
+                        ),
+                        obscureText: false,
                       ),
                       const SizedBox(
                         height: 40,
@@ -93,7 +124,6 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                         text: "Send Code",
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
-                            // ignore: use_build_context_synchronously
                             GoRouter.of(context)
                                 .push(AppRouter.kSuccessfulRegisterView);
                           }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_password_textfield.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_phone_number_text_field.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_username_textfiled.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_text_field.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class RegisterBodyView extends StatefulWidget {
@@ -35,6 +35,13 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
   final _rePasswordController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
+
+  bool obscureText = true;
+
+  void _togglePasswordIcon() {
+    obscureText = !obscureText;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +90,11 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomEmailTextField(
-                        controller: _usernameController,
+                      CustomMainTextField(
                         onChanged: (data) {
                           username = data;
                         },
+                        controller: _usernameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a username.';
@@ -96,6 +103,19 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           }
                           return null;
                         },
+                        hintText: 'Enter Name',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.text,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.userName),
+                        ),
+                        obscureText: false,
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -109,11 +129,11 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomPhoneNumberTextField(
-                        controller: _phoneNumberController,
+                      CustomMainTextField(
                         onChanged: (data) {
                           phoneNumber = data;
                         },
+                        controller: _phoneNumberController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a phone number.';
@@ -122,6 +142,19 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           }
                           return null;
                         },
+                        hintText: 'Enter Phone Number',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.phone,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        ),
+                        obscureText: false,
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -135,11 +168,11 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomPasswordTextField(
-                        controller: _passwordController,
+                      CustomMainTextField(
                         onChanged: (data) {
                           password = data;
                         },
+                        controller: _passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a password.';
@@ -148,6 +181,30 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           }
                           return null;
                         },
+                        hintText: 'Enter Password',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.text,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.passWord),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            _togglePasswordIcon();
+                          },
+                          child: Icon(
+                            obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.black,
+                          ),
+                        ),
+                        obscureText: obscureText,
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -161,17 +218,38 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomPasswordTextField(
-                        controller: _rePasswordController,
+                      CustomMainTextField(
                         onChanged: (data) {
                           rePassword = data;
                         },
+                        controller: _rePasswordController,
                         validator: (value) {
                           if (value != _passwordController.text) {
                             return 'Passwords do not match.';
                           }
                           return null;
                         },
+                        hintText: 'Re-Enter Password',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.text,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.passWord),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            _togglePasswordIcon();
+                          },
+                          child: Icon(
+                            obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.black,
+                          ),
+                        ),
+                        obscureText: obscureText,
                       ),
                       const SizedBox(
                         height: 35,
@@ -180,7 +258,6 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         text: "Register",
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
-                            // ignore: use_build_context_synchronously
                             GoRouter.of(context)
                                 .push(AppRouter.kSuccessfulRegisterView);
                           }
