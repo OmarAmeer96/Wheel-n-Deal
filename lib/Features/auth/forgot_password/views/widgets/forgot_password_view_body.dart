@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
@@ -87,15 +86,11 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                           }
                           return null;
                         },
-                        hintText: 'Enter Phone Number',
+                        labelText: "Phone Number",
                         borderColor: Colors.transparent,
                         focusedBorderColor: Colors.transparent,
                         enabledBorderColor: Colors.transparent,
                         inputType: TextInputType.phone,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: SvgPicture.asset(AssetsData.phoneIcon),
-                        ),
                         suffixIcon: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 21),
                           child: Row(
@@ -116,6 +111,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                           ),
                         ),
                         obscureText: false,
+                        hintText: '',
                       ),
                       const SizedBox(
                         height: 40,

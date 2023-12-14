@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/constants.dart';
 
 class CustomMainTextField extends StatelessWidget {
   const CustomMainTextField({
@@ -45,7 +46,7 @@ class CustomMainTextField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         floatingLabelStyle: Styles.poppinsSemiBold16.copyWith(
-          color: const Color(0xFFA3A3A3),
+          color: kPrimaryColor,
         ),
         constraints: const BoxConstraints(
           // maxHeight: 80,
@@ -58,6 +59,9 @@ class CustomMainTextField extends StatelessWidget {
           color: const Color(0xFF757575),
         ),
         labelText: labelText,
+        labelStyle: Styles.poppinsSemiBold16.copyWith(
+          color: const Color(0xFF757575),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: borderColor, width: 1.0),
