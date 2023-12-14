@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/constants.dart';
 
-class OtpTextFieldsRowItem extends StatelessWidget {
+class OtpTextFieldsRowItem extends StatefulWidget {
   const OtpTextFieldsRowItem({
     super.key,
     required this.onChanged,
@@ -11,21 +12,60 @@ class OtpTextFieldsRowItem extends StatelessWidget {
   final Function(String) onChanged;
 
   @override
+  State<OtpTextFieldsRowItem> createState() => _OtpTextFieldsRowItemState();
+}
+
+class _OtpTextFieldsRowItemState extends State<OtpTextFieldsRowItem> {
+  final _form = GlobalKey<FormState>();
+  final bool textFieldBottomBorderColorStatus = false;
+  Color textFieldBottomBorderColor = const Color(0xFFA3A3A3);
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 68,
-      width: 64,
-      child: TextField(
-        onChanged: onChanged,
-        style: Styles.manropeExtraBold32.copyWith(fontSize: 22),
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        textAlignVertical: TextAlignVertical.center,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
-          FilteringTextInputFormatter.digitsOnly,
+    return Form(
+      key: _form,
+      child: Stack(
+        children: [
+          SizedBox(
+            height: 68,
+            width: 64,
+            child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  textFieldBottomBorderColorStatus
+                      ? textFieldBottomBorderColor
+                      : textFieldBottomBorderColor = kPrimaryColor;
+                  setState(() {});
+                }
+                return null;
+              },
+              onChanged: widget.onChanged,
+              style: Styles.manropeExtraBold32.copyWith(fontSize: 22),
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(1),
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              decoration: otpTextFieldsRowDecoration(),
+            ),
+          ),
+          Positioned(
+            left: 15,
+            top: 63,
+            child: Container(
+              width: 35,
+              height: 2,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFA3A3A3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(1),
+                ),
+              ),
+            ),
+          ),
         ],
-        decoration: otpTextFieldsRowDecoration(),
       ),
     );
   }
@@ -43,7 +83,7 @@ class OtpTextFieldsRowItem extends StatelessWidget {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15),
         borderSide: const BorderSide(
-          color: Color(0xFFA4A4A4),
+          color: Colors.transparent,
           width: 2,
         ),
       ),
