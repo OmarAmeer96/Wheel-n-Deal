@@ -9,7 +9,7 @@ class CommuterHomeViewBody extends StatelessWidget {
     return SafeArea(
       child: Center(
         child: Text(
-          "Commuter Home Screen\n🌚",
+          "Commuter Home Screen",
           textAlign: TextAlign.center,
           style: Styles.manropeExtraBold32.copyWith(
             fontWeight: FontWeight.w900,

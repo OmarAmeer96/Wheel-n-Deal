@@ -9,7 +9,7 @@ class UserHomeViewBody extends StatelessWidget {
     return SafeArea(
       child: Center(
         child: Text(
-          "User Home Screen\n🌚",
+          "User Home Screen",
           textAlign: TextAlign.center,
           style: Styles.manropeExtraBold32.copyWith(
             fontWeight: FontWeight.w900,
