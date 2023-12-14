@@ -15,6 +15,7 @@ class CustomMainTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     required this.obscureText,
+    this.labelText,
   });
 
   final Function(String) onChanged;
@@ -29,6 +30,7 @@ class CustomMainTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
+  final String? labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class CustomMainTextField extends StatelessWidget {
         hintStyle: Styles.poppinsSemiBold16.copyWith(
           color: const Color(0xFF757575),
         ),
+        labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: borderColor, width: 1.0),

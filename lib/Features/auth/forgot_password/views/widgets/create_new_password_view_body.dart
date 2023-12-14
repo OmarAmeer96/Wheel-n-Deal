@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_field.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -120,7 +120,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureRePassText,
+                        obscureText: obscurePassText,
                       ),
                       const SizedBox(
                         height: 14,
@@ -168,7 +168,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscurePassText,
+                        obscureText: obscureRePassText,
                       ),
                       const SizedBox(
                         height: 35,

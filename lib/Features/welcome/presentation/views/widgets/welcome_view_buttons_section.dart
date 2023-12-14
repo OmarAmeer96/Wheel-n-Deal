@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
-import 'package:wheel_n_deal/Core/utils/custom_main_button.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 
 class WelcomeViewButtonsSection extends StatelessWidget {
