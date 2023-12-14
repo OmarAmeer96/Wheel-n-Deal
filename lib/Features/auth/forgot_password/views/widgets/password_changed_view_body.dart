@@ -26,14 +26,14 @@ class PasswordChangedViewBody extends StatelessWidget {
                 height: 42,
               ),
               Text(
-                'Register Successfully',
+                'Password Changed!',
                 style: Styles.manropeExtraBold32.copyWith(fontSize: 26),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                'Congratulation! your account successfully\ncreated.',
+                'Your password has been\nchanged successfully.',
                 textAlign: TextAlign.center,
                 style: Styles.manropeRegular15.copyWith(
                   fontSize: 16,

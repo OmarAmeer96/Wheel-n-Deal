@@ -17,7 +17,7 @@ class OtpTextFieldsRowItem extends StatefulWidget {
 
 class _OtpTextFieldsRowItemState extends State<OtpTextFieldsRowItem> {
   final _form = GlobalKey<FormState>();
-  final bool textFieldBottomBorderColorStatus = false;
+
   Color textFieldBottomBorderColor = const Color(0xFFA3A3A3);
 
   @override
@@ -30,16 +30,15 @@ class _OtpTextFieldsRowItemState extends State<OtpTextFieldsRowItem> {
             height: 68,
             width: 64,
             child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  textFieldBottomBorderColorStatus
-                      ? textFieldBottomBorderColor
-                      : textFieldBottomBorderColor = kPrimaryColor;
-                  setState(() {});
+              onChanged: (value) {
+                if (value.isEmpty) {
+                  textFieldBottomBorderColor = const Color(0xFFA3A3A3);
+                } else {
+                  textFieldBottomBorderColor = kPrimaryColor;
                 }
-                return null;
+                setState(() {});
+                widget.onChanged(value);
               },
-              onChanged: widget.onChanged,
               style: Styles.manropeExtraBold32.copyWith(fontSize: 22),
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
@@ -58,7 +57,7 @@ class _OtpTextFieldsRowItemState extends State<OtpTextFieldsRowItem> {
               width: 35,
               height: 2,
               decoration: ShapeDecoration(
-                color: const Color(0xFFA3A3A3),
+                color: textFieldBottomBorderColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(1),
                 ),
