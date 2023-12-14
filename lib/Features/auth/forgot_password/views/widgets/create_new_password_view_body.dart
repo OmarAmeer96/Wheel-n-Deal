@@ -32,6 +32,10 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
 
   void _togglePasswordIcon() {
     obscurePassText = !obscurePassText;
+    setState(() {});
+  }
+
+  void _toggleRePasswordIcon() {
     obscureRePassText = !obscureRePassText;
     setState(() {});
   }
@@ -155,7 +159,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                         ),
                         suffixIcon: InkWell(
                           onTap: () {
-                            _togglePasswordIcon();
+                            _toggleRePasswordIcon();
                           },
                           child: Icon(
                             obscureRePassText

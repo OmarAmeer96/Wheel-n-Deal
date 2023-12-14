@@ -36,10 +36,16 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
 
   final _form = GlobalKey<FormState>();
 
-  bool obscureText = true;
+  bool obscurePassText = true;
+  bool obscureRePassText = true;
 
   void _togglePasswordIcon() {
-    obscureText = !obscureText;
+    obscurePassText = !obscurePassText;
+    setState(() {});
+  }
+
+  void _toggleRePasswordIcon() {
+    obscureRePassText = !obscureRePassText;
     setState(() {});
   }
 
@@ -195,13 +201,13 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             _togglePasswordIcon();
                           },
                           child: Icon(
-                            obscureText
+                            obscurePassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureText,
+                        obscureText: obscurePassText,
                       ),
                       const SizedBox(
                         height: 10,
@@ -240,16 +246,16 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         ),
                         suffixIcon: InkWell(
                           onTap: () {
-                            _togglePasswordIcon();
+                            _toggleRePasswordIcon();
                           },
                           child: Icon(
-                            obscureText
+                            obscureRePassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureText,
+                        obscureText: obscureRePassText,
                       ),
                       const SizedBox(
                         height: 35,
