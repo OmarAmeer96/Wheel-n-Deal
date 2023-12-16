@@ -39,4 +39,12 @@ abstract class Styles {
     fontFamily: kPoppinsSemiBold,
     fontWeight: FontWeight.w600,
   );
+  static const dMSansRegular = TextStyle(
+    fontSize: 12,
+    fontFamily: kDMSansRegular,
+    fontWeight: FontWeight.w400,
+    color: Color(0xFFA3A3A3),
+    height: 0.50,
+    letterSpacing: -0.40,
+  );
 }

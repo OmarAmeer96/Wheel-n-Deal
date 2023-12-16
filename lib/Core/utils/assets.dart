@@ -60,4 +60,6 @@ class AssetsData {
   static const reviewsIcon = 'assets/svg/reviewsIcon.svg';
 
   static const walletIcon = 'assets/svg/walletIcon.svg';
+
+  static const plusIcon = 'assets/svg/plusIcon.svg';
 }

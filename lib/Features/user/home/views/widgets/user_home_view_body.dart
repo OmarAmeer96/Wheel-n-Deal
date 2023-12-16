@@ -4,6 +4,7 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/home/views/widgets/home_features_item.dart';
+import 'package:wheel_n_deal/Features/user/home/views/widgets/user_post_order_item.dart';
 
 class UserHomeViewBody extends StatelessWidget {
   const UserHomeViewBody({super.key});
@@ -82,23 +83,30 @@ class UserHomeViewBody extends StatelessWidget {
               const SizedBox(
                 height: 26,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   HomeFeaturesItem(
                     icon: AssetsData.ordersIcon,
                     text: 'Orders',
+                    onTap: () {},
                   ),
                   HomeFeaturesItem(
                     icon: AssetsData.favoritesIcon,
                     text: 'Favorite',
+                    onTap: () {},
                   ),
                   HomeFeaturesItem(
                     icon: AssetsData.messagesIcon,
                     text: 'Messages',
+                    onTap: () {},
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 42,
+              ),
+              const UserPostOrderItem(),
             ],
           ),
         ),

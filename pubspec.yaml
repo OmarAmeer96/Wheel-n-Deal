@@ -113,6 +113,9 @@ flutter:
     - family: Poppins-ExtraBold
       fonts:
         - asset: assets/fonts/Poppins-ExtraBold.ttf
+    - family: DMSans-Regular
+      fonts:
+        - asset: assets/fonts/DMSans-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,
