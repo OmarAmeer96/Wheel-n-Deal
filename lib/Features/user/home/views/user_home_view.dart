@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Features/user/home/views/widgets/user_home_view_body.dart';
+import 'package:wheel_n_deal/constants.dart';
 
 class UserHomeView extends StatefulWidget {
   const UserHomeView({super.key});
@@ -9,7 +11,7 @@ class UserHomeView extends StatefulWidget {
 }
 
 class _UserHomeViewState extends State<UserHomeView> {
-  int _page = 0;
+  int page = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
@@ -20,46 +22,45 @@ class _UserHomeViewState extends State<UserHomeView> {
         index: 0,
         height: 60.0,
         items: const <Widget>[
-          Icon(Icons.add, size: 30),
-          Icon(Icons.list, size: 30),
-          Icon(Icons.compare_arrows, size: 30),
-          Icon(Icons.call_split, size: 30),
-          Icon(Icons.perm_identity, size: 30),
+          Icon(
+            Icons.add,
+            size: 30,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.list,
+            size: 30,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.compare_arrows,
+            size: 30,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.call_split,
+            size: 30,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.perm_identity,
+            size: 30,
+            color: Colors.white,
+          ),
         ],
-        color: Colors.white,
-        buttonBackgroundColor: Colors.white,
-        backgroundColor: Colors.blueAccent,
+        color: const Color(0xFF1D272F),
+        buttonBackgroundColor: kPrimaryColor,
+        backgroundColor: Colors.white,
         animationCurve: Curves.easeInOut,
-        animationDuration: const Duration(milliseconds: 600),
+        animationDuration: const Duration(milliseconds: 200),
         onTap: (index) {
           setState(() {
-            _page = index;
+            page = index;
           });
         },
         letIndexChange: (index) => true,
       ),
-      body: Container(
-        color: Colors.blueAccent,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // ignore: deprecated_member_use
-              Text(_page.toString(), textScaleFactor: 10.0),
-              ElevatedButton(
-                child: const Text('Go To Page of index 1'),
-                onPressed: () {
-                  final CurvedNavigationBarState? navBarState =
-                      _bottomNavigationKey.currentState;
-                  navBarState?.setPage(1);
-                },
-              )
-            ],
-          ),
-        ),
-      ),
-
-      // const UserHomeViewBody(),
+      body: const UserHomeViewBody(),
     );
   }
 }

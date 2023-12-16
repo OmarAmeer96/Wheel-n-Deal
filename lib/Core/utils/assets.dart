@@ -62,4 +62,12 @@ class AssetsData {
   static const walletIcon = 'assets/svg/walletIcon.svg';
 
   static const plusIcon = 'assets/svg/plusIcon.svg';
+
+  static const homeIcon = 'assets/svg/homeIcon.svg';
+
+  static const othersIcon = 'assets/svg/othersIcon.svg';
+
+  static const profileIcon = 'assets/svg/profileIcon.svg';
+
+  static const searchIcon = 'assets/svg/searchIcon.svg';
 }
