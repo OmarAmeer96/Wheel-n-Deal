@@ -1,14 +1,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-class UserHomeView extends StatefulWidget {
-  const UserHomeView({super.key});
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
 
   @override
-  State<UserHomeView> createState() => _UserHomeViewState();
+  // ignore: library_private_types_in_public_api
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _UserHomeViewState extends State<UserHomeView> {
+class _BottomNavBarState extends State<BottomNavBar> {
   int _page = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
@@ -58,8 +59,6 @@ class _UserHomeViewState extends State<UserHomeView> {
           ),
         ),
       ),
-
-      // const UserHomeViewBody(),
     );
   }
 }
