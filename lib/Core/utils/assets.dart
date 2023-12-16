@@ -36,4 +36,8 @@ class AssetsData {
   static const profilePng = 'assets/images/profile.png';
 
   static const cameraPng = 'assets/images/cameraIcon.png';
+
+  static const genderSvg = 'assets/svg/gender.svg';
+
+  static const citySvg = 'assets/svg/city.svg';
 }

@@ -15,7 +15,13 @@ class UserHomeViewBody extends StatefulWidget {
 
 class _UserHomeViewBodyState extends State<UserHomeViewBody> {
   String? fullName;
+  String? phoneNumber;
+  String? gender;
+  String? city;
   final _fullNameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _genderController = TextEditingController();
+  final _cityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +89,105 @@ class _UserHomeViewBodyState extends State<UserHomeViewBody> {
               prefixIcon: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: SvgPicture.asset(AssetsData.userName),
+              ),
+              obscureText: false,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Phone number',
+                style: Styles.manropeExtraBold32.copyWith(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            CustomMainTextField(
+              onChanged: (data) {
+                phoneNumber = data;
+              },
+              controller: _phoneNumberController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a password.';
+                } else if (value.length < 6) {
+                  return 'Password must be at least 6 characters long.';
+                }
+                return null;
+              },
+              hintText: '01222990387',
+              borderColor: const Color(0xFFA3A3A3),
+              focusedBorderColor: const Color(0xff55433c),
+              enabledBorderColor: const Color(0xFFA3A3A3),
+              inputType: TextInputType.text,
+              prefixIcon: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: SvgPicture.asset(AssetsData.phoneIcon),
+              ),
+              obscureText: false,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Gender',
+                style: Styles.manropeExtraBold32.copyWith(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            CustomMainTextField(
+              onChanged: (data) {
+                gender = data;
+              },
+              controller: _genderController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a name.';
+                } else if (!isValidFullName(value)) {
+                  return 'Please enter a valid name.';
+                }
+                return null;
+              },
+              hintText: 'male/female',
+              borderColor: const Color(0xFFA3A3A3),
+              focusedBorderColor: const Color(0xff55433c),
+              enabledBorderColor: const Color(0xFFA3A3A3),
+              inputType: TextInputType.text,
+              prefixIcon: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: SvgPicture.asset(AssetsData.genderSvg),
+              ),
+              obscureText: false,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'City',
+                style: Styles.manropeExtraBold32.copyWith(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            CustomMainTextField(
+              onChanged: (data) {
+                city = data;
+              },
+              controller: _cityController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a name.';
+                } else if (!isValidFullName(value)) {
+                  return 'Please enter a valid name.';
+                }
+                return null;
+              },
+              hintText: 'Input full name',
+              borderColor: const Color(0xFFA3A3A3),
+              focusedBorderColor: const Color(0xff55433c),
+              enabledBorderColor: const Color(0xFFA3A3A3),
+              inputType: TextInputType.text,
+              prefixIcon: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: SvgPicture.asset(AssetsData.citySvg),
               ),
               obscureText: false,
             ),
