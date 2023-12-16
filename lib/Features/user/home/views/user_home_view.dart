@@ -61,7 +61,27 @@ class _UserHomeViewState extends State<UserHomeView> {
         },
         letIndexChange: (index) => true,
       ),
-      body: const UserHomeViewBody(),
+      body: Container(
+        color: Colors.blueAccent,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(page.toString(), textScaleFactor: 10.0),
+              ElevatedButton(
+                child: const Text('Go To Page of index 1'),
+                onPressed: () {
+                  final CurvedNavigationBarState? navBarState =
+                      _bottomNavigationKey.currentState;
+                  navBarState?.setPage(1);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+
+      // const UserHomeViewBody(),
     );
   }
 }
