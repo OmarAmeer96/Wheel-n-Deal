@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Features/user/home/views/widgets/user_home_view_body.dart';
 import 'package:wheel_n_deal/constants.dart';
 
@@ -21,31 +23,30 @@ class _UserHomeViewState extends State<UserHomeView> {
         key: _bottomNavigationKey,
         index: 0,
         height: 60.0,
-        items: const <Widget>[
-          Icon(
-            Icons.add,
-            size: 30,
+        items: <Widget>[
+          SvgPicture.asset(
+            AssetsData.homeIcon,
+            // ignore: deprecated_member_use
             color: Colors.white,
+            width: 26,
           ),
-          Icon(
-            Icons.list,
-            size: 30,
+          SvgPicture.asset(
+            AssetsData.searchIcon,
+            // ignore: deprecated_member_use
             color: Colors.white,
+            width: 26,
           ),
-          Icon(
-            Icons.compare_arrows,
-            size: 30,
+          SvgPicture.asset(
+            AssetsData.othersIcon,
+            // ignore: deprecated_member_use
             color: Colors.white,
+            width: 26,
           ),
-          Icon(
-            Icons.call_split,
-            size: 30,
+          SvgPicture.asset(
+            AssetsData.profileIcon,
+            // ignore: deprecated_member_use
             color: Colors.white,
-          ),
-          Icon(
-            Icons.perm_identity,
-            size: 30,
-            color: Colors.white,
+            width: 26,
           ),
         ],
         color: const Color(0xFF1D272F),
