@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-AppBar buildAppBar({String text = '', Function()? onPressed}) {
+// elsanteel modify adding optional text style variable
+AppBar buildAppBar(
+    {String text = '', Function()? onPressed, TextStyle? textStyle}) {
   return AppBar(
     leading: IconButton(
       icon: const Icon(
@@ -11,7 +13,10 @@ AppBar buildAppBar({String text = '', Function()? onPressed}) {
         onPressed?.call();
       },
     ),
-    title: Text(text),
+    title: Text(
+      text,
+      style: textStyle,
+    ),
     centerTitle: true,
   );
 }

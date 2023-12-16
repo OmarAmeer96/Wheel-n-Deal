@@ -32,4 +32,8 @@ class AssetsData {
   static const egyptFlag = 'assets/svg/egyptFlag.svg';
 
   static const egyptFlagPng = 'assets/images/Flag.png';
+
+  static const profilePng = 'assets/images/profile.png';
+
+  static const cameraPng = 'assets/images/cameraIcon.png';
 }

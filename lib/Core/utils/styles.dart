@@ -12,6 +12,13 @@ abstract class Styles {
     fontFamily: kManropeBold,
     fontWeight: FontWeight.w600,
   );
+  // elsanteel modify
+  static const manropeRegular16 = TextStyle(
+    fontSize: 16,
+    fontFamily: kManropeBold,
+    fontWeight: FontWeight.w600,
+  );
+
   static const manropeRegular15 = TextStyle(
     fontSize: 15,
     fontFamily: kManropeSemiBold,
