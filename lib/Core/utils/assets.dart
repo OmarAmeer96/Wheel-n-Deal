@@ -41,5 +41,17 @@ class AssetsData {
 
   static const citySvg = 'assets/svg/city.svg';
 
+  static const favoritesIcon = 'assets/svg/favorites.svg';
+
   static const backGroundImage = 'assets/images/backGround.png';
+
+  static const mainLogoIcon = 'assets/svg/mainLogo.svg';
+
+  static const messagesIcon = 'assets/svg/messages.svg';
+
+  static const noNotificationIcon = 'assets/svg/notification=no.svg';
+
+  static const yesNotificationIcon = 'assets/svg/notification=yes.svg';
+
+  static const ordersIcon = 'assets/svg/orders.svg';
 }
