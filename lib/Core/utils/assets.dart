@@ -40,4 +40,6 @@ class AssetsData {
   static const genderSvg = 'assets/svg/gender.svg';
 
   static const citySvg = 'assets/svg/city.svg';
+
+  static const backGroundImage = 'assets/images/backGround.png';
 }
