@@ -54,4 +54,10 @@ class AssetsData {
   static const yesNotificationIcon = 'assets/svg/notification=yes.svg';
 
   static const ordersIcon = 'assets/svg/orders.svg';
+
+  static const locationIcon = 'assets/svg/locationIcon.svg';
+
+  static const reviewsIcon = 'assets/svg/reviewsIcon.svg';
+
+  static const walletIcon = 'assets/svg/walletIcon.svg';
 }
