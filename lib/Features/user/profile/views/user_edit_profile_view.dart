@@ -11,6 +11,8 @@ class UserEditProfileView extends StatefulWidget {
 class _UserEditProfileViewState extends State<UserEditProfileView> {
   @override
   Widget build(BuildContext context) {
-    return const UserEditProfileViewBody();
+    return const Scaffold(
+      body: UserEditProfileViewBody(),
+    );
   }
 }

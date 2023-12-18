@@ -73,8 +73,9 @@ class UserProfileViewBody extends StatelessWidget {
                           color: const Color(0x4CA3A3A3),
                           text: 'Edit Profile',
                           onPressed: () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kUserEditProfileView);
+                            GoRouter.of(context).push(
+                              AppRouter.kUserEditProfileView,
+                            );
                           },
                         ),
                       ],
