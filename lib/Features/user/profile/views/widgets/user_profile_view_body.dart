@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -70,7 +72,10 @@ class UserProfileViewBody extends StatelessWidget {
                         EditProfileButton(
                           color: const Color(0x4CA3A3A3),
                           text: 'Edit Profile',
-                          onPressed: () {},
+                          onPressed: () {
+                            GoRouter.of(context)
+                                .push(AppRouter.kUserEditProfileView);
+                          },
                         ),
                       ],
                     ),

@@ -10,6 +10,7 @@ import 'package:wheel_n_deal/Features/commuter/home/views/commuter_home_view.dar
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/views/user_home_view.dart';
+import 'package:wheel_n_deal/Features/user/profile/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
 abstract class AppRouter {
@@ -25,6 +26,7 @@ abstract class AppRouter {
   static const kOtpVerificationView = '/otpVerificationView';
   static const kCreateNewPasswordView = '/createNewPasswordView';
   static const kPasswordChangedView = '/passwordChangedView';
+  static const kUserEditProfileView = '/userEditProfileView';
 
   static final router = GoRouter(
     routes: [
@@ -75,6 +77,10 @@ abstract class AppRouter {
       GoRoute(
         path: kPasswordChangedView,
         builder: (context, state) => const PasswordChangedView(),
+      ),
+      GoRoute(
+        path: kUserEditProfileView,
+        builder: (context, state) => const UserEditProfileView(),
       ),
     ],
   );
