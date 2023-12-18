@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-
 import '../../../../../Core/widgets/post_pick_orders_button.dart';
 
-class UserPostOrderItem extends StatelessWidget {
-  const UserPostOrderItem({
+class CommuterItems extends StatelessWidget {
+  const CommuterItems({
     super.key,
   });
 
@@ -13,7 +12,7 @@ class UserPostOrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: Responsive.screenWidth(context),
-      height: 100,
+      height: 130,
       decoration: ShapeDecoration(
         color: const Color(0xFF1D272F),
         shape: RoundedRectangleBorder(
@@ -21,14 +20,14 @@ class UserPostOrderItem extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 45),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               children: [
                 Text(
-                  'Post a new order',
+                  'Post a New Trip',
                   style: Styles.manropeRegular16.copyWith(
                     color: Colors.white,
                     fontSize: 20,
@@ -36,17 +35,30 @@ class UserPostOrderItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 PostPickOrdersButton(
+                  width: 30,
+                  height: 27,
                   onTap: () {},
                 ),
               ],
             ),
-            const Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "We will get you what you need from anywhere",
-                style: Styles.dMSansRegular,
-              ),
-            )
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                Text(
+                  'Pick a New Order',
+                  style: Styles.manropeRegular16.copyWith(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                const Spacer(),
+                PostPickOrdersButton(
+                  width: 30,
+                  height: 27,
+                  onTap: () {},
+                ),
+              ],
+            ),
           ],
         ),
       ),

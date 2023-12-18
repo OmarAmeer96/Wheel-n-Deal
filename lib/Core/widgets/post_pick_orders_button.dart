@@ -3,13 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class PostNewOrderButton extends StatelessWidget {
-  const PostNewOrderButton({
-    super.key,
-    required this.onTap,
-  });
+class PostPickOrdersButton extends StatelessWidget {
+  const PostPickOrdersButton(
+      {super.key, required this.onTap, this.width = 25, this.height = 38});
 
   final Function() onTap;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class PostNewOrderButton extends StatelessWidget {
       ),
       onPressed: onTap,
       child: SizedBox(
-        width: 25,
-        height: 38,
+        width: width,
+        height: height,
         child: Center(
           child: SvgPicture.asset(
             AssetsData.plusIcon,
