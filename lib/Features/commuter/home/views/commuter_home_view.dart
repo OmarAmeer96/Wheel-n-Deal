@@ -5,6 +5,7 @@ import 'package:wheel_n_deal/Features/commuter/home/views/widgets/commuter_home_
 import '../../../../Core/utils/assets.dart';
 import '../../../../Core/utils/styles.dart';
 import '../../../../constants.dart';
+import '../../profile/views/widgets/commuter_profile_view_body.dart';
 
 class CommuterHomeView extends StatefulWidget {
   const CommuterHomeView({super.key});
@@ -65,7 +66,7 @@ class _CommuterHomeViewState extends State<CommuterHomeView> {
       case 2:
         return Container();
       case 3:
-        return Container();
+        return const CommuterProfileViewBody();
       default:
         return Container();
     }
