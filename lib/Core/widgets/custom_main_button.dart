@@ -20,7 +20,7 @@ class CustomMainButton extends StatelessWidget {
     this.borderSideColor = Colors.transparent,
     this.width = double.infinity,
     this.textSize = 18,
-    this.height = 49,
+    this.height = 52,
   });
 
   @override

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-// elsanteel modify adding optional text style variable
 AppBar buildAppBar(
     {String text = '', Function()? onPressed, TextStyle? textStyle}) {
   return AppBar(
+    backgroundColor: Colors.transparent,
+    shadowColor: Colors.transparent,
     leading: IconButton(
       icon: const Icon(
         Icons.arrow_back_ios_new_rounded,

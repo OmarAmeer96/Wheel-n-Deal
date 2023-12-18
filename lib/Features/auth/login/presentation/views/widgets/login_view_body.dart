@@ -175,7 +175,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       ),
                       CustomMainButton(
                         text: "Login",
-                        onPressed: () async {
+                        onPressed: () {
                           if (_form.currentState!.validate()) {
                             GoRouter.of(context).push(AppRouter.kUserHomeView);
                           }
