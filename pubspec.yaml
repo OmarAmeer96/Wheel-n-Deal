@@ -118,6 +118,15 @@ flutter:
     - family: DMSans-Regular
       fonts:
         - asset: assets/fonts/DMSans-Regular.ttf
+    - family: Cairo-Regular
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+    - family: Cairo-SemiBold
+      fonts:
+        - asset: assets/fonts/Cairo-SemiBold.ttf
+    - family: Cairo-Bold
+      fonts:
+        - asset: assets/fonts/Cairo-Bold.ttf
 
   #
   # For details regarding fonts from package dependencies,

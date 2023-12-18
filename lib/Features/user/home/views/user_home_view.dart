@@ -1,8 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Core/widgets/nav_bar_item.dart';
 import 'package:wheel_n_deal/Features/user/home/views/widgets/user_home_view_body.dart';
 import 'package:wheel_n_deal/Features/user/profile/views/widgets/user_profile_view_body.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -70,38 +69,5 @@ class _UserHomeViewState extends State<UserHomeView> {
       default:
         return Container();
     }
-  }
-}
-
-class NavBarItem extends StatelessWidget {
-  const NavBarItem({
-    super.key,
-    required this.text,
-    required this.icon,
-  });
-
-  final String text;
-  final String icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          icon,
-          // ignore: deprecated_member_use
-          color: Colors.white,
-          width: 22,
-        ),
-        Text(
-          text,
-          style: Styles.poppinsSemiBold16.copyWith(
-            color: Colors.white,
-            fontSize: 12,
-          ),
-        )
-      ],
-    );
   }
 }

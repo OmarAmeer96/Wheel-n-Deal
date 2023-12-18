@@ -18,3 +18,7 @@ const kPoppinsBold = 'Poppins-Regular';
 const kPoppinsExtraBold = 'Poppins-Regular';
 
 const kDMSansRegular = 'DMSans-Regular';
+
+const kCairoRegular = 'Cairo-Regular';
+const kCairoSemiBold = 'Cairo-SemiBold';
+const kCairoBold = 'Cairo-Bold';

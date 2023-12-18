@@ -47,4 +47,16 @@ abstract class Styles {
     height: 0.50,
     letterSpacing: -0.40,
   );
+  static const cairoRegular = TextStyle(
+    fontSize: 15,
+    fontFamily: kCairoRegular,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+  static const cairoSemiBold = TextStyle(
+    fontSize: 18,
+    fontFamily: kCairoSemiBold,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
 }

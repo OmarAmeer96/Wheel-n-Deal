@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
-class CustomMainButton extends StatelessWidget {
+class EditProfileButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color color;
@@ -11,7 +11,7 @@ class CustomMainButton extends StatelessWidget {
   final double textSize;
   final double height;
 
-  const CustomMainButton({
+  const EditProfileButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -37,14 +37,14 @@ class CustomMainButton extends StatelessWidget {
       ),
       child: Container(
         // width: 367,
-        width: width,
-        height: height,
+        width: 110,
+        height: 36,
         alignment: Alignment.center,
         child: Text(
           text,
-          style: Styles.manropeMedium18.copyWith(
+          style: Styles.cairoRegular.copyWith(
             color: textColor,
-            fontSize: textSize,
+            fontSize: 16,
           ),
         ),
       ),
