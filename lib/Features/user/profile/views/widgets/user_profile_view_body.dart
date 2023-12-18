@@ -40,7 +40,7 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                     children: [
                       const Positioned(
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(AssetsData.profilePng),
+                          backgroundImage: AssetImage(AssetsData.profileImage),
                         ),
                       ),
                       Positioned(
@@ -52,7 +52,7 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                           fillColor: const Color(0xFF191D31),
                           padding: const EdgeInsets.all(15.0),
                           shape: const CircleBorder(),
-                          child: Image.asset(AssetsData.cameraPng),
+                          child: Image.asset(AssetsData.cameraIcon),
                         ),
                       ),
                     ],

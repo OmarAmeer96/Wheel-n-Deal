@@ -33,9 +33,9 @@ class AssetsData {
 
   static const egyptFlagPng = 'assets/images/Flag.png';
 
-  static const profilePng = 'assets/images/profile.png';
+  static const profileImage = 'assets/images/profileImage.png';
 
-  static const cameraPng = 'assets/images/cameraIcon.png';
+  static const cameraIcon = 'assets/svg/camera icon.svg';
 
   static const genderSvg = 'assets/svg/gender.svg';
 
