@@ -70,4 +70,22 @@ class AssetsData {
   static const profileIcon = 'assets/svg/profileIcon.svg';
 
   static const searchIcon = 'assets/svg/searchIcon.svg';
+
+  static const bellIcon = 'assets/svg/bellIcon.svg';
+
+  static const languageIcon = 'assets/svg/languageIcon.svg';
+
+  static const faqIcon = 'assets/svg/FAQIcon.svg';
+
+  static const infoIcon = 'assets/svg/infoIcon.svg';
+
+  static const logOutIcon = 'assets/svg/logoutIcon.svg';
+
+  static const privacyIcon = 'assets/svg/privacyIcon.svg';
+
+  static const rateAppIcon = 'assets/svg/rateAppIcon.svg';
+
+  static const supportIcon = 'assets/svg/supportIcon.svg';
+
+  static const termsIcon = 'assets/svg/termsIcon.svg';
 }
