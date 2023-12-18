@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/home/views/widgets/user_home_view_body.dart';
+import 'package:wheel_n_deal/Features/user/profile/views/widgets/user_profile_view_body.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class UserHomeView extends StatefulWidget {
@@ -14,70 +15,61 @@ class UserHomeView extends StatefulWidget {
 }
 
 class _UserHomeViewState extends State<UserHomeView> {
-  int page = 0;
-  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
+    final items = <Widget>[
+      const NavBarItem(
+        text: "Home",
+        icon: AssetsData.homeIcon,
+      ),
+      const NavBarItem(
+        text: "Search",
+        icon: AssetsData.searchIcon,
+      ),
+      const NavBarItem(
+        text: "Orders",
+        icon: AssetsData.ordersIcon2,
+      ),
+      const NavBarItem(
+        text: "Profile",
+        icon: AssetsData.profileIcon,
+      ),
+    ];
     return Scaffold(
+      extendBody: true,
       bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        index: 0,
-        height: 60.0,
-        items: const <Widget>[
-          NavBarItem(
-            text: "Home",
-            icon: AssetsData.homeIcon,
-          ),
-          NavBarItem(
-            text: "Search",
-            icon: AssetsData.searchIcon,
-          ),
-          NavBarItem(
-            text: "Others",
-            icon: AssetsData.othersIcon,
-          ),
-          NavBarItem(
-            text: "Profile",
-            icon: AssetsData.profileIcon,
-          ),
-        ],
+        // Design
+        height: 55.0,
         color: const Color(0xFF1D272F),
         buttonBackgroundColor: kPrimaryColor,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 200),
-        onTap: (index) {
-          setState(() {
-            page = index;
-          });
-        },
-        letIndexChange: (index) => true,
+
+        // Impo
+        items: items,
+        index: index,
+        onTap: (index) => setState(() => this.index = index),
       ),
-      body:
-
-          // Container(
-          //   color: Colors.blueAccent,
-          //   child: Center(
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: <Widget>[
-          //         Text(page.toString(), textScaleFactor: 10.0),
-          //         ElevatedButton(
-          //           child: const Text('Go To Page of index 1'),
-          //           onPressed: () {
-          //             final CurvedNavigationBarState? navBarState =
-          //                 _bottomNavigationKey.currentState;
-          //             navBarState?.setPage(1);
-          //           },
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
-
-          const UserHomeViewBody(),
+      body: _buildBody(),
     );
+  }
+
+  Widget _buildBody() {
+    switch (index) {
+      case 0:
+        return const UserHomeViewBody();
+      case 1:
+        return Container();
+      case 2:
+        return Container();
+      case 3:
+        return const UserProfileViewBody();
+      default:
+        return Container();
+    }
   }
 }
 

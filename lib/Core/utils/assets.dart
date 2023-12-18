@@ -65,7 +65,7 @@ class AssetsData {
 
   static const homeIcon = 'assets/svg/homeIcon.svg';
 
-  static const othersIcon = 'assets/svg/othersIcon.svg';
+  static const ordersIcon2 = 'assets/svg/ordersIcon2.svg';
 
   static const profileIcon = 'assets/svg/profileIcon.svg';
 

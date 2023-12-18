@@ -45,9 +45,12 @@ class UserHomeViewBody extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      SvgPicture.asset(
-                        AssetsData.yesNotificationIcon,
-                        width: 25,
+                      InkWell(
+                        onTap: () {},
+                        child: SvgPicture.asset(
+                          AssetsData.noNotificationIcon,
+                          width: 25,
+                        ),
                       ),
                     ],
                   ),
@@ -55,7 +58,7 @@ class UserHomeViewBody extends StatelessWidget {
                     height: 45,
                   ),
                   Text(
-                    "WELCOME!",
+                    "WELCOME OMAR!",
                     style: Styles.manropeExtraBold32.copyWith(
                       fontSize: 25,
                       color: Colors.white,
