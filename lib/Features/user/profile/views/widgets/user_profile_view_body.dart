@@ -40,19 +40,54 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                     children: [
                       const Positioned(
                         child: CircleAvatar(
+                          backgroundColor: Colors.white,
                           backgroundImage: AssetImage(AssetsData.profileImage),
                         ),
                       ),
                       Positioned(
                         bottom: 0,
                         right: -25,
-                        child: RawMaterialButton(
-                          onPressed: () {},
-                          elevation: 2.0,
-                          fillColor: const Color(0xFF191D31),
-                          padding: const EdgeInsets.all(15.0),
-                          shape: const CircleBorder(),
-                          child: Image.asset(AssetsData.cameraIcon),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x59FF981A),
+                                blurRadius: 8,
+                                offset: Offset(0, 0),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: CircleAvatar(
+                            radius: 27,
+                            backgroundColor: Colors.white,
+                            child: RawMaterialButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (context) {
+                                    return const SizedBox(
+                                      width: double.infinity,
+                                      height: 300,
+                                    );
+                                  },
+                                );
+                              },
+                              elevation: 2.0,
+                              fillColor: const Color(0xFF191D31),
+                              padding: const EdgeInsets.all(15.0),
+                              shape: const CircleBorder(),
+                              child: SvgPicture.asset(AssetsData.cameraIcon),
+                            ),
+                          ),
                         ),
                       ),
                     ],
