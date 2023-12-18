@@ -94,6 +94,9 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 50,
+              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
