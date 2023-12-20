@@ -65,7 +65,7 @@ class AssetsData {
 
   static const homeIcon = 'assets/svg/homeIcon.svg';
 
-static const ordersIcon2 = 'assets/svg/ordersIcon2.svg';
+  static const ordersIcon2 = 'assets/svg/ordersIcon2.svg';
 
   static const profileIcon = 'assets/svg/profileIcon.svg';
 
@@ -94,4 +94,12 @@ static const ordersIcon2 = 'assets/svg/ordersIcon2.svg';
   static const choosePhotoIcon = 'assets/svg/choosePhotoIcon.svg';
 
   static const celebrateIcon = 'assets/svg/celecrateIcon.svg';
+
+  static const notifIconMessage = 'assets/svg/message-notif.svg';
+
+  static const notifLocation = 'assets/svg/notif_location.svg';
+
+  static const notifOrders = 'assets/svg/celecrateIcon.svg';
+
+  static const notifPicked = 'assets/svg/notif_orders.svg';
 }

@@ -11,7 +11,7 @@ class CommuterNotificationsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        text: 'Profile',
+        text: 'Notifications',
         textStyle: Styles.manropeRegular16.copyWith(
           fontSize: 18,
         ),
