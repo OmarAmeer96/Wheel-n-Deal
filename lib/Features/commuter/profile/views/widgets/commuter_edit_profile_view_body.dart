@@ -195,6 +195,80 @@ class _CommuterEditProfileViewBodyState
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
+                          'City',
+                          style: Styles.manropeExtraBold32.copyWith(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      CustomMainTextField(
+                        onChanged: (data) {
+                          phoneNumber = data;
+                        },
+                        controller: _phoneNumberController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a valid phone number.';
+                          }
+                          return null;
+                        },
+                        hintText: 'Alex',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.text,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        ),
+                        obscureText: false,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'National ID',
+                          style: Styles.manropeExtraBold32.copyWith(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      CustomMainTextField(
+                        onChanged: (data) {
+                          phoneNumber = data;
+                        },
+                        controller: _phoneNumberController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a valid phone number.';
+                          }
+                          return null;
+                        },
+                        hintText: 'xxxxxxxxxxxxx',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.text,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        ),
+                        obscureText: false,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
                           'Gender',
                           style: Styles.manropeExtraBold32.copyWith(
                             fontSize: 16,

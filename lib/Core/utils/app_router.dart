@@ -7,6 +7,7 @@ import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.d
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/views/commuter_home_view.dart';
+import 'package:wheel_n_deal/Features/commuter/profile/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/views/user_home_view.dart';
@@ -27,6 +28,7 @@ abstract class AppRouter {
   static const kCreateNewPasswordView = '/createNewPasswordView';
   static const kPasswordChangedView = '/passwordChangedView';
   static const kUserEditProfileView = '/userEditProfileView';
+  static const kCommuterEditProfileView = '/commuterEditProfileView';
 
   static final router = GoRouter(
     routes: [
@@ -81,6 +83,10 @@ abstract class AppRouter {
       GoRoute(
         path: kUserEditProfileView,
         builder: (context, state) => const UserEditProfileView(),
+      ),
+      GoRoute(
+        path: kCommuterEditProfileView,
+        builder: (context, state) => const CommuterEditProfileView(),
       ),
     ],
   );

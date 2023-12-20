@@ -279,7 +279,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                         onChanged: (data) {
                           city = data;
                         },
-                        controller: _cityController,
+                      controller: _cityController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a name.';

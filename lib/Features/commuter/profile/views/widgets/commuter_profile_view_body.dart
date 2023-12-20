@@ -74,7 +74,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                           text: 'Edit Profile',
                           onPressed: () {
                             GoRouter.of(context).push(
-                              AppRouter.kUserEditProfileView,
+                              AppRouter.kCommuterEditProfileView,
                             );
                           },
                         ),
