@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -46,7 +48,10 @@ class UserHomeViewBody extends StatelessWidget {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(context)
+                              .push(AppRouter.kUserNotificationsView);
+                        },
                         child: SvgPicture.asset(
                           AssetsData.noNotificationIcon,
                           width: 25,

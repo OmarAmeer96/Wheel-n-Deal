@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
 import '../../../../../../Core/utils/assets.dart';
@@ -47,7 +49,10 @@ class CommuterHomeViewBody extends StatelessWidget {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(context)
+                              .push(AppRouter.kCommuterNotificationsView);
+                        },
                         child: SvgPicture.asset(
                           AssetsData.noNotificationIcon,
                           width: 25,
