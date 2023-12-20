@@ -24,7 +24,7 @@ class _CommuterEditProfileViewBodyState
 
   final _fullNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  final _cityController = TextEditingController();
+  // final _cityController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
