@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Features/user/profile/views/widgets/user_profile_bottom_sheet_item.dart';
+import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/user_profile_bottom_sheet_item.dart';
 
 Future<dynamic> imagePickerBottomSheet(
   BuildContext context, {

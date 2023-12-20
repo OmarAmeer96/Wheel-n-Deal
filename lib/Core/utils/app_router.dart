@@ -1,17 +1,17 @@
 import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Features/auth/forgot_password/views/otp_verification_view.dart';
-import 'package:wheel_n_deal/Features/auth/forgot_password/views/create_new_password_view.dart';
-import 'package:wheel_n_deal/Features/auth/forgot_password/views/forgot_password_view.dart';
-import 'package:wheel_n_deal/Features/auth/forgot_password/views/password_changed_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/create_new_password_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/forgot_password_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/password_changed_view.dart';
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
-import 'package:wheel_n_deal/Features/commuter/home/views/commuter_home_view.dart';
-import 'package:wheel_n_deal/Features/commuter/profile/views/commuter_edit_profile_view.dart';
+import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
+import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
-import 'package:wheel_n_deal/Features/user/home/views/user_home_view.dart';
-import 'package:wheel_n_deal/Features/user/profile/views/user_edit_profile_view.dart';
+import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
+import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
 abstract class AppRouter {
