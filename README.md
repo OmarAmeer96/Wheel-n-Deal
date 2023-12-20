@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/OmarAmeer96">
-    <img src="https://readme-typing-svg.demolab.com?font=Georgia&size=40&duration=2000&pause=100&multiline=true&width=1000&height=120&lines=%F0%9F%9A%80+Wheel-n-Deal%3A+Revolutionizing+Commuting+with;Collaborative+Package+Delivery+%F0%9F%93%A6" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Georgia&size=40&duration=2000&pause=100&multiline=true&width=1000&height=120&lines=%F0%9F%9A%80+Wheel-N'-Deal%3A+Revolutionizing+Commuting+with;Collaborative+Package+Delivery+%F0%9F%93%A6" alt="Typing SVG" />
 </a>
 
    
