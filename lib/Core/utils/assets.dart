@@ -99,7 +99,7 @@ class AssetsData {
 
   static const notifLocation = 'assets/svg/notif_location.svg';
 
-  static const notifOrders = 'assets/svg/celecrateIcon.svg';
+  static const notifOrders = 'assets/svg/notif_orders.svg';
 
-  static const notifPicked = 'assets/svg/notif_orders.svg';
+  static const notifPicked = 'assets/svg/notif_picked.svg';
 }

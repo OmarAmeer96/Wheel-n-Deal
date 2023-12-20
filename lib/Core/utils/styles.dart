@@ -29,6 +29,11 @@ abstract class Styles {
     fontFamily: kManropeMedium,
     fontWeight: FontWeight.w800,
   );
+  static const manropeRegular14 = TextStyle(
+    fontSize: 14,
+    fontFamily: kManropeRegular,
+    fontWeight: FontWeight.w400,
+  );
   static const poppinsRegular = TextStyle(
     fontSize: 16,
     fontFamily: kPoppinsRegular,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/notifications_item.dart';
 
@@ -28,7 +29,69 @@ class UserNotificationsViewBody extends StatelessWidget {
             color: Color(0xFFF3F3F3),
             thickness: 2,
           ),
-          const NotificationItem(),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const NotificationItem(
+            icon: AssetsData.notifOrders,
+            text1: 'Your order already delivered',
+            text2: 'enjoy!',
+            time: '2m ago',
+          ),
         ],
       ),
     );
