@@ -7,6 +7,7 @@ import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.d
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
+import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
@@ -36,7 +37,7 @@ abstract class AppRouter {
   static final router = GoRouter(
     routes: [
       GoRoute(
-        path: '/',
+        path: kSuccessfulRegisterView,
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
@@ -64,7 +65,7 @@ abstract class AppRouter {
         builder: (context, state) => const CommuterHomeView(),
       ),
       GoRoute(
-        path: kSuccessfulRegisterView,
+        path: '/',
         builder: (context, state) => const SuccessfulRegisterView(),
       ),
       GoRoute(
@@ -97,7 +98,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kCommuterNotificationsView,
-        builder: (context, state) => const CommuterEditProfileView(),
+        builder: (context, state) => const CommuterNotificationsView(),
       ),
     ],
   );

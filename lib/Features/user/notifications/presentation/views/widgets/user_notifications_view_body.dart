@@ -8,91 +8,95 @@ class UserNotificationsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 26,
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Recent",
-              style: Styles.manropeRegular16.copyWith(fontSize: 18),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 26,
             ),
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          const Divider(
-            color: Color(0xFFF3F3F3),
-            thickness: 2,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          const NotificationItem(
-            icon: AssetsData.notifOrders,
-            text1: 'Your order already delivered',
-            text2: 'enjoy!',
-            time: '2m ago',
-          ),
-        ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Recent",
+                style: Styles.manropeRegular16.copyWith(fontSize: 18),
+              ),
+            ),
+            const SizedBox(
+              height: 26,
+            ),
+            const Divider(
+              color: Color(0xFFF3F3F3),
+              thickness: 2,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2: 'enjoy!',
+              time: '2m ago',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2: 'enjoy!',
+              time: '2m ago',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2: 'enjoy!',
+              time: '2m ago',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2: 'Tap to confirm the order and view the commuter',
+              time: '2m ago',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2:
+                  'Tap to confirm the order and view the commuter a;cmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm;slcm;alsmc;lam;clm; kcnapcpsmmmmmmmmmmmmmmmmpoapcoaspcomapsmocpoampcomapscmpasompcomapsomcpaoscmmcpsompcomaspoc',
+              time: '2m ago',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2: 'enjoy!',
+              time: '2m ago',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const NotificationItem(
+              icon: AssetsData.notifOrders,
+              text1: 'Your order already delivered',
+              text2: 'enjoy!',
+              time: '2m ago',
+            ),
+          ],
+        ),
       ),
     );
   }
