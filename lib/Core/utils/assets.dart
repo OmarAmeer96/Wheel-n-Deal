@@ -65,7 +65,7 @@ class AssetsData {
 
   static const homeIcon = 'assets/svg/homeIcon.svg';
 
-  static const ordersIcon2 = 'assets/svg/ordersIcon2.svg';
+static const ordersIcon2 = 'assets/svg/ordersIcon2.svg';
 
   static const profileIcon = 'assets/svg/profileIcon.svg';
 
@@ -88,8 +88,10 @@ class AssetsData {
   static const supportIcon = 'assets/svg/supportIcon.svg';
 
   static const termsIcon = 'assets/svg/termsIcon.svg';
-  
+
   static const takePhotoIcon = 'assets/svg/takePhotoIcon.svg';
 
   static const choosePhotoIcon = 'assets/svg/choosePhotoIcon.svg';
+
+  static const celebrateIcon = 'assets/svg/celecrateIcon.svg';
 }

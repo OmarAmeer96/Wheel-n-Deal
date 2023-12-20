@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
@@ -17,9 +18,9 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              AssetsData.checkStarPng,
-              height: 110,
+            SvgPicture.asset(
+              AssetsData.celebrateIcon,
+              height: 140,
             ),
             const SizedBox(
               height: 42,
