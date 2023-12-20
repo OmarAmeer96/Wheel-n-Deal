@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
+import 'package:wheel_n_deal/Features/user/profile/views/widgets/user_profile_bottom_sheet_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/styles.dart';
@@ -28,6 +32,8 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
   final _form = GlobalKey<FormState>();
 
   String? selectedGender;
+
+  File? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +62,19 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                             clipBehavior: Clip.none,
                             fit: StackFit.expand,
                             children: [
-                              const Positioned(
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  backgroundImage:
-                                      AssetImage(AssetsData.profileImage),
-                                ),
+                              Positioned(
+                                child: _selectedImage != null
+                                    ? CircleAvatar(
+                                        backgroundImage: FileImage(
+                                          _selectedImage!,
+                                        ),
+                                      )
+                                    : const CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        backgroundImage: AssetImage(
+                                          AssetsData.profileImage,
+                                        ),
+                                      ),
                               ),
                               Positioned(
                                 bottom: 0,
@@ -83,29 +96,15 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                     backgroundColor: Colors.white,
                                     child: RawMaterialButton(
                                       onPressed: () {
-                                        showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20),
-                                            ),
-                                          ),
-                                          context: context,
-                                          builder: (context) {
-                                            return const SizedBox(
-                                              width: double.infinity,
-                                              height: 300,
-                                            );
-                                          },
-                                        );
+                                        imagePickerBottomSheet(context);
                                       },
                                       elevation: 2.0,
                                       fillColor: const Color(0xFF191D31),
                                       padding: const EdgeInsets.all(15.0),
                                       shape: const CircleBorder(),
                                       child: SvgPicture.asset(
-                                          AssetsData.cameraIcon),
+                                        AssetsData.cameraIcon,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -279,7 +278,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                         onChanged: (data) {
                           city = data;
                         },
-                      controller: _cityController,
+                        controller: _cityController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a name.';
@@ -324,5 +323,87 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> imagePickerBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
+        ),
+      ),
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: 60,
+                  height: 6,
+                  decoration: ShapeDecoration(
+                    color: const Color(0xFFA3A3A3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                UserProfileBottomSheetItem(
+                  icon: AssetsData.takePhotoIcon,
+                  text: "Take photo",
+                  onTap: () {
+                    _pickImageFromCamera();
+                  },
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                UserProfileBottomSheetItem(
+                  icon: AssetsData.choosePhotoIcon,
+                  text: "Choose from library",
+                  onTap: () {
+                    _pickImageFromGallery();
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future _pickImageFromGallery() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
+  }
+
+  Future _pickImageFromCamera() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
   }
 }
