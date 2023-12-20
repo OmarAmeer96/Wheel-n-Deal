@@ -46,9 +46,7 @@ class UserHomeViewBody extends StatelessWidget {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: SvgPicture.asset(
                           AssetsData.noNotificationIcon,
                           width: 25,

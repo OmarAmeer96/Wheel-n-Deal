@@ -11,6 +11,7 @@ import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commut
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
+import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
@@ -29,6 +30,8 @@ abstract class AppRouter {
   static const kPasswordChangedView = '/passwordChangedView';
   static const kUserEditProfileView = '/userEditProfileView';
   static const kCommuterEditProfileView = '/commuterEditProfileView';
+  static const kUserNotificationsView = '/userNotificationsView';
+  static const kCommuterNotificationsView = '/commuterNotificationsView';
 
   static final router = GoRouter(
     routes: [
@@ -86,6 +89,14 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kCommuterEditProfileView,
+        builder: (context, state) => const CommuterEditProfileView(),
+      ),
+      GoRoute(
+        path: kUserNotificationsView,
+        builder: (context, state) => const UserNotificationsView(),
+      ),
+      GoRoute(
+        path: kCommuterNotificationsView,
         builder: (context, state) => const CommuterEditProfileView(),
       ),
     ],
