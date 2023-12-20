@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:wheel_n_deal/Core/utils/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/constants.dart';
 import '../../../../../Core/utils/assets.dart';
@@ -30,6 +34,8 @@ class _CommuterEditProfileViewBodyState
 
   String? selectedGender;
 
+  File? _selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,9 +47,9 @@ class _CommuterEditProfileViewBodyState
           key: _form,
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
                   child: Column(
                     children: [
                       const SizedBox(
@@ -57,12 +63,19 @@ class _CommuterEditProfileViewBodyState
                             clipBehavior: Clip.none,
                             fit: StackFit.expand,
                             children: [
-                              const Positioned(
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  backgroundImage:
-                                      AssetImage(AssetsData.profileImage),
-                                ),
+                              Positioned(
+                                child: _selectedImage != null
+                                    ? CircleAvatar(
+                                        backgroundImage: FileImage(
+                                          _selectedImage!,
+                                        ),
+                                      )
+                                    : const CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        backgroundImage: AssetImage(
+                                          AssetsData.profileImage,
+                                        ),
+                                      ),
                               ),
                               Positioned(
                                 bottom: 0,
@@ -84,22 +97,12 @@ class _CommuterEditProfileViewBodyState
                                     backgroundColor: Colors.white,
                                     child: RawMaterialButton(
                                       onPressed: () {
-                                        showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20),
-                                            ),
-                                          ),
-                                          context: context,
-                                          builder: (context) {
-                                            return const SizedBox(
-                                              width: double.infinity,
-                                              height: 300,
-                                            );
-                                          },
-                                        );
+                                        imagePickerBottomSheet(context,
+                                            onTap1: () {
+                                          _pickImageFromCamera();
+                                        }, onTap2: () {
+                                          _pickImageFromGallery();
+                                        });
                                       },
                                       elevation: 2.0,
                                       fillColor: const Color(0xFF191D31),
@@ -335,25 +338,24 @@ class _CommuterEditProfileViewBodyState
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 70,
+                      ),
                     ],
                   ),
                 ),
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CustomMainButton(
-                        text: "Save Changes",
-                        onPressed: () {
-                          if (_form.currentState!.validate()) {
-                            GoRouter.of(context).pop();
-                          }
-                        },
-                        color: kPrimaryColor,
-                      ),
-                    ),
+                Positioned(
+                  bottom: 16,
+                  left: 0,
+                  right: 0,
+                  child: CustomMainButton(
+                    text: "Save Changes",
+                    onPressed: () {
+                      if (_form.currentState!.validate()) {
+                        GoRouter.of(context).pop();
+                      }
+                    },
+                    color: kPrimaryColor,
                   ),
                 ),
               ],
@@ -362,5 +364,27 @@ class _CommuterEditProfileViewBodyState
         ),
       ),
     );
+  }
+
+  Future _pickImageFromGallery() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
+  }
+
+  Future _pickImageFromCamera() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
   }
 }
