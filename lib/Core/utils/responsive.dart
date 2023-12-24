@@ -9,7 +9,7 @@ class Responsive {
     return MediaQuery.of(context).size.height;
   }
 
-  static double textScaleFactor(BuildContext context) {
-    return MediaQuery.of(context).textScaleFactor;
+  static TextScaler textScaleFactor(BuildContext context) {
+    return MediaQuery.of(context).textScaler;
   }
 }
