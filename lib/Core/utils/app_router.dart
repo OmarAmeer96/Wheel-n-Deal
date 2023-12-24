@@ -8,11 +8,15 @@ import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
+import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/user_completed_orders_view.dart';
+import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/user_pending_orders_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
+import 'package:wheel_n_deal/Features/user/orders/presentation/views/commuter_completed_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/orders/presentation/views/commuter_pending_orders_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
@@ -20,19 +24,30 @@ abstract class AppRouter {
   static const kOnBoardingView = '/onBoardingView';
   static const kHomeView = '/homeView';
   static const kWelcomeView = '/welcomeView';
+
   static const kRegisterView = '/registerView';
   static const kLoginView = '/loginView';
+
   static const kUserHomeView = '/userHomeView';
   static const kCommuterHomeView = '/commuterHomeView';
+
   static const kSuccessfulRegisterView = '/successfulRegisterView';
   static const kForgotPasswodView = '/forgotPasswodView';
   static const kOtpVerificationView = '/otpVerificationView';
   static const kCreateNewPasswordView = '/createNewPasswordView';
   static const kPasswordChangedView = '/passwordChangedView';
+
   static const kUserEditProfileView = '/userEditProfileView';
   static const kCommuterEditProfileView = '/commuterEditProfileView';
+
   static const kUserNotificationsView = '/userNotificationsView';
   static const kCommuterNotificationsView = '/commuterNotificationsView';
+
+  static const kCommuterPendingOrdersView = '/commuterPendingOrdersView';
+  static const kCommuterCompletedOrdersView = '/commuterCompletedOrdersView';
+
+  static const kUserPendingOrdersView = '/userPendingOrdersView';
+  static const kUserCompletedOrdersView = '/userCompletedOrdersView';
 
   static final router = GoRouter(
     routes: [
@@ -99,6 +114,22 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterNotificationsView,
         builder: (context, state) => const CommuterNotificationsView(),
+      ),
+      GoRoute(
+        path: kCommuterPendingOrdersView,
+        builder: (context, state) => const CommuterPendingOrdersView(),
+      ),
+      GoRoute(
+        path: kCommuterCompletedOrdersView,
+        builder: (context, state) => const CommuterCompletedOrdersView(),
+      ),
+      GoRoute(
+        path: kUserPendingOrdersView,
+        builder: (context, state) => const UserPendingOrdersView(),
+      ),
+      GoRoute(
+        path: kUserCompletedOrdersView,
+        builder: (context, state) => const UserCompletedOrdersView(),
       ),
     ],
   );
