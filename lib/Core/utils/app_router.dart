@@ -8,15 +8,15 @@ import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
-import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/user_completed_orders_view.dart';
-import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/user_pending_orders_view.dart';
+import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_completed_orders_view.dart';
+import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_pending_orders_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
-import 'package:wheel_n_deal/Features/user/orders/presentation/views/commuter_completed_orders_view.dart';
-import 'package:wheel_n_deal/Features/user/orders/presentation/views/commuter_pending_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_completed_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_pending_orders_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
