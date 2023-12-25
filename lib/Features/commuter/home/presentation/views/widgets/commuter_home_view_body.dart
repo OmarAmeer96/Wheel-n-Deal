@@ -99,8 +99,7 @@ class CommuterHomeViewBody extends StatelessWidget {
                     icon: AssetsData.ordersIcon,
                     text: 'Orders',
                     onTap: () {
-                      GoRouter.of(context)
-                          .push(AppRouter.kCommuterPendingOrdersView);
+                      GoRouter.of(context).push(AppRouter.kCommuterOrdersView);
                     },
                   ),
                   HomeFeaturesItem(

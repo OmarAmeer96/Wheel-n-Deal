@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
-class OrdersStatsButtons extends StatefulWidget {
+class OrdersStatsButtons extends StatelessWidget {
   const OrdersStatsButtons({
     super.key,
-    required this.widget1,
-    required this.widget2,
+    required this.isPending,
+    required this.onPendingPressed,
+    required this.onCompletedPressed,
   });
 
-  final Widget widget1;
-  final Widget widget2;
-
-  @override
-  OrdersStatsButtonsState createState() => OrdersStatsButtonsState();
-}
-
-class OrdersStatsButtonsState extends State<OrdersStatsButtons> {
-  bool _isPending = true;
+  final bool isPending;
+  final VoidCallback onPendingPressed;
+  final VoidCallback onCompletedPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -32,45 +27,39 @@ class OrdersStatsButtonsState extends State<OrdersStatsButtons> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _isPending = true;
-                  });
-                },
+                onPressed: onPendingPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                      _isPending ? Colors.white : Colors.transparent,
+                      isPending ? Colors.white : Colors.transparent,
                   shadowColor: Colors.transparent,
                   surfaceTintColor: Colors.transparent,
-                  foregroundColor: _isPending ? Colors.black : Colors.white,
+                  foregroundColor: isPending ? Colors.black : Colors.white,
                 ),
                 child: const Text(
-                  '  Pending  ',
+                  '    Pending    ',
                   style: Styles.manropeRegular16,
                 ),
               ),
+              const SizedBox(
+                width: 20,
+              ),
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _isPending = false;
-                  });
-                },
+                onPressed: onCompletedPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                      _isPending ? Colors.transparent : Colors.white,
+                      isPending ? Colors.transparent : Colors.white,
                   shadowColor: Colors.transparent,
                   surfaceTintColor: Colors.transparent,
-                  foregroundColor: _isPending ? Colors.white : Colors.black,
+                  foregroundColor: isPending ? Colors.white : Colors.black,
                 ),
                 child: const Text(
-                  'Completed',
+                  '  Completed  ',
                   style: Styles.manropeRegular16,
                 ),
               ),
             ],
           ),
         ),
-        _isPending ? widget.widget1 : widget.widget2,
       ],
     );
   }
