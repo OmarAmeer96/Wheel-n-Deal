@@ -104,4 +104,7 @@ class AssetsData {
   static const notifPicked = 'assets/svg/notif_picked.svg';
 
   static const ordersScanQrCode = 'assets/svg/ordersScanQr.svg';
+
+  static const ordersButtonsBackground =
+      'assets/images/orders_buttons_background.png';
 }

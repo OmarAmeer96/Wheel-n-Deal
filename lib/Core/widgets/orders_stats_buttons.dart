@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
 class OrdersStatsButtons extends StatelessWidget {
@@ -22,6 +23,9 @@ class OrdersStatsButtons extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color(0xff1d272f),
             borderRadius: BorderRadius.circular(50),
+            image: const DecorationImage(
+              image: AssetImage(AssetsData.ordersButtonsBackground),
+            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
