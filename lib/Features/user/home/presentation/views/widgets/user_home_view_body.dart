@@ -98,8 +98,7 @@ class UserHomeViewBody extends StatelessWidget {
                     icon: AssetsData.ordersIcon,
                     text: 'Orders',
                     onTap: () {
-                      GoRouter.of(context)
-                          .push(AppRouter.kUserPendingOrdersView);
+                      GoRouter.of(context).push(AppRouter.kUserOrdersView);
                     },
                   ),
                   HomeFeaturesItem(

@@ -14,8 +14,7 @@ import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_v
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
-import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_completed_orders_view.dart';
-import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_pending_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_orders_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
@@ -43,10 +42,8 @@ abstract class AppRouter {
   static const kCommuterNotificationsView = '/commuterNotificationsView';
 
   static const kCommuterOrdersView = '/commuterOrdersView';
-  static const kCommuterCompletedOrdersView = '/commuterCompletedOrdersView';
 
-  static const kUserPendingOrdersView = '/userPendingOrdersView';
-  static const kUserCompletedOrdersView = '/userCompletedOrdersView';
+  static const kUserOrdersView = '/userOrdersView';
 
   static final router = GoRouter(
     routes: [
@@ -119,12 +116,8 @@ abstract class AppRouter {
         builder: (context, state) => const CommuterOrdersView(),
       ),
       GoRoute(
-        path: kUserPendingOrdersView,
-        builder: (context, state) => const UserPendingOrdersView(),
-      ),
-      GoRoute(
-        path: kUserCompletedOrdersView,
-        builder: (context, state) => const UserCompletedOrdersView(),
+        path: kUserOrdersView,
+        builder: (context, state) => const UserOrdersView(),
       ),
     ],
   );
