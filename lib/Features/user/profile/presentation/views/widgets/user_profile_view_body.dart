@@ -104,7 +104,11 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 26,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kChangeAppLanguageView,
+                    );
+                  },
                   text: 'Language',
                   icon: AssetsData.languageIcon,
                 ),

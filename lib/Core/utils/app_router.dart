@@ -6,6 +6,7 @@ import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/pa
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
+import 'package:wheel_n_deal/Features/commuter/change_language/presentation/views/change_app_language_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
@@ -44,6 +45,8 @@ abstract class AppRouter {
   static const kCommuterOrdersView = '/commuterOrdersView';
 
   static const kUserOrdersView = '/userOrdersView';
+
+  static const kChangeAppLanguageView = '/changeAppLanguageView';
 
   static final router = GoRouter(
     routes: [
@@ -118,6 +121,14 @@ abstract class AppRouter {
       GoRoute(
         path: kUserOrdersView,
         builder: (context, state) => const UserOrdersView(),
+      ),
+      GoRoute(
+        path: kChangeAppLanguageView,
+        builder: (context, state) => const ChangeAppLanguageView(),
+      ),
+      GoRoute(
+        path: kChangeAppLanguageView,
+        builder: (context, state) => const ChangeAppLanguageView(),
       ),
     ],
   );
