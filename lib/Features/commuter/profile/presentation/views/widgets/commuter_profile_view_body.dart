@@ -149,7 +149,11 @@ class CommuterProfileViewBody extends StatelessWidget {
                   height: 26,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kAboutAppView,
+                    );
+                  },
                   text: 'About Wheel N’ Deal',
                   icon: AssetsData.infoIcon,
                 ),
@@ -191,7 +195,11 @@ class CommuterProfileViewBody extends StatelessWidget {
                   height: 26,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kTermsView,
+                    );
+                  },
                   text: 'Terms and Conditions',
                   icon: AssetsData.termsIcon,
                 ),

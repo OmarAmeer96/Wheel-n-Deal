@@ -150,7 +150,11 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 26,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kChangeAppLanguageView,
+                    );
+                  },
                   text: 'About Wheel N’ Deal',
                   icon: AssetsData.infoIcon,
                 ),
@@ -192,7 +196,11 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 26,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kTermsView,
+                    );
+                  },
                   text: 'Terms and Conditions',
                   icon: AssetsData.termsIcon,
                 ),
