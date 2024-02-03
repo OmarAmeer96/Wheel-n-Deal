@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/about_app/presentation/views/about_app_view.dart';
+import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_policy_view.dart';
 import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/create_new_password_view.dart';
@@ -53,6 +54,8 @@ abstract class AppRouter {
   static const kAboutAppView = '/aboutAppView';
 
   static const kTermsView = '/termsView';
+
+  static const kPrivacyPolicy = '/privacyPolicy';
 
   static final router = GoRouter(
     routes: [
@@ -143,6 +146,10 @@ abstract class AppRouter {
       GoRoute(
         path: kTermsView,
         builder: (context, state) => const TermsView(),
+      ),
+      GoRoute(
+        path: kPrivacyPolicy,
+        builder: (context, state) => const PrivacyPolicyView(),
       ),
     ],
   );
