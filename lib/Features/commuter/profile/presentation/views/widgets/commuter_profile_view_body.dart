@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
+import 'package:wheel_n_deal/Core/utils/show_success_dialog.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/user_profile_item.dart';
@@ -215,7 +216,12 @@ class CommuterProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    showLogoutConfirmationDialog(
+                      context,
+                      () {},
+                    );
+                  },
                   text: 'Log Out',
                   icon: AssetsData.logOutIcon,
                 ),
