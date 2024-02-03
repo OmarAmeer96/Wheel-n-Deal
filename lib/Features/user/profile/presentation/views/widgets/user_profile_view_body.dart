@@ -208,7 +208,11 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kPrivacyPolicy,
+                    );
+                  },
                   text: 'Privacy Policy',
                   icon: AssetsData.privacyIcon,
                 ),

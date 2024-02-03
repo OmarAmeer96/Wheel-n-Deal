@@ -11,7 +11,7 @@ class PrivacyPolicyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        text: "Terms And Conditions",
+        text: "Privacy Policy",
         textStyle: Styles.manropeRegular16.copyWith(
           fontSize: 18,
         ),

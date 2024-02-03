@@ -201,14 +201,18 @@ class CommuterProfileViewBody extends StatelessWidget {
                       AppRouter.kTermsView,
                     );
                   },
-                  text: 'Terms and Conditions',
+                text: 'Terms and Conditions',
                   icon: AssetsData.termsIcon,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kPrivacyPolicy,
+                    );
+                  },
                   text: 'Privacy Policy',
                   icon: AssetsData.privacyIcon,
                 ),
