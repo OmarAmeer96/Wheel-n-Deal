@@ -178,7 +178,11 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kSupportView,
+                    );
+                  },
                   text: 'Support',
                   icon: AssetsData.supportIcon,
                 ),
@@ -210,7 +214,7 @@ class UserProfileViewBody extends StatelessWidget {
                 UserProfileItem(
                   onTap: () {
                     GoRouter.of(context).push(
-                      AppRouter.kPrivacyPolicy,
+                      AppRouter.kPrivacyPolicyView,
                     );
                   },
                   text: 'Privacy Policy',

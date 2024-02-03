@@ -178,7 +178,11 @@ class CommuterProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kSupportView,
+                    );
+                  },
                   text: 'Support',
                   icon: AssetsData.supportIcon,
                 ),
@@ -201,7 +205,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                       AppRouter.kTermsView,
                     );
                   },
-                text: 'Terms and Conditions',
+                  text: 'Terms and Conditions',
                   icon: AssetsData.termsIcon,
                 ),
                 const SizedBox(
@@ -210,7 +214,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                 UserProfileItem(
                   onTap: () {
                     GoRouter.of(context).push(
-                      AppRouter.kPrivacyPolicy,
+                      AppRouter.kPrivacyPolicyView,
                     );
                   },
                   text: 'Privacy Policy',
