@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -68,7 +70,9 @@ class CommuterWalletViewBody extends StatelessWidget {
               height: 20,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.kUserVisaView);
+              },
               borderRadius: BorderRadius.circular(14),
               child: const PaymentMethodItem(
                 icon: AssetsData.visaIcon,
@@ -80,7 +84,9 @@ class CommuterWalletViewBody extends StatelessWidget {
               height: 15,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.kUserVodafoneCashView);
+              },
               borderRadius: BorderRadius.circular(14),
               child: const PaymentMethodItem(
                 icon: AssetsData.vodafoneCashIcon,
