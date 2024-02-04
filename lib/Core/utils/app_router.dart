@@ -15,12 +15,18 @@ import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
+import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_visa_view.dart';
+import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_vodafone_cash_view.dart';
+import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_wallet_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_orders_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
+import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_visa_view.dart';
+import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_vodafone_cash_view.dart';
+import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_wallet_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
 abstract class AppRouter {
@@ -165,6 +171,30 @@ abstract class AppRouter {
       GoRoute(
         path: kSupportView,
         builder: (context, state) => const SupportView(),
+      ),
+      GoRoute(
+        path: kCommuterWalletView,
+        builder: (context, state) => const CommuterWalletView(),
+      ),
+      GoRoute(
+        path: kCommuterVisaView,
+        builder: (context, state) => const CommuterVisaView(),
+      ),
+      GoRoute(
+        path: kCommuterVodafoneCashView,
+        builder: (context, state) => const CommuterVodafoneCashView(),
+      ),
+      GoRoute(
+        path: kUserWalletView,
+        builder: (context, state) => const UserWalletView(),
+      ),
+      GoRoute(
+        path: kUserVisaView,
+        builder: (context, state) => const UserVisaView(),
+      ),
+      GoRoute(
+        path: kUserVodafoneCashView,
+        builder: (context, state) => const UserVodafoneCashView(),
       ),
     ],
   );
