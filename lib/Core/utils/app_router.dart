@@ -60,6 +60,14 @@ abstract class AppRouter {
 
   static const kSupportView = '/supportView';
 
+  static const kCommuterWalletView = '/commuterWalletView';
+  static const kCommuterVisaView = '/commuterVisaView';
+  static const kCommuterVodafoneCashView = '/commuterVodafoneCashView';
+
+  static const kUserWalletView = '/userWalletView';
+  static const kUserVisaView = '/userVisaView';
+  static const kUserVodafoneCashView = '/userVodafoneCashView';
+
   static final router = GoRouter(
     routes: [
       GoRoute(
