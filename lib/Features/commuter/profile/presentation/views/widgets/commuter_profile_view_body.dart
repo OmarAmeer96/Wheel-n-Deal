@@ -116,7 +116,9 @@ class CommuterProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kCommuterWalletView);
+                  },
                   text: 'My Wallet',
                   icon: AssetsData.walletIcon,
                 ),

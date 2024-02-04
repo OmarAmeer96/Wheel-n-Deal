@@ -116,7 +116,9 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kUserWalletView);
+                  },
                   text: 'My Wallet',
                   icon: AssetsData.walletIcon,
                 ),

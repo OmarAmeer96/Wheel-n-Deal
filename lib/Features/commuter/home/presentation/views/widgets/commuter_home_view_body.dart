@@ -131,7 +131,9 @@ class CommuterHomeViewBody extends StatelessWidget {
                   HomeFeaturesItem(
                     icon: AssetsData.messagesIcon,
                     text: 'Wallet',
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).push(AppRouter.kCommuterWalletView);
+                    },
                   ),
                 ],
               ),

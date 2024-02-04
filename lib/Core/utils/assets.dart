@@ -107,4 +107,8 @@ class AssetsData {
 
   static const ordersButtonsBackground =
       'assets/images/orders_buttons_background.png';
+
+  static const visaIcon = 'assets/svg/visa_logo.svg';
+
+  static const vodafoneCashIcon = 'assets/svg/VCLogo.svg';
 }
