@@ -93,7 +93,8 @@ class AssetsData {
 
   static const choosePhotoIcon = 'assets/svg/choosePhotoIcon.svg';
 
-  static const celebrateIcon = 'assets/svg/celecrateIcon.svg';
+  static const successIcon = 'assets/svg/sucess_icon.svg';
+  static const errorIcon = 'assets/svg/error_icon.svg';
 
   static const notifIconMessage = 'assets/svg/message-notif.svg';
 

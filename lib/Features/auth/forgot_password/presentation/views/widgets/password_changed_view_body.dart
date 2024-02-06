@@ -20,7 +20,7 @@ class PasswordChangedViewBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                AssetsData.celebrateIcon,
+                AssetsData.successIcon,
                 height: 140,
               ),
               const SizedBox(

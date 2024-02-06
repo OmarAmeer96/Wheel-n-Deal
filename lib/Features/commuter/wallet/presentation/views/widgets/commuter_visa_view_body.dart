@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -62,6 +65,8 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                     padding: const EdgeInsets.all(10.0),
                     child: SvgPicture.asset(AssetsData.visaIcon),
                   ),
+                  controller: _cardNumberController,
+                  enabled: true,
                 ),
                 const SizedBox(
                   height: 37,
@@ -71,15 +76,12 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-                          // Show DatePicker
                           final DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime.now(),
                             lastDate: DateTime(2101),
                           );
-
-                          // Update the controller and expiryDate
                           if (pickedDate != null && pickedDate != expiryDate) {
                             setState(() {
                               expiryDate = pickedDate;
@@ -92,16 +94,91 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                           labelText: "Expiry Date",
                           hintText: "19/6/2030",
                           controller: _expiryDateController,
-                          enabled: false, // Disable manual text editing
+                          enabled: false,
+                          prefixIcon: const Icon(
+                            Icons.date_range,
+                            color: kPrimaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: CustomVisaTextField(
+                          labelText: "CVV",
+                          hintText: "123",
+                          controller: _cvvController,
+                          enabled: true,
+                          prefixIcon: const Icon(
+                            Icons.password,
+                            color: kPrimaryColor,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 37,
+                ),
+                CustomVisaTextField(
+                  labelText: "Name",
+                  hintText: "Omar Ameer",
+                  controller: _nameController,
+                  enabled: true,
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: kPrimaryColor,
+                  ),
+                ),
                 const Spacer(),
                 CustomMainButton(
                   text: "Add Card",
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (_form.currentState!.validate()) {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                          ),
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            width: double.infinity,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    width: 60,
+                                    height: 6,
+                                    decoration: ShapeDecoration(
+                                      color: const Color(0xFFA3A3A3),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
                   color: kPrimaryColor,
                 ),
                 const SizedBox(

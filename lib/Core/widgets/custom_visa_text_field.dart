@@ -42,6 +42,10 @@ class CustomVisaTextField extends StatelessWidget {
           borderSide: const BorderSide(color: kPrimaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: kPrimaryColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
         hintText: hintText,
         hintStyle: Styles.manropeRegular14.copyWith(
           fontSize: 15,
