@@ -71,7 +71,7 @@ class CommuterWalletViewBody extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kUserVisaView);
+                GoRouter.of(context).push(AppRouter.kCommuterVisaView);
               },
               borderRadius: BorderRadius.circular(14),
               child: const PaymentMethodItem(
@@ -85,7 +85,7 @@ class CommuterWalletViewBody extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kUserVodafoneCashView);
+                GoRouter.of(context).push(AppRouter.kCommuterVodafoneCashView);
               },
               borderRadius: BorderRadius.circular(14),
               child: const PaymentMethodItem(
