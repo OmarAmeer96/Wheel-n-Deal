@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_visa_text_field.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_visa_vodacash_text_field.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class CommuterVisaViewBody extends StatefulWidget {
@@ -59,7 +59,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                     const SizedBox(
                       height: 24,
                     ),
-                    CustomVisaTextField(
+                    CustomVisaVodaCashTextField(
                       onChanged: (data) {
                         cardNumber = data;
                       },
@@ -105,7 +105,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                                 });
                               }
                             },
-                            child: CustomVisaTextField(
+                            child: CustomVisaVodaCashTextField(
                               onChanged: (data) {
                                 expiryDate = DateFormat('dd/MM/yyyy')
                                     .format(data as DateTime) as DateTime?;
@@ -134,7 +134,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 30),
-                            child: CustomVisaTextField(
+                            child: CustomVisaVodaCashTextField(
                               onChanged: (data) {
                                 cvv = data.toString();
                               },
@@ -163,7 +163,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                     const SizedBox(
                       height: 37,
                     ),
-                    CustomVisaTextField(
+                    CustomVisaVodaCashTextField(
                       onChanged: (data) {
                         name = data;
                       },

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class CustomVisaTextField extends StatelessWidget {
-  const CustomVisaTextField({
+class CustomVisaVodaCashTextField extends StatelessWidget {
+  const CustomVisaVodaCashTextField({
     super.key,
     required this.labelText,
     required this.hintText,
