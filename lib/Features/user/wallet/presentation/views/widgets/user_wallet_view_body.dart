@@ -5,7 +5,6 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/widgets/payment_method_item.dart';
-import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/widgets/prev_profits_item.dart';
 
 class UserWalletViewBody extends StatelessWidget {
   const UserWalletViewBody({super.key});
@@ -34,7 +33,11 @@ class UserWalletViewBody extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.only(
+                    top: 16,
+                    left: 16,
+                    bottom: 16,
+                  ),
                   child: Row(
                     children: [
                       Column(
@@ -48,7 +51,7 @@ class UserWalletViewBody extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "\$4,875.00",
+                            "\$0",
                             style: Styles.cairoSemiBold.copyWith(
                               color: Colors.white,
                               fontSize: 20,
@@ -57,7 +60,21 @@ class UserWalletViewBody extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      const Text("Omar"),
+                      Text(
+                        "Top Up",
+                        style: Styles.manropeRegular14.copyWith(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                 ),
