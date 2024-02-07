@@ -10,13 +10,17 @@ class CustomVisaTextField extends StatelessWidget {
     this.prefixIcon,
     required this.controller,
     required this.enabled,
+    required this.validator,
+    required this.onChanged,
   });
 
   final String labelText;
   final String hintText;
   final Widget? prefixIcon;
-  final TextEditingController controller;
   final bool enabled;
+  final Function(String) onChanged;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
