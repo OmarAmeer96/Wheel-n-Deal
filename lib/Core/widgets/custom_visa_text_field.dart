@@ -12,6 +12,7 @@ class CustomVisaTextField extends StatelessWidget {
     required this.enabled,
     required this.validator,
     required this.onChanged,
+    required this.inputType,
   });
 
   final String labelText;
@@ -21,6 +22,7 @@ class CustomVisaTextField extends StatelessWidget {
   final Function(String) onChanged;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final TextInputType inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class CustomVisaTextField extends StatelessWidget {
         color: Colors.black,
       ),
       validator: validator,
+      keyboardType: inputType,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         labelText: labelText,
