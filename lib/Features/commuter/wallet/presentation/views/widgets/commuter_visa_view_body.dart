@@ -17,8 +17,8 @@ class CommuterVisaViewBody extends StatefulWidget {
 
 class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
   String? cardNumber;
-  DateTime? expiryDate;
-  int? cvv;
+  String? expiryDate;
+  String? cvv;
   String? name;
 
   final _cardNumberController = TextEditingController();
@@ -33,7 +33,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
     return SafeArea(
       child: GestureDetector(
         onTap: () {
-          Focus.of(context).unfocus();
+          FocusScope.of(context).unfocus();
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
@@ -59,7 +59,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                 ),
                 CustomVisaTextField(
                   onChanged: (data) {
-                    _cardNumberController.text = data;
+                    cardNumber = data;
                   },
                   controller: _cardNumberController,
                   validator: (value) {
@@ -94,7 +94,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                           );
                           if (pickedDate != null && pickedDate != expiryDate) {
                             setState(() {
-                              expiryDate = pickedDate;
+                              expiryDate = pickedDate.toString();
                               _expiryDateController.text =
                                   DateFormat('dd/MM/yyyy').format(pickedDate);
                             });
@@ -102,9 +102,8 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                         },
                         child: CustomVisaTextField(
                           onChanged: (data) {
-                            _expiryDateController.text =
-                                DateFormat('dd/MM/yyyy')
-                                    .format(data as DateTime);
+                            expiryDate = DateFormat('dd/MM/yyyy')
+                                .format(data as DateTime);
                           },
                           controller: _expiryDateController,
                           validator: (value) {
@@ -131,7 +130,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                         padding: const EdgeInsets.only(left: 30),
                         child: CustomVisaTextField(
                           onChanged: (data) {
-                            _cvvController.text = data.toString();
+                            cvv = data.toString();
                           },
                           controller: _cvvController,
                           validator: (value) {
@@ -159,7 +158,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                 ),
                 CustomVisaTextField(
                   onChanged: (data) {
-                    _nameController.text = data;
+                    name = data;
                   },
                   controller: _nameController,
                   validator: (value) {

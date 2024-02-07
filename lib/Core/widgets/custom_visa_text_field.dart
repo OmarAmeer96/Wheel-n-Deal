@@ -27,10 +27,12 @@ class CustomVisaTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       enabled: enabled,
+      onChanged: onChanged,
       style: Styles.manropeRegular15.copyWith(
         fontSize: 15,
         color: Colors.black,
       ),
+      validator: validator,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         labelText: labelText,
