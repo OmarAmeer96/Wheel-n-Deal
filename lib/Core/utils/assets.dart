@@ -112,4 +112,6 @@ class AssetsData {
   static const visaIcon = 'assets/svg/visa_logo.svg';
 
   static const vodafoneCashIcon = 'assets/svg/VCLogo.svg';
+
+  static const topUpIcon = 'assets/svg/topUpIcon.svg';
 }
