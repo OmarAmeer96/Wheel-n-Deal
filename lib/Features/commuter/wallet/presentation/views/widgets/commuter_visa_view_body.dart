@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
+import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_visa_vodacash_text_field.dart';
@@ -171,6 +173,8 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your name.';
+                        } else if (!isValidPhoneNumber(value)) {
+                          return 'Please enter a valid Egyptian phone number.';
                         }
                         return null;
                       },
@@ -242,7 +246,8 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                                     CustomMainButton(
                                       text: "Back",
                                       onPressed: () {
-                                        GoRouter.of(context).pop();
+                                        GoRouter.of(context).push(
+                                            AppRouter.kCommuterWalletView);
                                       },
                                       color: kPrimaryColor,
                                     ),
