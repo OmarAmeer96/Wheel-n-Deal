@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -90,7 +92,81 @@ class _UserTopUpViewBodyState extends State<UserTopUpViewBody> {
               const Spacer(),
               CustomMainButton(
                 text: "Continue",
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: 60,
+                                height: 6,
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFA3A3A3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 48,
+                              ),
+                              SvgPicture.asset(
+                                AssetsData.successIcon,
+                                height: 140,
+                              ),
+                              const SizedBox(
+                                height: 42,
+                              ),
+                              Text(
+                                'Top Up Successfully!',
+                                style: Styles.manropeExtraBold32
+                                    .copyWith(fontSize: 26),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Congratulation! your balance already added,\nand please check your balance.',
+                                textAlign: TextAlign.center,
+                                style: Styles.manropeRegular15.copyWith(
+                                  fontSize: 16,
+                                  color: const Color(0xFFA3A3A3),
+                                ),
+                              ),
+                              const Spacer(),
+                              CustomMainButton(
+                                text: "Back",
+                                onPressed: () {
+                                  GoRouter.of(context).push(
+                                    AppRouter.kUserHomeView,
+                                  );
+                                },
+                                color: kPrimaryColor,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
                 color: kPrimaryColor,
               ),
               const SizedBox(
