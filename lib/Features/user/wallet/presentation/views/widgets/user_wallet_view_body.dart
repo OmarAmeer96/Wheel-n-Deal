@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/widgets/payment_method_item.dart';
+import 'package:wheel_n_deal/Features/user/wallet/presentation/views/widgets/user_balance_item.dart';
 
 class UserWalletViewBody extends StatelessWidget {
   const UserWalletViewBody({super.key});
@@ -23,61 +23,8 @@ class UserWalletViewBody extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                width: Responsive.screenWidth(context),
-                height: 85,
-                decoration: ShapeDecoration(
-                  color: const Color(0xFF1D272F),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 16,
-                    left: 16,
-                    bottom: 16,
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "My Balance",
-                            style: Styles.manropeRegular14.copyWith(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            "\$0",
-                            style: Styles.cairoSemiBold.copyWith(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Text(
-                        "Top Up",
-                        style: Styles.manropeRegular14.copyWith(
-                          fontSize: 15,
-                          color: Colors.white,
-                        ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              const UserBalanceItem(
+                isHere: true,
               ),
               const SizedBox(
                 height: 20,
@@ -94,7 +41,7 @@ class UserWalletViewBody extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  GoRouter.of(context).push(AppRouter.kCommuterVisaView);
+                  GoRouter.of(context).push(AppRouter.kUserVisaView);
                 },
                 borderRadius: BorderRadius.circular(14),
                 child: const PaymentMethodItem(
@@ -108,8 +55,7 @@ class UserWalletViewBody extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  GoRouter.of(context)
-                      .push(AppRouter.kCommuterVodafoneCashView);
+                  GoRouter.of(context).push(AppRouter.kUserVodafoneCashView);
                 },
                 borderRadius: BorderRadius.circular(14),
                 child: const PaymentMethodItem(
