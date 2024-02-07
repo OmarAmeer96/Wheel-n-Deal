@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
+import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_visa_vodacash_text_field.dart';
@@ -65,6 +66,8 @@ class _CommuterVodafoneCashViewBodyState
                           return 'Please enter the phone number.';
                         } else if (value.length != 11) {
                           return 'phone number must be 11 numbers length.';
+                        } else if (!isValidPhoneNumber(value)) {
+                          return 'Please enter a valid Egyptian phone number.';
                         }
                         return null;
                       },
