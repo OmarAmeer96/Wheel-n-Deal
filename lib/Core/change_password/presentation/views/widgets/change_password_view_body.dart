@@ -259,20 +259,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                         obscureText: obscureRePassText,
                       ),
                       const SizedBox(
-                        height: 35,
-                      ),
-                      CustomMainButton(
-                        text: "Register",
-                        onPressed: () async {
-                          if (_form.currentState!.validate()) {
-                            GoRouter.of(context)
-                                .push(AppRouter.kSuccessfulRegisterView);
-                          }
-                        },
-                        color: kPrimaryColor,
-                      ),
-                      const SizedBox(
-                        height: 15,
+                        height: 16,
                       ),
                     ],
                   ),
@@ -285,25 +272,18 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                       const EdgeInsets.only(left: 16, right: 16, bottom: 15),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "Aleady have an account?  ",
-                          style: Styles.manropeRegular15.copyWith(
-                            color: const Color(0xFF191D31),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            GoRouter.of(context).pop();
+                        CustomMainButton(
+                          text: "Register",
+                          onPressed: () async {
+                            if (_form.currentState!.validate()) {
+                              GoRouter.of(context)
+                                  .push(AppRouter.kSuccessfulRegisterView);
+                            }
                           },
-                          child: Text(
-                            "Login",
-                            style: Styles.manropeRegular15.copyWith(
-                              color: const Color(0xFFFF981A),
-                            ),
-                          ),
+                          color: kPrimaryColor,
                         ),
                       ],
                     ),
