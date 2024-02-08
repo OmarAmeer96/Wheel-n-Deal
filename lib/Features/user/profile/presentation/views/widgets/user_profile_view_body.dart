@@ -134,7 +134,9 @@ class UserProfileViewBody extends StatelessWidget {
                   height: 15,
                 ),
                 UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kChangePasswordView);
+                  },
                   text: 'Change Password',
                   icon: AssetsData.passWord,
                 ),

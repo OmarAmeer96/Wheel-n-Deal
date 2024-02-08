@@ -3,34 +3,43 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
-import 'package:wheel_n_deal/Core/utils/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_field.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key});
+class ChangePasswordViewBody extends StatefulWidget {
+  const ChangePasswordViewBody({super.key});
 
   @override
-  State<LoginViewBody> createState() => _LoginViewBodyState();
+  State<ChangePasswordViewBody> createState() => _ChangePasswordViewBodyState();
 }
 
-class _LoginViewBodyState extends State<LoginViewBody> {
-  String? username;
+class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
+  String? oldPassword;
 
-  String? password;
+  String? newPassword;
 
-  final _usernameController = TextEditingController();
+  String? reNewPassword;
 
-  final _passwordController = TextEditingController();
+  final _oldPasswordController = TextEditingController();
+
+  final _newPasswordController = TextEditingController();
+
+  final _reNewPasswordController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
-  bool obscureText = true;
+  bool obscurePassText = true;
+  bool obscureRePassText = true;
 
   void _togglePasswordIcon() {
-    obscureText = !obscureText;
+    obscurePassText = !obscurePassText;
+    setState(() {});
+  }
+
+  void _toggleRePasswordIcon() {
+    obscureRePassText = !obscureRePassText;
     setState(() {});
   }
 
@@ -45,20 +54,36 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           key: _form,
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 20,
+                      const SizedBox(
+                        height: 10,
                       ),
-                      Text(
-                        "Welcome back! Glad to see you, Again!",
-                        style: Styles.manropeExtraBold32,
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Create New Password",
+                          style: Styles.manropeMedium18.copyWith(fontSize: 16),
+                        ),
                       ),
-                      SizedBox(
-                        height: 70,
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Your new password must be unique from those previously used.",
+                          style: Styles.manropeRegular15.copyWith(
+                            fontSize: 15,
+                            color: const Color(0xFFA3A3A3),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
                       ),
                     ],
                   ),
@@ -72,7 +97,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Username',
+                          'Old Password',
                           style: Styles.poppinsSemiBold16.copyWith(
                             color: const Color(0xFFA3A3A3),
                           ),
@@ -83,35 +108,65 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       ),
                       CustomMainTextField(
                         onChanged: (data) {
-                          username = data;
+                          oldPassword = data;
                         },
-                        controller: _usernameController,
+                        controller: _oldPasswordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a username.';
-                          } else if (!isValidUsername(value)) {
-                            return 'Please enter a valid username.';
+                            return 'Please enter the old password.';
+                          } else if (value.length < 6) {
+                            return 'Password must be at least 6 characters long.';
                           }
                           return null;
                         },
-                        hintText: 'Enter Name',
+                        hintText: 'Enter Old Password',
                         borderColor: const Color(0xFFA3A3A3),
                         focusedBorderColor: const Color(0xff55433c),
                         enabledBorderColor: const Color(0xFFA3A3A3),
                         inputType: TextInputType.text,
                         prefixIcon: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: SvgPicture.asset(AssetsData.userName),
+                          child: SvgPicture.asset(AssetsData.passWord),
                         ),
-                        obscureText: false,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            _togglePasswordIcon();
+                          },
+                          child: Icon(
+                            obscurePassText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.black,
+                          ),
+                        ),
+                        obscureText: obscurePassText,
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 14,
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            GoRouter.of(context)
+                                .push(AppRouter.kForgotPasswodView);
+                          },
+                          child: Text(
+                            "Forgot Password?",
+                            style: Styles.manropeRegular16.copyWith(
+                              color: kPrimaryColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 14,
                       ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Password',
+                          'New Password',
                           style: Styles.poppinsSemiBold16.copyWith(
                             color: const Color(0xFFA3A3A3),
                           ),
@@ -122,9 +177,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       ),
                       CustomMainTextField(
                         onChanged: (data) {
-                          password = data;
+                          newPassword = data;
                         },
-                        controller: _passwordController,
+                        controller: _newPasswordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a password.';
@@ -147,41 +202,71 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             _togglePasswordIcon();
                           },
                           child: Icon(
-                            obscureText
+                            obscurePassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureText,
+                        obscureText: obscurePassText,
                       ),
                       const SizedBox(
-                        height: 16,
+                        height: 10,
                       ),
                       Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kForgotPasswodView);
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: Styles.manropeRegular16.copyWith(
-                              color: kPrimaryColor,
-                              fontSize: 14,
-                            ),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Confirm New Password',
+                          style: Styles.poppinsSemiBold16.copyWith(
+                            color: const Color(0xFFA3A3A3),
                           ),
                         ),
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 5,
+                      ),
+                      CustomMainTextField(
+                        onChanged: (data) {
+                          reNewPassword = data;
+                        },
+                        controller: _reNewPasswordController,
+                        validator: (value) {
+                          if (value != _newPasswordController.text) {
+                            return 'Passwords do not match.';
+                          }
+                          return null;
+                        },
+                        hintText: 'Re-Enter Password',
+                        borderColor: const Color(0xFFA3A3A3),
+                        focusedBorderColor: const Color(0xff55433c),
+                        enabledBorderColor: const Color(0xFFA3A3A3),
+                        inputType: TextInputType.text,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: SvgPicture.asset(AssetsData.passWord),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            _toggleRePasswordIcon();
+                          },
+                          child: Icon(
+                            obscureRePassText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.black,
+                          ),
+                        ),
+                        obscureText: obscureRePassText,
+                      ),
+                      const SizedBox(
+                        height: 35,
                       ),
                       CustomMainButton(
-                        text: "Login",
-                        onPressed: () {
+                        text: "Register",
+                        onPressed: () async {
                           if (_form.currentState!.validate()) {
-                            GoRouter.of(context).push(AppRouter.kUserHomeView);
+                            GoRouter.of(context)
+                                .push(AppRouter.kSuccessfulRegisterView);
                           }
                         },
                         color: kPrimaryColor,
@@ -204,17 +289,17 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don’t have an account?  ",
+                          "Aleady have an account?  ",
                           style: Styles.manropeRegular15.copyWith(
                             color: const Color(0xFF191D31),
                           ),
                         ),
                         InkWell(
                           onTap: () {
-                            GoRouter.of(context).push(AppRouter.kRegisterView);
+                            GoRouter.of(context).pop();
                           },
                           child: Text(
-                            "Register Now",
+                            "Login",
                             style: Styles.manropeRegular15.copyWith(
                               color: const Color(0xFFFF981A),
                             ),
