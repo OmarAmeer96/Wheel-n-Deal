@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/about_app/presentation/views/about_app_view.dart';
 import 'package:wheel_n_deal/Core/change_password/presentation/views/change_password_view.dart';
+import 'package:wheel_n_deal/Core/change_password/presentation/views/password_changed_2_view.dart';
 import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_policy_view.dart';
 import 'package:wheel_n_deal/Core/support/presentation/views/support_view.dart';
 import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
@@ -79,6 +80,8 @@ abstract class AppRouter {
   static const kUserTopUpView = '/userTopUpView';
 
   static const kChangePasswordView = '/changePasswordView';
+
+  static const kPasswordChanged2View = '/kpasswordChanged2View';
 
   static final router = GoRouter(
     routes: [
@@ -209,6 +212,10 @@ abstract class AppRouter {
       GoRoute(
         path: kChangePasswordView,
         builder: (context, state) => const ChangePasswordView(),
+      ),
+      GoRoute(
+        path: kPasswordChanged2View,
+        builder: (context, state) => const PasswordChanged2View(),
       ),
     ],
   );

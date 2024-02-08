@@ -30,16 +30,22 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
   final _form = GlobalKey<FormState>();
 
-  bool obscurePassText = true;
-  bool obscureRePassText = true;
+  bool obscureOldPassText = true;
+  bool obscureNewPassText = true;
+  bool obscureReNewPassText = true;
 
-  void _togglePasswordIcon() {
-    obscurePassText = !obscurePassText;
+  void _toggleOldPasswordIcon() {
+    obscureOldPassText = !obscureOldPassText;
     setState(() {});
   }
 
-  void _toggleRePasswordIcon() {
-    obscureRePassText = !obscureRePassText;
+  void _toggleNewPasswordIcon() {
+    obscureNewPassText = !obscureNewPassText;
+    setState(() {});
+  }
+
+  void _toggleReNewPasswordIcon() {
+    obscureReNewPassText = !obscureReNewPassText;
     setState(() {});
   }
 
@@ -130,16 +136,16 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                         ),
                         suffixIcon: InkWell(
                           onTap: () {
-                            _togglePasswordIcon();
+                            _toggleOldPasswordIcon();
                           },
                           child: Icon(
-                            obscurePassText
+                            obscureNewPassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscurePassText,
+                        obscureText: obscureOldPassText,
                       ),
                       const SizedBox(
                         height: 14,
@@ -199,16 +205,16 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                         ),
                         suffixIcon: InkWell(
                           onTap: () {
-                            _togglePasswordIcon();
+                            _toggleNewPasswordIcon();
                           },
                           child: Icon(
-                            obscurePassText
+                            obscureNewPassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscurePassText,
+                        obscureText: obscureNewPassText,
                       ),
                       const SizedBox(
                         height: 10,
@@ -247,16 +253,16 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                         ),
                         suffixIcon: InkWell(
                           onTap: () {
-                            _toggleRePasswordIcon();
+                            _toggleReNewPasswordIcon();
                           },
                           child: Icon(
-                            obscureRePassText
+                            obscureReNewPassText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),
-                        obscureText: obscureRePassText,
+                        obscureText: obscureReNewPassText,
                       ),
                       const SizedBox(
                         height: 16,
@@ -276,11 +282,11 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CustomMainButton(
-                          text: "Register",
+                          text: "Reset Password",
                           onPressed: () async {
                             if (_form.currentState!.validate()) {
                               GoRouter.of(context)
-                                  .push(AppRouter.kSuccessfulRegisterView);
+                                  .push(AppRouter.kPasswordChanged2View);
                             }
                           },
                           color: kPrimaryColor,
