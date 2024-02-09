@@ -14,6 +14,7 @@ import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Core/change_language/presentation/views/change_app_language_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
+import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_confirm_order_1_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
@@ -82,6 +83,8 @@ abstract class AppRouter {
   static const kChangePasswordView = '/changePasswordView';
 
   static const kPasswordChanged2View = '/kpasswordChanged2View';
+
+  static const kCommuterConfirmOrder1View = '/kCommuterConfirmOrder1View';
 
   static final router = GoRouter(
     routes: [
@@ -216,6 +219,10 @@ abstract class AppRouter {
       GoRoute(
         path: kPasswordChanged2View,
         builder: (context, state) => const PasswordChanged2View(),
+      ),
+      GoRoute(
+        path: kCommuterConfirmOrder1View,
+        builder: (context, state) => const CommuterConfirmOrder1View(),
       ),
     ],
   );

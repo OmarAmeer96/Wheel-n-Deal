@@ -42,7 +42,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: 'Tap to confirm the order',
               time: '2m ago',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.);
+                GoRouter.of(context).push(AppRouter.kCommuterConfirmOrder1View);
               },
             ),
             const SizedBox(
