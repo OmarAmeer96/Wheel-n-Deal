@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/notifications_item.dart';
@@ -34,11 +36,14 @@ class CommuterNotificationsViewBody extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const NotificationItem(
-              icon: AssetsData.notifOrders,
-              text1: 'Your order already delivered',
-              text2: 'enjoy!',
+            NotificationItem(
+              icon: AssetsData.commuterChoosedOrderIcon,
+              text1: 'Someone choose you to deliver the order',
+              text2: 'Tap to confirm the order',
               time: '2m ago',
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.);
+              },
             ),
             const SizedBox(
               height: 5,
