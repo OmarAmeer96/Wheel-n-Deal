@@ -83,7 +83,7 @@ class NotificationItem extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

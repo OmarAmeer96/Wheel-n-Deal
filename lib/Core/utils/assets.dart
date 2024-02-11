@@ -117,4 +117,6 @@ class AssetsData {
 
   static const commuterChoosedOrderIcon =
       'assets/svg/commuter_choosed_order_icon.svg';
+
+  static const chatIcon = 'assets/svg/chatIcon.svg';
 }

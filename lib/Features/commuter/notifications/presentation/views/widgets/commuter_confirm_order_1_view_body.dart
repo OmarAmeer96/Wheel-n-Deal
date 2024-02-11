@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/widgets/selected_by_item.dart';
 
 class CommuterConfirmOrder1ViewBody extends StatelessWidget {
   const CommuterConfirmOrder1ViewBody({super.key});
@@ -10,8 +12,29 @@ class CommuterConfirmOrder1ViewBody extends StatelessWidget {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 26,
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "You have been selected by",
+                  style: Styles.manropeRegular16.copyWith(fontSize: 18),
+                ),
+              ),
+              const SizedBox(
+                height: 45,
+              ),
+              const SelectedByItem(
+                name: 'Ahmed',
+                phoneNumber: '01554111002',
+              ),
+            ],
+          ),
         ),
       ),
     );

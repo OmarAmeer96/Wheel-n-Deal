@@ -64,7 +64,8 @@ class UserNotificationsViewBody extends StatelessWidget {
             const NotificationItem(
               icon: AssetsData.notifOrders,
               text1: 'Your order already delivered',
-              text2: 'Tap to confirm the order and view the commuter',
+              text2:
+                  'Tap to confirm the order and view the commuter chiecheiuhcieh',
               time: '2m ago',
             ),
             const SizedBox(
