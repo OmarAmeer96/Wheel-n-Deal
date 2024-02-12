@@ -17,6 +17,7 @@ import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_confirm_order_1_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/order_detailes_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_visa_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_vodafone_cash_view.dart';
@@ -82,9 +83,11 @@ abstract class AppRouter {
 
   static const kChangePasswordView = '/changePasswordView';
 
-  static const kPasswordChanged2View = '/kpasswordChanged2View';
+  static const kPasswordChanged2View = '/passwordChanged2View';
 
-  static const kCommuterConfirmOrder1View = '/kCommuterConfirmOrder1View';
+  static const kCommuterConfirmOrder1View = '/commuterConfirmOrder1View';
+
+  static const kOrderDetailesView = '/orderDetailesView';
 
   static final router = GoRouter(
     routes: [
@@ -223,6 +226,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterConfirmOrder1View,
         builder: (context, state) => const CommuterConfirmOrder1View(),
+      ),
+      GoRoute(
+        path: kOrderDetailesView,
+        builder: (context, state) => const OrderDetailesView(),
       ),
     ],
   );
