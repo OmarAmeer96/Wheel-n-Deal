@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/widgets/commuter_home_view_body.dart';
+import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/widgets/commuter_orders_view_body.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/widgets/commuter_pick_order_view_body.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/styles.dart';
@@ -65,7 +66,7 @@ class _CommuterHomeViewState extends State<CommuterHomeView> {
       case 1:
         return const CommuterPickOrderViewBody();
       case 2:
-        return Container();
+        return const CommuterOrdersViewBody();
       case 3:
         return const CommuterProfileViewBody();
       default:
