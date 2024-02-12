@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/nav_bar_item.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/user_home_view_body.dart';
+import 'package:wheel_n_deal/Features/user/orders/presentation/views/widgets/user_orders_view_body.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/user_profile_view_body.dart';
 import 'package:wheel_n_deal/constants.dart';
 
@@ -63,7 +64,7 @@ class _UserHomeViewState extends State<UserHomeView> {
       case 1:
         return Container();
       case 2:
-        return Container();
+        return const UserOrdersViewBody();
       case 3:
         return const UserProfileViewBody();
       default:
