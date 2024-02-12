@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
-class PickOrderTextField extends StatelessWidget {
-  const PickOrderTextField({
+class CommuterPickOrderTextField extends StatelessWidget {
+  const CommuterPickOrderTextField({
     super.key,
   });
 

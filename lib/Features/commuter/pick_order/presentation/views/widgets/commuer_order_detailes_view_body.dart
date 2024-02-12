@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class OrderDetailesViewBody extends StatelessWidget {
-  const OrderDetailesViewBody({super.key});
+class CommuterOrderDetailsViewBody extends StatelessWidget {
+  const CommuterOrderDetailsViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {

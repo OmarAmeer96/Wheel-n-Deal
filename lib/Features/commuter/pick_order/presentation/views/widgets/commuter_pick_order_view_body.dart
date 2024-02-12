@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/widgets/pick_order_text_field.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/widgets/commuter_pick_order_text_field.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 
-class PickOrderViewBody extends StatelessWidget {
-  const PickOrderViewBody({super.key});
+class CommuterPickOrderViewBody extends StatelessWidget {
+  const CommuterPickOrderViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class PickOrderViewBody extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const PickOrderTextField(),
+            const CommuterPickOrderTextField(),
             const SizedBox(
               height: 10,
             ),
@@ -63,7 +65,7 @@ class PickOrderViewBody extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const PickOrderTextField(),
+            const CommuterPickOrderTextField(),
             const SizedBox(
               height: 18,
             ),
@@ -94,7 +96,10 @@ class PickOrderViewBody extends StatelessWidget {
                 const Spacer(),
                 EditProfileButton(
                   text: "View Details",
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context)
+                        .push(AppRouter.kCommuterOrderDetailesView);
+                  },
                   color: const Color(0x4CA3A3A3),
                 ),
               ],
