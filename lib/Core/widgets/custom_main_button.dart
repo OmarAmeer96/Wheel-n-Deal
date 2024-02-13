@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
 class CustomMainButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final VoidCallback? onPressed;
   final Color color;
   final Color textColor;
@@ -10,10 +10,12 @@ class CustomMainButton extends StatelessWidget {
   final double width;
   final double textSize;
   final double height;
+  final bool contentIsText;
+  final Widget? widget;
 
   const CustomMainButton({
     super.key,
-    required this.text,
+    this.text,
     required this.onPressed,
     required this.color,
     this.textColor = Colors.white,
@@ -21,6 +23,8 @@ class CustomMainButton extends StatelessWidget {
     this.width = double.infinity,
     this.textSize = 18,
     this.height = 52,
+    this.contentIsText = true,
+    this.widget,
   });
 
   @override
@@ -36,17 +40,18 @@ class CustomMainButton extends StatelessWidget {
         ),
       ),
       child: Container(
-        // width: 367,
         width: width,
         height: height,
         alignment: Alignment.center,
-        child: Text(
-          text,
-          style: Styles.manropeMedium18.copyWith(
-            color: textColor,
-            fontSize: textSize,
-          ),
-        ),
+        child: contentIsText
+            ? Text(
+                text!,
+                style: Styles.manropeMedium18.copyWith(
+                  color: textColor,
+                  fontSize: textSize,
+                ),
+              )
+            : widget,
       ),
     );
   }
