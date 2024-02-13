@@ -62,7 +62,7 @@ class _UserHomeViewState extends State<UserHomeView> {
       case 0:
         return const UserHomeViewBody();
       case 1:
-        return Container();
+        return const UserOrdersViewBody();
       case 2:
         return const UserOrdersViewBody();
       case 3:
