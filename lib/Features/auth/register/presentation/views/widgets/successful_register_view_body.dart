@@ -73,7 +73,7 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
                   color: kPrimaryColor,
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
