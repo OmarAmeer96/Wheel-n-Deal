@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class CustomMainTextField extends StatelessWidget {
-  const CustomMainTextField({
+class CustomMainTextFormField extends StatelessWidget {
+  const CustomMainTextFormField({
     super.key,
     required this.onChanged,
     required this.controller,
@@ -17,6 +17,9 @@ class CustomMainTextField extends StatelessWidget {
     this.suffixIcon,
     required this.obscureText,
     this.labelText,
+    this.contentPadding = 19,
+    this.fillColor,
+    this.suffixIconOnTap,
   });
 
   final Function(String) onChanged;
@@ -32,6 +35,9 @@ class CustomMainTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscureText;
   final String? labelText;
+  final double contentPadding;
+  final Color? fillColor;
+  final void Function()? suffixIconOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,9 @@ class CustomMainTextField extends StatelessWidget {
         color: Colors.black,
       ),
       decoration: InputDecoration(
+        filled: true,
+        fillColor: fillColor,
+        contentPadding: EdgeInsets.symmetric(vertical: contentPadding),
         floatingLabelStyle: Styles.poppinsSemiBold16.copyWith(
           color: kPrimaryColor,
         ),
@@ -78,8 +87,17 @@ class CustomMainTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: enabledBorderColor, width: 1.0),
         ),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          child: prefixIcon,
+        ),
+        suffixIcon: InkWell(
+          onTap: suffixIconOnTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            child: suffixIcon,
+          ),
+        ),
       ),
       validator: validator,
     );

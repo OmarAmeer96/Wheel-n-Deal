@@ -7,7 +7,7 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_main_text_field.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class RegisterBodyView extends StatefulWidget {
@@ -96,7 +96,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           username = data;
                         },
@@ -135,7 +135,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           phoneNumber = data;
                         },
@@ -174,7 +174,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           password = data;
                         },
@@ -224,7 +224,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           rePassword = data;
                         },

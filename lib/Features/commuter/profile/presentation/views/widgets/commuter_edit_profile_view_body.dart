@@ -9,7 +9,7 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/constants.dart';
 import '../../../../../../Core/utils/assets.dart';
 import '../../../../../../Core/utils/styles.dart';
-import '../../../../../../Core/widgets/custom_main_text_field.dart';
+import '../../../../../../Core/widgets/custom_main_text_form_field.dart';
 
 class CommuterEditProfileViewBody extends StatefulWidget {
   const CommuterEditProfileViewBody({super.key});
@@ -133,7 +133,7 @@ class _CommuterEditProfileViewBodyState
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           fullName = data;
                         },
@@ -170,7 +170,7 @@ class _CommuterEditProfileViewBodyState
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           phoneNumber = data;
                         },
@@ -207,7 +207,7 @@ class _CommuterEditProfileViewBodyState
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           phoneNumber = data;
                         },
@@ -244,7 +244,7 @@ class _CommuterEditProfileViewBodyState
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           phoneNumber = data;
                         },

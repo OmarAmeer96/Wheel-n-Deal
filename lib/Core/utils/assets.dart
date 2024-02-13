@@ -119,4 +119,6 @@ class AssetsData {
       'assets/svg/commuter_choosed_order_icon.svg';
 
   static const chatIcon = 'assets/svg/chatIcon.svg';
+
+  static const emptyTextFieldIcon = 'assets/svg/empty_text_field_icon.svg';
 }

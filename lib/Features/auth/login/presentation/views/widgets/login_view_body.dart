@@ -6,7 +6,7 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_main_text_field.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -81,7 +81,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           username = data;
                         },
@@ -120,7 +120,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomMainTextField(
+                      CustomMainTextFormField(
                         onChanged: (data) {
                           password = data;
                         },
