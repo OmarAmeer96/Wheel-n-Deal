@@ -15,7 +15,7 @@ class CustomMainButton extends StatelessWidget {
 
   const CustomMainButton({
     super.key,
-    this.text,
+    this.text = '',
     required this.onPressed,
     required this.color,
     this.textColor = Colors.white,
