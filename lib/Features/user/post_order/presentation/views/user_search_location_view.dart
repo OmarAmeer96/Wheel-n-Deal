@@ -11,7 +11,7 @@ class UserSearchLocationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        text: "About Wheel N’ Deal",
+        text: "Search Location",
         textStyle: Styles.manropeRegular16.copyWith(
           fontSize: 18,
         ),
