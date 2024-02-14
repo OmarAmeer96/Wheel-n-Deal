@@ -68,7 +68,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
         Step(
           isActive: currentStep >= 0,
           title: const Text("Sender"),
-          content: Column(
+          content: const Column(
             children: [
               StepOneContent(),
             ],
@@ -77,12 +77,12 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
         Step(
           isActive: currentStep >= 1,
           title: const Text("Package"),
-          content: StepTwoContent(),
+          content: const StepTwoContent(),
         ),
         Step(
           isActive: currentStep >= 2,
           title: const Text("Review"),
-          content: StepThreeContent(),
+          content: const StepThreeContent(),
         ),
       ];
 }
