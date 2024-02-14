@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
@@ -36,7 +38,9 @@ class UserPostOrderItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 PostPickOrdersButton(
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kUserPostOrderView);
+                  },
                 ),
               ],
             ),

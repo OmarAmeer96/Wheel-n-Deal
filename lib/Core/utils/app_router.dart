@@ -27,6 +27,7 @@ import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_post_order_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_top_up_view.dart';
 import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_visa_view.dart';
@@ -88,6 +89,8 @@ abstract class AppRouter {
   static const kCommuterConfirmOrder1View = '/commuterConfirmOrder1View';
 
   static const kCommuterOrderDetailesView = '/commuterOrderDetailesView';
+
+  static const kUserPostOrderView = '/userPostOrderView';
 
   static final router = GoRouter(
     routes: [
@@ -230,6 +233,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterOrderDetailesView,
         builder: (context, state) => const CommuterOrderDetailsView(),
+      ),
+      GoRoute(
+        path: kUserPostOrderView,
+        builder: (context, state) => const UserPostOrderView(),
       ),
     ],
   );
