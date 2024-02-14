@@ -54,7 +54,7 @@ class _UserSearchLocationViewBodyState
                     builder: (BuildContext context) {
                       return SizedBox(
                         height: Responsive.screenHeight(context) * 0.7,
-                        width: double.infinity,
+                        width: double.i nfinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
