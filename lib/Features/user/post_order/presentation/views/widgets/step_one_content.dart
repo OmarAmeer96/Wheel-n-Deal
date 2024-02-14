@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
 
 class StepOneContent extends StatefulWidget {
   const StepOneContent({
@@ -12,12 +13,16 @@ class StepOneContent extends StatefulWidget {
 
 class _StepOneContentState extends State<StepOneContent> {
   String? from;
-
   String? to;
+  String? senderName;
+  String? senderPhoneNumber;
+  String? receiverPhoneNumber;
 
   final _fromController = TextEditingController();
-
   final _toController = TextEditingController();
+  final _senderNameController = TextEditingController();
+  final _senderPhoneNumberController = TextEditingController();
+  final _receiverPhoneNumberController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
@@ -48,9 +53,23 @@ class _StepOneContentState extends State<StepOneContent> {
                   child: Text(
                     'Address Details',
                     style: Styles.manropeRegular15.copyWith(
-                      fontSize: 16,
+                      fontSize: 17,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MakeOrderSelectLocationIte(
+                  text: 'From',
+                  onPressed: () {},
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MakeOrderSelectLocationIte(
+                  text: 'To',
+                  onPressed: () {},
                 ),
               ],
             ),
