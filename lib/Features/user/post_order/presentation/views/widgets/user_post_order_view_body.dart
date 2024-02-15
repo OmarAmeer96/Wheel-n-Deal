@@ -53,6 +53,8 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
 
   String? selectedCount = "1";
 
+  String? selectedExpiryDate = "1-2 Days";
+
   bool _switchValue = false;
 
   @override
@@ -84,6 +86,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
           currentStep: currentStep,
           onStepContinue: () async {
             final isLastStep = currentStep == getSteps().length - 1;
+            log(currentStep.toString());
             if (isLastStep) {
               log("Completed");
             }
@@ -93,18 +96,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   currentStep++;
                 });
               }
-            }
-            if (currentStep == 1) {
+            } else if (currentStep == 1) {
               if (_form2.currentState!.validate()) {
                 setState(() {
                   currentStep++;
                 });
               }
-            }
-            if (currentStep == 2) {
-              setState(() {
-                currentStep++;
-              });
+            } else {
+              log(currentStep.toString());
             }
           },
           onStepCancel: () {
@@ -624,6 +623,112 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SteponeItem(
+                      widget: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Count of orders',
+                          style: Styles.manropeRegular14.copyWith(fontSize: 15),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20,
+                            child: Row(
+                              children: [
+                                Radio(
+                                  focusColor: const Color(0xff99A0A8),
+                                  fillColor: const MaterialStatePropertyAll(
+                                    kPrimaryColor,
+                                  ),
+                                  value: '1-2 Days',
+                                  groupValue: selectedExpiryDate,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedExpiryDate = value;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  '1-2 Days',
+                                  style: Styles.poppinsSemiBold16
+                                      .copyWith(fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            height: 20,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Radio(
+                                  focusColor: const Color(0xff99A0A8),
+                                  fillColor: const MaterialStatePropertyAll(
+                                    kPrimaryColor,
+                                  ),
+                                  value: '3-5 Days',
+                                  groupValue: selectedExpiryDate,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedExpiryDate = value;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  '3-5 Days',
+                                  style: Styles.poppinsSemiBold16
+                                      .copyWith(fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            height: 20,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Radio(
+                                  focusColor: const Color(0xff99A0A8),
+                                  fillColor: const MaterialStatePropertyAll(
+                                    kPrimaryColor,
+                                  ),
+                                  value: '1 Week',
+                                  groupValue: selectedExpiryDate,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedExpiryDate = value;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  '1 Week',
+                                  style: Styles.poppinsSemiBold16
+                                      .copyWith(fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ))
                 ],
               ),
             ),
