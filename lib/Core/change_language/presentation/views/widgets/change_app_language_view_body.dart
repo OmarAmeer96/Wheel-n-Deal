@@ -13,7 +13,7 @@ class ChangeAppLanguageViewBody extends StatefulWidget {
 class _ChangeAppLanguageViewBodyState extends State<ChangeAppLanguageViewBody> {
   final _form = GlobalKey<FormState>();
 
-  String? selectedGender = "English";
+  String? selectedLanguage = "English";
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +54,10 @@ class _ChangeAppLanguageViewBodyState extends State<ChangeAppLanguageViewBody> {
                             kPrimaryColor,
                           ),
                           value: 'English',
-                          groupValue: selectedGender,
+                          groupValue: selectedLanguage,
                           onChanged: (value) {
                             setState(() {
-                              selectedGender = value;
+                              selectedLanguage = value;
                             });
                           },
                         ),
@@ -76,10 +76,10 @@ class _ChangeAppLanguageViewBodyState extends State<ChangeAppLanguageViewBody> {
                             kPrimaryColor,
                           ),
                           value: 'Arabic',
-                          groupValue: selectedGender,
+                          groupValue: selectedLanguage,
                           onChanged: (value) {
                             setState(() {
-                              selectedGender = value;
+                              selectedLanguage = value;
                             });
                           },
                         ),

@@ -51,6 +51,8 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
   final _weightController = TextEditingController();
   final _expectedPriceController = TextEditingController();
 
+  String? selectedCount = "1";
+
   bool _switchValue = false;
 
   @override
@@ -84,7 +86,22 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
             final isLastStep = currentStep == getSteps().length - 1;
             if (isLastStep) {
               log("Completed");
-            } else if (_form1.currentState!.validate()) {
+            }
+            if (currentStep == 0) {
+              if (_form1.currentState!.validate()) {
+                setState(() {
+                  currentStep++;
+                });
+              }
+            }
+            if (currentStep == 1) {
+              if (_form2.currentState!.validate()) {
+                setState(() {
+                  currentStep++;
+                });
+              }
+            }
+            if (currentStep == 2) {
               setState(() {
                 currentStep++;
               });
@@ -309,14 +326,6 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
               key: _form2,
               child: Column(
                 children: [
-                  CupertinoSwitch(
-                    value: _switchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _switchValue = value;
-                      });
-                    },
-                  ),
                   SteponeItem(
                     widget: Column(
                       children: [
@@ -352,10 +361,142 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           inputType: TextInputType.text,
                           prefixIcon: SvgPicture.asset(
                             AssetsData.ordersIcon,
+                            // ignore: deprecated_member_use
                             color: Colors.black,
                             width: 22,
                           ),
                           obscureText: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Count of orders',
+                            style:
+                                Styles.manropeRegular14.copyWith(fontSize: 15),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              child: Row(
+                                children: [
+                                  Radio(
+                                    focusColor: const Color(0xff99A0A8),
+                                    fillColor: const MaterialStatePropertyAll(
+                                      kPrimaryColor,
+                                    ),
+                                    value: '1',
+                                    groupValue: selectedCount,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedCount = value;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    '1',
+                                    style: Styles.poppinsSemiBold16
+                                        .copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Radio(
+                                    focusColor: const Color(0xff99A0A8),
+                                    fillColor: const MaterialStatePropertyAll(
+                                      kPrimaryColor,
+                                    ),
+                                    value: '2',
+                                    groupValue: selectedCount,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedCount = value;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    '2',
+                                    style: Styles.poppinsSemiBold16
+                                        .copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Radio(
+                                    focusColor: const Color(0xff99A0A8),
+                                    fillColor: const MaterialStatePropertyAll(
+                                      kPrimaryColor,
+                                    ),
+                                    value: '3',
+                                    groupValue: selectedCount,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedCount = value;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    '3',
+                                    style: Styles.poppinsSemiBold16
+                                        .copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Radio(
+                                    focusColor: const Color(0xff99A0A8),
+                                    fillColor: const MaterialStatePropertyAll(
+                                      kPrimaryColor,
+                                    ),
+                                    value: '4 or more',
+                                    groupValue: selectedCount,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedCount = value;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    '4 or more',
+                                    style: Styles.poppinsSemiBold16
+                                        .copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -389,9 +530,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           contentPadding: 7,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Please enter sender's phone number.";
-                            } else if (!isValidPhoneNumber(value)) {
-                              return 'Please enter a valid Egyptian phone number.';
+                              return "Please enter orde's weight.";
                             }
                             return null;
                           },
@@ -403,6 +542,10 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                             size: 22,
                           ),
                           obscureText: false,
+                          suffixIcon: const Text(
+                            "KG",
+                            style: Styles.manropeRegular14,
+                          ),
                         ),
                       ],
                     ),
@@ -436,9 +579,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           contentPadding: 7,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Please enter Receiver's phone number.";
-                            } else if (!isValidPhoneNumber(value)) {
-                              return 'Please enter a valid Egyptian phone number.';
+                              return "Please enter the expected price.";
                             }
                             return null;
                           },
@@ -451,6 +592,34 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                             "LE",
                             style: Styles.manropeRegular14,
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SteponeItem(
+                    widget: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Breakable Order",
+                              style: Styles.manropeRegular15.copyWith(
+                                fontSize: 17,
+                              ),
+                            ),
+                            const Spacer(),
+                            CupertinoSwitch(
+                              value: _switchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _switchValue = value;
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
