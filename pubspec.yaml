@@ -48,6 +48,7 @@ dependencies:
   animated_custom_dropdown: ^3.0.0
   google_maps_flutter: ^2.5.3
   location: ^5.0.3
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:

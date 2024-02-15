@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
@@ -19,9 +22,9 @@ class UserPostOrderViewBody extends StatefulWidget {
 }
 
 class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
-  // Step 1 Things
   int currentStep = 0;
 
+  // Step 1 Things
   String? from;
   String? to;
   String? senderName;
@@ -40,6 +43,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
 
   // Step 2 Things
   final _form2 = GlobalKey<FormState>();
+  String? orderName;
+  String? weight;
+  String? expectedPrice;
+
+  final _orderNameController = TextEditingController();
+  final _weightController = TextEditingController();
+  final _expectedPriceController = TextEditingController();
+
   bool _switchValue = false;
 
   @override
@@ -324,22 +335,26 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         CustomMainTextFormField(
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
-                          hintText: 'Input your name..',
-                          controller: _senderNameController,
+                          hintText: 'Name of order',
+                          controller: _orderNameController,
                           onChanged: (value) {
-                            senderName = value;
+                            orderName = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Please enter sender's name.";
+                              return "Please enter order's name.";
                             }
                             return null;
                           },
                           focusedBorderColor: const Color(0xff55433c),
                           enabledBorderColor: kPrimaryColor,
                           inputType: TextInputType.text,
-                          prefixIcon: const Icon(Icons.person),
+                          prefixIcon: SvgPicture.asset(
+                            AssetsData.ordersIcon,
+                            color: Colors.black,
+                            width: 22,
+                          ),
                           obscureText: false,
                         ),
                       ],
@@ -354,7 +369,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Sender's phone number",
+                            "Order's weight",
                             style: Styles.manropeRegular15.copyWith(
                               fontSize: 17,
                             ),
@@ -366,10 +381,10 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         CustomMainTextFormField(
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
-                          hintText: 'Input your number..',
-                          controller: _senderPhoneNumberController,
+                          hintText: "Input order's weight",
+                          controller: _weightController,
                           onChanged: (value) {
-                            senderName = value;
+                            weight = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
@@ -383,7 +398,10 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           focusedBorderColor: const Color(0xff55433c),
                           enabledBorderColor: kPrimaryColor,
                           inputType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.phone),
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.weightHanging,
+                            size: 22,
+                          ),
                           obscureText: false,
                         ),
                       ],
@@ -398,7 +416,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Receiver's phone number",
+                            "Epected Price",
                             style: Styles.manropeRegular15.copyWith(
                               fontSize: 17,
                             ),
@@ -410,10 +428,10 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         CustomMainTextFormField(
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
-                          hintText: "Input receiver's number..",
-                          controller: _receiverPhoneNumberController,
+                          hintText: "0",
+                          controller: _expectedPriceController,
                           onChanged: (value) {
-                            receiverPhoneNumber = value;
+                            expectedPrice = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
@@ -427,8 +445,12 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           focusedBorderColor: const Color(0xff55433c),
                           enabledBorderColor: kPrimaryColor,
                           inputType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.phone),
+                          prefixIcon: const Icon(Icons.price_change_outlined),
                           obscureText: false,
+                          suffixIcon: const Text(
+                            "LE",
+                            style: Styles.manropeRegular14,
+                          ),
                         ),
                       ],
                     ),
