@@ -13,6 +13,7 @@ import 'package:wheel_n_deal/Core/utils/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/user_stepper_steps_item.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -780,9 +781,146 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
         Step(
           isActive: currentStep >= 2,
           title: const Text("Review"),
-          content: Container(),
+          content: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Review Summary",
+                  style: Styles.manropeRegular15.copyWith(
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 22,
+              ),
+              Container(
+                width: double.infinity,
+                decoration: ShapeDecoration(
+                  color: const Color(0x7FA3A3A3),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomReviewSummaryItem(
+                        keyText: 'Sender Name',
+                        valText: 'Omar',
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const CustomReviewSummaryItem(
+                        keyText: 'Sender Phone Number',
+                        valText: '01554111002',
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const CustomReviewSummaryItem(
+                        keyText: 'Receiver Phone Number',
+                        valText: '01554111002',
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Address",
+                        style: Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Column(
+                          children: [
+                            CustomReviewSummaryItem(
+                              keyText: 'From',
+                              valText: 'Port-said mohammed ali St',
+                            ),
+                            CustomReviewSummaryItem(
+                              keyText: 'To      ',
+                              valText: 'Tanta',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Order Details",
+                        style: Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Column(
+                          children: [
+                            const CustomReviewSummaryItem(
+                              keyText: 'Name   ',
+                              valText: 'Camera',
+                            ),
+                            const CustomReviewSummaryItem(
+                              keyText: 'Count  ',
+                              valText: '2',
+                            ),
+                            const CustomReviewSummaryItem(
+                              keyText: 'Weight',
+                              valText: '0.5 KG',
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: _selectedImage != null
+                                  ? CircleAvatar(
+                                      backgroundImage: FileImage(
+                                        _selectedImage!,
+                                      ),
+                                    )
+                                  : const CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      backgroundImage: AssetImage(
+                                        AssetsData.profileImage,
+                                      ),
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomReviewSummaryItem(
+                        keyText: 'Breakable Order',
+                        valText: _switchValue.toString(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const CustomReviewSummaryItem(
+                        keyText: 'Expiry Date',
+                        valText: '3-5 Dayes',
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const CustomReviewSummaryItem(
+                        keyText: 'Expected Price',
+                        valText: '100 LE',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ];
+
   Future _pickImageFromGallery() async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
