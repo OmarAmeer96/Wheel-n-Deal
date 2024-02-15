@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
@@ -18,6 +19,7 @@ class UserPostOrderViewBody extends StatefulWidget {
 }
 
 class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
+  // Step 1 Things
   int currentStep = 0;
 
   String? from;
@@ -34,7 +36,11 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
   final _senderPhoneNumberController = TextEditingController();
   final _receiverPhoneNumberController = TextEditingController();
 
-  final _form = GlobalKey<FormState>();
+  final _form1 = GlobalKey<FormState>();
+
+  // Step 2 Things
+  final _form2 = GlobalKey<FormState>();
+  bool _switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +73,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
             final isLastStep = currentStep == getSteps().length - 1;
             if (isLastStep) {
               log("Completed");
-            } else if (_form.currentState!.validate()) {
+            } else if (_form1.currentState!.validate()) {
               setState(() {
                 currentStep++;
               });
@@ -94,7 +100,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
               FocusScope.of(context).unfocus();
             },
             child: Form(
-              key: _form,
+              key: _form1,
               child: Column(
                 children: [
                   Align(
@@ -284,7 +290,153 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
         Step(
           isActive: currentStep >= 1,
           title: const Text("Package"),
-          content: Container(),
+          content: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Form(
+              key: _form2,
+              child: Column(
+                children: [
+                  CupertinoSwitch(
+                    value: _switchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _switchValue = value;
+                      });
+                    },
+                  ),
+                  SteponeItem(
+                    widget: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Order Details",
+                            style: Styles.manropeRegular15.copyWith(
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomMainTextFormField(
+                          borderColor: Colors.transparent,
+                          fillColor: Colors.transparent,
+                          hintText: 'Input your name..',
+                          controller: _senderNameController,
+                          onChanged: (value) {
+                            senderName = value;
+                          },
+                          contentPadding: 7,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter sender's name.";
+                            }
+                            return null;
+                          },
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: kPrimaryColor,
+                          inputType: TextInputType.text,
+                          prefixIcon: const Icon(Icons.person),
+                          obscureText: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SteponeItem(
+                    widget: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Sender's phone number",
+                            style: Styles.manropeRegular15.copyWith(
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomMainTextFormField(
+                          borderColor: Colors.transparent,
+                          fillColor: Colors.transparent,
+                          hintText: 'Input your number..',
+                          controller: _senderPhoneNumberController,
+                          onChanged: (value) {
+                            senderName = value;
+                          },
+                          contentPadding: 7,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter sender's phone number.";
+                            } else if (!isValidPhoneNumber(value)) {
+                              return 'Please enter a valid Egyptian phone number.';
+                            }
+                            return null;
+                          },
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: kPrimaryColor,
+                          inputType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.phone),
+                          obscureText: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SteponeItem(
+                    widget: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Receiver's phone number",
+                            style: Styles.manropeRegular15.copyWith(
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomMainTextFormField(
+                          borderColor: Colors.transparent,
+                          fillColor: Colors.transparent,
+                          hintText: "Input receiver's number..",
+                          controller: _receiverPhoneNumberController,
+                          onChanged: (value) {
+                            receiverPhoneNumber = value;
+                          },
+                          contentPadding: 7,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter Receiver's phone number.";
+                            } else if (!isValidPhoneNumber(value)) {
+                              return 'Please enter a valid Egyptian phone number.';
+                            }
+                            return null;
+                          },
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: kPrimaryColor,
+                          inputType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.phone),
+                          obscureText: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         Step(
           isActive: currentStep >= 2,
