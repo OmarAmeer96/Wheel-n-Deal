@@ -1,12 +1,15 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
+import 'package:wheel_n_deal/Core/utils/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
@@ -56,6 +59,8 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
   String? selectedExpiryDate = "1-2 Days";
 
   bool _switchValue = false;
+
+  File? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -340,31 +345,69 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomMainTextFormField(
-                          borderColor: Colors.transparent,
-                          fillColor: Colors.transparent,
-                          hintText: 'Name of order',
-                          controller: _orderNameController,
-                          onChanged: (value) {
-                            orderName = value;
-                          },
-                          contentPadding: 7,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter order's name.";
-                            }
-                            return null;
-                          },
-                          focusedBorderColor: const Color(0xff55433c),
-                          enabledBorderColor: kPrimaryColor,
-                          inputType: TextInputType.text,
-                          prefixIcon: SvgPicture.asset(
-                            AssetsData.ordersIcon,
-                            // ignore: deprecated_member_use
-                            color: Colors.black,
-                            width: 22,
-                          ),
-                          obscureText: false,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: CustomMainTextFormField(
+                                borderColor: Colors.transparent,
+                                fillColor: Colors.transparent,
+                                hintText: 'Name of order',
+                                controller: _orderNameController,
+                                onChanged: (value) {
+                                  orderName = value;
+                                },
+                                contentPadding: 7,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please enter order's name.";
+                                  }
+                                  return null;
+                                },
+                                focusedBorderColor: const Color(0xff55433c),
+                                enabledBorderColor: kPrimaryColor,
+                                inputType: TextInputType.text,
+                                prefixIcon: SvgPicture.asset(
+                                  AssetsData.ordersIcon,
+                                  // ignore: deprecated_member_use
+                                  color: Colors.black,
+                                  width: 22,
+                                ),
+                                obscureText: false,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    offset: const Offset(0, 1),
+                                    blurRadius: 2,
+                                    spreadRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                icon: SvgPicture.asset(
+                                  AssetsData.cameraIcon,
+                                  // ignore: deprecated_member_use
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  imagePickerBottomSheet(context, onTap1: () {
+                                    _pickImageFromCamera();
+                                  }, onTap2: () {
+                                    _pickImageFromGallery();
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 10,
@@ -740,4 +783,25 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
           content: Container(),
         ),
       ];
+  Future _pickImageFromGallery() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
+  }
+
+  Future _pickImageFromCamera() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnedImage == null) {
+      return;
+    }
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
+  }
 }
