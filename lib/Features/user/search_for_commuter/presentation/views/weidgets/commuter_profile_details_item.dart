@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
 class CommuterProfileDetailsItem extends StatelessWidget {
   const CommuterProfileDetailsItem({
     super.key,
     required this.widget,
+    required this.icon,
+    required this.text,
   });
 
   final Widget widget;
+  final String icon;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +53,14 @@ class CommuterProfileDetailsItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(
-                    AssetsData.phoneIcon,
+                    icon,
                     width: 18,
                   ),
                   const SizedBox(
                     width: 12,
                   ),
                   Text(
-                    "Phone Number",
+                    text,
                     style: Styles.manropeRegular15.copyWith(
                       fontSize: 16,
                     ),

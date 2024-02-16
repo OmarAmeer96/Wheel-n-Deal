@@ -184,6 +184,8 @@ class CommuterProfileSeenByTheUserViewBody extends StatelessWidget {
                     height: 20,
                   ),
                   CommuterProfileDetailsItem(
+                    icon: AssetsData.phoneIcon,
+                    text: "Phone Number",
                     widget: Row(
                       children: [
                         Text(
@@ -200,6 +202,8 @@ class CommuterProfileSeenByTheUserViewBody extends StatelessWidget {
                     height: 22,
                   ),
                   CommuterProfileDetailsItem(
+                    icon: AssetsData.phoneIcon,
+                    text: "Phone Number",
                     widget: Row(
                       children: [
                         Text(
