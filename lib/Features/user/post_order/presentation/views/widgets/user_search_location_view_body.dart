@@ -89,7 +89,7 @@ class _UserSearchLocationViewBodyState
                               const SizedBox(
                                 height: 42,
                               ),
-                              SteponeItem(
+                              StepItem(
                                 widget: Column(
                                   children: [
                                     Align(

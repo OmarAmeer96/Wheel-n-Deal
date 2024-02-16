@@ -5,6 +5,7 @@ import 'package:wheel_n_deal/Core/widgets/nav_bar_item.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/user_home_view_body.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/widgets/user_orders_view_body.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/user_profile_view_body.dart';
+import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/user_search_for_commuter_view_body.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class UserHomeView extends StatefulWidget {
@@ -62,7 +63,7 @@ class _UserHomeViewState extends State<UserHomeView> {
       case 0:
         return const UserHomeViewBody();
       case 1:
-        return const UserOrdersViewBody();
+        return const UserSearchForCommuterViewBody();
       case 2:
         return const UserOrdersViewBody();
       case 3:

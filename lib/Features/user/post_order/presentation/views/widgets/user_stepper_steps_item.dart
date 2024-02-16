@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SteponeItem extends StatelessWidget {
-  const SteponeItem({super.key, required this.widget});
+class StepItem extends StatelessWidget {
+  const StepItem({super.key, required this.widget});
 
   final Widget widget;
 

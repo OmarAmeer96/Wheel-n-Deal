@@ -148,7 +148,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
@@ -188,7 +188,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
@@ -230,7 +230,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
@@ -274,7 +274,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
@@ -331,7 +331,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
               key: _form2,
               child: Column(
                 children: [
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
@@ -547,7 +547,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
@@ -596,13 +596,13 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Epected Price",
+                            "Expected Price",
                             style: Styles.manropeRegular15.copyWith(
                               fontSize: 17,
                             ),
@@ -642,7 +642,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                     widget: Column(
                       children: [
                         Row(
@@ -670,7 +670,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SteponeItem(
+                  StepItem(
                       widget: Column(
                     children: [
                       Align(
