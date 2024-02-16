@@ -121,4 +121,6 @@ class AssetsData {
   static const chatIcon = 'assets/svg/chatIcon.svg';
 
   static const emptyTextFieldIcon = 'assets/svg/empty_text_field_icon.svg';
+
+  static const starIcon = 'assets/svg/starIcon.svg';
 }
