@@ -40,12 +40,12 @@ class CommuterProfileDetailsItem extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -20,
+          top: -12.5,
           left: 8,
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

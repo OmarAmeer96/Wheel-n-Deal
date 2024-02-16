@@ -196,6 +196,22 @@ class CommuterProfileSeenByTheUserViewBody extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 22,
+                  ),
+                  CommuterProfileDetailsItem(
+                    widget: Row(
+                      children: [
+                        Text(
+                          "+20 1554111002",
+                          style: Styles.manropeRegular15.copyWith(
+                            letterSpacing: 4.42,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
