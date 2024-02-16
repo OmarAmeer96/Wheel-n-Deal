@@ -110,7 +110,9 @@ class CommuterHomeViewBody extends StatelessWidget {
                   HomeFeaturesItem(
                     icon: AssetsData.messagesIcon,
                     text: 'Messages',
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).push(AppRouter.kCommuterMessagesView);
+                    },
                   ),
                 ],
               ),

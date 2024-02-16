@@ -8,7 +8,7 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 
 class CommuterPickOrderViewBody extends StatefulWidget {
-const CommuterPickOrderViewBody({super.key});
+  const CommuterPickOrderViewBody({super.key});
 
   @override
   State<CommuterPickOrderViewBody> createState() =>

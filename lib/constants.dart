@@ -4,6 +4,14 @@ const kPrimaryColor = Color(0xFFFF981A);
 
 const kSplashColor = Color(0xFF1D272F);
 
+const kFirstQRCodeColor = Color(0xff96d1cd);
+
+const kSecondQRCodeColor = Color(0xffd2d2d2);
+
+const kOrderInProgressColor = Color(0xFFFFB300);
+const kOrderPendingColor = Color(0xFFFF981A);
+const kOrderFailColor = Color(0xFFFF3D00);
+
 const kManropeLight = 'Manrope-Light';
 const kManropeRegular = 'Manrope-Regular';
 const kManropeMedium = 'Manrope-Medium';

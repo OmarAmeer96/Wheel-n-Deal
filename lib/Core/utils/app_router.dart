@@ -14,11 +14,15 @@ import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Core/change_language/presentation/views/change_app_language_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
+import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/chat_view.dart';
+import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/messages_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_confirm_order_1_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
+import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/first%20scan%20qr%20code/presentation/views/commuter_first_scan_qr_code_view.dart';
+import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20qr%20code/presentation/views/commuter_second_scan_qr_code_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_visa_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_vodafone_cash_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_wallet_view.dart';
@@ -94,6 +98,14 @@ abstract class AppRouter {
   static const kUserPostOrderView = '/userPostOrderView';
 
   static const kUserSearchLocationView = '/userSearchLocationView';
+
+  static const kCommuterFirstScanQrCodeView = '/commuterFirstScanQrCodeView';
+
+  static const kCommuterSecondScanQrCodeView = '/commuterSecondScanQrCodeView';
+
+  static const kCommuterMessagesView = '/commuterMessagesView';
+
+  static const kCommuterChatView = '/commuterChatView';
 
   static final router = GoRouter(
     routes: [
@@ -244,6 +256,22 @@ abstract class AppRouter {
       GoRoute(
         path: kUserSearchLocationView,
         builder: (context, state) => const UserSearchLocationView(),
+      ),
+      GoRoute(
+        path: kCommuterFirstScanQrCodeView,
+        builder: (context, state) => const CommuterFirstScanQrCodeView(),
+      ),
+      GoRoute(
+        path: kCommuterSecondScanQrCodeView,
+        builder: (context, state) => const CommuterSecondScanQrCodeView(),
+      ),
+      GoRoute(
+        path: kCommuterMessagesView,
+        builder: (context, state) => const MessagesView(),
+      ),
+      GoRoute(
+        path: kCommuterChatView,
+        builder: (context, state) => const ChatView(),
       ),
     ],
   );
