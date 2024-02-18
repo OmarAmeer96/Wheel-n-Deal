@@ -1,32 +1,39 @@
 package com.graduationproject.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.graduationproject.DTOs.stripePaymentDTOs.ChargeUserDTO;
+import com.graduationproject.DTOs.stripePaymentDTOs.CreateStripeUserRequestDTO;
+import com.graduationproject.services.impl.StripeServiceImpl;
 import com.stripe.exception.StripeException;
-import com.stripe.model.PaymentIntent;
-import com.stripe.param.PaymentIntentCreateParams;
+import com.stripe.model.Charge;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
-@RequestMapping("api/v1/payment")
+@RequestMapping("/payments")
 public class PaymentController {
+
+    @Autowired
+    private StripeServiceImpl stripeService;
+
+    @PostMapping("/create-stripe-user")
+    public String createStripeUser(@RequestParam CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
+        return stripeService.createStripeUser(request);
+    }
+
     @PostMapping("/charge")
-    public String charge(@RequestParam Integer userId, @RequestParam Long amount) {
-        try {
-            Long finalAmount = 100L * amount;
-            PaymentIntentCreateParams params =
-                    PaymentIntentCreateParams.builder()
-                            .setAmount(finalAmount)
-                            .setCurrency("egp")
-                            .setPaymentMethod("pm_card_visa")
-                            .build();
-            PaymentIntent paymentIntent = PaymentIntent.create(params);
-            return "PaymentIntent created with ID: " + paymentIntent.getId();
-        } catch (StripeException e) {
-            return "Error creating PaymentIntent: " + e.getMessage();
-        } catch (Exception e) {
-            return "Unexpected error: " + e.getMessage();
-        }
+    public String charge(@RequestParam ChargeUserDTO chargeUserDTO) throws StripeException {
+        return stripeService.chargeUser(chargeUserDTO);
+    }
+
+    @PostMapping("/get-all-user-charges")
+    public List<Charge> getAllUserCharges(@RequestParam String stripeUserId) throws StripeException {
+        return stripeService.getAllUserCharges(stripeUserId);
     }
 }
