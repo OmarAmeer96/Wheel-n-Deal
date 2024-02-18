@@ -31,6 +31,7 @@ import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/done_notify_fav_commuters_view.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_post_order_view.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_search_location_view.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
@@ -118,6 +119,8 @@ abstract class AppRouter {
 
   static const kChooseCommuterButNoOrderYetView =
       '/chooseCommuterButNoOrderYetView';
+
+  static const kDoneNotifyFavCommutersView = '/doneNotifyFavCommutersView';
 
   static final router = GoRouter(
     routes: [
@@ -296,6 +299,10 @@ abstract class AppRouter {
       GoRoute(
         path: kChooseCommuterButNoOrderYetView,
         builder: (context, state) => const ChooseCommuterButNoOrderYetView(),
+      ),
+      GoRoute(
+        path: kDoneNotifyFavCommutersView,
+        builder: (context, state) => const DoneNotifyFavCommutersView(),
       ),
     ],
   );
