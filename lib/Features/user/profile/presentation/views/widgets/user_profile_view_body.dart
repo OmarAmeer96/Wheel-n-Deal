@@ -156,7 +156,7 @@ class UserProfileViewBody extends StatelessWidget {
                 UserProfileItem(
                   onTap: () {
                     GoRouter.of(context).push(
-                      AppRouter.kChangeAppLanguageView,
+                      AppRouter.kAboutAppView,
                     );
                   },
                   text: 'About Wheel N’ Deal',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/about_app/presentation/views/widgets/about_app_view_body.dart';
+import 'package:wheel_n_deal/Core/FAQ/presentation/views/widgets/app_faq_view_body.dart';
 import 'package:wheel_n_deal/Core/utils/build_app_bar.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
@@ -11,7 +11,7 @@ class AppFaqView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        text: "About Wheel N’ Deal",
+        text: "FAQ",
         textStyle: Styles.manropeRegular16.copyWith(
           fontSize: 18,
         ),
@@ -19,7 +19,7 @@ class AppFaqView extends StatelessWidget {
           GoRouter.of(context).pop();
         },
       ),
-      body: const AboutAppViewBody(),
+      body: const AppFaqViewBody(),
     );
   }
 }
