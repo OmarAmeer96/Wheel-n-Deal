@@ -123,4 +123,8 @@ class AssetsData {
   static const emptyTextFieldIcon = 'assets/svg/empty_text_field_icon.svg';
 
   static const starIcon = 'assets/svg/starIcon.svg';
+
+  static const addIcon = 'assets/svg/addIcon.svg';
+
+  static const removeIcon = 'assets/svg/removeIcon.svg';
 }
