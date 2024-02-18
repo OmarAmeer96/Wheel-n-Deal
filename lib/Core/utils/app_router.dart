@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/FAQ/presentation/views/app_faq_view.dart';
 import 'package:wheel_n_deal/Core/about_app/presentation/views/about_app_view.dart';
 import 'package:wheel_n_deal/Core/change_password/presentation/views/change_password_view.dart';
 import 'package:wheel_n_deal/Core/change_password/presentation/views/password_changed_2_view.dart';
@@ -121,6 +122,8 @@ abstract class AppRouter {
       '/chooseCommuterButNoOrderYetView';
 
   static const kDoneNotifyFavCommutersView = '/doneNotifyFavCommutersView';
+
+  static const kAppFaqView = '/appFaqView';
 
   static final router = GoRouter(
     routes: [
@@ -303,6 +306,10 @@ abstract class AppRouter {
       GoRoute(
         path: kDoneNotifyFavCommutersView,
         builder: (context, state) => const DoneNotifyFavCommutersView(),
+      ),
+      GoRoute(
+        path: kAppFaqView,
+        builder: (context, state) => const AppFaqView(),
       ),
     ],
   );
