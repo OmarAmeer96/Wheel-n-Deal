@@ -4,12 +4,22 @@ import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/weidgets/commuter_profile_details_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class CommuterProfileSeenByTheUserViewBody extends StatelessWidget {
+class CommuterProfileSeenByTheUserViewBody extends StatefulWidget {
   const CommuterProfileSeenByTheUserViewBody({super.key});
+
+  @override
+  State<CommuterProfileSeenByTheUserViewBody> createState() =>
+      _CommuterProfileSeenByTheUserViewBodyState();
+}
+
+class _CommuterProfileSeenByTheUserViewBodyState
+    extends State<CommuterProfileSeenByTheUserViewBody> {
+  double weightValue = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -201,20 +211,138 @@ class CommuterProfileSeenByTheUserViewBody extends StatelessWidget {
                   const SizedBox(
                     height: 22,
                   ),
-                  CommuterProfileDetailsItem(
-                    icon: AssetsData.phoneIcon,
-                    text: "Phone Number",
-                    widget: Row(
-                      children: [
-                        Text(
-                          "+20 1554111002",
-                          style: Styles.manropeRegular15.copyWith(
-                            letterSpacing: 4.42,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
+                  SizedBox(
+                    height: 340,
+                    child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 16, right: 16),
+                            child: SizedBox(
+                              width: Responsive.screenWidth(context) * 0.92,
+                              child: CommuterProfileDetailsItem(
+                                icon: AssetsData.locationIcon,
+                                text: "Trip Details",
+                                widget: Container(
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Address",
+                                        style: Styles.manropeExtraBold32
+                                            .copyWith(fontSize: 15),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Column(
+                                          children: [
+                                            CustomReviewSummaryItem(
+                                              keyText: 'From',
+                                              valText:
+                                                  'Port-said mohammed ali St',
+                                            ),
+                                            CustomReviewSummaryItem(
+                                              keyText: 'To      ',
+                                              valText: 'Tanta',
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Trip Details",
+                                        style: Styles.manropeExtraBold32
+                                            .copyWith(fontSize: 15),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Column(
+                                          children: [
+                                            CustomReviewSummaryItem(
+                                              keyText: 'Day          ',
+                                              valText: 'Monday',
+                                            ),
+                                            CustomReviewSummaryItem(
+                                              keyText: 'Start at',
+                                              valText: '9 AM',
+                                            ),
+                                            CustomReviewSummaryItem(
+                                              keyText: 'End at    ',
+                                              valText: '1 PM',
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      const CustomReviewSummaryItem(
+                                        keyText: 'Delivery By',
+                                        valText: 'Transports',
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          const CustomReviewSummaryItem(
+                                            keyText: 'Capacity',
+                                            valText: '',
+                                          ),
+                                          Slider(
+                                            thumbColor: Colors.deepOrange,
+                                            inactiveColor:
+                                                const Color(0xffa4a4a4),
+                                            activeColor: kPrimaryColor,
+                                            min: 0,
+                                            max: 20,
+                                            value: weightValue,
+                                            onChanged: (double value) {
+                                              setState(() {
+                                                weightValue = value;
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            '${weightValue.toStringAsFixed(0)} kg',
+                                            style: Styles.manropeRegular15
+                                                .copyWith(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Reviews",
+                      style: Styles.manropeMedium18,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),

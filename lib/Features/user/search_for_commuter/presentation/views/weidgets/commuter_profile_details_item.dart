@@ -31,7 +31,10 @@ class CommuterProfileDetailsItem extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 12,
+            ),
             child: Column(
               children: [
                 const SizedBox(
