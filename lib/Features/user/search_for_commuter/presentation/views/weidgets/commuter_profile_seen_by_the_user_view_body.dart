@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -217,7 +218,7 @@ class _CommuterProfileSeenByTheUserViewBodyState
                         height: 22,
                       ),
                       SizedBox(
-                        height: 340,
+                        height: 300,
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -289,13 +290,6 @@ class _CommuterProfileSeenByTheUserViewBodyState
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        const CustomReviewSummaryItem(
-                                          keyText: 'Delivery By',
-                                          valText: 'Transports',
                                         ),
                                         const SizedBox(
                                           height: 20,
@@ -387,7 +381,10 @@ class _CommuterProfileSeenByTheUserViewBodyState
             left: 16,
             right: 16,
             child: CustomMainButton(
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context)
+                    .push(AppRouter.kChooseCommuterButNoOrderYetView);
+              },
               color: kPrimaryColor,
               text: "Choose",
             ),
