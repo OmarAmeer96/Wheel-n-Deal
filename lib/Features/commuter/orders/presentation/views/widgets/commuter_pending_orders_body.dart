@@ -29,7 +29,9 @@ class CommuterPendingOrdersBody extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         const CommuterPendingOrdersItem(
-            orderStatus: 'Pending', orderStatusColor: kOrderPendingColor),
+          orderStatus: 'Pending',
+          orderStatusColor: kOrderPendingColor,
+        ),
         const SizedBox(height: 12),
         const CommuterPendingOrdersItem(
           orderStatus: 'Fail..!',

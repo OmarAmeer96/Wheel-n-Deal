@@ -33,24 +33,30 @@ class CommuterPendingOrdersItem extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        IconButton(
-          onPressed: () {
+        InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
             GoRouter.of(context).push(AppRouter.kCommuterFirstScanQrCodeView);
           },
-          icon: const Icon(
-            Icons.qr_code_scanner_rounded,
-            size: 27,
-            color: kFirstQRCodeColor,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: SvgPicture.asset(
+              AssetsData.ordersScanQrCode,
+              color: kFirstQRCodeColor,
+            ),
           ),
         ),
-        IconButton(
-          onPressed: () {
+        InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
             GoRouter.of(context).push(AppRouter.kCommuterSecondScanQrCodeView);
           },
-          icon: const Icon(
-            Icons.qr_code_scanner_rounded,
-            size: 27,
-            color: kSecondQRCodeColor,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: SvgPicture.asset(
+              AssetsData.ordersScanQrCode,
+              color: kSecondQRCodeColor,
+            ),
           ),
         ),
         const SizedBox(width: 5),

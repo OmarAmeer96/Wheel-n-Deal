@@ -13,7 +13,7 @@ class CommuterFirstScanQrCodeView extends StatelessWidget {
       appBar: buildAppBar(
         text: "Scan QR code",
         textStyle: Styles.manropeRegular15.copyWith(
-          fontSize: 15,
+          fontSize: 18,
           color: const Color(0xff191D31),
         ),
         onPressed: () {

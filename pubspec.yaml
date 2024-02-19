@@ -50,6 +50,8 @@ dependencies:
   location: ^5.0.3
   font_awesome_flutter: ^10.7.0
   flutter_easy_faq: ^1.0.1
+  qr_flutter: ^4.1.0
+  flutter_barcode_scanner: ^2.0.0
   # flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
