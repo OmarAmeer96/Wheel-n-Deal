@@ -127,4 +127,9 @@ class AssetsData {
   static const addIcon = 'assets/svg/addIcon.svg';
 
   static const removeIcon = 'assets/svg/removeIcon.svg';
+
+  static const qrTopRight = 'assets/svg/qrTopRight.svg';
+  static const qrTopLeft = 'assets/svg/qrTopLeft.svg';
+  static const qrBottomRight = 'assets/svg/qrBottomRight.svg';
+  static const qrBottomLeft = 'assets/svg/qrBottomLeft.svg';
 }
