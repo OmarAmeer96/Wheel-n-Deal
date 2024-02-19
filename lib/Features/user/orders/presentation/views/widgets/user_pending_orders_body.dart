@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/widgets/user_pending_orders_item.dart';
 
@@ -22,7 +24,11 @@ class UserPendingOrdersBody extends StatelessWidget {
         const SizedBox(
           height: 26,
         ),
-        const UserPendingOrdersItem(),
+        UserPendingOrdersItem(
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kUserOrderDetailsView);
+          },
+        ),
       ],
     );
   }

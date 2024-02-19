@@ -17,7 +17,7 @@ class CommuterOrdersViewBodyState extends State<UserOrdersViewBody> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 13),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
