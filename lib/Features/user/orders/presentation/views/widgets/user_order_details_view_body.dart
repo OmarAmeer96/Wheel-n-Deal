@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -43,12 +43,47 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                     height: 30,
                   ),
                   if (urlController.text.isNotEmpty)
-                    QrImageView(
-                      data: urlController.text,
-                      size: 170,
+                    Stack(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: QrImageView(
+                            data: urlController.text,
+                            size: 170,
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: SvgPicture.asset(
+                            AssetsData.qrTopRight,
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: SvgPicture.asset(
+                            AssetsData.qrTopLeft,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: SvgPicture.asset(
+                            AssetsData.qrBottomRight,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          child: SvgPicture.asset(
+                            AssetsData.qrBottomLeft,
+                          ),
+                        ),
+                      ],
                     ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -76,7 +111,14 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                     child: const Text("Generate QR Code"),
                   ),
                   const SizedBox(
-                    height: 60,
+                    height: 20,
+                  ),
+                  Divider(
+                    color: Colors.grey.withOpacity(0.3),
+                    thickness: 2,
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Container(
                     width: double.infinity,
@@ -196,6 +238,9 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 85,
+                  ),
                 ],
               ),
             ),
@@ -204,6 +249,7 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
               left: 0,
               right: 0,
               child: CustomMainButton(
+                text: "Cancel the order",
                 onPressed: () {},
                 color: kPrimaryColor,
               ),
