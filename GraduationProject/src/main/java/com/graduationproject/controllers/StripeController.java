@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/payments")
-public class PaymentController {
+@RequestMapping("api/v1/visa-payments")
+public class StripeController {
 
     @Autowired
     private StripeServiceImpl stripeService;
