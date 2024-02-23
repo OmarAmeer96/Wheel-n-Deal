@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -250,7 +252,117 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
               right: 0,
               child: CustomMainButton(
                 text: "Cancel the order",
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: 60,
+                                height: 6,
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFA3A3A3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Warning before cancellation",
+                                      style: Styles.manropeRegular15.copyWith(
+                                        color: kPrimaryColor,
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Warning before cancellation: If the cancellation occurs after the start of delivery, 20% of the agreed upon value of money will be deducted.",
+                                      style: Styles.manropeRegular15.copyWith(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 60,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "Are you sure?",
+                                style: Styles.manropeRegular15.copyWith(
+                                  fontSize: 24,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: CustomMainButton(
+                                        height: 25,
+                                        onPressed: () {
+                                          GoRouter.of(context).push(
+                                            AppRouter.kUserCanceledOrderView,
+                                          );
+                                        },
+                                        text: "Yes",
+                                        color: kPrimaryColor,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: CustomMainButton(
+                                        height: 25,
+                                        onPressed: () {
+                                          GoRouter.of(context).pop();
+                                        },
+                                        text: "No",
+                                        textColor: Colors.black,
+                                        borderSideColor: Colors.black,
+                                        color: const Color(0xfff3f3f3),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
                 color: kPrimaryColor,
               ),
             ),
