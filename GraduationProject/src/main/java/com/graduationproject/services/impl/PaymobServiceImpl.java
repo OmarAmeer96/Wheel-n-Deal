@@ -9,6 +9,7 @@ import com.graduationproject.DTOs.paymobPaymentDTOs.ThirdRequest;
 import com.graduationproject.DTOs.paymobPaymentDTOs.WalletRequest;
 import com.graduationproject.entities.PaymobResponse;
 import com.graduationproject.repositories.PaymobResponseRepository;
+import com.graduationproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class PaymobServiceImpl {
 
     @Autowired
     private PaymobResponseRepository paymobResponseRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public String getAuthToken(String apiKey) throws JsonProcessingException {
         String url = "https://accept.paymob.com/api/auth/tokens";
