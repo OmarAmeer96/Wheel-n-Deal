@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
@@ -18,6 +19,22 @@ class CommuterCompletedOrderDetailsViewBody extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: InkWell(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  borderRadius: BorderRadius.circular(500),
+                  child: const Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Icon(Icons.arrow_back_ios_new_rounded),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
