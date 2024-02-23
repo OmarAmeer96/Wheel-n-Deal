@@ -8,7 +8,14 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 
 class CommuterPickOrderViewBody extends StatefulWidget {
-  const CommuterPickOrderViewBody({super.key});
+  const CommuterPickOrderViewBody({
+    super.key,
+    required this.isAppBarIconNotHidden,
+    this.onTap,
+  });
+
+  final bool isAppBarIconNotHidden;
+  final void Function()? onTap;
 
   @override
   State<CommuterPickOrderViewBody> createState() =>
@@ -39,15 +46,34 @@ class _CommuterPickOrderViewBodyState extends State<CommuterPickOrderViewBody> {
           ),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Stack(
                 children: [
-                  Text(
-                    'Pick Order',
-                    style: Styles.manropeRegular16.copyWith(
-                      fontSize: 18,
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pick Order',
+                        style: Styles.manropeRegular16.copyWith(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
+                  widget.isAppBarIconNotHidden
+                      ? Positioned(
+                          left: 0,
+                          top: 0,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(500),
+                            onTap: widget.onTap,
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(Icons.arrow_back_ios_rounded),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
               const SizedBox(

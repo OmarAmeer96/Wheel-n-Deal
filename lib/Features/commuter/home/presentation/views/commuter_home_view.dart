@@ -64,7 +64,9 @@ class _CommuterHomeViewState extends State<CommuterHomeView> {
       case 0:
         return const CommuterHomeViewBody();
       case 1:
-        return const CommuterPickOrderViewBody();
+        return const CommuterPickOrderViewBody(
+          isAppBarIconNotHidden: false,
+        );
       case 2:
         return const CommuterOrdersViewBody();
       case 3:
