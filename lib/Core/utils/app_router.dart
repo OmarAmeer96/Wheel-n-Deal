@@ -6,6 +6,7 @@ import 'package:wheel_n_deal/Core/change_password/presentation/views/password_ch
 import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_policy_view.dart';
 import 'package:wheel_n_deal/Core/support/presentation/views/support_view.dart';
 import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
+import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_completed_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_canceled_order_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/create_new_password_view.dart';
@@ -136,6 +137,9 @@ abstract class AppRouter {
   static const kCommuterCanceledOrderView = '/commuterCanceledOrderView';
 
   static const kCommuterStartedDeliveyView = '/commuterStartedDeliveyView';
+
+  static const kCommuterCompletedOrderDetailsView =
+      '/commuterCompletedOrderDetailsView';
 
   static final router = GoRouter(
     routes: [
@@ -338,6 +342,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterStartedDeliveyView,
         builder: (context, state) => const CommuterStartedDeliveryView(),
+      ),
+      GoRoute(
+        path: kCommuterCompletedOrderDetailsView,
+        builder: (context, state) => const CommuterCompletedOrderDetailsView(),
       ),
     ],
   );
