@@ -6,6 +6,7 @@ import 'package:wheel_n_deal/Core/change_password/presentation/views/password_ch
 import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_policy_view.dart';
 import 'package:wheel_n_deal/Core/support/presentation/views/support_view.dart';
 import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_canceled_order_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/create_new_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/forgot_password_view.dart';
@@ -20,8 +21,9 @@ import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/messa
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_confirm_order_1_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
-import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_order_details_view.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pending_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pick_order_view.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_started_delivery_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/first%20scan%20qr%20code/presentation/views/commuter_first_scan_qr_code_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20qr%20code/presentation/views/commuter_second_scan_qr_code_view.dart';
@@ -130,6 +132,10 @@ abstract class AppRouter {
   static const kUserOrderDetailsView = '/userOrderDetailsView';
 
   static const kCommuterPickOrderView = '/commuterPickOrderView';
+
+  static const kCommuterCanceledOrderView = '/commuterCanceledOrderView';
+
+  static const kCommuterStartedDeliveyView = '/commuterStartedDeliveyView';
 
   static final router = GoRouter(
     routes: [
@@ -271,7 +277,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kCommuterOrderDetailesView,
-        builder: (context, state) => const CommuterOrderDetailsView(),
+        builder: (context, state) => const CommuterPendingOrderDetailsView(),
       ),
       GoRoute(
         path: kUserPostOrderView,
@@ -324,6 +330,14 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterPickOrderView,
         builder: (context, state) => const CommuterPickOrderView(),
+      ),
+      GoRoute(
+        path: kCommuterCanceledOrderView,
+        builder: (context, state) => const CommuterCanceledOrderView(),
+      ),
+      GoRoute(
+        path: kCommuterStartedDeliveyView,
+        builder: (context, state) => const CommuterStartedDeliveryView(),
       ),
     ],
   );
