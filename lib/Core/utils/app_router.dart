@@ -22,6 +22,7 @@ import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/messa
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_confirm_order_1_view.dart';
 import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/commuter_notifications_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_orders_view.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_order_picked_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pending_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pick_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pick_order_view.dart';
@@ -150,6 +151,8 @@ abstract class AppRouter {
       '/kuserCompletedOrderDetailsView';
 
   static const kCommuterPickOrderDetailsView = '/commuterPickOrderDetailsView';
+
+  static const kCommuterOrderPickedView = '/commuterOrderPickedView';
 
   static final router = GoRouter(
     routes: [
@@ -368,6 +371,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterPickOrderDetailsView,
         builder: (context, state) => const CommuterPickOrderDetailsView(),
+      ),
+      GoRoute(
+        path: kCommuterOrderPickedView,
+        builder: (context, state) => const CommuterOrderPickedView(),
       ),
     ],
   );

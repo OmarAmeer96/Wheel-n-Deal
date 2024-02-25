@@ -125,7 +125,7 @@ class CommuterPickOrderDetailsViewBdy extends StatelessWidget {
                     text: "Pick",
                     onPressed: () {
                       GoRouter.of(context)
-                          .push(AppRouter.kCommuterStartedDeliveyView);
+                          .push(AppRouter.kCommuterOrderPickedView);
                     },
                     color: kPrimaryColor,
                   ),
