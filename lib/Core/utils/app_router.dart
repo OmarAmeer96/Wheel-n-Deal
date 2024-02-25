@@ -27,6 +27,7 @@ import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/com
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pick_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_pick_order_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_started_delivery_view.dart';
+import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/set_another_expected_price_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/first%20scan%20qr%20code/presentation/views/commuter_first_scan_qr_code_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20qr%20code/presentation/views/commuter_second_scan_qr_code_view.dart';
@@ -153,6 +154,8 @@ abstract class AppRouter {
   static const kCommuterPickOrderDetailsView = '/commuterPickOrderDetailsView';
 
   static const kCommuterOrderPickedView = '/commuterOrderPickedView';
+
+  static const kSetAnotherExpectedPriceView = '/setAnotherExpectedPriceView';
 
   static final router = GoRouter(
     routes: [
@@ -375,6 +378,10 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterOrderPickedView,
         builder: (context, state) => const CommuterOrderPickedView(),
+      ),
+      GoRoute(
+        path: kSetAnotherExpectedPriceView,
+        builder: (context, state) => const SetAnotherExpectedPriceView(),
       ),
     ],
   );
