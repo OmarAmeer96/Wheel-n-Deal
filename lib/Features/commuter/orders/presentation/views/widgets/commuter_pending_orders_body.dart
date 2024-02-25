@@ -29,7 +29,8 @@ class CommuterPendingOrdersBody extends StatelessWidget {
           orderStatus: 'In-Progress',
           orderStatusColor: kOrderInProgressColor,
           onTap: () {
-            GoRouter.of(context).push(AppRouter.kCommuterOrderDetailesView);
+            GoRouter.of(context)
+                .push(AppRouter.kCommuterPendingOrderDetailesView);
           },
         ),
         const SizedBox(height: 12),
@@ -37,7 +38,8 @@ class CommuterPendingOrdersBody extends StatelessWidget {
           orderStatus: 'Pending',
           orderStatusColor: kOrderPendingColor,
           onTap: () {
-            GoRouter.of(context).push(AppRouter.kCommuterOrderDetailesView);
+            GoRouter.of(context)
+                .push(AppRouter.kCommuterPendingOrderDetailesView);
           },
         ),
         const SizedBox(height: 12),
@@ -45,7 +47,8 @@ class CommuterPendingOrdersBody extends StatelessWidget {
           orderStatus: 'Fail..!',
           orderStatusColor: kOrderFailColor,
           onTap: () {
-            GoRouter.of(context).push(AppRouter.kCommuterOrderDetailesView);
+            GoRouter.of(context)
+                .push(AppRouter.kCommuterPendingOrderDetailesView);
           },
         ),
       ],

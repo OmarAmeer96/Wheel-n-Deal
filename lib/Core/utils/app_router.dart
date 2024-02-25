@@ -105,7 +105,7 @@ abstract class AppRouter {
 
   static const kCommuterConfirmOrder1View = '/commuterConfirmOrder1View';
 
-  static const kCommuterOrderDetailesView = '/commuterOrderDetailesView';
+  static const kCommuterPendingOrderDetailesView = '/commuterOrderDetailesView';
 
   static const kUserPostOrderView = '/userPostOrderView';
 
@@ -287,7 +287,7 @@ abstract class AppRouter {
         builder: (context, state) => const CommuterConfirmOrder1View(),
       ),
       GoRoute(
-        path: kCommuterOrderDetailesView,
+        path: kCommuterPendingOrderDetailesView,
         builder: (context, state) => const CommuterPendingOrderDetailsView(),
       ),
       GoRoute(

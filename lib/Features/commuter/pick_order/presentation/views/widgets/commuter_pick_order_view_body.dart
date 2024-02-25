@@ -196,7 +196,7 @@ class _CommuterPickOrderViewBodyState extends State<CommuterPickOrderViewBody> {
                     text: "View Details",
                     onPressed: () {
                       GoRouter.of(context)
-                          .push(AppRouter.kCommuterOrderDetailesView);
+                          .push(AppRouter.kCommuterPendingOrderDetailesView);
                     },
                     color: const Color(0x4CA3A3A3),
                   ),
