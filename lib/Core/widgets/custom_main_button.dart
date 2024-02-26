@@ -46,7 +46,7 @@ class CustomMainButton extends StatelessWidget {
         child: contentIsText
             ? Text(
                 text!,
-                style: Styles.manropeMedium18.copyWith(
+                style: Styles.manropeExtraBold18.copyWith(
                   color: textColor,
                   fontSize: textSize,
                 ),

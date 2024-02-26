@@ -42,7 +42,7 @@ class PaymentMethodItem extends StatelessWidget {
               children: [
                 Text(
                   text1,
-                  style: Styles.manropeRegular16,
+                  style: Styles.manropeSemiBold16,
                 ),
                 const SizedBox(
                   height: 3,

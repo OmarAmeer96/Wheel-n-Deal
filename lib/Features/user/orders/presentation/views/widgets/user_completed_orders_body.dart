@@ -18,7 +18,7 @@ class UserCompletedOrdersBody extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Text(
             "Recent Deliveries",
-            style: Styles.manropeRegular16.copyWith(fontSize: 18),
+            style: Styles.manropeSemiBold16.copyWith(fontSize: 18),
           ),
         ),
         const SizedBox(
@@ -26,8 +26,7 @@ class UserCompletedOrdersBody extends StatelessWidget {
         ),
         UserCompletedOrdersItem(
           onTap: () {
-            GoRouter.of(context)
-                .push(AppRouter.kUserCompletedOrderDetailsView);
+            GoRouter.of(context).push(AppRouter.kUserCompletedOrderDetailsView);
           },
         ),
       ],

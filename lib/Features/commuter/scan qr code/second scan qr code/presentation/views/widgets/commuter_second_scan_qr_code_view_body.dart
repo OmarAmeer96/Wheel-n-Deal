@@ -53,7 +53,7 @@ class _CommuterSecondScanQrCodeViewBodyState
               alignment: Alignment.centerLeft,
               child: Text(
                 "Scan Package QR Code",
-                style: Styles.manropeExtraBold32.copyWith(
+                style: Styles.manropeBold32.copyWith(
                   color: const Color(0xff191D31),
                   fontSize: 20,
                 ),
@@ -87,7 +87,7 @@ class _CommuterSecondScanQrCodeViewBodyState
                   ),
                   Text(
                     "Scan QR Code",
-                    style: Styles.manropeMedium18.copyWith(
+                    style: Styles.manropeExtraBold18.copyWith(
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),

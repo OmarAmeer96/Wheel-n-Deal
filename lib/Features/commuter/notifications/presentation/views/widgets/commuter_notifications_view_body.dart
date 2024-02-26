@@ -23,7 +23,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Text(
                 "Recent",
-                style: Styles.manropeRegular16.copyWith(fontSize: 18),
+                style: Styles.manropeSemiBold16.copyWith(fontSize: 18),
               ),
             ),
             const SizedBox(

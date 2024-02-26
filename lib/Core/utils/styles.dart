@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 abstract class Styles {
-  static const manropeExtraBold32 = TextStyle(
+  static const manropeBold32 = TextStyle(
     fontSize: 32,
     fontFamily: kManropeExtraBold,
     fontWeight: FontWeight.w700,
   );
-  static const manropeRegular12 = TextStyle(
+  static const manropeSemiBold12 = TextStyle(
     fontSize: 12,
     fontFamily: kManropeBold,
     fontWeight: FontWeight.w600,
   );
   // elsanteel modify
-  static const manropeRegular16 = TextStyle(
+  static const manropeSemiBold16 = TextStyle(
     fontSize: 16,
     fontFamily: kManropeBold,
     fontWeight: FontWeight.w600,
@@ -24,7 +24,7 @@ abstract class Styles {
     fontFamily: kManropeSemiBold,
     fontWeight: FontWeight.w500,
   );
-  static const manropeMedium18 = TextStyle(
+  static const manropeExtraBold18 = TextStyle(
     fontSize: 18,
     fontFamily: kManropeMedium,
     fontWeight: FontWeight.w800,
@@ -34,7 +34,7 @@ abstract class Styles {
     fontFamily: kManropeRegular,
     fontWeight: FontWeight.w400,
   );
-  static const poppinsRegular = TextStyle(
+  static const poppinsMedium = TextStyle(
     fontSize: 16,
     fontFamily: kPoppinsRegular,
     fontWeight: FontWeight.w500,

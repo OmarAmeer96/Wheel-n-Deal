@@ -61,7 +61,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                       ),
                       Text(
                         "Create new password",
-                        style: Styles.manropeExtraBold32,
+                        style: Styles.manropeBold32,
                       ),
                       SizedBox(
                         height: 70,

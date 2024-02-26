@@ -55,7 +55,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       ),
                       Text(
                         "Welcome back! Glad to see you, Again!",
-                        style: Styles.manropeExtraBold32,
+                        style: Styles.manropeBold32,
                       ),
                       SizedBox(
                         height: 70,
@@ -167,7 +167,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           },
                           child: Text(
                             "Forgot Password?",
-                            style: Styles.manropeRegular16.copyWith(
+                            style: Styles.manropeSemiBold16.copyWith(
                               color: kPrimaryColor,
                               fontSize: 14,
                             ),

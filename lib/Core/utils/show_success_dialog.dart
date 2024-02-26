@@ -16,7 +16,7 @@ void showLogoutConfirmationDialog(
         ),
         title: Text(
           "Are you sure to Log out?",
-          style: Styles.manropeRegular16.copyWith(fontSize: 24),
+          style: Styles.manropeSemiBold16.copyWith(fontSize: 24),
         ),
         actions: [
           Center(

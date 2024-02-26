@@ -12,7 +12,7 @@ class CommuterMessagesView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Messages",
-        textStyle: Styles.manropeRegular16,
+        textStyle: Styles.manropeSemiBold16,
         onPressed: () {
           GoRouter.of(context).pop();
         },

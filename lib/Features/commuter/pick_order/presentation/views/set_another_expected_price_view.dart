@@ -12,7 +12,7 @@ class SetAnotherExpectedPriceView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Set New Price",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

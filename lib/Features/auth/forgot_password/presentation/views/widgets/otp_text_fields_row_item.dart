@@ -39,7 +39,7 @@ class _OtpTextFieldsRowItemState extends State<OtpTextFieldsRowItem> {
                 setState(() {});
                 widget.onChanged(value);
               },
-              style: Styles.manropeExtraBold32.copyWith(fontSize: 22),
+              style: Styles.manropeBold32.copyWith(fontSize: 22),
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               textAlignVertical: TextAlignVertical.center,

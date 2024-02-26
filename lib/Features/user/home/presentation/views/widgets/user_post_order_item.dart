@@ -31,7 +31,7 @@ class UserPostOrderItem extends StatelessWidget {
               children: [
                 Text(
                   'Post a new order',
-                  style: Styles.manropeRegular16.copyWith(
+                  style: Styles.manropeSemiBold16.copyWith(
                     color: Colors.white,
                     fontSize: 20,
                   ),

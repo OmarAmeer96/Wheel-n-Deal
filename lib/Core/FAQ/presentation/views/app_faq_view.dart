@@ -12,7 +12,7 @@ class AppFaqView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "FAQ",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

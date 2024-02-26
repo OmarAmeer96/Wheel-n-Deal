@@ -32,7 +32,7 @@ class SenderMessage extends StatelessWidget {
                 Text(
                   messageContent,
                   maxLines: 3,
-                  style: Styles.poppinsRegular.copyWith(color: Colors.white),
+                  style: Styles.poppinsMedium.copyWith(color: Colors.white),
                 ),
               ],
             ),

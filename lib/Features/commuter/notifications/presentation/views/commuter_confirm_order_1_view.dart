@@ -12,7 +12,7 @@ class CommuterConfirmOrder1View extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: 'Confirm Order',
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

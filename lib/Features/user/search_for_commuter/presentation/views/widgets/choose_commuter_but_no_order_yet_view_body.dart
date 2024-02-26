@@ -26,7 +26,7 @@ class ChooseCommuterButNoOrderYetViewBody extends StatelessWidget {
             ),
             Text(
               'Done!',
-              style: Styles.manropeExtraBold32.copyWith(fontSize: 26),
+              style: Styles.manropeBold32.copyWith(fontSize: 26),
             ),
             const SizedBox(
               height: 5,

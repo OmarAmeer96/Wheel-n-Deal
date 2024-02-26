@@ -12,7 +12,7 @@ class UserTopUpView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Top Up",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

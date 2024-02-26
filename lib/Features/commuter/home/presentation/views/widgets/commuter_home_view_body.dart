@@ -42,7 +42,7 @@ class CommuterHomeViewBody extends StatelessWidget {
                       ),
                       Text(
                         "Wheel N’ Deal",
-                        style: Styles.manropeExtraBold32.copyWith(
+                        style: Styles.manropeBold32.copyWith(
                           fontSize: 24,
                           color: Colors.white,
                         ),
@@ -65,7 +65,7 @@ class CommuterHomeViewBody extends StatelessWidget {
                   ),
                   Text(
                     "WELCOME OMAR!",
-                    style: Styles.manropeExtraBold32.copyWith(
+                    style: Styles.manropeBold32.copyWith(
                       fontSize: 25,
                       color: Colors.white,
                     ),
@@ -86,7 +86,7 @@ class CommuterHomeViewBody extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Features",
-                  style: Styles.manropeRegular16.copyWith(fontSize: 18),
+                  style: Styles.manropeSemiBold16.copyWith(fontSize: 18),
                 ),
               ),
               const SizedBox(
@@ -105,13 +105,17 @@ class CommuterHomeViewBody extends StatelessWidget {
                   HomeFeaturesItem(
                     icon: AssetsData.favoritesIcon,
                     text: 'Favorite',
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context)
+                          .push(AppRouter.kCommuterFavouriteView);
+                    },
                   ),
                   HomeFeaturesItem(
                     icon: AssetsData.messagesIcon,
                     text: 'Messages',
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kCommuterMessagesView);
+                      GoRouter.of(context)
+                          .push(AppRouter.kCommuterMessagesView);
                     },
                   ),
                 ],

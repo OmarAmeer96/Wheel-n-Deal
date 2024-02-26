@@ -49,7 +49,7 @@ class _UserTopUpViewBodyState extends State<UserTopUpViewBody> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Tob Up Balance",
-                  style: Styles.manropeRegular16,
+                  style: Styles.manropeSemiBold16,
                 ),
               ),
               const SizedBox(
@@ -133,8 +133,8 @@ class _UserTopUpViewBodyState extends State<UserTopUpViewBody> {
                               ),
                               Text(
                                 'Top Up Successfully!',
-                                style: Styles.manropeExtraBold32
-                                    .copyWith(fontSize: 26),
+                                style:
+                                    Styles.manropeBold32.copyWith(fontSize: 26),
                               ),
                               const SizedBox(
                                 height: 5,

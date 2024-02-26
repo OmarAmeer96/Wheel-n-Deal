@@ -45,7 +45,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Forgot Password?",
-                          style: Styles.manropeExtraBold32,
+                          style: Styles.manropeBold32,
                         ),
                       ),
                       const SizedBox(

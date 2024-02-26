@@ -12,7 +12,7 @@ class UserSearchLocationView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Search Location",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

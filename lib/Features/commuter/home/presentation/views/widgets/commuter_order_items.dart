@@ -30,7 +30,7 @@ class CommuterItems extends StatelessWidget {
               children: [
                 Text(
                   'Post a New Trip',
-                  style: Styles.manropeRegular16.copyWith(
+                  style: Styles.manropeSemiBold16.copyWith(
                     color: Colors.white,
                     fontSize: 20,
                   ),
@@ -48,7 +48,7 @@ class CommuterItems extends StatelessWidget {
               children: [
                 Text(
                   'Pick a New Order',
-                  style: Styles.manropeRegular16.copyWith(
+                  style: Styles.manropeSemiBold16.copyWith(
                     color: Colors.white,
                     fontSize: 20,
                   ),

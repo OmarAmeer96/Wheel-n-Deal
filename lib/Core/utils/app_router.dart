@@ -6,6 +6,7 @@ import 'package:wheel_n_deal/Core/change_password/presentation/views/password_ch
 import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_policy_view.dart';
 import 'package:wheel_n_deal/Core/support/presentation/views/support_view.dart';
 import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
+import 'package:wheel_n_deal/Features/commuter/favourite/presentation/views/commuter_favourite_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_completed_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_canceled_order_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
@@ -37,6 +38,7 @@ import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commute
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_wallet_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
+import 'package:wheel_n_deal/Features/user/favourite/presentation/views/user_favourite_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
 import 'package:wheel_n_deal/Features/user/messages/presentation/views/user_messages_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
@@ -165,6 +167,8 @@ abstract class AppRouter {
 
   static const kDoneWaitForCustomerConfirmationView =
       '/doneWaitForCustomerConfirmationView';
+  static const kCommuterFavouriteView = '/commuterFavouriteView';
+  static const kUserFavouriteView = '/userFavouriteView';
 
   static final router = GoRouter(
     routes: [
@@ -332,7 +336,6 @@ abstract class AppRouter {
         path: kCommuterChatView,
         builder: (context, state) => const ChatView(),
       ),
-
       GoRoute(
         path: kUserMessagesView,
         builder: (context, state) => const UserMessagesView(),
@@ -405,6 +408,18 @@ abstract class AppRouter {
         path: kDoneWaitForCustomerConfirmationView,
         builder: (context, state) =>
             const DoneWaitForCustomerConfirmationView(),
+      ),
+      GoRoute(
+        path: kCommuterFavouriteView,
+        builder: (context, state) => const CommuterFavouriteView(),
+      ),
+      GoRoute(
+        path: kUserFavouriteView,
+        builder: (context, state) => const CommuterFavouriteView(),
+      ),
+      GoRoute(
+        path: kUserFavouriteView,
+        builder: (context, state) => const UserFavouriteView(),
       ),
     ],
   );

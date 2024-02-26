@@ -27,7 +27,7 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
             ),
             Text(
               'Register Successfully',
-              style: Styles.manropeExtraBold32.copyWith(fontSize: 26),
+              style: Styles.manropeBold32.copyWith(fontSize: 26),
             ),
             const SizedBox(
               height: 5,
@@ -45,7 +45,7 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
             ),
             Text(
               'Continue As',
-              style: Styles.manropeExtraBold32.copyWith(fontSize: 20),
+              style: Styles.manropeBold32.copyWith(fontSize: 20),
             ),
             const SizedBox(
               height: 29,

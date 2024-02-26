@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/weidgets/rating_item.dart';
-import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/weidgets/review_comment_item.dart';
+import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/rating_item.dart';
+import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/review_comment_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class ReviewItem extends StatelessWidget {

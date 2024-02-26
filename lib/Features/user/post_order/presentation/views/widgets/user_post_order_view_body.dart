@@ -205,7 +205,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Sender Details',
-                      style: Styles.manropeExtraBold32.copyWith(
+                      style: Styles.manropeBold32.copyWith(
                         fontSize: 16,
                       ),
                     ),
@@ -895,7 +895,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                       ),
                       Text(
                         "Address",
-                        style: Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                        style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 20),
@@ -917,7 +917,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                       ),
                       Text(
                         "Order Details",
-                        style: Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                        style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),

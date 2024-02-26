@@ -18,7 +18,7 @@ class UserPendingOrdersBody extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Text(
             "Recent Packages",
-            style: Styles.manropeRegular16.copyWith(fontSize: 18),
+            style: Styles.manropeSemiBold16.copyWith(fontSize: 18),
           ),
         ),
         const SizedBox(

@@ -55,7 +55,7 @@ class ChatAppBar extends StatelessWidget {
               children: [
                 Text(
                   "Ahmed",
-                  style: Styles.manropeMedium18.copyWith(
+                  style: Styles.manropeExtraBold18.copyWith(
                       fontWeight: FontWeight.w600,
                       color: const Color(0xFF151B33)),
                 ),

@@ -38,7 +38,7 @@ class CustomSupportViewAppBar extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "Customer Service",
-              style: Styles.manropeRegular16.copyWith(
+              style: Styles.manropeSemiBold16.copyWith(
                 fontSize: 20,
               ),
             ),

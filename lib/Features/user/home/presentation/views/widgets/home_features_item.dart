@@ -55,7 +55,7 @@ class HomeFeaturesItem extends StatelessWidget {
             ),
             Text(
               text,
-              style: Styles.manropeExtraBold32.copyWith(
+              style: Styles.manropeBold32.copyWith(
                 fontSize: 13,
               ),
             ),

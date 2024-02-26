@@ -33,7 +33,7 @@ class UserWalletViewBody extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Methods of depositing profits",
-                  style: Styles.manropeRegular16,
+                  style: Styles.manropeSemiBold16,
                 ),
               ),
               const SizedBox(

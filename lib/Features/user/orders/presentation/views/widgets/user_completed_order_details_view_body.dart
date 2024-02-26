@@ -37,7 +37,7 @@ class UserCompletedOrderDetailsViewBody extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Review Summary",
-                  style: Styles.manropeExtraBold32.copyWith(fontSize: 16),
+                  style: Styles.manropeBold32.copyWith(fontSize: 16),
                 ),
               ),
               const SizedBox(
@@ -79,7 +79,7 @@ class UserCompletedOrderDetailsViewBody extends StatelessWidget {
                       ),
                       Text(
                         "Address",
-                        style: Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                        style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 20),
@@ -101,7 +101,7 @@ class UserCompletedOrderDetailsViewBody extends StatelessWidget {
                       ),
                       Text(
                         "Order Details",
-                        style: Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                        style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 20),

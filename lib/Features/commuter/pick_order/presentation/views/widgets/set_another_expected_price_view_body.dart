@@ -74,8 +74,8 @@ class _SetAnotherExpectedPriceViewBodyState
                             ),
                             Text(
                               "Address",
-                              style: Styles.manropeExtraBold32
-                                  .copyWith(fontSize: 15),
+                              style:
+                                  Styles.manropeBold32.copyWith(fontSize: 15),
                             ),
                             const Padding(
                               padding: EdgeInsets.only(left: 20),
@@ -97,8 +97,8 @@ class _SetAnotherExpectedPriceViewBodyState
                             ),
                             Text(
                               "Order Details",
-                              style: Styles.manropeExtraBold32
-                                  .copyWith(fontSize: 15),
+                              style:
+                                  Styles.manropeBold32.copyWith(fontSize: 15),
                             ),
                             const Padding(
                               padding: EdgeInsets.only(left: 20),
@@ -165,7 +165,7 @@ class _SetAnotherExpectedPriceViewBodyState
                       alignment: Alignment.topLeft,
                       child: Text(
                         "Set another expected price",
-                        style: Styles.manropeExtraBold32.copyWith(fontSize: 13),
+                        style: Styles.manropeBold32.copyWith(fontSize: 13),
                       ),
                     ),
                     const SizedBox(

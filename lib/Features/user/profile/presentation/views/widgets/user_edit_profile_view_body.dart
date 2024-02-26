@@ -126,7 +126,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Full Name',
-                            style: Styles.manropeExtraBold32.copyWith(
+                            style: Styles.manropeBold32.copyWith(
                               fontSize: 16,
                             ),
                           ),
@@ -163,7 +163,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Phone number',
-                            style: Styles.manropeExtraBold32.copyWith(
+                            style: Styles.manropeBold32.copyWith(
                               fontSize: 16,
                             ),
                           ),
@@ -200,7 +200,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'City',
-                            style: Styles.manropeExtraBold32.copyWith(
+                            style: Styles.manropeBold32.copyWith(
                               fontSize: 16,
                             ),
                           ),
@@ -237,7 +237,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Gender',
-                            style: Styles.manropeExtraBold32.copyWith(
+                            style: Styles.manropeBold32.copyWith(
                               fontSize: 16,
                             ),
                           ),

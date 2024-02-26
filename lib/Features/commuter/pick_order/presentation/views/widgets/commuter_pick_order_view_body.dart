@@ -54,7 +54,7 @@ class _CommuterPickOrderViewBodyState extends State<CommuterPickOrderViewBody> {
                     children: [
                       Text(
                         'Pick Order',
-                        style: Styles.manropeRegular16.copyWith(
+                        style: Styles.manropeSemiBold16.copyWith(
                           fontSize: 18,
                         ),
                       ),

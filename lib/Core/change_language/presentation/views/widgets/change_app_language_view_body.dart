@@ -35,7 +35,7 @@ class _ChangeAppLanguageViewBodyState extends State<ChangeAppLanguageViewBody> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Select Language',
-                    style: Styles.manropeExtraBold32.copyWith(
+                    style: Styles.manropeBold32.copyWith(
                       fontSize: 16,
                     ),
                   ),

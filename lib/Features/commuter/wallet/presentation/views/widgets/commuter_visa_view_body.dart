@@ -51,7 +51,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "By Visa",
-                        style: Styles.manropeRegular16.copyWith(
+                        style: Styles.manropeSemiBold16.copyWith(
                           fontSize: 20,
                           letterSpacing: 1.6,
                         ),
@@ -236,7 +236,7 @@ class _CommuterVisaViewBodyState extends State<CommuterVisaViewBody> {
                                     ),
                                     Text(
                                       'Added Successfully!',
-                                      style: Styles.manropeExtraBold32
+                                      style: Styles.manropeBold32
                                           .copyWith(fontSize: 26),
                                     ),
                                     const Spacer(),

@@ -41,7 +41,7 @@ class OrdersStatsButtons extends StatelessWidget {
                 ),
                 child: const Text(
                   '    Pending    ',
-                  style: Styles.manropeRegular16,
+                  style: Styles.manropeSemiBold16,
                 ),
               ),
               const SizedBox(
@@ -58,7 +58,7 @@ class OrdersStatsButtons extends StatelessWidget {
                 ),
                 child: const Text(
                   '  Completed  ',
-                  style: Styles.manropeRegular16,
+                  style: Styles.manropeSemiBold16,
                 ),
               ),
             ],

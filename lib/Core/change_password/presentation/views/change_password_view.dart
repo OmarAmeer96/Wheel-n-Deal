@@ -12,7 +12,7 @@ class ChangePasswordView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Change Password",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

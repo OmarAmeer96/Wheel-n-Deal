@@ -37,7 +37,7 @@ class ReviewCommentItem extends StatelessWidget {
       child: Center(
         child: Text(
           review,
-          style: Styles.poppinsRegular.copyWith(
+          style: Styles.poppinsMedium.copyWith(
             letterSpacing: -0.41,
           ),
         ),

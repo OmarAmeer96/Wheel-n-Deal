@@ -5,7 +5,7 @@ import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
-import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/weidgets/found_commuter_item.dart';
+import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/found_commuter_item.dart';
 
 class UserSearchForCommuterViewBody extends StatefulWidget {
   const UserSearchForCommuterViewBody({super.key});
@@ -49,7 +49,7 @@ class _UserSearchForCommuterViewBodyState
                   children: [
                     Text(
                       'Search',
-                      style: Styles.manropeRegular16.copyWith(
+                      style: Styles.manropeSemiBold16.copyWith(
                         fontSize: 18,
                       ),
                     ),

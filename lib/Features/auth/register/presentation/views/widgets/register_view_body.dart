@@ -70,7 +70,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                       ),
                       Text(
                         "Hello! Register to get started",
-                        style: Styles.manropeExtraBold32,
+                        style: Styles.manropeBold32,
                       ),
                       SizedBox(
                         height: 30,

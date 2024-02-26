@@ -26,7 +26,7 @@ class AboutAppViewBody extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: "In Our Application \n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           color: kPrimaryColor,
                           fontSize: 16,
                         ),
@@ -34,14 +34,14 @@ class AboutAppViewBody extends StatelessWidget {
                       TextSpan(
                         text:
                             "we're creating something cool!\nImagine turning your everyday commute into\na chance to help others and make some\nextra cash.\n\nLots of people travel each day with space in\ntheir cars or backpacks that they don't use.\n\n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       TextSpan(
                         text: "Our Solution? \n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           color: kPrimaryColor,
                           fontSize: 16,
                         ),
@@ -49,14 +49,14 @@ class AboutAppViewBody extends StatelessWidget {
                       TextSpan(
                         text:
                             "A user-friendly platform that lets commuters offer to deliver packages during their regular travels without any extra hassle.\n\nWe're tapping into the power of shared resources and community collaboration. Our platform connects people who need packages delivered with those who are already headed in the right direction. It's a win-win; senders get their packages delivered conveniently, and commuters can earn a little extra by helping out.\n\n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       TextSpan(
                         text: "Wheel N' Deal Application \n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           color: kPrimaryColor,
                           fontSize: 16,
                         ),
@@ -64,14 +64,14 @@ class AboutAppViewBody extends StatelessWidget {
                       TextSpan(
                         text:
                             "Is characterized by ease and simplicity in its design and development.\n\n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       TextSpan(
                         text: "Our Focus On \n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           color: kPrimaryColor,
                           fontSize: 16,
                         ),
@@ -79,7 +79,7 @@ class AboutAppViewBody extends StatelessWidget {
                       TextSpan(
                         text:
                             "making it easy, safe, and efficient. We've got a simple interface, strong security measures, and a smart matching system to connect senders with available commuters.\nBy doing this, we aim to meet the rising demand for eco-friendly, cost-effective, and community-driven delivery solutions.\n\n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -87,7 +87,7 @@ class AboutAppViewBody extends StatelessWidget {
                       TextSpan(
                         text:
                             "This abstract gives you a quick look at our exciting Application.\n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w800,
                         ),
@@ -95,7 +95,7 @@ class AboutAppViewBody extends StatelessWidget {
                       TextSpan(
                         text:
                             "As you use this application, you'll discover how we're making this innovative idea a reality.\nWheel 🤔? Then Deal 🤝.\n",
-                        style: Styles.manropeMedium18.copyWith(
+                        style: Styles.manropeExtraBold18.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),

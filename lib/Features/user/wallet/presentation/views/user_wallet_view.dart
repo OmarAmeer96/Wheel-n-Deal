@@ -12,7 +12,7 @@ class UserWalletView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Wallet",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

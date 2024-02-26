@@ -12,7 +12,7 @@ class CommuterPendingOrderDetailsView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         text: "Order Details",
-        textStyle: Styles.manropeRegular16.copyWith(
+        textStyle: Styles.manropeSemiBold16.copyWith(
           fontSize: 18,
         ),
         onPressed: () {

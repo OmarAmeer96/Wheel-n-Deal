@@ -72,7 +72,8 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Create New Password",
-                          style: Styles.manropeMedium18.copyWith(fontSize: 16),
+                          style:
+                              Styles.manropeExtraBold18.copyWith(fontSize: 16),
                         ),
                       ),
                       const SizedBox(
@@ -159,7 +160,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                           },
                           child: Text(
                             "Forgot Password?",
-                            style: Styles.manropeRegular16.copyWith(
+                            style: Styles.manropeSemiBold16.copyWith(
                               color: kPrimaryColor,
                               fontSize: 14,
                             ),

@@ -31,7 +31,7 @@ class OtpVerificationViewBody extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "OTP Verification",
-                          style: Styles.manropeExtraBold32,
+                          style: Styles.manropeBold32,
                         ),
                       ),
                       const SizedBox(

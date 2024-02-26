@@ -27,7 +27,7 @@ class CommuterPendingOrderDetailsViewBody extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     "Review Summary",
-                    style: Styles.manropeExtraBold32.copyWith(fontSize: 16),
+                    style: Styles.manropeBold32.copyWith(fontSize: 16),
                   ),
                 ),
                 const SizedBox(
@@ -72,8 +72,7 @@ class CommuterPendingOrderDetailsViewBody extends StatelessWidget {
                         ),
                         Text(
                           "Address",
-                          style:
-                              Styles.manropeExtraBold32.copyWith(fontSize: 15),
+                          style: Styles.manropeBold32.copyWith(fontSize: 15),
                         ),
                         const Padding(
                           padding: EdgeInsets.only(left: 20),

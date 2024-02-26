@@ -35,7 +35,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                       children: [
                         Text(
                           "My Profile",
-                          style: Styles.manropeExtraBold32.copyWith(
+                          style: Styles.manropeBold32.copyWith(
                             fontSize: 24,
                             color: Colors.white,
                           ),
@@ -97,7 +97,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     "Settings",
-                    style: Styles.manropeExtraBold32.copyWith(fontSize: 18),
+                    style: Styles.manropeBold32.copyWith(fontSize: 18),
                   ),
                 ),
                 const SizedBox(
@@ -147,7 +147,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     "General",
-                    style: Styles.manropeExtraBold32.copyWith(fontSize: 18),
+                    style: Styles.manropeBold32.copyWith(fontSize: 18),
                   ),
                 ),
                 const SizedBox(
@@ -199,7 +199,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     "Legal",
-                    style: Styles.manropeExtraBold32.copyWith(fontSize: 18),
+                    style: Styles.manropeBold32.copyWith(fontSize: 18),
                   ),
                 ),
                 const SizedBox(

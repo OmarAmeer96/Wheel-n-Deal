@@ -71,7 +71,7 @@ class _UserMessagesViewBodyState extends State<UserMessagesViewBody> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Recent",
-                    style: Styles.manropeRegular16.copyWith(
+                    style: Styles.manropeSemiBold16.copyWith(
                       color: const Color(0xFF191D31),
                     ),
                   ),

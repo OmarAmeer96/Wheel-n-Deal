@@ -28,7 +28,7 @@ class PasswordChanged2ViewBody extends StatelessWidget {
               ),
               Text(
                 'Password Changed!',
-                style: Styles.manropeExtraBold32.copyWith(fontSize: 26),
+                style: Styles.manropeBold32.copyWith(fontSize: 26),
               ),
               const SizedBox(
                 height: 5,
