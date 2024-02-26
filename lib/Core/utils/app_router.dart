@@ -7,6 +7,8 @@ import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_poli
 import 'package:wheel_n_deal/Core/support/presentation/views/support_view.dart';
 import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
 import 'package:wheel_n_deal/Features/commuter/favourite/presentation/views/commuter_favourite_view.dart';
+import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/trip_deleted.dart';
+import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/views/my_trips_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_completed_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_canceled_order_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
@@ -30,6 +32,7 @@ import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/com
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_started_delivery_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/done_wait_for_customer_confirmation_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/set_another_expected_price_view.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/post_trip_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/first%20scan%20qr%20code/presentation/views/commuter_first_scan_qr_code_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20qr%20code/presentation/views/commuter_second_scan_qr_code_view.dart';
@@ -169,6 +172,12 @@ abstract class AppRouter {
       '/doneWaitForCustomerConfirmationView';
   static const kCommuterFavouriteView = '/commuterFavouriteView';
   static const kUserFavouriteView = '/userFavouriteView';
+
+  static const kMyTripsView = '/myTripsView';
+
+  static const kPostTripView = '/postTripView';
+
+  static const kTripDeletedView = '/tripDeletedView';
 
   static final router = GoRouter(
     routes: [
@@ -420,6 +429,18 @@ abstract class AppRouter {
       GoRoute(
         path: kUserFavouriteView,
         builder: (context, state) => const UserFavouriteView(),
+      ),
+      GoRoute(
+        path: kMyTripsView,
+        builder: (context, state) => const MyTripsView(),
+      ),
+      GoRoute(
+        path: kPostTripView,
+        builder: (context, state) => const PostTripView(),
+      ),
+      GoRoute(
+        path: kTripDeletedView,
+        builder: (context, state) => const TripDeletedView(),
       ),
     ],
   );
