@@ -1,3 +1,4 @@
+
 class AssetsData {
   static const logo = 'assets/svg/Logo.svg';
 
@@ -132,4 +133,9 @@ class AssetsData {
   static const qrTopLeft = 'assets/svg/qrTopLeft.svg';
   static const qrBottomRight = 'assets/svg/qrBottomRight.svg';
   static const qrBottomLeft = 'assets/svg/qrBottomLeft.svg';
+
+  static const attachment ='assets/svg/attachmentIcon.svg';
+  static const emojis ='assets/svg/emojisIcon.svg';
+  static const sendMessage ='assets/svg/sendMessageIcon.svg';
+
 }

@@ -7,14 +7,15 @@ import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/custom_messages_text_form_field.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/search_result_item.dart';
 
-class MessagesViewBody extends StatefulWidget {
-  const MessagesViewBody({super.key});
+class CommuterMessagesViewBody extends StatefulWidget {
+  const CommuterMessagesViewBody({super.key});
 
   @override
-  State<MessagesViewBody> createState() => _MessagesViewBodyState();
+  State<CommuterMessagesViewBody> createState() =>
+      _CommuterMessagesViewBodyState();
 }
 
-class _MessagesViewBodyState extends State<MessagesViewBody> {
+class _CommuterMessagesViewBodyState extends State<CommuterMessagesViewBody> {
   String? search;
 
   final _searchController = TextEditingController();
