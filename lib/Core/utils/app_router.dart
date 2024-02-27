@@ -58,6 +58,7 @@ import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/choose_commuter_but_no_order_yet_view.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/commuter_profile_seen_by_the_user_view.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/user_search_for_commuter_view_body.dart';
+import 'package:wheel_n_deal/Features/user/tracking/presentation/views/commuter_profile_seen_by_user_from_tracking_view.dart';
 import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_top_up_view.dart';
 import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_visa_view.dart';
 import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_vodafone_cash_view.dart';
@@ -183,7 +184,10 @@ abstract class AppRouter {
 
   static const kTripDeletedView = '/tripDeletedView';
 
-  static const kCommuterReviewsView = '/kCommuterReviewsView';
+  static const kCommuterReviewsView = '/commuterReviewsView';
+
+  static const kCommuterProfileSeenByUserFromTrackingView =
+      '/commuterProfileSeenByUserFromTrackingView';
 
   static final router = GoRouter(
     routes: [
@@ -455,6 +459,11 @@ abstract class AppRouter {
       GoRoute(
         path: kCommuterReviewsView,
         builder: (context, state) => const CommuterReviewsView(),
+      ),
+      GoRoute(
+        path: kCommuterProfileSeenByUserFromTrackingView,
+        builder: (context, state) =>
+            const CommuterProfileSeenByUserFromTrackingView(),
       ),
     ],
   );
