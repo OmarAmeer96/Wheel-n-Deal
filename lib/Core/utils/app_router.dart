@@ -122,7 +122,7 @@ abstract class AppRouter {
 
   static const kUserSearchLocationView = '/userSearchLocationView';
 
-  static const kCommuterSearchLocationView = '/userSearchLocationView';
+  static const kCommuterSearchLocationView = '/commuterSearchLocationView';
 
   static const kCommuterFirstScanQrCodeView = '/commuterFirstScanQrCodeView';
 

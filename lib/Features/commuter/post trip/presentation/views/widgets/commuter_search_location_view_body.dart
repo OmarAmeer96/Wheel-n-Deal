@@ -95,7 +95,7 @@ class _CommuterSearchLocationViewBodyState
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        "Sender's Name",
+                                        "Complete Address",
                                         style: Styles.manropeRegular15.copyWith(
                                           fontSize: 17,
                                         ),

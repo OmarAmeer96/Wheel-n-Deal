@@ -9,10 +9,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/image_picker_bottom_sheet.dart';
-import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/path_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/user_stepper_steps_item.dart';
@@ -32,17 +32,18 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
   // Step 1 Things
   String? from;
   String? to;
-  String? senderName;
-  String? senderPhoneNumber;
-  String? receiverPhoneNumber;
+
+  String? location1;
+  String? location2;
+  String? location3;
 
   // ignore: unused_field
   final _fromController = TextEditingController();
   // ignore: unused_field
   final _toController = TextEditingController();
-  final _senderNameController = TextEditingController();
-  final _senderPhoneNumberController = TextEditingController();
-  final _receiverPhoneNumberController = TextEditingController();
+  final _location1Controller = TextEditingController();
+  final _location2Controller = TextEditingController();
+  final _location3Controller = TextEditingController();
 
   final _form1 = GlobalKey<FormState>();
 
@@ -232,7 +233,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                           text: 'From',
                           onPressed: () {
                             GoRouter.of(context).push(
-                              AppRouter.kUserSearchLocationView,
+                              AppRouter.kCommuterSearchLocationView,
                             );
                           },
                         ),
@@ -243,7 +244,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                           text: 'To',
                           onPressed: () {
                             GoRouter.of(context).push(
-                              AppRouter.kUserSearchLocationView,
+                              AppRouter.kCommuterSearchLocationView,
                             );
                           },
                         ),
@@ -259,123 +260,87 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Sender's Name",
+                            'List of paths',
                             style: Styles.manropeRegular15.copyWith(
                               fontSize: 17,
                             ),
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 8,
                         ),
-                        CustomMainTextFormField(
-                          borderColor: Colors.transparent,
-                          fillColor: Colors.transparent,
-                          hintText: 'Input your name..',
-                          controller: _senderNameController,
-                          onChanged: (value) {
-                            senderName = value;
-                          },
-                          contentPadding: 7,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter sender's name.";
-                            }
-                            return null;
-                          },
-                          focusedBorderColor: const Color(0xff55433c),
-                          enabledBorderColor: kPrimaryColor,
-                          inputType: TextInputType.text,
-                          prefixIcon: const Icon(Icons.person),
-                          obscureText: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  StepItem(
-                    widget: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Sender's phone number",
-                            style: Styles.manropeRegular15.copyWith(
-                              fontSize: 17,
-                            ),
+                        Text(
+                          'List the stations you will pass through during your trip to deliver the order.',
+                          textAlign: TextAlign.center,
+                          style: Styles.manropeRegular15.copyWith(
+                            fontSize: 14,
+                            color: const Color(0xffa4a4a4),
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomMainTextFormField(
-                          borderColor: Colors.transparent,
-                          fillColor: Colors.transparent,
-                          hintText: 'Input your number..',
-                          controller: _senderPhoneNumberController,
-                          onChanged: (value) {
-                            senderName = value;
-                          },
-                          contentPadding: 7,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter sender's phone number.";
-                            } else if (!isValidPhoneNumber(value)) {
-                              return 'Please enter a valid Egyptian phone number.';
-                            }
-                            return null;
-                          },
-                          focusedBorderColor: const Color(0xff55433c),
-                          enabledBorderColor: kPrimaryColor,
-                          inputType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.phone),
-                          obscureText: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  StepItem(
-                    widget: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Receiver's phone number",
-                            style: Styles.manropeRegular15.copyWith(
-                              fontSize: 17,
+                        Stack(
+                          children: [
+                            Positioned(
+                              left: 24,
+                              top: 24,
+                              child: Container(
+                                color: const Color(0xffa4a4a4),
+                                width: 2,
+                                height: 190,
+                              ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomMainTextFormField(
-                          borderColor: Colors.transparent,
-                          fillColor: Colors.transparent,
-                          hintText: "Input receiver's number..",
-                          controller: _receiverPhoneNumberController,
-                          onChanged: (value) {
-                            receiverPhoneNumber = value;
-                          },
-                          contentPadding: 7,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter Receiver's phone number.";
-                            } else if (!isValidPhoneNumber(value)) {
-                              return 'Please enter a valid Egyptian phone number.';
-                            }
-                            return null;
-                          },
-                          focusedBorderColor: const Color(0xff55433c),
-                          enabledBorderColor: kPrimaryColor,
-                          inputType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.phone),
-                          obscureText: false,
+                            Column(
+                              children: [
+                                PathItem(
+                                  locationController: _location1Controller,
+                                  hintText: 'Location 1',
+                                  enabled: true,
+                                  inputType: TextInputType.text,
+                                  onChanged: (value) {
+                                    value = location1;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter the card number.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                PathItem(
+                                  locationController: _location2Controller,
+                                  hintText: 'Location 2',
+                                  enabled: true,
+                                  inputType: TextInputType.text,
+                                  onChanged: (value) {
+                                    value = location2;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter the card number.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                PathItem(
+                                  locationController: _location3Controller,
+                                  hintText: 'Location 3',
+                                  enabled: true,
+                                  inputType: TextInputType.text,
+                                  onChanged: (value) {
+                                    value = location3;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter the card number.';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
