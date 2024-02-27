@@ -1,4 +1,3 @@
-
 class AssetsData {
   static const logo = 'assets/svg/Logo.svg';
 
@@ -134,8 +133,13 @@ class AssetsData {
   static const qrBottomRight = 'assets/svg/qrBottomRight.svg';
   static const qrBottomLeft = 'assets/svg/qrBottomLeft.svg';
 
-  static const attachment ='assets/svg/attachmentIcon.svg';
-  static const emojis ='assets/svg/emojisIcon.svg';
-  static const sendMessage ='assets/svg/sendMessageIcon.svg';
+  static const attachment = 'assets/svg/attachmentIcon.svg';
+  static const emojis = 'assets/svg/emojisIcon.svg';
+  static const sendMessage = 'assets/svg/sendMessageIcon.svg';
 
+  static const messageNotification = 'assets/svg/messageNotificationIcon.svg';
+
+  static const orderCancelled = 'assets/svg/orderCancelledIcon.svg';
+
+  static const hint = 'assets/svg/hintIcon.svg';
 }

@@ -9,6 +9,8 @@ import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_
 import 'package:wheel_n_deal/Features/commuter/favourite/presentation/views/commuter_favourite_view.dart';
 import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/trip_deleted.dart';
 import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/views/my_trips_view.dart';
+import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/confirmed_deal_view.dart';
+import 'package:wheel_n_deal/Features/commuter/notifications/presentation/views/customer_accept_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/commuter_completed_order_details_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_canceled_order_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
@@ -191,6 +193,11 @@ abstract class AppRouter {
       '/commuterProfileSeenByUserFromTrackingView';
 
   static const kUserTrackOrderView = '/userTrackOrderView';
+
+  static const kCustomerAcceptOrderDetailsView =
+      '/customerAcceptOrderDetailsView';
+
+  static const kConfirmedDealView = '/confirmedDealView';
 
   static final router = GoRouter(
     routes: [
@@ -471,6 +478,14 @@ abstract class AppRouter {
       GoRoute(
         path: kUserTrackOrderView,
         builder: (context, state) => const UsertrackOrderView(),
+      ),
+      GoRoute(
+        path: kCustomerAcceptOrderDetailsView,
+        builder: (context, state) => const CustomerAcceptOrderDetailsView(),
+      ),
+      GoRoute(
+        path: kConfirmedDealView,
+        builder: (context, state) => const ConfirmedDealView(),
       ),
     ],
   );
