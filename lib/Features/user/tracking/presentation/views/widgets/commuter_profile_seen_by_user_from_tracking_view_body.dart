@@ -8,6 +8,7 @@ import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/commuter_profile_details_item.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/review_item.dart';
+import 'package:wheel_n_deal/Features/user/tracking/presentation/views/widgets/post_review_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class CommuterProfileSeenByUserFromTrackingViewBody extends StatefulWidget {
@@ -366,7 +367,52 @@ class _CommuterProfileSeenByUserFromTrackingViewBodyState
                         ),
                       ),
                       const SizedBox(
-                        height: 76,
+                        height: 30,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Post your review",
+                            style: Styles.manropeExtraBold18,
+                          ),
+                          const Spacer(),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                      width: 1,
+                                      color: Color(0x7FFF981A),
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Add to favorite',
+                                    textAlign: TextAlign.center,
+                                    style: Styles.cairoRegular.copyWith(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      const PostreviewItem(),
+                      const SizedBox(
+                        height: 16,
                       ),
                     ],
                   ),
@@ -379,3 +425,4 @@ class _CommuterProfileSeenByUserFromTrackingViewBodyState
     );
   }
 }
+
