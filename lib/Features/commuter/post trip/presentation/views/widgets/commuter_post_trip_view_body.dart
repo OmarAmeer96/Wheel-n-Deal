@@ -361,13 +361,25 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
               key: _form2,
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Trip Details',
+                      style: Styles.manropeBold32.copyWith(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   StepItem(
                     widget: Column(
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Order Details",
+                            "Time of the trip",
                             style: Styles.manropeRegular15.copyWith(
                               fontSize: 17,
                             ),
@@ -380,194 +392,32 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: CustomMainTextFormField(
-                                borderColor: Colors.transparent,
-                                fillColor: Colors.transparent,
-                                hintText: 'Name of order',
-                                controller: _orderNameController,
-                                onChanged: (value) {
-                                  orderName = value;
-                                },
-                                contentPadding: 7,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Please enter order's name.";
-                                  }
-                                  return null;
-                                },
-                                focusedBorderColor: const Color(0xff55433c),
-                                enabledBorderColor: kPrimaryColor,
-                                inputType: TextInputType.text,
-                                prefixIcon: SvgPicture.asset(
-                                  AssetsData.ordersIcon,
-                                  // ignore: deprecated_member_use
-                                  color: Colors.black,
-                                  width: 22,
+                              child: SizedBox(
+                                height: 40,
+                                child: CustomMainTextFormField(
+                                  borderColor: Colors.transparent,
+                                  fillColor: Colors.transparent,
+                                  hintText: 'DD/MM/YYYY',
+                                  controller: _orderNameController,
+                                  onChanged: (value) {
+                                    orderName = value;
+                                  },
+                                  contentPadding: 7,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Please enter order's name.";
+                                    }
+                                    return null;
+                                  },
+                                  focusedBorderColor: const Color(0xff55433c),
+                                  enabledBorderColor: kPrimaryColor,
+                                  inputType: TextInputType.text,
+                                  obscureText: false,
                                 ),
-                                obscureText: false,
                               ),
                             ),
                             const SizedBox(
                               width: 10,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.4),
-                                    offset: const Offset(0, 1),
-                                    blurRadius: 2,
-                                    spreadRadius: 0,
-                                  ),
-                                ],
-                              ),
-                              child: IconButton(
-                                icon: SvgPicture.asset(
-                                  AssetsData.cameraIcon,
-                                  // ignore: deprecated_member_use
-                                  color: Colors.black,
-                                ),
-                                onPressed: () {
-                                  imagePickerBottomSheet(context, onTap1: () {
-                                    _pickImageFromCamera();
-                                  }, onTap2: () {
-                                    _pickImageFromGallery();
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Count of orders',
-                            style:
-                                Styles.manropeRegular14.copyWith(fontSize: 15),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 20,
-                              child: Row(
-                                children: [
-                                  Radio(
-                                    focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
-                                      kPrimaryColor,
-                                    ),
-                                    value: '1',
-                                    groupValue: selectedCount,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedCount = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    '1',
-                                    style: Styles.poppinsSemiBold16
-                                        .copyWith(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            SizedBox(
-                              height: 20,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Radio(
-                                    focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
-                                      kPrimaryColor,
-                                    ),
-                                    value: '2',
-                                    groupValue: selectedCount,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedCount = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    '2',
-                                    style: Styles.poppinsSemiBold16
-                                        .copyWith(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            SizedBox(
-                              height: 20,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Radio(
-                                    focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
-                                      kPrimaryColor,
-                                    ),
-                                    value: '3',
-                                    groupValue: selectedCount,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedCount = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    '3',
-                                    style: Styles.poppinsSemiBold16
-                                        .copyWith(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            SizedBox(
-                              height: 20,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Radio(
-                                    focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
-                                      kPrimaryColor,
-                                    ),
-                                    value: '4 or more',
-                                    groupValue: selectedCount,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedCount = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    '4 or more',
-                                    style: Styles.poppinsSemiBold16
-                                        .copyWith(fontSize: 14),
-                                  ),
-                                ],
-                              ),
                             ),
                           ],
                         ),

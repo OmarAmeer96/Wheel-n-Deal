@@ -20,6 +20,7 @@ class CustomMainTextFormField extends StatelessWidget {
     this.contentPadding = 19,
     this.fillColor,
     this.suffixIconOnTap,
+    this.enabled = true,
   });
 
   final Function(String) onChanged;
@@ -38,6 +39,7 @@ class CustomMainTextFormField extends StatelessWidget {
   final double contentPadding;
   final Color? fillColor;
   final void Function()? suffixIconOnTap;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class CustomMainTextFormField extends StatelessWidget {
         color: Colors.black,
       ),
       decoration: InputDecoration(
+        enabled: enabled,
         filled: true,
         fillColor: fillColor,
         contentPadding: EdgeInsets.symmetric(vertical: contentPadding),
