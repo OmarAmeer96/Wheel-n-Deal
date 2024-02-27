@@ -33,6 +33,7 @@ import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/com
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/done_wait_for_customer_confirmation_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/set_another_expected_price_view.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/commuter_post_trip_view.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/commuter_search_location_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/first%20scan%20qr%20code/presentation/views/commuter_first_scan_qr_code_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20qr%20code/presentation/views/commuter_second_scan_qr_code_view.dart';
@@ -120,6 +121,8 @@ abstract class AppRouter {
   static const kUserPostOrderView = '/userPostOrderView';
 
   static const kUserSearchLocationView = '/userSearchLocationView';
+
+  static const kCommuterSearchLocationView = '/userSearchLocationView';
 
   static const kCommuterFirstScanQrCodeView = '/commuterFirstScanQrCodeView';
 
@@ -328,6 +331,10 @@ abstract class AppRouter {
       GoRoute(
         path: kUserSearchLocationView,
         builder: (context, state) => const UserSearchLocationView(),
+      ),
+      GoRoute(
+        path: kCommuterSearchLocationView,
+        builder: (context, state) => const CommuterSearchLocationView(),
       ),
       GoRoute(
         path: kCommuterFirstScanQrCodeView,

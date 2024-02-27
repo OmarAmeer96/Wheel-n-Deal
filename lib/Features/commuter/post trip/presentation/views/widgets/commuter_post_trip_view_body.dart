@@ -204,14 +204,14 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Sender Details',
+                      'Route Details',
                       style: Styles.manropeBold32.copyWith(
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 12,
                   ),
                   StepItem(
                     widget: Column(
