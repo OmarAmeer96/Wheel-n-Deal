@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -165,11 +163,14 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
               );
             }
             if (currentStep == 0) {
-              if (_form1.currentState!.validate()) {
-                setState(() {
-                  currentStep++;
-                });
-              }
+              // if (_form1.currentState!.validate()) {
+              //   setState(() {
+              //     currentStep++;
+              //   });
+              // }
+              setState(() {
+                currentStep++;
+              });
             } else if (currentStep == 1) {
               if (_form2.currentState!.validate()) {
                 setState(() {
@@ -231,7 +232,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationIte(
+                        MakeOrderSelectLocationItem(
                           text: 'From',
                           onPressed: () {
                             GoRouter.of(context).push(
@@ -242,7 +243,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationIte(
+                        MakeOrderSelectLocationItem(
                           text: 'To',
                           onPressed: () {
                             GoRouter.of(context).push(
@@ -455,232 +456,6 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                   const SizedBox(
                     height: 20,
                   ),
-                  StepItem(
-                    widget: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Order's weight",
-                            style: Styles.manropeRegular15.copyWith(
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomMainTextFormField(
-                          borderColor: Colors.transparent,
-                          fillColor: Colors.transparent,
-                          hintText: "Input order's weight",
-                          controller: _weightController,
-                          onChanged: (value) {
-                            weight = value;
-                          },
-                          contentPadding: 7,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter orde's weight.";
-                            }
-                            return null;
-                          },
-                          focusedBorderColor: const Color(0xff55433c),
-                          enabledBorderColor: kPrimaryColor,
-                          inputType: TextInputType.number,
-                          prefixIcon: const Icon(
-                            FontAwesomeIcons.weightHanging,
-                            size: 22,
-                          ),
-                          obscureText: false,
-                          suffixIcon: const Text(
-                            "KG",
-                            style: Styles.manropeRegular14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  StepItem(
-                    widget: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Expected Price",
-                            style: Styles.manropeRegular15.copyWith(
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomMainTextFormField(
-                          borderColor: Colors.transparent,
-                          fillColor: Colors.transparent,
-                          hintText: "0",
-                          controller: _expectedPriceController,
-                          onChanged: (value) {
-                            expectedPrice = value;
-                          },
-                          contentPadding: 7,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter the expected price.";
-                            }
-                            return null;
-                          },
-                          focusedBorderColor: const Color(0xff55433c),
-                          enabledBorderColor: kPrimaryColor,
-                          inputType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.price_change_outlined),
-                          obscureText: false,
-                          suffixIcon: const Text(
-                            "LE",
-                            style: Styles.manropeRegular14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  StepItem(
-                    widget: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Breakable Order",
-                              style: Styles.manropeRegular15.copyWith(
-                                fontSize: 17,
-                              ),
-                            ),
-                            const Spacer(),
-                            CupertinoSwitch(
-                              value: _switchValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  _switchValue = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  StepItem(
-                      widget: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'Count of orders',
-                          style: Styles.manropeRegular14.copyWith(fontSize: 15),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                            child: Row(
-                              children: [
-                                Radio(
-                                  focusColor: const Color(0xff99A0A8),
-                                  fillColor: const MaterialStatePropertyAll(
-                                    kPrimaryColor,
-                                  ),
-                                  value: '1-2 Days',
-                                  groupValue: selectedExpiryDate,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedExpiryDate = value;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  '1-2 Days',
-                                  style: Styles.poppinsSemiBold16
-                                      .copyWith(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                            height: 20,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Radio(
-                                  focusColor: const Color(0xff99A0A8),
-                                  fillColor: const MaterialStatePropertyAll(
-                                    kPrimaryColor,
-                                  ),
-                                  value: '3-5 Days',
-                                  groupValue: selectedExpiryDate,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedExpiryDate = value;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  '3-5 Days',
-                                  style: Styles.poppinsSemiBold16
-                                      .copyWith(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                            height: 20,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Radio(
-                                  focusColor: const Color(0xff99A0A8),
-                                  fillColor: const MaterialStatePropertyAll(
-                                    kPrimaryColor,
-                                  ),
-                                  value: '1 Week',
-                                  groupValue: selectedExpiryDate,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedExpiryDate = value;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  '1 Week',
-                                  style: Styles.poppinsSemiBold16
-                                      .copyWith(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ))
                 ],
               ),
             ),

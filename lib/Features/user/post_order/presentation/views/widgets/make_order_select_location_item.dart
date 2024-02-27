@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class MakeOrderSelectLocationIte extends StatelessWidget {
-  const MakeOrderSelectLocationIte({
+class MakeOrderSelectLocationItem extends StatelessWidget {
+  const MakeOrderSelectLocationItem({
     super.key,
     required this.text,
     required this.onPressed,

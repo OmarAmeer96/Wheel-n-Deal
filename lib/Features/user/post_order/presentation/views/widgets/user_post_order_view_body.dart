@@ -228,7 +228,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationIte(
+                        MakeOrderSelectLocationItem(
                           text: 'From',
                           onPressed: () {
                             GoRouter.of(context).push(
@@ -239,7 +239,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationIte(
+                        MakeOrderSelectLocationItem(
                           text: 'To',
                           onPressed: () {
                             GoRouter.of(context).push(
