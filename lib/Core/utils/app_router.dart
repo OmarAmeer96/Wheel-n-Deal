@@ -47,6 +47,7 @@ import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_v
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/favourite/presentation/views/user_favourite_view.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_view.dart';
+import 'package:wheel_n_deal/Features/user/messages/presentation/views/user_chat_view.dart';
 import 'package:wheel_n_deal/Features/user/messages/presentation/views/user_messages_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_canceled_order_view.dart';
@@ -367,7 +368,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kCommuterChatView,
-        builder: (context, state) => const ChatView(),
+        builder: (context, state) => const CommuterChatView(),
       ),
       GoRoute(
         path: kUserMessagesView,
@@ -375,7 +376,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kUserChatView,
-        builder: (context, state) => const ChatView(),
+        builder: (context, state) => const UserChatView(),
       ),
       GoRoute(
         path: kUserSearchForCommuterViewBody,
