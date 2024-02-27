@@ -9,6 +9,7 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/custom_time_picker_item.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/path_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
@@ -46,8 +47,12 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
 
   // Step 2 Things
   final _form2 = GlobalKey<FormState>();
+
   DateTime? selectedDate;
   final _pickedDateController = TextEditingController();
+
+  TimeOfDay? selectedStartTime;
+  TimeOfDay? selectedEndTime;
 
   String? orderName;
   String? weight;
@@ -133,26 +138,13 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                             CustomMainButton(
                               onPressed: () {
                                 GoRouter.of(context)
-                                    .push(AppRouter.kUserOrdersView);
+                                    .push(AppRouter.kMyTripsView);
                               },
-                              text: "Post Public",
+                              text: "Post",
                               color: kPrimaryColor,
                             ),
                             const SizedBox(
-                              height: 12,
-                            ),
-                            CustomMainButton(
-                              onPressed: () {
-                                GoRouter.of(context).push(
-                                    AppRouter.kDoneNotifyFavCommutersView);
-                              },
-                              text: "Notify All Favorites",
-                              textColor: Colors.black,
-                              color: const Color(0xfff3f3f3),
-                              borderSideColor: Colors.black,
-                            ),
-                            const SizedBox(
-                              height: 16,
+                              height: 26,
                             ),
                           ],
                         ),
@@ -172,11 +164,14 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                 currentStep++;
               });
             } else if (currentStep == 1) {
-              if (_form2.currentState!.validate()) {
-                setState(() {
-                  currentStep++;
-                });
-              }
+              // if (_form2.currentState!.validate()) {
+              //   setState(() {
+              //     currentStep++;
+              //   });
+              // }
+              setState(() {
+                currentStep++;
+              });
             } else {
               log(currentStep.toString());
             }
@@ -422,9 +417,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                                     fillColor: Colors.transparent,
                                     hintText: 'DD/MM/YYYY',
                                     controller: _orderNameController,
-                                    onChanged: (value) {
-                                      orderName = value;
-                                    },
+                                    onChanged: (value) {},
                                     contentPadding: 7,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -450,11 +443,105 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomTimePickerItem(
+                          text: 'Start at',
+                          onTimeSelected: (TimeOfDay selectedTime) {
+                            setState(() {
+                              selectedStartTime = selectedTime;
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomTimePickerItem(
+                          text: 'End at',
+                          onTimeSelected: (TimeOfDay selectedTime) {
+                            setState(() {
+                              selectedEndTime = selectedTime;
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                  StepItem(
+                    widget: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Capacity of the order",
+                            style: Styles.manropeRegular15.copyWith(
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "How much can you take?",
+                          textAlign: TextAlign.start,
+                          style: Styles.manropeRegular15.copyWith(
+                            fontSize: 17,
+                            color: const Color(0xFFA3A3A3),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 40,
+                              width: 140,
+                              child: CustomMainTextFormField(
+                                enabled: true,
+                                borderColor: Colors.transparent,
+                                fillColor: Colors.transparent,
+                                hintText: '3',
+                                controller: _orderNameController,
+                                onChanged: (value) {},
+                                contentPadding: 7,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please enter order's name.";
+                                  }
+                                  return null;
+                                },
+                                focusedBorderColor: const Color(0xff55433c),
+                                enabledBorderColor: kPrimaryColor,
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(
+                                      color: kPrimaryColor, width: 1.0),
+                                ),
+                                inputType: TextInputType.text,
+                                obscureText: false,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "KG",
+                              style: Styles.manropeExtraBold18.copyWith(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -490,27 +577,6 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomReviewSummaryItem(
-                        keyText: 'Sender Name',
-                        valText: 'Omar',
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const CustomReviewSummaryItem(
-                        keyText: 'Sender Phone Number',
-                        valText: '01554111002',
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const CustomReviewSummaryItem(
-                        keyText: 'Receiver Phone Number',
-                        valText: '01554111002',
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       Text(
                         "Address",
                         style: Styles.manropeBold32.copyWith(fontSize: 15),
@@ -534,7 +600,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         height: 20,
                       ),
                       Text(
-                        "Order Details",
+                        "Trip Details",
                         style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
                       Padding(
@@ -542,34 +608,16 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         child: Column(
                           children: [
                             const CustomReviewSummaryItem(
-                              keyText: 'Name   ',
-                              valText: 'Camera',
+                              keyText: 'Day          ',
+                              valText: 'Monday',
                             ),
-                            const CustomReviewSummaryItem(
-                              keyText: 'Count  ',
-                              valText: '2',
+                            CustomReviewSummaryItem(
+                              keyText: 'Start at ',
+                              valText: selectedStartTime.toString(),
                             ),
-                            const CustomReviewSummaryItem(
-                              keyText: 'Weight',
-                              valText: '0.5 KG',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: _selectedImage != null
-                                  ? CircleAvatar(
-                                      backgroundImage: FileImage(
-                                        _selectedImage!,
-                                      ),
-                                    )
-                                  : const CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      backgroundImage: AssetImage(
-                                        AssetsData.profileImage,
-                                      ),
-                                    ),
+                            CustomReviewSummaryItem(
+                              keyText: 'End at     ',
+                              valText: selectedEndTime.toString(),
                             ),
                           ],
                         ),
@@ -577,23 +625,9 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                       const SizedBox(
                         height: 20,
                       ),
-                      CustomReviewSummaryItem(
-                        keyText: 'Breakable Order',
-                        valText: _switchValue.toString(),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       const CustomReviewSummaryItem(
-                        keyText: 'Expiry Date',
-                        valText: '3-5 Dayes',
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const CustomReviewSummaryItem(
-                        keyText: 'Expected Price',
-                        valText: '100 LE',
+                        keyText: 'Capacity',
+                        valText: '3 KG',
                       ),
                     ],
                   ),
