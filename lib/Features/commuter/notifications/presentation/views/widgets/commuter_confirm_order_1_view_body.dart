@@ -27,7 +27,7 @@ class CommuterConfirmOrder1ViewBody extends StatelessWidget {
                   children: [
                     SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                           const SizedBox(height: 26),
                           Text(

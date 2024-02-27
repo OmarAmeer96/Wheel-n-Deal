@@ -92,7 +92,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               time: '10 m ago',
               onTap: () {
                 GoRouter.of(context)
-                    .push(AppRouter.kCommuterCompletedOrderDetailsView);
+                    .push(AppRouter.kCustomerAcceptOrderDetailsView);
               },
             ),
             const SizedBox(
