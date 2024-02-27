@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'dart:io';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
-import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
@@ -59,16 +56,10 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
   String? expectedPrice;
 
   final _orderNameController = TextEditingController();
-  final _weightController = TextEditingController();
-  final _expectedPriceController = TextEditingController();
 
   String? selectedCount = "1";
 
   String? selectedExpiryDate = "1-2 Days";
-
-  bool _switchValue = false;
-
-  File? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -637,26 +628,4 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
           ),
         ),
       ];
-
-  Future _pickImageFromGallery() async {
-    final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (returnedImage == null) {
-      return;
-    }
-    setState(() {
-      _selectedImage = File(returnedImage.path);
-    });
-  }
-
-  Future _pickImageFromCamera() async {
-    final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    if (returnedImage == null) {
-      return;
-    }
-    setState(() {
-      _selectedImage = File(returnedImage.path);
-    });
-  }
 }
