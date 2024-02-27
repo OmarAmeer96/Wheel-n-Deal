@@ -134,7 +134,10 @@ class CommuterHomeViewBody extends StatelessWidget {
                   HomeFeaturesItem(
                     icon: AssetsData.favoritesIcon,
                     text: 'Reviews',
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context)
+                          .push(AppRouter.kCommuterProfileSeenByTheUserView);
+                    },
                   ),
                   HomeFeaturesItem(
                     icon: AssetsData.messagesIcon,
