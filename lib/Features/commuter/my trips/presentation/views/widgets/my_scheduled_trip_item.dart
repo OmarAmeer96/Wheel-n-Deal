@@ -111,7 +111,7 @@ class MyScheduledTripsItem extends StatelessWidget {
                 child: CustomMainButton(
                   text: "Edit Trip",
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kPostTripView);
+                    GoRouter.of(context).push(AppRouter.kCommuterPostTripView);
                   },
                   color: const Color(0x66A4A4A4),
                 ),

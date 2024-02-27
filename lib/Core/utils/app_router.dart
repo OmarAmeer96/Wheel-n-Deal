@@ -32,7 +32,7 @@ import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/com
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/commuter_started_delivery_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/done_wait_for_customer_confirmation_view.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/set_another_expected_price_view.dart';
-import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/post_trip_view.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/commuter_post_trip_view.dart';
 import 'package:wheel_n_deal/Features/commuter/profile/presentation/views/commuter_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/first%20scan%20qr%20code/presentation/views/commuter_first_scan_qr_code_view.dart';
 import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20qr%20code/presentation/views/commuter_second_scan_qr_code_view.dart';
@@ -175,7 +175,7 @@ abstract class AppRouter {
 
   static const kMyTripsView = '/myTripsView';
 
-  static const kPostTripView = '/postTripView';
+  static const kCommuterPostTripView = '/postTripView';
 
   static const kTripDeletedView = '/tripDeletedView';
 
@@ -435,8 +435,8 @@ abstract class AppRouter {
         builder: (context, state) => const MyTripsView(),
       ),
       GoRoute(
-        path: kPostTripView,
-        builder: (context, state) => const PostTripView(),
+        path: kCommuterPostTripView,
+        builder: (context, state) => const CommuterPostTripView(),
       ),
       GoRoute(
         path: kTripDeletedView,

@@ -39,7 +39,9 @@ class CommuterItems extends StatelessWidget {
                 PostPickOrdersButton(
                   width: 30,
                   height: 27,
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kCommuterPostTripView);
+                  },
                 ),
               ],
             ),
