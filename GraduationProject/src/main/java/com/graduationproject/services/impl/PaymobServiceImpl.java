@@ -8,6 +8,7 @@ import com.graduationproject.DTOs.paymobPaymentDTOs.SecondRequest;
 import com.graduationproject.DTOs.paymobPaymentDTOs.ThirdRequest;
 import com.graduationproject.DTOs.paymobPaymentDTOs.WalletRequest;
 import com.graduationproject.entities.PaymobResponse;
+import com.graduationproject.entities.User;
 import com.graduationproject.repositories.PaymobResponseRepository;
 import com.graduationproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,12 @@ public class PaymobServiceImpl {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             PayResponseDTO walletResponse = objectMapper.readValue(response.getBody(), PayResponseDTO.class);
+            String phoneNumber = walletResponse.getSource_data().getPhone_number();
+            User user = userRepository.findByPhoneNumber(phoneNumber);
+            if (user != null) {
+                user.setAmount(user.getAmount() + walletResponse.getAmount_cents()/100);
+                userRepository.save(user);
+            }
             savePayResponse(walletResponse);
             return walletResponse;
         } catch (JsonProcessingException e) {
