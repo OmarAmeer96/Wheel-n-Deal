@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
-import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/commuter_profile_details_item.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/widgets/review_item.dart';
 import 'package:wheel_n_deal/constants.dart';
