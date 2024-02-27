@@ -169,16 +169,6 @@ class _CommuterReviewsViewBodyState extends State<CommuterReviewsViewBody> {
                         ],
                       ),
                     ),
-                    Positioned(
-                      bottom: -24,
-                      right: 16,
-                      child: EditProfileButton(
-                        color: kPrimaryColor,
-                        text: 'Messaging',
-                        textColor: Colors.black,
-                        onPressed: () {},
-                      ),
-                    ),
                   ],
                 ),
                 const SizedBox(
@@ -367,7 +357,7 @@ class _CommuterReviewsViewBodyState extends State<CommuterReviewsViewBody> {
                         ),
                       ),
                       const SizedBox(
-                        height: 76,
+                        height: 16,
                       ),
                     ],
                   ),
@@ -375,19 +365,19 @@ class _CommuterReviewsViewBodyState extends State<CommuterReviewsViewBody> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 8,
-            left: 16,
-            right: 16,
-            child: CustomMainButton(
-              onPressed: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kChooseCommuterButNoOrderYetView);
-              },
-              color: kPrimaryColor,
-              text: "Choose",
-            ),
-          ),
+          // Positioned(
+          //   bottom: 8,
+          //   left: 16,
+          //   right: 16,
+          //   child: CustomMainButton(
+          //     onPressed: () {
+          //       GoRouter.of(context)
+          //           .push(AppRouter.kChooseCommuterButNoOrderYetView);
+          //     },
+          //     color: kPrimaryColor,
+          //     text: "Choose",
+          //   ),
+          // ),
         ],
       ),
     );
