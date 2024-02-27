@@ -38,7 +38,10 @@ class NotificationItem extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(11.0),
-                  child: SvgPicture.asset(icon),
+                  child: SvgPicture.asset(
+                    icon,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(

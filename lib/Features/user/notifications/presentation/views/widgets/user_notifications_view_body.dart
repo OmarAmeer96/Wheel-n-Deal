@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/notifications_item.dart';
@@ -43,10 +45,13 @@ class UserNotificationsViewBody extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const NotificationItem(
-              icon: AssetsData.notifOrders,
-              text1: 'Your order already delivered',
-              text2: 'enjoy!',
+            NotificationItem(
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.kUserTrackOrderView);
+              },
+              icon: AssetsData.locationIcon,
+              text1: 'Your order in the way now',
+              text2: 'Tap to view the tracking.',
               time: '2m ago',
             ),
             const SizedBox(
