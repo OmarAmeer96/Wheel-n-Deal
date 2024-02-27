@@ -21,6 +21,7 @@ class CustomMainTextFormField extends StatelessWidget {
     this.fillColor,
     this.suffixIconOnTap,
     this.enabled = true,
+    this.disabledBorder,
   });
 
   final Function(String) onChanged;
@@ -31,6 +32,7 @@ class CustomMainTextFormField extends StatelessWidget {
   final Color borderColor;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
+  final InputBorder? disabledBorder;
   final TextInputType inputType;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -47,13 +49,12 @@ class CustomMainTextFormField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       obscureText: obscureText,
-      enabled: true,
+      enabled: enabled,
       keyboardType: inputType,
       style: Styles.poppinsSemiBold16.copyWith(
         color: Colors.black,
       ),
       decoration: InputDecoration(
-        enabled: enabled,
         filled: true,
         fillColor: fillColor,
         contentPadding: EdgeInsets.symmetric(vertical: contentPadding),
@@ -90,6 +91,7 @@ class CustomMainTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: enabledBorderColor, width: 1.0),
         ),
+        disabledBorder: disabledBorder,
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(vertical: 14),
           child: prefixIcon,

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Core/utils/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
@@ -49,6 +48,9 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
 
   // Step 2 Things
   final _form2 = GlobalKey<FormState>();
+  DateTime? selectedDate;
+  final _pickedDateController = TextEditingController();
+
   String? orderName;
   String? weight;
   String? expectedPrice;
@@ -392,27 +394,53 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: SizedBox(
-                                height: 40,
-                                child: CustomMainTextFormField(
-                                  borderColor: Colors.transparent,
-                                  fillColor: Colors.transparent,
-                                  hintText: 'DD/MM/YYYY',
-                                  controller: _orderNameController,
-                                  onChanged: (value) {
-                                    orderName = value;
-                                  },
-                                  contentPadding: 7,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Please enter order's name.";
-                                    }
-                                    return null;
-                                  },
-                                  focusedBorderColor: const Color(0xff55433c),
-                                  enabledBorderColor: kPrimaryColor,
-                                  inputType: TextInputType.text,
-                                  obscureText: false,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final DateTime? pickedDate =
+                                      await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2101),
+                                  );
+                                  if (pickedDate != null &&
+                                      pickedDate != selectedDate) {
+                                    setState(() {
+                                      selectedDate = pickedDate;
+                                      _pickedDateController.text =
+                                          DateFormat('dd/MM/yyyy')
+                                              .format(pickedDate);
+                                    });
+                                  }
+                                },
+                                child: SizedBox(
+                                  height: 40,
+                                  child: CustomMainTextFormField(
+                                    enabled: false,
+                                    borderColor: Colors.transparent,
+                                    fillColor: Colors.transparent,
+                                    hintText: 'DD/MM/YYYY',
+                                    controller: _orderNameController,
+                                    onChanged: (value) {
+                                      orderName = value;
+                                    },
+                                    contentPadding: 7,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please enter order's name.";
+                                      }
+                                      return null;
+                                    },
+                                    focusedBorderColor: const Color(0xff55433c),
+                                    enabledBorderColor: kPrimaryColor,
+                                    disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: const BorderSide(
+                                          color: kPrimaryColor, width: 1.0),
+                                    ),
+                                    inputType: TextInputType.text,
+                                    obscureText: false,
+                                  ),
                                 ),
                               ),
                             ),
