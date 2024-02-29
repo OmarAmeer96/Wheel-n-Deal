@@ -5,13 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e76c4c6-e973-4de6-884f-b5e880c0542b" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/.idea/Wheel-n-Deal.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/ReviewDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/ReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/ReviewService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -39,6 +64,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -59,7 +87,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "Backend",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/noora/Desktop/ChatExampleSpringBootJava-master",
+    "last_opened_file_path": "D:/Workspace/Graduation Project/Wheel-n-Deal",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -68,6 +96,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.graduationproject.entities" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\noora\IdeaProjects\Wheel-n-Deal\GraduationProject\src\main\java\com\graduationproject\DTOs\paymobPaymentDTOs" />
       <recent name="C:\Users\noora\IdeaProjects\Wheel-n-Deal\GraduationProject\src\main\java\com\graduationproject\DTOs\stripePaymentDTOs" />
@@ -107,19 +138,6 @@
         <option value="MavenRunConfiguration" />
       </set>
     </option>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

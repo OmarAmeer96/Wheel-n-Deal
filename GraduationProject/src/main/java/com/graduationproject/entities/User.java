@@ -18,9 +18,12 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NotNull
     @Unique
     private String phoneNumber;
+    @NotNull
+    @Unique
     private String username;
     private String stripeId;
     private Long amount;
@@ -33,10 +36,19 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Token> tokens;
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.REMOVE)
+    private List<Review> givenReviews;
+
+    @OneToMany(mappedBy = "reviewee", cascade = CascadeType.REMOVE)
+    private List<Review> receivedReviews;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

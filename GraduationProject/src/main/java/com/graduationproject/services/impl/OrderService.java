@@ -2,6 +2,7 @@ package com.graduationproject.services.impl;
 
 import com.graduationproject.DTOs.OrderDTO;
 import com.graduationproject.entities.Order;
+import com.graduationproject.entities.OrderStatus;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.OrderRepository;
 import com.graduationproject.repositories.UserRepository;
@@ -49,6 +50,7 @@ public class OrderService {
 
         User user = optionalUser.get();
         order.setUser(user);
+        order.setOrderStatus(OrderStatus.NOT_ACTIVE);
 
         return orderRepository.save(order);
     }
