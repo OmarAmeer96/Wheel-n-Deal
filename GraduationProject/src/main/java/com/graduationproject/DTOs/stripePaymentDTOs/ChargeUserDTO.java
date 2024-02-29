@@ -10,7 +10,8 @@ public class ChargeUserDTO {
     private String stripeUserId;
     private Long amount;
     private String cardNumber;
-    private Date expiryDate;
+    private String expiryMonth;
+    private String expiryYear;
     private String cVC;
     private boolean saved;
 }

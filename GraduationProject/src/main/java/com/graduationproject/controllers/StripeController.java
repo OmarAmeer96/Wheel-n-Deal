@@ -7,10 +7,7 @@ import com.graduationproject.services.impl.StripeServiceImpl;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class StripeController {
     }
 
     @PostMapping("/charge")
-    public String charge(@RequestParam ChargeUserDTO chargeUserDTO) throws StripeException {
+    public String charge(@RequestBody ChargeUserDTO chargeUserDTO) throws StripeException {
         return stripeService.chargeUser(chargeUserDTO);
     }
 

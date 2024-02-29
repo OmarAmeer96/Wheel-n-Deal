@@ -36,7 +36,7 @@ public class GraduationProject implements CommandLineRunner {
 		User adminAccount = userRepository.findByRole(Role.ADMIN);
 		if(adminAccount == null){
 			User user = new User();
-			user.setUsername("admin#");
+			user.setUserName("admin#");
 			user.setPhoneNumber("admin");
 			user.setRole(Role.ADMIN);
 			user.setPassword(new BCryptPasswordEncoder().encode("admin"));

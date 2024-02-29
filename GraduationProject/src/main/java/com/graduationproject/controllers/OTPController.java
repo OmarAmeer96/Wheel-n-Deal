@@ -1,6 +1,5 @@
 package com.graduationproject.controllers;
 
-import com.graduationproject.DTOs.optDTOs.OtpRequest;
 import com.graduationproject.DTOs.optDTOs.OtpResponseDto;
 import com.graduationproject.DTOs.optDTOs.OtpValidationRequest;
 import com.graduationproject.services.impl.SmsServiceImpl;
@@ -16,8 +15,8 @@ public class OTPController {
     private SmsServiceImpl smsService;
 
     @PostMapping("/send-otp")
-    public OtpResponseDto sendOtp(@RequestBody OtpRequest otpRequest) {
-        return smsService.sendSMS(otpRequest);
+    public OtpResponseDto sendOtp(@RequestParam String phoneNumber) {
+        return smsService.sendSMS(phoneNumber);
     }
 
     @PostMapping("/validate-otp")
