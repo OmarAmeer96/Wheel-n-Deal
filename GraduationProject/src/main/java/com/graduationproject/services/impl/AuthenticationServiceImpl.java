@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponse signup(SignUpRequest signUpRequest){
         User user = new User();
-        user.setPhone(signUpRequest.getPhone());
+        user.setPhoneNumber(signUpRequest.getPhone());
         user.setUsername(signUpRequest.getUsername());
         user.setRole(signUpRequest.getRole());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));

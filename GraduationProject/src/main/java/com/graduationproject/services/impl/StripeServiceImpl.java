@@ -49,7 +49,7 @@ public class StripeServiceImpl {
         User userEntity = new User();
         userEntity.setStripeId(customer.getId());
         userEntity.setPhoneNumber(request.getPhoneNumber());
-        userEntity.setUserName(request.getUserName());
+        userEntity.setUsername(request.getUserName());
         userEntity.setAmount(0L);
         userRepository.save(userEntity);
 

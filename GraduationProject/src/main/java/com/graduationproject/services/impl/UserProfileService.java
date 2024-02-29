@@ -34,7 +34,7 @@ public class UserProfileService {
                 String photoUrl = Utils.storePhotoAndGetUrl(photo);
                 existingUser.setProfilePictureUrl(photoUrl);
             }
-            existingUser.setPhone(userProfileDTO.getPhone());
+            existingUser.setPhoneNumber(userProfileDTO.getPhone());
 
             if (existingUser.getRole() == Role.COMMUTER) {
                 existingUser.setNationalId(userProfileDTO.getNationalId());
@@ -70,7 +70,7 @@ public class UserProfileService {
                     NormalProfileDTO normalProfileDTO = new NormalProfileDTO();
                     normalProfileDTO.setProfilePhotoURL(user.getProfilePictureUrl());
                     normalProfileDTO.setFullName(user.getFullName());
-                    normalProfileDTO.setPhoneNumber(user.getPhone());
+                    normalProfileDTO.setPhoneNumber(user.getPhoneNumber());
 
                     return ResponseEntity.ok(normalProfileDTO);
                 }

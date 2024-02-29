@@ -16,10 +16,12 @@ import java.util.List;
 @Table(name="app_user")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @NotNull
     @Unique
     private String phoneNumber;
-    private String userName;
+    private String username;
     private String stripeId;
     private Long amount;
 
@@ -28,7 +30,6 @@ public class User implements UserDetails {
     private String city;
     private String profilePictureUrl;
     private String nationalId;
-    private String username;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -40,22 +41,27 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
+
     @Override
     public String getUsername() {
         return username;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return true;
