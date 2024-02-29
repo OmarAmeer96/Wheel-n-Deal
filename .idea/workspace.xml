@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4e76c4c6-e973-4de6-884f-b5e880c0542b" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/GraduationProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/GraduationProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/AuthenticationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/StripeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/StripeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/UserProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/UserProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709227679202</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="update">
+      <option name="closed" value="true" />
+      <created>1709229666941</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1709229666941</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

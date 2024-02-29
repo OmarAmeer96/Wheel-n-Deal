@@ -19,7 +19,7 @@ public class StripeController {
     private StripeServiceImpl stripeService;
 
     @PostMapping("/create-stripe-user")
-    public String createStripeUser(@RequestParam CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
+    public String createStripeUser(@RequestBody CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
         return stripeService.createStripeUser(request);
     }
 
