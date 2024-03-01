@@ -49,6 +49,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "reviewee", cascade = CascadeType.REMOVE)
     private List<Review> receivedReviews;
 
+    @OneToMany(mappedBy = "user")
+    private List<Favorite> favorites;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
