@@ -101,3 +101,13 @@ $bg-gradient-3: linear-gradient(
   #ffead1 88% 96.1%,
   #fff 96.1% 100%
 );
+
+body {
+  background-image: $bg-gradient-1;
+}
+.test {
+  height: 100vh;
+  font-family: "Caveat";
+  color: $color-bblack-1;
+  font-size: 40px;
+}
