@@ -49,8 +49,12 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "reviewee", cascade = CascadeType.REMOVE)
     private List<Review> receivedReviews;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Favorite> favorites;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Trip> userTrips;
+
 
 
     @Override
