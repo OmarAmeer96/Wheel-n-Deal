@@ -1,8 +1,10 @@
 package com.graduationproject.controllers;
 
+import com.graduationproject.DTOs.CommuterProfileDTO;
 import com.graduationproject.DTOs.NormalProfileDTO;
 import com.graduationproject.DTOs.TripSearchResultDTO;
 import com.graduationproject.DTOs.UserProfileDTO;
+import com.graduationproject.services.impl.CommuterProfileService;
 import com.graduationproject.services.impl.TripService;
 import com.graduationproject.services.impl.UserProfileService;
 import com.graduationproject.services.impl.UserServiceImpl;
@@ -20,6 +22,8 @@ public class UserController {
     private final UserServiceImpl userServiceImpl;
 
     private final TripService tripService;
+
+    private final CommuterProfileService commuterProfileService;
 
     @GetMapping
     public ResponseEntity<String> sayHello(){
@@ -44,5 +48,10 @@ public class UserController {
     @PostMapping("/search-for-trip/{from}/{to}")
     public ResponseEntity<List<TripSearchResultDTO>> searchForTrip(@PathVariable String from, @PathVariable String to){
         return tripService.SearchForTrip(from,to);
+    }
+
+    @GetMapping("/get-commuter-profile/{commuterId}")
+    public CommuterProfileDTO getCommuterProfile(@PathVariable Integer commuterId){
+        return commuterProfileService.getFullCommuterProfile(commuterId);
     }
 }

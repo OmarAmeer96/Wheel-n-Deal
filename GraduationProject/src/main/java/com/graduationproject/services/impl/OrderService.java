@@ -1,6 +1,7 @@
 package com.graduationproject.services.impl;
 
 import com.graduationproject.DTOs.OrderDTO;
+import com.graduationproject.DTOs.SearchOrderDTO;
 import com.graduationproject.entities.Order;
 import com.graduationproject.entities.OrderStatus;
 import com.graduationproject.entities.User;
@@ -12,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -67,6 +71,33 @@ public class OrderService {
         order.setTo(orderDTO.getTo());
         order.setSenderName(orderDTO.getSenderName());
         order.setReceiverPhoneNumber(orderDTO.getReceiverPhoneNumber());
+    }
+
+    private void updateSearchOrderDTOFromOrder(SearchOrderDTO searchOrderDTO, Order order){
+        searchOrderDTO.setId(order.getId());
+        searchOrderDTO.setOrderName(order.getOrderName());
+        searchOrderDTO.setUserId(order.getUser().getId());
+        searchOrderDTO.setCountOfOrders(order.getCountOfOrders());
+        searchOrderDTO.setWeight(order.getWeight());
+        searchOrderDTO.setBreakable(order.isBreakable());
+        searchOrderDTO.setExpiryDate(order.getExpiryDate());
+        searchOrderDTO.setExpectedPrice(order.getExpectedPrice());
+        searchOrderDTO.setOrderPhotoURL(order.getOrderPhotoUrl());
+        searchOrderDTO.setFrom(order.getFrom());
+        searchOrderDTO.setTo(order.getTo());
+        searchOrderDTO.setSenderName(order.getSenderName());
+        searchOrderDTO.setReceiverPhoneNumber(order.getReceiverPhoneNumber());
+    }
+
+    public List<SearchOrderDTO> searchForOrder(String from, String to){
+        List<SearchOrderDTO> searchOrderDTOS = new ArrayList<>();
+        List<Order> existingOrders = orderRepository.findByFromAndTo(from,to);
+        for(Order order : existingOrders){
+            SearchOrderDTO searchOrderDTO = new SearchOrderDTO();
+            updateSearchOrderDTOFromOrder(searchOrderDTO,order);
+            searchOrderDTOS.add(searchOrderDTO);
+        }
+        return searchOrderDTOS;
     }
 
 }

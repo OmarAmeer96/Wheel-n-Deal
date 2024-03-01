@@ -34,6 +34,10 @@ public class User implements UserDetails {
     private String profilePictureUrl;
     private String nationalId;
     private String password;
+
+    private Integer totalDelivers;
+
+    private Integer cancelDelivers;
     @Enumerated(EnumType.STRING)
     private Role role;
 
