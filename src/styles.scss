@@ -1,1 +1,103 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: "Caveat";
+  src: url(./assets/fonts/Caveat/Caveat-Bold.ttf) format(truetype);
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url(./assets/fonts/Raleway/Raleway-Bold.ttf) format(truetype);
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url(./assets/fonts/Poppins/Poppins-Regular.ttf) format(truetype);
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url(./assets/fonts/Nunito_Sans/NunitoSans_10pt-Bold.ttf) format(truetype),
+    url(./assets/fonts/Nunito_Sans/NunitoSans_10pt-SemiBold.ttf)
+      format(truetype);
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url(./assets/fonts/Inter/Inter-Regular.ttf) format(truetype),
+    url(./assets/fonts/Inter/Inter-Medium.ttf) format(truetype),
+    url(./assets/fonts/Inter/Inter-SemiBold.ttf) format(truetype),
+    url(./assets/fonts/Inter/Inter-Bold.ttf) format(truetype),
+    url(./assets/fonts/Inter/Inter-ExtraBold.ttf) format(truetype);
+}
+
+// &####################
+// &##### COLORS
+
+$color-primary: #ff981a;
+$color-primary-light-1: #ff981a66;
+$color-orange-dark: #ff6b3c;
+$color-onhold: #ffa756;
+
+$color-gold: #fec53d;
+$color-gold-away: #ffdc81;
+
+$color-quan: #2d9cdb26;
+$color-darkblue: #1d272f;
+
+$color-info: #2d9cdb;
+$color-blue: #6494ff;
+$color-blue-violet: #6226ef;
+
+$color-red-rejected: #ef3826;
+$color-red-offline: #ff9580;
+
+$color-green: #65eda8;
+$color-green-online: #b5ffc1;
+$color-green-success: #00b074;
+$color-green-success-dark: #00b07426;
+$color-green-completed: #00b69b;
+$color-teal: #1dc9a0;
+$color-dot: #14ba6d;
+$color-active: #037847;
+$color-active-light: #eaecf0;
+
+$color-skyblue: #83b4bf;
+$color-skyblue-light: #c0d2f0;
+
+$color-black: #000;
+$color-black-1: #313d4f00;
+$color-blacl-2: #101828;
+
+$color-black-dark: #202224;
+$color-black-primary: #2c2c2c;
+$color-black-light: #2c2c2c33;
+
+$color-bblack-1: #101828;
+
+$color-white: #fff;
+$color-wborder-dark: #ffffff33;
+
+$color-gray-1: #e2e2e2;
+$color-gray-2: #d1d1d6;
+$color-gray-3: #d0d5dd;
+$color-gray-4: #b9bbbd;
+$color-gray-5: #9e9e9e;
+$color-gray-6: #808080;
+$color-gray-7: #333333;
+$color-gray-8: #667085;
+
+$bg-gradient-1: linear-gradient(248deg, #fad691 0%, #f9f5d7 100%);
+$bg-gradient-2: linear-gradient(180deg, #ff841a -72.76%, #fff 99.98%);
+$bg-gradient-3: linear-gradient(
+  90deg,
+  #ff981a 0% 16%,
+  #ffad48 16% 26%,
+  #ffb75e 26% 42%,
+  #ffc176 42% 51%,
+  #ffcc8d 52% 64%,
+  #ffd6a3 64% 77%,
+  #ffe0ba 80% 88%,
+  #ffead1 88% 96.1%,
+  #fff 96.1% 100%
+);
