@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
-import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/widgets/payment_method_item.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/widgets/prev_profits_item.dart';
@@ -21,33 +21,64 @@ class CommuterWalletViewBody extends StatelessWidget {
               height: 20,
             ),
             Container(
-              width: Responsive.screenWidth(context),
-              height: 85,
+              width: double.infinity,
               decoration: ShapeDecoration(
                 color: const Color(0xFF1D272F),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
+                padding: const EdgeInsets.all(22),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
                           "My Balance",
                           style: Styles.manropeRegular14.copyWith(
                             color: Colors.white.withOpacity(0.7),
-                            fontSize: 16,
+                            fontSize: 18,
                           ),
                         ),
+                        const Spacer(),
+                        Text(
+                          "Withdraw",
+                          style: Styles.cairoSemiBold.copyWith(
+                            color: Colors.white,
+                            fontSize: 22,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(500),
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: SvgPicture.asset(
+                              AssetsData.withdrawIcon,
+                              width: 25,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Text(
                           "\$4,875.00",
                           style: Styles.cairoSemiBold.copyWith(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 22,
                           ),
                         ),
                       ],

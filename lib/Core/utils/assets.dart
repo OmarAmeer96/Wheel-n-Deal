@@ -142,4 +142,6 @@ class AssetsData {
   static const orderCancelled = 'assets/svg/orderCancelledIcon.svg';
 
   static const hint = 'assets/svg/hintIcon.svg';
+
+  static const withdrawIcon = 'assets/svg/withdraw_icon.svg';
 }
