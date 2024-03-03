@@ -9,9 +9,34 @@ import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/wid
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class CommuterPickOrderDetailsViewBdy extends StatelessWidget {
+class CommuterPickOrderDetailsViewBdy extends StatefulWidget {
   const CommuterPickOrderDetailsViewBdy({super.key});
 
+  @override
+  State<CommuterPickOrderDetailsViewBdy> createState() =>
+      _CommuterPickOrderDetailsViewBdyState();
+}
+
+class _CommuterPickOrderDetailsViewBdyState
+    extends State<CommuterPickOrderDetailsViewBdy> {
+  late CameraPosition initialCameraPosition;
+
+  @override
+  void initState() {
+    initialCameraPosition = const CameraPosition(
+      target: LatLng(30.79900787528476, 31.00206213176501),
+      zoom: 13,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    googleMapController.dispose();
+    super.dispose();
+  }
+
+  late GoogleMapController googleMapController;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,11 +60,14 @@ class CommuterPickOrderDetailsViewBdy extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const Expanded(
+                Expanded(
                   child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(31, 41),
-                    ),
+                    onMapCreated: (controller) {
+                      googleMapController = controller;
+                      initMapStyle();
+                    },
+                    initialCameraPosition: initialCameraPosition,
+                    mapType: MapType.normal,
                   ),
                 ),
                 const SizedBox(
@@ -148,5 +176,12 @@ class CommuterPickOrderDetailsViewBdy extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void initMapStyle() async {
+    var nightMapStyle = await DefaultAssetBundle.of(context)
+        .loadString('assets/map_styles/night_map_style.json');
+    // ignore: deprecated_member_use
+    googleMapController.setMapStyle(nightMapStyle);
   }
 }

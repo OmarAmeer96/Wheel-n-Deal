@@ -24,6 +24,25 @@ class _CustomerAcceptOrderDetailsViewBodyState
   final bool _switchValue = false;
   File? _selectedImage;
 
+  late CameraPosition initialCameraPosition;
+
+  @override
+  void initState() {
+    initialCameraPosition = const CameraPosition(
+      target: LatLng(30.79900787528476, 31.00206213176501),
+      zoom: 13,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    googleMapController.dispose();
+    super.dispose();
+  }
+
+  late GoogleMapController googleMapController;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,10 +69,13 @@ class _CustomerAcceptOrderDetailsViewBodyState
                   ),
                   SizedBox(
                     height: Responsive.screenHeight(context) * 0.4,
-                    child: const GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(31, 41),
-                      ),
+                    child: GoogleMap(
+                      onMapCreated: (controller) {
+                        googleMapController = controller;
+                        initMapStyle();
+                      },
+                      initialCameraPosition: initialCameraPosition,
+                      mapType: MapType.normal,
                     ),
                   ),
                   const SizedBox(
@@ -202,5 +224,12 @@ class _CustomerAcceptOrderDetailsViewBodyState
         ),
       ),
     );
+  }
+
+  void initMapStyle() async {
+    var nightMapStyle = await DefaultAssetBundle.of(context)
+        .loadString('assets/map_styles/night_map_style.json');
+    // ignore: deprecated_member_use
+    googleMapController.setMapStyle(nightMapStyle);
   }
 }

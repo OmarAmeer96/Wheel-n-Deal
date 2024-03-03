@@ -6,9 +6,22 @@ import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 
-class CommuterCompletedOrderDetailsViewBody extends StatelessWidget {
+class CommuterCompletedOrderDetailsViewBody extends StatefulWidget {
   const CommuterCompletedOrderDetailsViewBody({super.key});
 
+  @override
+  State<CommuterCompletedOrderDetailsViewBody> createState() =>
+      _CommuterCompletedOrderDetailsViewBodyState();
+}
+
+class _CommuterCompletedOrderDetailsViewBodyState
+    extends State<CommuterCompletedOrderDetailsViewBody> {
+
+      @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
