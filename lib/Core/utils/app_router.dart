@@ -43,6 +43,7 @@ import 'package:wheel_n_deal/Features/commuter/scan%20qr%20code/second%20scan%20
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_visa_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_vodafone_cash_view.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_wallet_view.dart';
+import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/commuter_withdraw_view.dart';
 import 'package:wheel_n_deal/Features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:wheel_n_deal/Features/splash/presentation/views/splash_view.dart';
 import 'package:wheel_n_deal/Features/user/favourite/presentation/views/user_favourite_view.dart';
@@ -199,6 +200,8 @@ abstract class AppRouter {
       '/customerAcceptOrderDetailsView';
 
   static const kConfirmedDealView = '/confirmedDealView';
+
+  static const kCommuterWithdrawView = '/commuterWithdrawView';
 
   static final router = GoRouter(
     routes: [
@@ -487,6 +490,10 @@ abstract class AppRouter {
       GoRoute(
         path: kConfirmedDealView,
         builder: (context, state) => const ConfirmedDealView(),
+      ),
+      GoRoute(
+        path: kCommuterWithdrawView,
+        builder: (context, state) => const CommuterWithdrawView(),
       ),
     ],
   );
