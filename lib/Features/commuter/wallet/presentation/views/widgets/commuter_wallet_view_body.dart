@@ -45,24 +45,31 @@ class CommuterWalletViewBody extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Text(
-                          "Withdraw",
-                          style: Styles.cairoSemiBold.copyWith(
-                            color: Colors.white,
-                            fontSize: 22,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
                         InkWell(
                           borderRadius: BorderRadius.circular(500),
-                          onTap: () {},
+                          onTap: () {
+                            GoRouter.of(context)
+                                .push(AppRouter.kCommuterWithdrawView);
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: SvgPicture.asset(
-                              AssetsData.withdrawIcon,
-                              width: 25,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Withdraw",
+                                  style: Styles.cairoSemiBold.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                SvgPicture.asset(
+                                  AssetsData.withdrawIcon,
+                                  width: 25,
+                                ),
+                              ],
                             ),
                           ),
                         ),
