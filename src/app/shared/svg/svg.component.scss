@@ -1,0 +1,11 @@
+.lock {
+  width: 25.653vw;
+  height: 38.129vh;
+  display: block;
+}
+.wave {
+  display: block;
+}
+:host ::ng-deep .wave > path {
+  background-color: blueviolet;
+}

@@ -1,0 +1,89 @@
+@import "../../../styles";
+
+.container {
+  font-size: 1.4rem;
+  background-image: $bg-gradient-1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    height: 83.203125vh;
+    flex: 0 0 93.75vw;
+    display: flex;
+    justify-content: center;
+
+    border-radius: 2.5rem;
+    background-color: $color-white-light;
+    box-shadow: $box-shadow-login;
+
+    & > * {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    &__illutration {
+      justify-content: end;
+      border-radius: 2.5rem 0 0 2.5rem;
+      background-image: $bg-gradient-3;
+      gap: 4.6934rem;
+
+      .lock {
+        width: 25.653vw;
+        height: 38.129vh;
+      }
+      .wave {
+        height: 100%;
+      }
+    }
+
+    &__form {
+      justify-content: center;
+      flex-direction: column;
+      gap: 6rem;
+
+      &__title {
+        color: $color-primary;
+        font-family: "Caveat";
+        font-size: 9.2rem;
+        font-weight: 700;
+      }
+
+      // &__group--input {
+      //   input {
+      //     font-size: 1.5rem;
+      //     padding: 1.5rem 2rem;
+      //     border-radius: 2px;
+      //     background-color: rgba($color-white-light, 0.5);
+      //     font-family: inhert;
+      //     color: inhert;
+      //     border: none;
+      //     border-bottom: 3px solid transparent;
+      //     width: 100%;
+      //     display: block;
+      //     transition: all 0.3s;
+
+      //     &:focus {
+      //       outline: none;
+      //       box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+      //       border-bottom: 3px solid $color-primary;
+      //     }
+
+      //     &:focus:invalid {
+      //       border-bottom: 3px solid red;
+      //     }
+
+      //     &::-webkit-input-placeholder {
+      //       color: #eee;
+      //     }
+      //   }
+      // }
+    }
+  }
+}

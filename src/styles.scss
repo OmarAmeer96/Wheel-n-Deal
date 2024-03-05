@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @font-face {
   font-family: "Caveat";
@@ -77,6 +80,7 @@ $color-bblack-1: #101828;
 
 $color-white: #fff;
 $color-wborder-dark: #ffffff33;
+$color-white-light: #e9f0ff;
 
 $color-gray-1: #e2e2e2;
 $color-gray-2: #d1d1d6;
@@ -89,7 +93,8 @@ $color-gray-8: #667085;
 
 $bg-gradient-1: linear-gradient(248deg, #fad691 0%, #f9f5d7 100%);
 $bg-gradient-2: linear-gradient(180deg, #ff841a -72.76%, #fff 99.98%);
-$bg-gradient-3: linear-gradient(
+$bg-gradient-3: linear-gradient(73deg, #fea24e 6.78%, #f4e87d 81.46%);
+$bg-gradient-4: linear-gradient(
   90deg,
   #ff981a 0% 16%,
   #ffad48 16% 26%,
@@ -102,12 +107,15 @@ $bg-gradient-3: linear-gradient(
   #fff 96.1% 100%
 );
 
-body {
-  background-image: $bg-gradient-1;
+$box-shadow-login: 10px 10px 89px 0px rgba(0, 0, 0, 0.1);
+
+html {
+  font-size: 62.5%;
 }
-.test {
-  height: 100vh;
-  font-family: "Caveat";
-  color: $color-bblack-1;
-  font-size: 40px;
+
+body {
+  font-family: "Inter";
+  color: $color-black-primary;
+  line-height: normal;
+  font-style: normal;
 }
