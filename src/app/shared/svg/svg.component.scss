@@ -14,6 +14,13 @@
   width: inherit;
 }
 
+:host ::ng-deep .wave > svg {
+  // background-color: gold;
+  // height: calc(852 / 852 * 84.3vh);
+  // width: calc(150.274 / 675 * 46.86vh);
+  width: calc(150.274 / 675 * 66vh);
+}
+
 :host ::ng-deep .icon > * {
   position: absolute;
   top: 3.7rem;

@@ -39,9 +39,9 @@
         width: 25.653vw;
         height: 38.129vh;
       }
-      .wave {
-        height: 100%;
-      }
+      // .wave {
+      //   height: 100%;
+      // }
     }
 
     &__form {
@@ -52,7 +52,8 @@
       &__title {
         color: $color-primary;
         font-family: "Caveat";
-        font-size: 9.2rem;
+        // font-size: 9.2rem;
+        font-size: clamp(6.2rem, 8vw, 9.2rem);
         font-weight: 700;
       }
 
@@ -63,9 +64,11 @@
         height: calc((325 / 852)) * 100%;
         font-family: "Inter";
         &__input-group {
+          position: relative;
           label {
             font-size: $defualtFontSize;
             display: block;
+            margin-bottom: 0.2rem;
           }
 
           input {
@@ -82,6 +85,16 @@
             &::placeholder {
               color: inherit;
               font-size: 1.8rem;
+            }
+
+            &:focus {
+              outline: none;
+              box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+              border-bottom: 3px solid $color-primary;
+            }
+            &:focus:valid,
+            &:valid {
+              border-bottom: 3px solid green;
             }
           }
         }
@@ -119,3 +132,13 @@
     }
   }
 }
+
+.u-issue {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8vh;
+}
+
+// .u-Fgap {
+//   gap: 4.8vh;
+// }

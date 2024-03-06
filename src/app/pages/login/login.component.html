@@ -21,13 +21,14 @@
       </div>
 
       <form class="box__form__details">
-        <div class="flex flex-col">
+        <div class="u-issue">
           <div class="relative box__form__details__input-group">
             <label for="email" class="label">Email</label>
             <input
               type="email"
               id="email"
               placeholder="Enter your email address"
+              required
             />
             <app-svg name="message" class="icon"></app-svg>
           </div>
@@ -35,8 +36,9 @@
             <label for="email" class="label">Password</label>
             <input
               type="password"
-              id="email"
+              id="password"
               placeholder="Enter your Password"
+              required
             />
             <app-svg name="lock" class="icon"></app-svg>
           </div>
