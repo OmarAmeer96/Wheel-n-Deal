@@ -18,7 +18,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class SvgComponent implements OnChanges {
   @Input() public name!: string;
   @Input() public class!: string;
-  public svgIcon!: any;
+  public svgIcon!: SafeHtml;
 
   constructor(private _http: HttpClient, private _sanitizer: DomSanitizer) {}
   ngOnChanges(changes: SimpleChanges): void {

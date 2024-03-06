@@ -5,7 +5,6 @@
 }
 
 :host ::ng-deep .lock > * {
-  background-color: rebeccapurple;
   width: inherit;
   height: inherit;
 }
@@ -13,4 +12,10 @@
   display: block;
   height: inherit;
   width: inherit;
+}
+
+:host ::ng-deep .icon > * {
+  position: absolute;
+  top: 3.7rem;
+  left: 0;
 }

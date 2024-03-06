@@ -6,7 +6,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./components/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
   { path: 'admin', component: AdminComponent },
   { path: 'logOut', component: LogoutComponent },
   { path: '**', component: NotFoundComponent },
