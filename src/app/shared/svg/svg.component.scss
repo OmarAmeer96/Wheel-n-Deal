@@ -3,9 +3,14 @@
   height: 38.129vh;
   display: block;
 }
+
+:host ::ng-deep .lock > * {
+  background-color: rebeccapurple;
+  width: inherit;
+  height: inherit;
+}
 .wave {
   display: block;
-}
-:host ::ng-deep .wave > path {
-  background-color: blueviolet;
+  height: inherit;
+  width: inherit;
 }

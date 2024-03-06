@@ -32,11 +32,14 @@
       justify-content: end;
       border-radius: 2.5rem 0 0 2.5rem;
       background-image: $bg-gradient-3;
-      gap: 4.6934rem;
+      background-clip: ;
 
+      // gap: 4.6934rem;
+      gap: 6.6%;
       .lock {
         width: 25.653vw;
         height: 38.129vh;
+        background-color: greenyellow;
       }
       .wave {
         height: 100%;
