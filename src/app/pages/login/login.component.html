@@ -3,17 +3,6 @@
     <div class="box__illutration">
       <app-svg name="Illustration" class="lock"></app-svg>
       <app-svg name="Vector" class="wave"></app-svg>
-      <!-- <svg
-        class="wave"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 151 852"
-        fill="none"
-      >
-        <path
-          d="M151 0V852H147.402C116.974 792.455 25.4805 702.028 55.7687 590.437C102.162 419.566 -9.41901 263.028 1.48054 180.765C2.84298 74.7641 93.7773 18.9462 147.402 0H151Z"
-          fill="#E9F0FF"
-        />
-      </svg> -->
     </div>
     <div class="box__form">
       <div class="box__form__title">
@@ -21,7 +10,7 @@
       </div>
 
       <form class="box__form__details">
-        <div class="u-issue">
+        <div class="flex flex-col gap-[4.8vh]">
           <div class="relative box__form__details__input-group">
             <label for="email" class="label">Email</label>
             <input
@@ -43,33 +32,19 @@
             <app-svg name="lock" class="icon"></app-svg>
           </div>
         </div>
+        <div class="flex justify-between mt-3 box__form__details__info">
+          <div class="flex gap-4">
+            <input type="checkbox" name="remmberMe" id="remmberMe" />
+
+            <label for="remmberMe">Rememebr me</label>
+          </div>
+
+          <div class="cursor-pointer text-primary fw-bold">
+            Forgot Password ?
+          </div>
+        </div>
         <button>Login</button>
       </form>
     </div>
   </div>
 </main>
-
-<!--
-  <div class="box__form__group--input">
-          <label for="email" class="label">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email address"
-          />
-        </div>
-        <div class="box__form__group--input">
-          <label for="password" class="label">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-          />
-        </div>
-        <div class="box__form__details--options">
-          <input type="checkbox" />
-          <span>Remember me</span>
-
-          <span>Forgot Password ?</span>
-        </div>
- -->
