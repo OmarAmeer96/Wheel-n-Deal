@@ -47,19 +47,17 @@
     &__form {
       justify-content: center;
       flex-direction: column;
-      gap: 6rem;
+      gap: 6vh;
 
       &__title {
         color: $color-primary;
         font-family: "Caveat";
-        // font-size: 9.2rem;
         font-size: clamp(6.2rem, 8vw, 9.2rem);
         font-weight: 700;
       }
 
       &__details {
         color: $color-black-primary;
-        // background-color: yellowgreen;
         width: calc((431 / 675)) * 100%;
         height: calc((325 / 852)) * 100%;
         font-family: "Inter";
@@ -140,32 +138,22 @@
             }
           }
         }
+        .btn-signIn {
+          margin-top: calc(58.5 * 0.0695vw);
+          color: $color-white;
+          font-size: 18px;
+          font-weight: 500;
+          border-radius: 6px;
+          background-color: $color-primary;
+          width: 100%;
+          padding-block: 1.5rem;
+
+          &:hover {
+            box-shadow: $box-shadow-signIn;
+            background-color: rgba($color-primary, 0.8);
+          }
+        }
       }
     }
   }
 }
-.btn-signIn {
-  margin-top: calc(58.5 * 0.0695vw);
-  color: $color-white;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 6px;
-  background-color: $color-primary;
-  // box-shadow: $box-shadow-signIn;
-  width: 100%;
-  padding-block: 1.5rem;
-}
-
-.btn-signIn:hover {
-  box-shadow: $box-shadow-signIn;
-  background-color: rgba($color-primary, 0.8);
-}
-// .u-issue {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 4.8vh;
-// }
-
-// .u-Fgap {
-//   gap: 4.8vh;
-// }
