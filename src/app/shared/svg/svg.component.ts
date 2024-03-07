@@ -14,8 +14,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-svg',
   standalone: true,
   imports: [CommonModule],
-  template: `<span [class]="class" [innerHTML]="svgIcon | async"></span>`,
-  // templateUrl: './svg.component.html',
+  // template: `<span [class]="class" [innerHTML]="svgIcon | async"></span>`,
+  templateUrl: './svg.component.html',
   styleUrl: './svg.component.scss',
 })
 export class SvgComponent implements OnInit, OnDestroy {
