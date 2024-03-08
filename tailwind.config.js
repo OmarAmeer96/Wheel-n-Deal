@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,ts,scss}"],
+  safelist: ["bg-orange-400"],
   theme: {
     extend: {
       colors: {
@@ -20,9 +21,23 @@ module.exports = {
           light: "#2c2c2c33",
           dark: "#202224",
         },
+        green: {
+          completed: "#00b69b",
+        },
+        red: {
+          rejected: "#ef3826",
+        },
       },
       backgroundImage: {
         gradient: "linear-gradient(248deg, #fad691 0%, #f9f5d7 100%)",
+      },
+      borderColor: {
+        green: {
+          completed: "#00b69b",
+        },
+        red: {
+          rejected: "#ef3826",
+        },
       },
     },
   },

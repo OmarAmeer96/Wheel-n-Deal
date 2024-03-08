@@ -90,13 +90,17 @@
               box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
               border-bottom: 3px solid $color-primary;
             }
-            &:focus:valid,
-            &:valid {
+            &.is-valid {
               border-bottom: 3px solid $color-green-completed;
             }
 
-            &[type="checkbox"] {
+            &.is-invalid {
+              border-bottom: 3px solid $color-red-rejected;
             }
+
+            // &:invalid:touch {
+            //   border-bottom: 3px solid $color-red-rejected;
+            // }
           }
         }
 
@@ -152,8 +156,29 @@
             box-shadow: $box-shadow-signIn;
             background-color: rgba($color-primary, 0.8);
           }
+
+          &:disabled {
+            opacity: 0.5;
+            background-color: rgba($color-primary, 0.6);
+          }
         }
       }
     }
   }
+}
+
+// .is-invalid {
+//   border-bottom: 3px solid $color-primary;
+// }
+
+// .is-valid {
+//   border-bottom: 3px solid $color-green-completed;
+// }
+
+.is-valid {
+  border-bottom: 3px solid $color-green-completed;
+}
+
+.is-invalid {
+  border-bottom: 3px solid $color-primary;
 }

@@ -9,27 +9,68 @@
         <h2>Sign in</h2>
       </div>
 
-      <form class="box__form__details">
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        class="box__form__details"
+      >
         <div class="flex flex-col gap-[4.8vh]">
           <div class="relative box__form__details__input-group">
-            <label for="email" class="label">Email</label>
+            <label for="userName" class="label">Username</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Enter your email address"
+              [ngClass]="{
+                'is-invalid':
+                  this.userName.touched &&
+                  this.userName.dirty &&
+                  this.userName.invalid,
+                'is-valid': this.userName.valid
+              }"
+              type="text"
+              id="userName"
+              placeholder="Enter your username "
               required
+              formControlName="userName"
             />
-            <app-svg name="message" class="icon"></app-svg>
+            <app-svg name="user" class="icon"></app-svg>
+            <div
+              *ngIf="userName.touched && userName.dirty && userName.invalid"
+              class="text-red-400"
+            >
+              <p *ngIf="userName.errors?.['required']">Felid is required</p>
+            </div>
           </div>
+
           <div class="relative box__form__details__input-group">
             <label for="email" class="label">Password</label>
+            <!-- INVALID -->
             <input
+              [ngClass]="{
+                'is-invalid':
+                  password.touched && password.dirty && password.invalid,
+                'is-valid': password.valid
+              }"
               type="password"
               id="password"
               placeholder="Enter your Password"
               required
+              formControlName="password"
             />
             <app-svg name="lock" class="icon"></app-svg>
+            <div
+              *ngIf="
+                loginForm.controls['password'].touched &&
+                loginForm.controls['password'].dirty &&
+                loginForm.controls['password'].invalid
+              "
+              class="text-red-400"
+            >
+              <p *ngIf="loginForm.controls['password'].errors?.['required']">
+                password is invalid
+              </p>
+              <p *ngIf="loginForm.controls['password'].errors?.['minlength']">
+                password must be at least 4 charchters
+              </p>
+            </div>
           </div>
         </div>
         <div class="flex justify-between mt-3 box__form__details__info">
@@ -43,7 +84,16 @@
             Forgot Password ?
           </div>
         </div>
-        <button class="btn btn-signIn">Login</button>
+        <button
+          type="submit"
+          class="btn btn-signIn"
+          [disabled]="loginForm.invalid || inSubmission"
+        >
+          <span *ngIf="isLoading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          </span>
+          Login
+        </button>
       </form>
     </div>
   </div>

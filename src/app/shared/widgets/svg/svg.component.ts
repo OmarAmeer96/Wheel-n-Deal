@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription, map } from 'rxjs';
-import { SvgIconService } from '../../core/services/svg-icon.service';
+import { SvgIconService } from '../../../core/services/svg-icon.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-svg',
