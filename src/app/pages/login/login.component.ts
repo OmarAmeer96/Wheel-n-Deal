@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../core/services/auth.service';
+import { IAdmin } from '../../core/models/interfaces/admin';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +36,10 @@ export class LoginComponent {
     password: this.password,
   });
 
+  constructor(private _auth: AuthService) {}
   login() {
     // this.isLoading = true;
+
+    this._auth.logIn(this.loginForm.value as IAdmin);
   }
 }
