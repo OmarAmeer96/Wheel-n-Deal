@@ -14,5 +14,8 @@ public class PaymobResponse {
     private boolean pending;
     private int amountCents;
     private String currency;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
 

@@ -42,7 +42,7 @@ public class SmsServiceImpl {
     public OtpResponseDto sendSMS(String phoneNumber) {
         OtpResponseDto otpResponseDto;
         try {
-            PhoneNumber to = new PhoneNumber(phoneNumber);//to
+            PhoneNumber to = new PhoneNumber("+2"+phoneNumber);//to
             PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber()); // from
             String otp = generateOTP();
             String otpMessage = "Dear Customer, Your OTP is " + otp + ", welcome to Wheel n' Deal family. Thank You.";

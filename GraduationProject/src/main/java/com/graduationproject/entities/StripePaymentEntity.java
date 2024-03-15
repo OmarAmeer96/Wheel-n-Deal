@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "payments")
+@Table(name = "visa_payments")
 public class StripePaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +17,8 @@ public class StripePaymentEntity {
     private LocalDateTime timestamp;
     @NotNull
     private String stripeUserId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

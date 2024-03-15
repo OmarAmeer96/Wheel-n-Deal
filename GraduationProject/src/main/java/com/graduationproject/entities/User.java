@@ -59,7 +59,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Trip> userTrips;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<StripePaymentEntity> userStripePayments;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<PaymobResponse> userVodafonePayments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
