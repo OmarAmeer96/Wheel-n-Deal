@@ -64,7 +64,6 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
                 const SizedBox(
                   width: 40,
                 ),
-                
                 CustomMainButton(
                   width: Responsive.screenWidth(context) * 0.37,
                   text: 'Commuter',

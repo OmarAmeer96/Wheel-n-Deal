@@ -741,7 +741,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Count of orders',
+                          'Expiry Date ',
                           style: Styles.manropeRegular14.copyWith(fontSize: 15),
                         ),
                       ),

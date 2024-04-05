@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/FAQ/presentation/views/app_faq_view.dart';
-import 'package:wheel_n_deal/Core/about_app/presentation/views/about_app_view.dart';
-import 'package:wheel_n_deal/Core/change_password/presentation/views/change_password_view.dart';
-import 'package:wheel_n_deal/Core/change_password/presentation/views/password_changed_2_view.dart';
-import 'package:wheel_n_deal/Core/privacy_policy/presentation/views/privacy_policy_view.dart';
-import 'package:wheel_n_deal/Core/support/presentation/views/support_view.dart';
-import 'package:wheel_n_deal/Core/terms_and_conditions/presentation/views/terms_view.dart';
+import 'package:wheel_n_deal/Features/FAQ/presentation/views/app_faq_view.dart';
+import 'package:wheel_n_deal/Features/about_app/presentation/views/about_app_view.dart';
+import 'package:wheel_n_deal/Features/change_password/presentation/views/change_password_view.dart';
+import 'package:wheel_n_deal/Features/change_password/presentation/views/password_changed_2_view.dart';
+import 'package:wheel_n_deal/Features/privacy_policy/presentation/views/privacy_policy_view.dart';
+import 'package:wheel_n_deal/Features/support/presentation/views/support_view.dart';
+import 'package:wheel_n_deal/Features/terms_and_conditions/presentation/views/terms_view.dart';
 import 'package:wheel_n_deal/Features/commuter/favourite/presentation/views/commuter_favourite_view.dart';
 import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/trip_deleted.dart';
 import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/views/my_trips_view.dart';
@@ -20,7 +20,7 @@ import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/pa
 import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
 import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
-import 'package:wheel_n_deal/Core/change_language/presentation/views/change_app_language_view.dart';
+import 'package:wheel_n_deal/Features/change_language/presentation/views/change_app_language_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/commuter_chat_view.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/commuter_messages_view.dart';
