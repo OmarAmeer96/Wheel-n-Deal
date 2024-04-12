@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wheel_n_deal/Core/utils/image_picker_bottom_sheet.dart';
+import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/constants.dart';
 import '../../../../../../Core/utils/assets.dart';

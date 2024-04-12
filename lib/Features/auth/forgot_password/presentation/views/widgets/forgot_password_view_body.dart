@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
-import 'package:wheel_n_deal/Core/utils/is_valid_phone_number.dart';
+import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/constants.dart';
