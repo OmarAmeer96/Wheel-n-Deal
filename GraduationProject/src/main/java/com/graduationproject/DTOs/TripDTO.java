@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 public class TripDTO {
-
     private Integer id;
     private String from;
     private String to;

@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Table(name="orders")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
@@ -19,7 +18,6 @@ public class Order {
     private Integer countOfOrders;
 
     private Integer weight;
-
     private boolean breakable;
 
     @Column(name = "expiry_date")
@@ -49,7 +47,4 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-
-
-
 }

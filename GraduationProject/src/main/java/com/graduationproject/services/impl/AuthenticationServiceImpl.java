@@ -1,8 +1,6 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.RefreshTokenRequest;
-import com.graduationproject.DTOs.SignInRequest;
-import com.graduationproject.DTOs.SignUpRequest;
+import com.graduationproject.DTOs.*;
 import com.graduationproject.entities.Token;
 import com.graduationproject.entities.TokenType;
 import com.graduationproject.entities.User;
@@ -10,30 +8,28 @@ import com.graduationproject.repositories.TokenRepository;
 import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.services.AuthenticationService;
 import com.graduationproject.services.JWTService;
-import com.graduationproject.DTOs.JwtAuthenticationResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     private final AuthenticationManager authenticationManager;
-
     private final JWTService jwtService;
-
     private final TokenRepository tokenRepository;
 
-    public JwtAuthenticationResponse signup(SignUpRequest signUpRequest){
+    public JwtAuthenticationResponse signup(SignUpRequest signUpRequest) {
         User user = new User();
         user.setPhoneNumber(signUpRequest.getPhone());
         user.setUsername(signUpRequest.getUsername());
@@ -42,7 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        var jwtRefreshToken = jwtService.generateRefreshToken(new HashMap<>(),user);
+        var jwtRefreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
         saveUserToken(savedUser, jwtToken);
 
         return JwtAuthenticationResponse.builder()
@@ -62,28 +58,32 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         tokenRepository.save(token);
     }
 
-    public JwtAuthenticationResponse signin(SignInRequest signinRequest){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getUsername(),
-                signinRequest.getPassword()));
+    public Optional<JwtAuthenticationResponse> signin(SignInRequest signinRequest) throws ResponseError {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getUsername(),
+                    signinRequest.getPassword()));
 
-        var user=userRepository.findByUsername(signinRequest.getUsername()).orElseThrow(()-> new IllegalArgumentException("Invalid Username or password"));
+            var user = userRepository.findByUsername(signinRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid Username or password"));
 
-        var jwt = jwtService.generateToken(user);
+            var jwt = jwtService.generateToken(user);
 
-        var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+            var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
-        JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-        jwtAuthenticationResponse.setToken(jwt);
-        jwtAuthenticationResponse.setRefreshToken(refreshToken);
-        revokeAllUserTokens(user);
-        saveUserToken(user, jwt);
+            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+            jwtAuthenticationResponse.setToken(jwt);
+            jwtAuthenticationResponse.setRefreshToken(refreshToken);
+            revokeAllUserTokens(user);
+            saveUserToken(user, jwt);
 
-        return jwtAuthenticationResponse;
+            return Optional.of(jwtAuthenticationResponse);
+        } catch (AuthenticationException ex) {
+            throw new ResponseError(HttpStatus.UNAUTHORIZED, "Invalid Username or password", ex.getCause().getMessage());
+        }
     }
 
-    public void revokeAllUserTokens(User user){
+    public void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
-        if(validUserTokens.isEmpty())
+        if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(
                 token -> {
@@ -94,18 +94,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest)  {
-        String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByUsername(userEmail).orElseThrow();
-        if(jwtService.isTokenValid(refreshTokenRequest.getToken(),user)){
-            var jwt = jwtService.generateToken(user);
+    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) throws ResponseError {
+        try {
+            String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
+            User user = userRepository.findByUsername(userEmail).orElseThrow();
+            if (jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
+                var jwt = jwtService.generateToken(user);
 
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
+                JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+                jwtAuthenticationResponse.setToken(jwt);
+                jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
 
-            return jwtAuthenticationResponse;
+                return jwtAuthenticationResponse;
+            }
+            return null;
+        } catch (Exception ex) {
+            throw new ResponseError(HttpStatus.BAD_REQUEST, "Invalid token or user not found", ex.getMessage());
         }
-        return null;
     }
 }

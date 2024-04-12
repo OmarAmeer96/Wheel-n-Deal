@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.HashMap;
 
 public interface JWTService {
-
     String extractUserName(String token);
 
     String generateToken(UserDetails userDetails);

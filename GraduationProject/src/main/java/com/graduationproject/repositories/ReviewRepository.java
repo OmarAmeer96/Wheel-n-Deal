@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review,Integer> {
-
     @Query("SELECT r FROM Review r WHERE r.reviewer.id = :reviewerId AND r.reviewee.id = :revieweeId")
     Review findByReviewerIdAndRevieweeId(@Param("reviewerId") int reviewerId, @Param("revieweeId") int revieweeId);
-
-
 }

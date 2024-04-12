@@ -5,18 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e76c4c6-e973-4de6-884f-b5e880c0542b" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/ResponseError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f6d15228-5e4e-4899-b3a5-3ae7d1cbe53d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f6d15228-5e4e-4899-b3a5-3ae7d1cbe53d.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_10_00_pm_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_10_00_pm__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/JwtAuthenticationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/JwtAuthenticationResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/OrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SearchOrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SearchOrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SignInRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SignInRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/TripDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/TripDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/UserProfileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/UserProfileDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Review.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/StripePaymentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/StripePaymentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/Trip.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/SmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/SmsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/ReviewRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/TokenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/TokenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/TripRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/TripRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/JWTService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/JWTService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/AuthenticationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -74,11 +101,13 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "database.query.execution",
-    "two.files.diff.last.used.folder": "C:/Users/noora/IdeaProjects/Wheel-n-Deal"
+    "two.files.diff.last.used.folder": "C:/Users/noora/IdeaProjects/Wheel-n-Deal",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -125,7 +154,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-corretto-17.0.9-249ae16d76d6-98297cd8" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
       </set>
     </attachedChunks>
   </component>
@@ -137,6 +166,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702576465330</updated>
+      <workItem from="1712950895604" duration="8311000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -218,8 +248,19 @@
       <option name="project" value="LOCAL" />
       <updated>1709229666941</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update">
+      <option name="closed" value="true" />
+      <created>1710534349840</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1710534349840</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

@@ -5,8 +5,6 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.testcontainers.shaded.org.checkerframework.common.aliasing.qual.Unique;
-
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
@@ -18,26 +16,25 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @NotNull
-    @Unique
+    @Column(unique=true)
     private String phoneNumber;
     @NotNull
-    @Unique
+    @Column(unique=true)
     private String username;
     private String stripeId;
     private Long amount;
-
     private String fullName;
     private Gender gender;
     private String city;
     private String profilePictureUrl;
+    @NotNull
+    @Column(unique=true)
     private String nationalId;
     private String password;
-
     private Integer totalDelivers;
-
     private Integer cancelDelivers;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -69,27 +66,22 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
     @Override
     public String getUsername() {
         return username;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
     @Override
     public boolean isEnabled() {
         return true;

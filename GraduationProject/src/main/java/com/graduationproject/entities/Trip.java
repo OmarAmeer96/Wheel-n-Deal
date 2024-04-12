@@ -15,7 +15,6 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(name = "moving_from")
     private String from;
     @Column(name = "goes_to")
@@ -25,10 +24,7 @@ public class Trip {
     private String startsAt;
     private String endsAt;
     private int capacity;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }
-

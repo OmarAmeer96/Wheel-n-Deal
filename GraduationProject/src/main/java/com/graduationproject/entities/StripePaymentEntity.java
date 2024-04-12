@@ -17,8 +17,7 @@ public class StripePaymentEntity {
     private LocalDateTime timestamp;
     @NotNull
     private String stripeUserId;
-
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "phone_number")
     private User user;
 }

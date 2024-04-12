@@ -13,5 +13,4 @@ public class UserProfileDTO {
     private MultipartFile profilePicture;
     private String phone;
     private String nationalId;
-
 }
