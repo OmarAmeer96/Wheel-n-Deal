@@ -63,59 +63,13 @@ class _CommuterChatViewBodyState extends State<CommuterChatViewBody> {
                           children: [
                             const SizedBox(height: 15),
                             SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
+                              messageContent: 'When will you deliver my order',
+                            ),
                             const SizedBox(height: 15),
                             ReceiverMessage(
-                                messageContent:
-                                    'I’m on the way to your home, Please\nwait a moment. Thanks!'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            ReceiverMessage(messageContent: 'Welcome'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
-                            SenderMessage(
-                                messageContent:
-                                    'When will you deliver my order'),
-                            const SizedBox(height: 15),
+                              messageContent:
+                                  'I’m on the way to your home, Please\nwait a moment. Thanks!',
+                            ),
                           ],
                         ),
                       ),
