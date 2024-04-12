@@ -15,12 +15,12 @@ import java.util.List;
 public class TripController {
     private final TripService tripService;
 
-    @PostMapping("/create-update/trip")
+    @PostMapping("create-update/trip")
     public ResponseEntity<String> PostOrUpdateTrip(@RequestBody TripDTO tripDTO){
         return tripService.postOrUpdateTrip(tripDTO);
     }
 
-    @DeleteMapping("/delete-trip/{tripId}")
+    @DeleteMapping("delete-trip/{tripId}")
     public String deleteTripById(@PathVariable int tripId){
         return tripService.deleteTrip(tripId);
     }

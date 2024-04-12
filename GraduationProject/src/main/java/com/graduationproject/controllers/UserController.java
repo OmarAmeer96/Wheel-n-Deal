@@ -30,27 +30,27 @@ public class UserController {
         return ResponseEntity.ok("Hi User");
     }
 
-    @PutMapping("/update")
+    @PutMapping("update")
     public ResponseEntity<String> updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
         return userProfileService.updateUserProfile(userProfileDTO);
     }
 
-    @GetMapping("/get-normal-user-porfile")
+    @GetMapping("get-normal-user-porfile")
     public ResponseEntity<NormalProfileDTO> getNormalUserProfile(@RequestParam Integer id){
         return userProfileService.getNormalUserProfile(id);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("delete")
     public ResponseEntity<String> deleteById(@RequestParam Integer id){
        return userServiceImpl.deleteById(id);
     }
 
-    @PostMapping("/search-for-trip/{from}/{to}")
+    @PostMapping("search-for-trip/{from}/{to}")
     public ResponseEntity<List<TripSearchResultDTO>> searchForTrip(@PathVariable String from, @PathVariable String to){
         return tripService.SearchForTrip(from,to);
     }
 
-    @GetMapping("/get-commuter-profile/{commuterId}")
+    @GetMapping("get-commuter-profile/{commuterId}")
     public CommuterProfileDTO getCommuterProfile(@PathVariable Integer commuterId){
         return commuterProfileService.getFullCommuterProfile(commuterId);
     }

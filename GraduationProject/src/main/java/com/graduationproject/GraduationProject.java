@@ -47,7 +47,6 @@ public class GraduationProject implements CommandLineRunner {
 	public void setup() {
 		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
 	}
-
 }
 
 

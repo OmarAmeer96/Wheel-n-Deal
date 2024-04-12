@@ -15,12 +15,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-    @PostMapping("/create-update")
+    @PostMapping("create-update")
     public ResponseEntity<String> createOrder(@ModelAttribute OrderDTO orderDTO) {
         return orderService.createOrUpdateOrder(orderDTO);
     }
 
-    @GetMapping("/searchOrders/{from}/{to}")
+    @GetMapping("searchOrders/{from}/{to}")
     public List<SearchOrderDTO> searchOrder(@PathVariable String from, @PathVariable String to){
         return orderService.searchForOrder(from,to);
     }

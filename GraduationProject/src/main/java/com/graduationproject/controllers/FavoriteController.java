@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/user")
 public class FavoriteController {
     private final FavoriteService favoriteService;
-
     @PostMapping("manageFavorites/{userId}/{favoriteUserId}")
     public ResponseEntity<String> manageFavoriteUser(@PathVariable int userId, @PathVariable int favoriteUserId) {
         return favoriteService.manageFavoriteUser(userId,favoriteUserId);

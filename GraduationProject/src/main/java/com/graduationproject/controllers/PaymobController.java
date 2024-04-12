@@ -32,7 +32,7 @@ public class PaymobController {
         return paymobService.sendPaymentRequest(walletRequest);
     }
 
-    @PostMapping("/EWalletCharge")
+    @PostMapping("EWalletCharge")
     public PayResponseDTO EWalletCharge(@RequestBody PayRequestDTO request) throws JsonProcessingException {
         // 1
         String apiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RVMk5qYzNMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkubWdRME9MbXo4SlRBdE5HSmFnNjJrR21DcndoZzlyTEthN3dVdHRmQnc5bnRGSlN5NEhCbTVmWV9pelBuX2tQOGh4X2lhdzdDWnYwT0M5MDZaMk41UWc=";

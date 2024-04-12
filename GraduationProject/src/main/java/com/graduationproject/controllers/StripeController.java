@@ -18,17 +18,17 @@ public class StripeController {
     @Autowired
     private StripeServiceImpl stripeService;
 
-    @PostMapping("/create-stripe-user")
+    @PostMapping("create-stripe-user")
     public String createStripeUser(@RequestBody CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
         return stripeService.createStripeUser(request);
     }
 
-    @PostMapping("/charge")
+    @PostMapping("charge")
     public String charge(@RequestBody ChargeUserDTO chargeUserDTO) throws StripeException {
         return stripeService.chargeUser(chargeUserDTO);
     }
 
-    @PostMapping("/get-all-user-charges")
+    @PostMapping("get-all-user-charges")
     public List<Charge> getAllUserCharges(@RequestParam String stripeUserId) throws StripeException {
         return stripeService.getAllUserCharges(stripeUserId);
     }
