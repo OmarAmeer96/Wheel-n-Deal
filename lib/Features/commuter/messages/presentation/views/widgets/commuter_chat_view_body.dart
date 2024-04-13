@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:wheel_n_deal/Core/functions/send_message.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/chat_app_bar.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/receiver_message.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/sender_message.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CommuterChatViewBody extends StatefulWidget {
   const CommuterChatViewBody({super.key});
@@ -18,6 +20,8 @@ class _CommuterChatViewBodyState extends State<CommuterChatViewBody> {
     final TextEditingController messageController = TextEditingController();
     // ignore: unused_local_variable
     String? message;
+    CollectionReference messages =
+        FirebaseFirestore.instance.collection('messages');
 
     return SafeArea(
       child: GestureDetector(
@@ -81,8 +85,15 @@ class _CommuterChatViewBodyState extends State<CommuterChatViewBody> {
                             Expanded(
                               child: TextFormField(
                                 controller: messageController,
-                                onChanged: (value) {
-                                  message = value;
+                                onFieldSubmitted: (value) {
+                                  DateTime currentTime = DateTime.now();
+                                  sendMessage(
+                                    messages,
+                                    value,
+                                    messageController,
+                                    currentTime,
+                                    context,
+                                  );
                                 },
                                 style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
@@ -131,7 +142,16 @@ class _CommuterChatViewBodyState extends State<CommuterChatViewBody> {
                             ),
                             const SizedBox(width: 21.13),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                DateTime currentTime = DateTime.now();
+                                sendMessage(
+                                  messages,
+                                  messageController.text,
+                                  messageController,
+                                  currentTime,
+                                  context,
+                                );
+                              },
                               child: SvgPicture.asset(
                                 AssetsData.sendMessage,
                                 width: 30.87,

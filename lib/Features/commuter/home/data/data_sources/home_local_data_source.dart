@@ -1,20 +1,19 @@
-
-import 'package:wheel_n_deal/Features/commuter/home/domain/entities/book_entity.dart';
+import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 
 abstract class HomeLocalDataSource {
-  List<BookEntity> fetchFeauredBooks();
-  List<BookEntity> fetchNewewstBooks();
+  List<MessageEntity> fetchFeauredBooks();
+  List<MessageEntity> fetchNewewstBooks();
 }
 
 class HomeLocalDataSourceImpl extends HomeLocalDataSource {
   @override
-  List<BookEntity> fetchFeauredBooks() {
+  List<MessageEntity> fetchFeauredBooks() {
     // TODO: implement fetchFeauredBooks
     throw UnimplementedError();
   }
 
   @override
-  List<BookEntity> fetchNewewstBooks() {
+  List<MessageEntity> fetchNewewstBooks() {
     // TODO: implement fetchNewewstBooks
     throw UnimplementedError();
   }

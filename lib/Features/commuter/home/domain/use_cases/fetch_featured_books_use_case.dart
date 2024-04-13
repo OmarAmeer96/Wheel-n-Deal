@@ -2,16 +2,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:wheel_n_deal/Core/errors/failure.dart';
 import 'package:wheel_n_deal/Core/use_cases/use_case.dart';
-import 'package:wheel_n_deal/Features/commuter/home/domain/entities/book_entity.dart';
+import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/repos/home_repo.dart';
 
-class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, NoParam> {
+class FetchFeaturedBooksUseCase extends UseCase<List<MessageEntity>, NoParam> {
   final HomeRepo homeRepo;
 
   FetchFeaturedBooksUseCase({required this.homeRepo});
 
   @override
-  Future<Either<Failure, List<BookEntity>>> call([NoParam? param]) async {
+  Future<Either<Failure, List<MessageEntity>>> call([NoParam? param]) async {
     /* 
     Here, for example if i will check the permissions, so the code will be written here, 
     and the functionality of fetching the featured books itself 
