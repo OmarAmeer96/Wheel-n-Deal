@@ -24,15 +24,15 @@ public class User implements UserDetails {
 
     /** The phone number of the user. */
     @NotNull
-    @Column(unique=true)
+    @Column(unique=true,length = 13)
     private String phoneNumber;
 
     /** The username of the user. */
     @NotNull
-    @Column(unique=true)
     private String username;
 
     /** The ID associated with the user in the Stripe payment system. */
+    @Column(unique=true)
     private String stripeId;
 
     /** The amount of money associated with the user. */
@@ -51,11 +51,11 @@ public class User implements UserDetails {
     private String profilePictureUrl;
 
     /** The national ID of the user. */
-    @NotNull
-    @Column(unique=true)
+    @Column(length = 14)
     private String nationalId;
 
     /** The password of the user. */
+    @NotNull
     private String password;
 
     /** The total number of deliveries made by the user. */
@@ -65,6 +65,7 @@ public class User implements UserDetails {
     private Integer cancelDelivers;
 
     /** The role of the user in the application. */
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
