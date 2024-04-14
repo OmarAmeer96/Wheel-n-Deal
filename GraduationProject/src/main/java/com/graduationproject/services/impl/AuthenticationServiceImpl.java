@@ -159,7 +159,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
-
     /**
      * Revokes all tokens associated with the user.
      * @param user The user entity
