@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Controller class for managing user-related operations.
- */
 @RestController
-@RequestMapping("api/v1/user")
 @RequiredArgsConstructor
+@RequestMapping("api/v1/user")
 public class UserController {
     private final UserProfileService userProfileService;
     private final UserServiceImpl userServiceImpl;
@@ -27,8 +24,8 @@ public class UserController {
     private final CommuterProfileService commuterProfileService;
 
     /**
-     * Endpoint for saying hello to the user.
-     * @return ResponseEntity with a greeting message
+     * Endpoint to test the controller
+     * @return ResponseEntity<String>
      */
     @GetMapping
     public ResponseEntity<String> sayHello(){
@@ -36,9 +33,9 @@ public class UserController {
     }
 
     /**
-     * Endpoint for updating user profile.
-     * @param userProfileDTO The DTO containing user profile details
-     * @return ResponseEntity indicating the result of the update operation
+     * Endpoint to update user profile
+     * @param userProfileDTO The user profile DTO containing updated profile information
+     * @return ResponseEntity<String>
      */
     @PutMapping("update")
     public ResponseEntity<String> updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
@@ -46,19 +43,19 @@ public class UserController {
     }
 
     /**
-     * Endpoint for retrieving normal user profile.
-     * @param id The ID of the user
-     * @return ResponseEntity containing the normal user profile details
+     * Endpoint to retrieve normal user profile details
+     * @param id The user ID
+     * @return ResponseEntity<NormalProfileDTO>
      */
-    @GetMapping("get-normal-user-profile")
+    @GetMapping("get-normal-user-porfile")
     public ResponseEntity<NormalProfileDTO> getNormalUserProfile(@RequestParam Integer id){
         return userProfileService.getNormalUserProfile(id);
     }
 
     /**
-     * Endpoint for deleting a user by ID.
-     * @param id The ID of the user to delete
-     * @return ResponseEntity indicating the result of the deletion operation
+     * Endpoint to delete user by ID
+     * @param id The user ID
+     * @return ResponseEntity<String>
      */
     @DeleteMapping("delete")
     public ResponseEntity<String> deleteById(@RequestParam Integer id){
@@ -66,10 +63,10 @@ public class UserController {
     }
 
     /**
-     * Endpoint for searching trips based on origin and destination.
+     * Endpoint to search for trip
      * @param from The origin of the trip
      * @param to The destination of the trip
-     * @return ResponseEntity containing a list of trip search results
+     * @return ResponseEntity<List<TripSearchResultDTO>>
      */
     @PostMapping("search-for-trip/{from}/{to}")
     public ResponseEntity<List<TripSearchResultDTO>> searchForTrip(@PathVariable String from, @PathVariable String to){
@@ -77,9 +74,9 @@ public class UserController {
     }
 
     /**
-     * Endpoint for retrieving the full profile of a commuter.
-     * @param commuterId The ID of the commuter
-     * @return The full commuter profile
+     * Endpoint to retrieve commuter profile by commuter ID
+     * @param commuterId The commuter ID
+     * @return CommuterProfileDTO
      */
     @GetMapping("get-commuter-profile/{commuterId}")
     public CommuterProfileDTO getCommuterProfile(@PathVariable Integer commuterId){
