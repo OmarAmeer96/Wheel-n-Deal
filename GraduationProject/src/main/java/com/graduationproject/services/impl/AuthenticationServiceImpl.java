@@ -66,14 +66,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Map<String, String> customerDetails = new HashMap<>();
         jsonNode.fields().forEachRemaining(entry -> customerDetails.put(entry.getKey(), entry.getValue().asText()));
 
-        // Save user details in the database
-        User userEntity = new User();
-        userEntity.setStripeId(customer.getId());
-        userEntity.setPhoneNumber(request.getPhoneNumber());
-        userEntity.setUsername(request.getUserName());
-        userEntity.setAmount(0L);
-        userRepository.save(userEntity);
-
         return customer.getId();
     }
 
@@ -87,12 +79,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             CreateStripeUserRequestDTO request = new CreateStripeUserRequestDTO();
             request.setPhoneNumber(signUpRequest.getPhone());
             request.setUserName(signUpRequest.getUsername());
+            String stripeId = createStripeUser(request);
 
             User user = new User();
             user.setPhoneNumber(signUpRequest.getPhone());
             user.setUsername(signUpRequest.getUsername());
             user.setRole(signUpRequest.getRole());
             user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+            user.setStripeId(stripeId);
+            user.setAmount(0L);
 
             var savedUser = userRepository.save(user);
             var jwtToken = jwtService.generateToken(user);
@@ -104,7 +99,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .token(jwtToken)
                     .refreshToken(jwtRefreshToken)
                     .success(true)
-                    .stripeId(createStripeUser(request))
+                    .stripeId(stripeId)
                     .build();
         } catch (Exception e) {
             // If an exception occurs, return a failure response
