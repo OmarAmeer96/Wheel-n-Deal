@@ -26,9 +26,4 @@ public class PaymobResponse {
 
     /** The currency of the payment. */
     private String currency;
-
-    /** The user associated with the Paymob response. */
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 }

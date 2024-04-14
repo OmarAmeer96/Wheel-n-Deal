@@ -27,9 +27,4 @@ public class StripePaymentEntity {
     /** The Stripe user ID associated with the payment. */
     @NotNull
     private String stripeUserId;
-
-    /** The user associated with the payment. */
-    @ManyToOne
-    @JoinColumn(name = "phone_number")
-    private User user;
 }

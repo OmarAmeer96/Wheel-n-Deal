@@ -92,14 +92,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Trip> userTrips;
 
-    /** The list of Stripe payments associated with the user. */
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private List<StripePaymentEntity> userStripePayments;
-
-    /** The list of Vodafone payments associated with the user. */
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private List<PaymobResponse> userVodafonePayments;
-
     /**
      * Retrieves the authorities granted to the user.
      * @return The authorities granted to the user.
