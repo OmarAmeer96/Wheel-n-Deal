@@ -22,18 +22,6 @@ public class StripeController {
     private StripeServiceImpl stripeService;
 
     /**
-     * Endpoint for creating a Stripe user.
-     * @param request The request containing user details
-     * @return A string indicating the result of the operation
-     * @throws StripeException If an error occurs during Stripe interaction
-     * @throws JsonProcessingException If an error occurs while processing JSON
-     */
-    @PostMapping("create-stripe-user")
-    public String createStripeUser(@RequestBody CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
-        return stripeService.createStripeUser(request);
-    }
-
-    /**
      * Endpoint for charging a user's card via Stripe.
      * @param chargeUserDTO The DTO containing charge details
      * @return A string indicating the result of the charge operation
