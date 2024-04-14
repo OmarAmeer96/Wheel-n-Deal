@@ -1,6 +1,10 @@
 package com.graduationproject.services.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.graduationproject.DTOs.*;
+import com.graduationproject.DTOs.stripePaymentDTOs.CreateStripeUserRequestDTO;
 import com.graduationproject.entities.Token;
 import com.graduationproject.entities.TokenType;
 import com.graduationproject.entities.User;
@@ -8,13 +12,19 @@ import com.graduationproject.repositories.TokenRepository;
 import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.services.AuthenticationService;
 import com.graduationproject.services.JWTService;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.param.CustomerCreateParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Service implementation for user authentication operations.
@@ -30,12 +40,54 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final TokenRepository tokenRepository;
 
     /**
+     * Creates a new customer in Stripe and saves user details in the database.
+     * @param request The DTO containing the request details
+     * @return The Stripe ID of the created customer
+     * @throws StripeException if an error occurs with the Stripe API
+     * @throws JsonProcessingException if an error occurs while processing JSON
+     */
+    public String createStripeUser(CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
+        // Set the API key for Stripe
+        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
+
+        // Create customer parameters
+        CustomerCreateParams customerParams = CustomerCreateParams.builder()
+                .setPhone(request.getPhoneNumber())
+                .setName(request.getUserName())
+                .build();
+
+        // Create a new customer in Stripe
+        Customer customer = Customer.create(customerParams);
+
+        // Retrieve customer details
+        Customer customerRetrieve = Customer.retrieve(customer.getId());
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(customerRetrieve.toJson());
+        Map<String, String> customerDetails = new HashMap<>();
+        jsonNode.fields().forEachRemaining(entry -> customerDetails.put(entry.getKey(), entry.getValue().asText()));
+
+        // Save user details in the database
+        User userEntity = new User();
+        userEntity.setStripeId(customer.getId());
+        userEntity.setPhoneNumber(request.getPhoneNumber());
+        userEntity.setUsername(request.getUserName());
+        userEntity.setAmount(0L);
+        userRepository.save(userEntity);
+
+        return customer.getId();
+    }
+
+    /**
      * Handles user signup operation.
      * @param signUpRequest The DTO containing signup details
      * @return The JWT authentication response containing token and refresh token
      */
     public JwtAuthenticationResponse signup(SignUpRequest signUpRequest) {
         try {
+            CreateStripeUserRequestDTO request = new CreateStripeUserRequestDTO();
+            request.setPhoneNumber(signUpRequest.getPhone());
+            request.setUserName(signUpRequest.getUsername());
+
             User user = new User();
             user.setPhoneNumber(signUpRequest.getPhone());
             user.setUsername(signUpRequest.getUsername());
@@ -52,6 +104,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .token(jwtToken)
                     .refreshToken(jwtRefreshToken)
                     .success(true)
+                    .stripeId(createStripeUser(request))
                     .build();
         } catch (Exception e) {
             // If an exception occurs, return a failure response

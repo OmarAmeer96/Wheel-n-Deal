@@ -26,7 +26,7 @@ public class AuthenticationController {
      *         or null if signup fails
      */
     @PostMapping("signup")
-    public JwtAuthenticationResponse signup(@RequestBody SignUpRequest signUpRequest){
+    public JwtAuthenticationResponse signup(@RequestBody SignUpRequest signUpRequest) {
         return authenticationService.signup(signUpRequest);
     }
 
