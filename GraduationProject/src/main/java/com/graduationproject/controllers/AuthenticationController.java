@@ -24,30 +24,33 @@ public class AuthenticationController {
     /**
      * Handles user signup request.
      * @param signUpRequest SignUpRequest object containing signup details
-     * @return ResponseEntity containing JWT authentication response
+     * @return JwtAuthenticationResponse containing JWT authentication response,
+     *         or null if signup fails
      */
     @PostMapping("signup")
-    public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest signUpRequest){
-        return ResponseEntity.ok(authenticationService.signup(signUpRequest));
+    public JwtAuthenticationResponse signup(@RequestBody SignUpRequest signUpRequest){
+        return authenticationService.signup(signUpRequest);
     }
 
     /**
      * Handles user signin request.
      * @param signInRequest SignInRequest object containing signin details
-     * @return ResponseEntity containing optional JWT authentication response
+     * @return JwtAuthenticationResponse containing JWT authentication response,
+     *         or null if signin fails
      */
     @PostMapping("signin")
-    public ResponseEntity<Optional<JwtAuthenticationResponse>> signin(@RequestBody SignInRequest signInRequest)  {
-        return ResponseEntity.ok(authenticationService.signin(signInRequest));
+    public JwtAuthenticationResponse signin(@RequestBody SignInRequest signInRequest)  {
+        return authenticationService.signin(signInRequest);
     }
 
     /**
      * Handles token refresh request.
      * @param refreshTokenRequest RefreshTokenRequest object containing refresh token
-     * @return ResponseEntity containing JWT authentication response
+     * @return JwtAuthenticationResponse containing JWT authentication response,
+     *         or null if token refresh fails
      */
     @PostMapping("refresh")
-    public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest)  {
-        return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
+    public JwtAuthenticationResponse refresh(@RequestBody RefreshTokenRequest refreshTokenRequest)  {
+        return authenticationService.refreshToken(refreshTokenRequest);
     }
 }

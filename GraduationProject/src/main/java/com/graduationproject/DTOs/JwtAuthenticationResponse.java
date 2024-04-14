@@ -18,4 +18,7 @@ public class JwtAuthenticationResponse {
 
     /** The refresh token. */
     private String refreshToken;
+
+    /** The status of the authentication response. */
+    private boolean success;
 }
