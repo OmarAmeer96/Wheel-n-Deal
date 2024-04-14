@@ -5,11 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Transfer Object (DTO) representing the response for JWT authentication.
+ */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class JwtAuthenticationResponse {
+    /** The JWT token. */
     private String token;
+
+    /** The refresh token. */
     private String refreshToken;
 }

@@ -18,13 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class responsible for managing orders.
+ */
 @Data
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
+    /**
+     * Creates or updates an order based on the provided OrderDTO.
+     * @param orderDTO The OrderDTO containing order information
+     * @return ResponseEntity with a message indicating the success or failure of the operation
+     */
     public ResponseEntity<String> createOrUpdateOrder(OrderDTO orderDTO) {
         if (orderDTO.getId() != null) {
             Optional<Order> optionalOrder = orderRepository.findById(orderDTO.getId());
@@ -33,7 +41,7 @@ public class OrderService {
                 Order existingOrder = optionalOrder.get();
                 updateOrderFromDTO(existingOrder, orderDTO);
                 orderRepository.save(existingOrder);
-                return ResponseEntity.ok("Order updated Successfully");// Update the existing order
+                return ResponseEntity.ok("Order updated Successfully"); // Update the existing order
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found with ID: " + orderDTO.getId());
             }
@@ -43,6 +51,11 @@ public class OrderService {
         }
     }
 
+    /**
+     * Saves a new order based on the provided OrderDTO.
+     * @param orderDTO The OrderDTO containing order information
+     * @return The newly created Order
+     */
     private Order saveNewOrderFromDTO(OrderDTO orderDTO) {
         Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
         if (optionalUser.isEmpty()) {
@@ -59,6 +72,11 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    /**
+     * Updates an Order entity based on the provided OrderDTO.
+     * @param order The Order entity to be updated
+     * @param orderDTO The OrderDTO containing updated order information
+     */
     private void updateOrderFromDTO(Order order, OrderDTO orderDTO) {
         order.setOrderName(orderDTO.getOrderName());
         order.setCountOfOrders(orderDTO.getCountOfOrders());
@@ -73,6 +91,11 @@ public class OrderService {
         order.setReceiverPhoneNumber(orderDTO.getReceiverPhoneNumber());
     }
 
+    /**
+     * Updates a SearchOrderDTO object based on an Order entity.
+     * @param searchOrderDTO The SearchOrderDTO object to be updated
+     * @param order The Order entity containing order information
+     */
     private void updateSearchOrderDTOFromOrder(SearchOrderDTO searchOrderDTO, Order order){
         searchOrderDTO.setId(order.getId());
         searchOrderDTO.setOrderName(order.getOrderName());
@@ -89,6 +112,12 @@ public class OrderService {
         searchOrderDTO.setReceiverPhoneNumber(order.getReceiverPhoneNumber());
     }
 
+    /**
+     * Searches for orders with the specified origin and destination.
+     * @param from The origin of the order
+     * @param to The destination of the order
+     * @return List of SearchOrderDTO objects representing the search results
+     */
     public List<SearchOrderDTO> searchForOrder(String from, String to){
         List<SearchOrderDTO> searchOrderDTOS = new ArrayList<>();
         List<Order> existingOrders = orderRepository.findByFromAndTo(from,to);
@@ -99,5 +128,4 @@ public class OrderService {
         }
         return searchOrderDTOS;
     }
-
 }

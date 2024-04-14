@@ -20,20 +20,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for handling trip-related operations.
+ */
 @Service
 @RequiredArgsConstructor
-@Data
 public class TripService {
 
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
 
+    /**
+     * Posts or updates a trip based on the provided TripDTO.
+     * @param tripDTO The DTO containing trip details
+     * @return A ResponseEntity indicating the status of the operation
+     */
     public ResponseEntity<String> postOrUpdateTrip(TripDTO tripDTO){
 
+        // Check if the user is a commuter
         if (!isCommuter()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Only COMMUTER users are allowed to access this endpoint.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Access denied. Only COMMUTER users are allowed to access this endpoint.");
         }
 
+        // Check if the trip is being updated or created
         if(tripDTO.getId() != null){
             Optional<Trip> optionalTrip = tripRepository.findById(tripDTO.getId());
             if(optionalTrip.isPresent()){
@@ -42,7 +52,8 @@ public class TripService {
                 tripRepository.save(existingTrip);
                 return ResponseEntity.ok("Trip updated Successfully");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trip not found with ID: " + tripDTO.getId());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Trip not found with ID: " + tripDTO.getId());
             }
         } else {
             saveNewTripFromDTO(tripDTO);
@@ -50,6 +61,11 @@ public class TripService {
         }
     }
 
+    /**
+     * Saves a new trip based on the provided TripDTO.
+     * @param tripDTO The DTO containing trip details
+     * @return The newly created trip
+     */
     private Trip saveNewTripFromDTO(TripDTO tripDTO){
         Optional<User> optionalUser = userRepository.findById(tripDTO.getUserId());
         if (optionalUser.isEmpty()) {
@@ -62,6 +78,11 @@ public class TripService {
         return tripRepository.save(trip);
     }
 
+    /**
+     * Updates a trip entity based on the provided TripDTO.
+     * @param trip The trip entity to update
+     * @param tripDTO The DTO containing updated trip details
+     */
     private void updateTripFromDTO(Trip trip , TripDTO tripDTO){
         trip.setFrom(tripDTO.getFrom());
         trip.setTo(tripDTO.getTo());
@@ -72,13 +93,25 @@ public class TripService {
         trip.setCapacity(tripDTO.getCapacity());
     }
 
+    /**
+     * Deletes a trip with the specified ID.
+     * @param tripId The ID of the trip to delete
+     * @return A message indicating the status of the operation
+     */
     public String deleteTrip(int tripId){
         tripRepository.deleteById(tripId);
         return "Trip deleted Successfully";
     }
 
-    public ResponseEntity<List<TripSearchResultDTO>> SearchForTrip(String from, String to){
+    /**
+     * Searches for trips based on the specified origin and destination.
+     * @param from The origin of the trip
+     * @param to The destination of the trip
+     * @return A list of TripSearchResultDTO objects representing the search results
+     */
+    public ResponseEntity<List<TripSearchResultDTO>> searchForTrip(String from, String to){
 
+        // Check if the user is authenticated
         if (!isUser()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Collections.emptyList()); // Return an empty list if unauthorized
@@ -98,30 +131,27 @@ public class TripService {
         return ResponseEntity.ok(tripSearchResultDTOS);
     }
 
+    /**
+     * Checks if the authenticated user has the role of a commuter.
+     * @return True if the user is a commuter, otherwise false
+     */
     private boolean isCommuter(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticatedUsername = authentication.getName();
         String neededRole = String.valueOf(Role.COMMUTER);
         String authenticatedUserRole =String.valueOf(userRepository.findByUsername(authenticatedUsername).get().getRole());
-        if(neededRole.equals(authenticatedUserRole)){
-            return true;
-        }
-        return false;
+        return neededRole.equals(authenticatedUserRole);
     }
 
+    /**
+     * Checks if the authenticated user has the role of a regular user.
+     * @return True if the user is a regular user, otherwise false
+     */
     private boolean isUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticatedUsername = authentication.getName();
         String neededRole = String.valueOf(Role.USER);
         String authenticatedUserRole =String.valueOf(userRepository.findByUsername(authenticatedUsername).get().getRole());
-        if(neededRole.equals(authenticatedUserRole)){
-            return true;
-        }
-        return false;
+        return neededRole.equals(authenticatedUserRole);
     }
-
-
-
-
 }
-

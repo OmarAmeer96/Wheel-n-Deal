@@ -16,12 +16,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
+/**
+ * Service class for managing user profiles.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserProfileService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Updates the user profile based on the provided UserProfileDTO.
+     * @param userProfileDTO The DTO containing updated user profile details
+     * @return A ResponseEntity indicating the status of the operation
+     */
     public ResponseEntity<String> updateUserProfile(UserProfileDTO userProfileDTO) {
         Optional<User> user = userRepository.findById(userProfileDTO.getId());
         if (user.isPresent()) {
@@ -46,16 +54,21 @@ public class UserProfileService {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update profile");
     }
 
+    /**
+     * Retrieves the username associated with the given user ID.
+     * @param id The ID of the user
+     * @return The username associated with the user ID
+     */
     private String getUsername(Integer id){
         Optional<User> user= userRepository.findById(id);
         return user.get().getUsername();
     }
-    /* This method to get the profile by clicking of profile section
-    * here we use the authentication to ensure that the id that we send
-    * is the same id of the user because if the user send a request with his token but the different
-    * id it will acceppt it and return another user profile , we compare the username of the user's id
-    * and the one in the auth token and don't use IDs because the authentication obj contain the username as the unique value
-    * */
+
+    /**
+     * Retrieves the normal profile information for a user.
+     * @param id The ID of the user whose profile to retrieve
+     * @return A ResponseEntity containing the normal profile information
+     */
     public ResponseEntity<NormalProfileDTO> getNormalUserProfile(Integer id) {
         String userName = getUsername(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

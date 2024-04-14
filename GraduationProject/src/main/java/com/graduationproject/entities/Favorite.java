@@ -1,29 +1,28 @@
 package com.graduationproject.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+/**
+ * Represents a favorite entity in the application.
+ */
+@Data
 @Entity
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Favorite {
+    /** The unique identifier for the favorite entry. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@JsonBackReference
+    /** The user who favorited another user. */
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    // @JsonBackReference
+    /** The user who is favorited by another user. */
     @ManyToOne
     @JoinColumn(name = "favorite_user_id")
     private User favoriteUser;
 }
-

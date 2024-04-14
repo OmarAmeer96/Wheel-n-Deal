@@ -16,15 +16,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+/**
+ * Service class for managing reviews.
+ */
 @Data
+@Service
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
 
-
+    /**
+     * Submits or edits a review based on the provided ReviewDTO.
+     * Checks for inappropriate language and previous reviews by the same reviewer.
+     * @param reviewDTO The ReviewDTO containing review details
+     * @return ResponseEntity indicating the success or failure of the operation
+     */
     public ResponseEntity<String> submitOrEditReview(ReviewDTO reviewDTO){
+        // Check for inappropriate language
         if(reviewDTO != null) {
             String comment = reviewDTO.getComment();
 
@@ -72,6 +81,7 @@ public class ReviewService {
             }
         }
 
+        // Check if the reviewer has reviewed the same entity before
         Integer reviewerId = reviewDTO.getReviewerId();
         Integer revieweeId = reviewDTO.getRevieweeId();
 
@@ -81,6 +91,7 @@ public class ReviewService {
             }
         }
 
+        // Process submission or editing of the review
         Integer reviewId = reviewDTO.getId();
         if (reviewId != null) {
             Optional<Review> optionalReview = reviewRepository.findById(reviewId);
@@ -98,11 +109,23 @@ public class ReviewService {
         }
     }
 
+    /**
+     * Checks if a reviewer has reviewed the same entity before.
+     * @param reviewerId The ID of the reviewer
+     * @param revieweeId The ID of the entity being reviewed
+     * @return True if the reviewer has reviewed the entity before, otherwise false
+     */
     private boolean IsReviewerReviewedBefore(Integer reviewerId, Integer revieweeId) {
         Review review = reviewRepository.findByReviewerIdAndRevieweeId(reviewerId,revieweeId);
         return review != null;
     }
 
+    /**
+     * Checks if a comment contains inappropriate words.
+     * @param comment The comment to be checked
+     * @param veryBadWords List of inappropriate words
+     * @return True if the comment contains inappropriate words, otherwise false
+     */
     private boolean containsVeryBadWords(String comment, List<String> veryBadWords) {
         for (String badWord : veryBadWords) {
             if (comment.toLowerCase().contains(badWord)) {
@@ -112,33 +135,55 @@ public class ReviewService {
         return false;
     }
 
-
+    /**
+     * Deletes a review from the database.
+     * @param reviewId The ID of the review to be deleted
+     * @return A message indicating the success of the operation
+     */
     public String deleteReview(int reviewId){
         reviewRepository.deleteById(reviewId);
         return "Review deleted Successfully";
     }
 
-
+    /**
+     * Submits a new review to the database based on the provided ReviewDTO.
+     * @param reviewDTO The ReviewDTO containing review details
+     * @return The newly created review
+     */
     private Review submitReviewFromDTO(ReviewDTO reviewDTO){
+        // Retrieve the reviewer and reviewee from the database
         Optional<User> optioanlReviewer = userRepository.findById(reviewDTO.getReviewerId());
         Optional<User> optioanlReviewee = userRepository.findById(reviewDTO.getRevieweeId());
+
+        // Check if both users exist
         if (optioanlReviewer.isEmpty()) {
             throw new RuntimeException("User not found with ID: " + reviewDTO.getReviewerId());
         } else if (optioanlReviewee.isEmpty()) {
             throw new RuntimeException("User not found with ID: " + reviewDTO.getRevieweeId());
         }
+
+        // Create a new review entity
         Review review = new Review();
         updateReviewFromDTO(review,reviewDTO);
+
+        // Set reviewer and reviewee for the review
         User reviewer = optioanlReviewer.get();
         User reviewee = optioanlReviewee.get();
         review.setReviewer(reviewer);
         review.setReviewee(reviewee);
+
+        // Check if the reviewee is a commuter before saving the review
         if(reviewee.getRole() == Role.COMMUTER){
             return reviewRepository.save(review);
         }
         else throw new RuntimeException("Reviewee must be Commuter to submit the review");
     }
 
+    /**
+     * Updates a review entity based on the provided ReviewDTO.
+     * @param review The review entity to be updated
+     * @param reviewDTO The ReviewDTO containing review details
+     */
     private void updateReviewFromDTO(Review review,ReviewDTO reviewDTO){
         review.setRate(reviewDTO.getRate());
         review.setComment(reviewDTO.getComment());

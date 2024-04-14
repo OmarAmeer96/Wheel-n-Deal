@@ -9,11 +9,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the UserService interface providing operations related to user management.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
+    /**
+     * Retrieves a UserDetailsService instance for loading user details by username.
+     * @return A UserDetailsService instance
+     */
     @Override
     public UserDetailsService userDetailsService(){
         return new UserDetailsService() {
@@ -25,6 +32,11 @@ public class UserServiceImpl implements UserService {
         };
     }
 
+    /**
+     * Deletes a user by their ID.
+     * @param id The ID of the user to delete
+     * @return A ResponseEntity indicating the status of the operation
+     */
     public ResponseEntity<String> deleteById(Integer id){
         userRepository.deleteById(id);
         return ResponseEntity.ok("User Deleted Successfully");

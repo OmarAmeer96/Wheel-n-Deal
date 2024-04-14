@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for handling Stripe payment operations.
+ */
 @RestController
 @RequestMapping("api/v1/visa-payments")
 public class StripeController {
@@ -18,16 +21,35 @@ public class StripeController {
     @Autowired
     private StripeServiceImpl stripeService;
 
+    /**
+     * Endpoint for creating a Stripe user.
+     * @param request The request containing user details
+     * @return A string indicating the result of the operation
+     * @throws StripeException If an error occurs during Stripe interaction
+     * @throws JsonProcessingException If an error occurs while processing JSON
+     */
     @PostMapping("create-stripe-user")
     public String createStripeUser(@RequestBody CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
         return stripeService.createStripeUser(request);
     }
 
+    /**
+     * Endpoint for charging a user's card via Stripe.
+     * @param chargeUserDTO The DTO containing charge details
+     * @return A string indicating the result of the charge operation
+     * @throws StripeException If an error occurs during the charging process
+     */
     @PostMapping("charge")
     public String charge(@RequestBody ChargeUserDTO chargeUserDTO) throws StripeException {
         return stripeService.chargeUser(chargeUserDTO);
     }
 
+    /**
+     * Endpoint for retrieving all charges associated with a user from Stripe.
+     * @param stripeUserId The Stripe user ID
+     * @return A list of Charge objects representing the user's charges
+     * @throws StripeException If an error occurs during the retrieval process
+     */
     @PostMapping("get-all-user-charges")
     public List<Charge> getAllUserCharges(@RequestParam String stripeUserId) throws StripeException {
         return stripeService.getAllUserCharges(stripeUserId);

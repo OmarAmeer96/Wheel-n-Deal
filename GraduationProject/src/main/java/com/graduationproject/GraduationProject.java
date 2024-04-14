@@ -15,6 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.stripe.Stripe;
 
 
+/**
+ * The main class of the GraduationProject application.
+ * This class serves as the entry point for running the GraduationProject application.
+ * It also implements the CommandLineRunner interface to perform tasks upon application startup.
+ */
 @SpringBootApplication
 @EnableConfigurationProperties
 public class GraduationProject implements CommandLineRunner {
@@ -24,13 +29,22 @@ public class GraduationProject implements CommandLineRunner {
 	@Autowired
 	private TwilioConfiguration twilioConfig;
 
-
+	/**
+	 * The main method that starts the GraduationProject application.
+	 * @param args Command-line arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(GraduationProject.class, args);
 		Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
 	}
 
-
+	/**
+	 * This method is called upon application startup.
+	 * It checks if an admin account exists in the database.
+	 * If not, it creates one.
+	 * @param args Command-line arguments
+	 * @throws Exception Exception thrown if there's an error during execution
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 		User adminAccount = userRepository.findByRole(Role.ADMIN);
@@ -43,10 +57,13 @@ public class GraduationProject implements CommandLineRunner {
 			userRepository.save(user);
 		}
 	}
+
+	/**
+	 * A method annotated with @PostConstruct to perform initialization tasks after bean creation.
+	 * It initializes Twilio using the TwilioConfiguration properties.
+	 */
 	@PostConstruct
 	public void setup() {
 		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
 	}
 }
-
-
