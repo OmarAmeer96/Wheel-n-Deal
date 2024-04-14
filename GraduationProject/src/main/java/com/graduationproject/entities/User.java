@@ -24,7 +24,7 @@ public class User implements UserDetails {
 
     /** The phone number of the user. */
     @NotNull
-    @Column(unique=true,length = 13)
+//    @Column(unique=true,length = 13)
     private String phoneNumber;
 
     /** The username of the user. */

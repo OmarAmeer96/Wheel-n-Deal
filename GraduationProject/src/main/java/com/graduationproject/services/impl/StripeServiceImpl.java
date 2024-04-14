@@ -44,7 +44,7 @@ public class StripeServiceImpl {
      */
     public String createStripeUser(CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
         // Set the API key for Stripe
-        Stripe.apiKey = "sk_test_...";
+        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
 
         // Create customer parameters
         CustomerCreateParams customerParams = CustomerCreateParams.builder()
@@ -81,7 +81,7 @@ public class StripeServiceImpl {
      */
     public String chargeUser(ChargeUserDTO chargeUserDTO) throws StripeException {
         // Set the API key for Stripe
-        Stripe.apiKey = "sk_test_...";
+        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
 
         // Convert amount to cents
         Long amountInCents = chargeUserDTO.getAmount() * 100;
@@ -133,7 +133,7 @@ public class StripeServiceImpl {
      */
     public List<Charge> getAllUserCharges(String stripeUserId) throws StripeException {
         // Set the API key for Stripe
-        Stripe.apiKey = "sk_test_...";
+        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
 
         // Create parameters for listing charges
         Map<String, Object> params = new HashMap<>();

@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtAuthenticationResponse {
-    /** The status of the authentication response. */
-    private boolean success;
-
     /** The JWT token. */
     private String token;
 
     /** The refresh token. */
     private String refreshToken;
+
+    /** The status of the authentication response. */
+    private boolean success;
 }
