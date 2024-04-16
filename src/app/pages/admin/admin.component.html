@@ -1,1 +1,13 @@
-<p class="underline bg-indigo-400">admin works!</p>
+<div class="main-container">
+  <header class="toolbar" [style.margin-left]="sidenavWidth">
+    Header Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, non.
+  </header>
+  <div class="sidenav">
+    <app-custom-sidenav
+      (sidenavToggle)="onSidenavToggle($event)"
+    ></app-custom-sidenav>
+  </div>
+  <div class="sidenav-content" [style.margin-left]="sidenavWidth">
+    <router-outlet></router-outlet>
+  </div>
+</div>

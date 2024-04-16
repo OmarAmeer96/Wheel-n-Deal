@@ -1,17 +1,27 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { LogoutComponent } from './pages/logout/logout.component';
-import { AdminComponent } from './pages/admin/admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { LoginComponent } from './pages/login/login.component';
+import { UsersComponent } from './pages/users/users.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { PaymentsComponent } from './pages/payments/payments.component';
+import { LogoutComponent } from './pages/logout/logout.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   {
-    path: 'login',
-    loadComponent: () =>
-      import('./pages/login/login.component').then((m) => m.LoginComponent),
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: 'payment', component: PaymentsComponent },
+      // ... other admin child routes
+    ],
   },
-  { path: 'admin', component: AdminComponent },
   { path: 'logOut', component: LogoutComponent },
   { path: '**', component: NotFoundComponent },
 ];

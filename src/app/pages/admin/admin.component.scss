@@ -1,0 +1,25 @@
+.main-container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "sidenav header"
+    "sidenav content";
+}
+
+.toolbar {
+  background-color: red;
+  grid-area: header;
+}
+
+.sidenav {
+  background-color: #000;
+  z-index: 3;
+  grid-area: sidenav;
+}
+
+.sidenav-content {
+  background-color: chocolate;
+  grid-area: content;
+}
