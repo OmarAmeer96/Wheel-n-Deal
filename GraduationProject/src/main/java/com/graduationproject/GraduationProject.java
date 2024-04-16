@@ -12,8 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.stripe.Stripe;
-
 
 /**
  * The main class of the GraduationProject application.
@@ -24,46 +22,47 @@ import com.stripe.Stripe;
 @EnableConfigurationProperties
 public class GraduationProject implements CommandLineRunner {
 
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private TwilioConfiguration twilioConfig;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private TwilioConfiguration twilioConfig;
 
-	/**
-	 * The main method that starts the GraduationProject application.
-	 * @param args Command-line arguments
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(GraduationProject.class, args);
-		Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
-	}
+    /**
+     * The main method that starts the GraduationProject application.
+     *
+     * @param args Command-line arguments
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(GraduationProject.class, args);
+    }
 
-	/**
-	 * This method is called upon application startup.
-	 * It checks if an admin account exists in the database.
-	 * If not, it creates one.
-	 * @param args Command-line arguments
-	 * @throws Exception Exception thrown if there's an error during execution
-	 */
-	@Override
-	public void run(String... args) throws Exception {
-		User adminAccount = userRepository.findByRole(Role.ADMIN);
-		if(adminAccount == null){
-			User user = new User();
-			user.setUsername("admin#");
-			user.setPhoneNumber("admin");
-			user.setRole(Role.ADMIN);
-			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-			userRepository.save(user);
-		}
-	}
+    /**
+     * This method is called upon application startup.
+     * It checks if an admin account exists in the database.
+     * If not, it creates one.
+     *
+     * @param args Command-line arguments
+     * @throws Exception Exception thrown if there's an error during execution
+     */
+    @Override
+    public void run(String... args) throws Exception {
+        User adminAccount = userRepository.findByRole(Role.ADMIN);
+        if (adminAccount == null) {
+            User user = new User();
+            user.setUsername("admin#");
+            user.setPhoneNumber("admin");
+            user.setRole(Role.ADMIN);
+            user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+            userRepository.save(user);
+        }
+    }
 
-	/**
-	 * A method annotated with @PostConstruct to perform initialization tasks after bean creation.
-	 * It initializes Twilio using the TwilioConfiguration properties.
-	 */
-	@PostConstruct
-	public void setup() {
-		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-	}
+    /**
+     * A method annotated with @PostConstruct to perform initialization tasks after bean creation.
+     * It initializes Twilio using the TwilioConfiguration properties.
+     */
+    @PostConstruct
+    public void setup() {
+        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+    }
 }
