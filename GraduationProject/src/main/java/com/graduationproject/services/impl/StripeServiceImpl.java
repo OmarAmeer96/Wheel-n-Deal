@@ -10,6 +10,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.*;
 import com.stripe.param.PaymentIntentCreateParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,8 @@ public class StripeServiceImpl {
     private StripePaymentRepository paymentRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private Environment env;
 
     /**
      * Charges a user's account based on the provided details.
@@ -36,8 +39,7 @@ public class StripeServiceImpl {
      */
     public String chargeUser(ChargeUserDTO chargeUserDTO) throws StripeException {
         // Set the API key for Stripe
-        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
-
+        Stripe.apiKey = env.getProperty("stripe.api.secretKey");
         // Convert amount to cents
         Long amountInCents = chargeUserDTO.getAmount() * 100;
 
@@ -88,7 +90,7 @@ public class StripeServiceImpl {
      */
     public List<Charge> getAllUserCharges(String stripeUserId) throws StripeException {
         // Set the API key for Stripe
-        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
+        Stripe.apiKey = env.getProperty("stripe.api.secretKey");
 
         // Create parameters for listing charges
         Map<String, Object> params = new HashMap<>();

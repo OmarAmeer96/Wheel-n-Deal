@@ -25,7 +25,7 @@ public class PaymobController {
      * @throws JsonProcessingException If there is an error in processing JSON
      */
     public String getAuthToken() throws JsonProcessingException {
-        String apiKey = "YOUR_API_KEY";
+        String apiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RVMk5qYzNMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkubWdRME9MbXo4SlRBdE5HSmFnNjJrR21DcndoZzlyTEthN3dVdHRmQnc5bnRGSlN5NEhCbTVmWV9pelBuX2tQOGh4X2lhdzdDWnYwT0M5MDZaMk41UWc=";
         return paymobService.getAuthToken(apiKey);
     }
 
@@ -68,7 +68,7 @@ public class PaymobController {
     public PayResponseDTO EWalletCharge(@RequestBody PayRequestDTO request) throws JsonProcessingException {
         // Steps to perform EWallet charge
         // 1. Retrieve authentication token
-        String apiKey = "YOUR_API_KEY";
+        String apiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RVMk5qYzNMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkubWdRME9MbXo4SlRBdE5HSmFnNjJrR21DcndoZzlyTEthN3dVdHRmQnc5bnRGSlN5NEhCbTVmWV9pelBuX2tQOGh4X2lhdzdDWnYwT0M5MDZaMk41UWc=";
         String auth = paymobService.getAuthToken(apiKey);
 
         // 2. Calculate amount in cents and create ecommerce order
