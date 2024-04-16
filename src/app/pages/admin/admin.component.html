@@ -1,13 +1,11 @@
 <div class="main-container">
-  <header class="toolbar" [style.margin-left]="sidenavWidth">
+  <header class="toolbar" [style.margin-left]="sidenavWidth$ | async">
     Header Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, non.
   </header>
   <div class="sidenav">
-    <app-custom-sidenav
-      (sidenavToggle)="onSidenavToggle($event)"
-    ></app-custom-sidenav>
+    <app-custom-sidenav></app-custom-sidenav>
   </div>
-  <div class="sidenav-content" [style.margin-left]="sidenavWidth">
+  <div class="sidenav-content" [style.margin-left]="sidenavWidth$ | async">
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,20 +1,20 @@
-<nav class="sidenav" [style.width]="sidenavWidth()">
+<nav class="sidenav" [style.width]="sidenavWidth$ | async">
   <div class="logo-container bg-slate-700">
-    <div class="logo-text" *ngIf="!sideNavCollapsed()">
-      W<span class="u-inter">h</span>ee<span class="u-inter">l</span> N’ De<span
-        class="u-inter"
-        >al</span
-      >
-    </div>
+    <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+      <div class="logo-text">
+        W<span class="u-inter">h</span>ee<span class="u-inter">l</span> N’
+        De<span class="u-inter">al</span>
+      </div>
+    </ng-container>
     <app-svg name="menu" class="menu-btn" (click)="toggleSidenav()"></app-svg>
   </div>
   <ul class="sidenav-nav">
-    <li class="sidenav-nav-item" *ngFor="let item of menuItems()">
+    <li class="sidenav-nav-item" *ngFor="let item of menuItems">
       <a class="sidenav-nav-link" [routerLink]="item.routerLink">
         <i class="sidenav-link-icon" [class]="item.icon"></i>
-        <span class="sidenav-link-text" *ngIf="!sideNavCollapsed()">{{
-          item.label
-        }}</span>
+        <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+          <span class="sidenav-link-text">{{ item.label }}</span>
+        </ng-container>
       </a>
     </li>
   </ul>

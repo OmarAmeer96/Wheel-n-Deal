@@ -1,38 +1,30 @@
-import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Output,
-  computed,
-  signal,
-} from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { sidenavData } from '../../../core/constant/sidenav-data';
+import { Component } from '@angular/core';
 import { MenuItem } from '../../../core/utils/menuItem';
+import { SidenavService } from '../../../core/services/sidenav.service';
+import { map } from 'rxjs/operators';
+import { sidenavData } from '../../../core/constant/sidenav-data';
 import { SvgComponent } from '../svg/svg.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-custom-sidenav',
   standalone: true,
-  imports: [CommonModule, RouterModule, SvgComponent],
+  imports: [RouterModule, CommonModule, SvgComponent],
+  selector: 'app-custom-sidenav',
   templateUrl: './custom-sidenav.component.html',
-  styleUrl: './custom-sidenav.component.scss',
+  styleUrls: ['./custom-sidenav.component.scss'],
 })
 export class CustomSidenavComponent {
-  menuItems = signal<MenuItem[]>([...sidenavData]);
-  @Output() sidenavToggle = new EventEmitter<boolean>();
-  private collapsed = false;
+  menuItems: MenuItem[] = [...sidenavData];
+
+  sidenavCollapsed$ = this.sidenavService.sidenavState$;
+  sidenavWidth$ = this.sidenavService.sidenavState$.pipe(
+    map((collapsed) => (collapsed ? '88px' : '260px'))
+  );
+
+  constructor(private sidenavService: SidenavService) {}
 
   toggleSidenav() {
-    this.collapsed = !this.collapsed;
-    this.sidenavToggle.emit(this.collapsed);
-  }
-
-  sideNavCollapsed(): boolean {
-    return this.collapsed;
-  }
-
-  sidenavWidth(): string {
-    return this.collapsed ? '88px' : '260px';
+    this.sidenavService.toggleSidenav();
   }
 }
