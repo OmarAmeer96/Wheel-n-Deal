@@ -7,6 +7,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { PaymentsComponent } from './pages/payments/payments.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SupportComponent } from './pages/support/support.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,8 +19,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
       { path: 'orders', component: OrdersComponent },
-      { path: 'payment', component: PaymentsComponent },
-      // ... other admin child routes
+      { path: 'payments', component: PaymentsComponent },
+      { path: 'support', component: SupportComponent },
     ],
   },
   { path: 'logOut', component: LogoutComponent },

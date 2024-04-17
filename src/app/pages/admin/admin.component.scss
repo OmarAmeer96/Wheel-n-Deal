@@ -1,3 +1,5 @@
+@import "../../../styles";
+
 .main-container {
   height: 100vh;
   display: grid;
@@ -9,17 +11,19 @@
 }
 
 .toolbar {
-  background-color: red;
+  background-color: $color-black-primary;
   grid-area: header;
+  height: 70px;
+  transition: all 500ms ease-in-out;
 }
 
 .sidenav {
-  background-color: #000;
   z-index: 3;
-  grid-area: sidenav;
+  grid-area: "sidenav";
 }
 
 .sidenav-content {
-  background-color: chocolate;
+  background-color: $color-gray-2;
   grid-area: content;
+  transition: all 500ms ease-in-out;
 }

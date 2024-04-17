@@ -3,27 +3,28 @@ import { MenuItem } from '../utils/menuItem';
 export const sidenavData: MenuItem[] = [
   {
     routerLink: 'dashboard',
-    icon: 'fas fa-home',
+    icon: 'dashboard',
     label: 'Dashboard',
   },
   {
-    routerLink: 'users',
-    icon: 'fas fa-user',
-    label: 'Users',
-  },
-  {
     routerLink: 'orders',
-    icon: 'fas fa-box',
+    icon: 'orders',
     label: 'Orders',
   },
   {
+    routerLink: 'users',
+    icon: 'users',
+    label: 'Users',
+  },
+
+  {
     routerLink: 'support',
-    icon: 'fas fa-handshake-angle',
+    icon: 'support',
     label: 'Support',
   },
   {
     routerLink: 'payments',
-    icon: 'fas fa-credit-card',
+    icon: 'payments',
     label: 'Payments',
   },
 ];

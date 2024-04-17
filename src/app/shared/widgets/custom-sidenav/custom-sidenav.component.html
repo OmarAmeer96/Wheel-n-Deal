@@ -8,14 +8,22 @@
     </ng-container>
     <app-svg name="menu" class="menu-btn" (click)="toggleSidenav()"></app-svg>
   </div>
-  <ul class="sidenav-nav">
-    <li class="sidenav-nav-item" *ngFor="let item of menuItems">
-      <a class="sidenav-nav-link" [routerLink]="item.routerLink">
-        <i class="sidenav-link-icon" [class]="item.icon"></i>
-        <ng-container *ngIf="!(sidenavCollapsed$ | async)">
-          <span class="sidenav-link-text">{{ item.label }}</span>
-        </ng-container>
-      </a>
-    </li>
-  </ul>
+  <div class="sidenav-list">
+    <ul class="sidenav-nav">
+      <li class="sidenav-nav-item" *ngFor="let item of menuItems">
+        <a class="sidenav-nav-link" [routerLink]="item.routerLink">
+          <app-svg [name]="item.icon" class="navicon"></app-svg>
+          <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+            <span class="sidenav-link-text">{{ item.label }}</span>
+          </ng-container>
+        </a>
+      </li>
+    </ul>
+    <button class="logout-btn">
+      <app-svg name="logout" class="navicon"></app-svg>
+      <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+        <span class="logout-btn-text">Logout</span>
+      </ng-container>
+    </button>
+  </div>
 </nav>
