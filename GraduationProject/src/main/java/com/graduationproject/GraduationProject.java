@@ -5,6 +5,8 @@ import com.graduationproject.entities.Role;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.UserRepository;
 import com.twilio.Twilio;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * It also implements the CommandLineRunner interface to perform tasks upon application startup.
  */
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(title = "Wheel n' Deal", version = "1.0", description = "testing level"))
 @EnableConfigurationProperties
 public class GraduationProject implements CommandLineRunner {
 

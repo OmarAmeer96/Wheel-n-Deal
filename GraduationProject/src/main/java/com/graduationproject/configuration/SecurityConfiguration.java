@@ -33,6 +33,14 @@ public class SecurityConfiguration {
     private final UserService userService;
     private final LogoutHandler logoutHandler;
 
+    private static final String[] AUTH_WHITELIST = {
+            "/api/v1/auth/**",       // Endpoints for authentication
+            "/v3/api-docs/**",       // Swagger API documentation
+            "/v3/api-docs.yml",      // Swagger API documentation YAML
+            "/swagger-ui/**",        // Swagger UI
+            "/swagger-ui.html"       // Swagger UI HTML
+    };
+
     /**
      * Configures security filter chain for HTTP requests.
      * @param http HttpSecurity object for configuring security settings
@@ -44,6 +52,7 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ADMIN.name())
                         .requestMatchers("/api/v1/user").hasAnyAuthority(Role.USER.name())
                         .requestMatchers("/api/v1/commuter").hasAnyAuthority(Role.COMMUTER.name())
@@ -59,6 +68,7 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
 
     /**
      * Configures authentication provider.
