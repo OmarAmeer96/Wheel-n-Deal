@@ -22,7 +22,7 @@ public class PaymobResponse {
     private boolean pending;
 
     /** The amount in cents for the payment. */
-    private int amountCents;
+    private Integer amountCents;
 
     /** The currency of the payment. */
     private String currency;

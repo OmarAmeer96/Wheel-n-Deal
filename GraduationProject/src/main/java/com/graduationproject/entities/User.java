@@ -1,7 +1,10 @@
 package com.graduationproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,27 +27,35 @@ public class User implements UserDetails {
 
     /** The phone number of the user. */
     @NotNull
-//    @Column(unique=true,length = 13)
+    @Column(unique=true,length = 13)
+    @Pattern(regexp = "^(\\+20)?01[0-2]{1}[0-9]{8}$", message = "Invalid Egyptian phone number")
     private String phoneNumber;
 
     /** The username of the user. */
     @NotNull
+    @Size(min = 3, max = 100, message = "Username must be between 3 and 100 characters long")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Invalid username format. Only alphanumeric characters and underscore are allowed.")
     private String username;
 
     /** The ID associated with the user in the Stripe payment system. */
+    @NotNull
     @Column(unique=true)
+    @Pattern(regexp = "^cus_[a-zA-Z0-9]+$", message = "Invalid Stripe ID format")
     private String stripeId;
 
     /** The amount of money associated with the user. */
+    @Min(value = -100, message = "Minimum value for the attribute is -100")
     private Long amount;
 
     /** The full name of the user. */
     private String fullName;
 
     /** The gender of the user. */
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     /** The city where the user resides. */
+    @Size(max = 100, message = "City name must be at most 100 characters long")
     private String city;
 
     /** The URL of the user's profile picture. */
@@ -52,16 +63,20 @@ public class User implements UserDetails {
 
     /** The national ID of the user. */
     @Column(length = 14)
+    @Pattern(regexp = "^\\d{14}$", message = "Invalid Egyptian national ID")
     private String nationalId;
 
     /** The password of the user. */
     @NotNull
+    @Size(min = 6, message = "Password must be more than or equal 6 characters long")
     private String password;
 
     /** The total number of deliveries made by the user. */
+    @Min(value = 0, message = "Minimum value for Total Delivers is 0")
     private Integer totalDelivers;
 
     /** The number of deliveries cancelled by the user. */
+    @Min(value = 0, message = "Minimum value for Cancel Delivers is 0")
     private Integer cancelDelivers;
 
     /** The role of the user in the application. */

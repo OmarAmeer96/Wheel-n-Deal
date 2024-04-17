@@ -1,6 +1,7 @@
 package com.graduationproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 /**
@@ -19,10 +20,12 @@ public class Favorite {
     /** The user who favorited another user. */
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotNull(message = "User must not be null")
     private User user;
 
     /** The user who is favorited by another user. */
     @ManyToOne
     @JoinColumn(name = "favorite_user_id")
+    @NotNull(message = "Favorite user must not be null")
     private User favoriteUser;
 }
