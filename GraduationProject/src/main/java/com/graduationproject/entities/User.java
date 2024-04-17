@@ -32,7 +32,6 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     /** The username of the user. */
-    @NotNull
     @Size(min = 3, max = 100, message = "Username must be between 3 and 100 characters long")
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Invalid username format. Only alphanumeric characters and underscore are allowed.")
     private String username;

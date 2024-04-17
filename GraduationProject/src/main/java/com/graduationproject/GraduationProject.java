@@ -20,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * This class serves as the entry point for running the GraduationProject application.
  * It also implements the CommandLineRunner interface to perform tasks upon application startup.
  */
+
+//http://localhost:2000/swagger-ui.html
+
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Wheel n' Deal", version = "1.0", description = "testing level"))
 @EnableConfigurationProperties
