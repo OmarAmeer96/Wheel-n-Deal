@@ -12,13 +12,13 @@ public class CommuterProfileDTO {
     private String username;
 
     /** The total rating of the commuter. */
-    private double totalRate;
+    private Double totalRate;
 
     /** The total number of deliveries made by the commuter. */
-    private int totalDelivers;
+    private Integer totalDelivers;
 
     /** The number of deliveries canceled by the commuter. */
-    private int cancelDelivers;
+    private Integer cancelDelivers;
 
     /** The phone number of the commuter. */
     private String phoneNumber;

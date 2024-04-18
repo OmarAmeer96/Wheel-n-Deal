@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4e76c4c6-e973-4de6-884f-b5e880c0542b" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/GraduationProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/GraduationProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/CommuterProfileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/CommuterProfileDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/JwtAuthenticationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/JwtAuthenticationResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/DTOs/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/AuthenticationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +85,7 @@
     &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;database.query.execution&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;two.files.diff.last.used.folder&quot;: &quot;C:/Users/noora/IdeaProjects/Wheel-n-Deal&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -160,6 +164,8 @@
       <workItem from="1713307670270" duration="5129000" />
       <workItem from="1713320932011" duration="5140000" />
       <workItem from="1713378132128" duration="8799000" />
+      <workItem from="1713397794998" duration="1394000" />
+      <workItem from="1713404447539" duration="3233000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -401,7 +407,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713387017935</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="update">
+      <option name="closed" value="true" />
+      <created>1713397935597</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1713397935597</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,5 +435,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

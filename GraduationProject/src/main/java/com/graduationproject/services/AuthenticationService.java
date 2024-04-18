@@ -1,6 +1,7 @@
 package com.graduationproject.services;
 
 import com.graduationproject.DTOs.*;
+import org.springframework.validation.BindingResult;
 
 /**
  * Interface defining authentication-related operations.
@@ -13,7 +14,7 @@ public interface AuthenticationService {
      * @return A JwtAuthenticationResponse containing authentication details upon successful signup,
      *         or null if signup fails
      */
-    JwtAuthenticationResponse signup(SignUpRequest signUpRequest);
+    JwtAuthenticationResponse signup(SignUpRequest signUpRequest, BindingResult bindingResult);
 
     /**
      * Signs in a user.

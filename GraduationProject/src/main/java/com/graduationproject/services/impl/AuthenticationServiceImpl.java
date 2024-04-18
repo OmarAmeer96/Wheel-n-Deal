@@ -18,17 +18,17 @@ import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Service implementation for user authentication operations.
- */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -39,27 +39,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JWTService jwtService;
     private final TokenRepository tokenRepository;
 
-    /**
-     * Creates a new customer in Stripe and saves user details in the database.
-     * @param request The DTO containing the request details
-     * @return The Stripe ID of the created customer
-     * @throws StripeException if an error occurs with the Stripe API
-     * @throws JsonProcessingException if an error occurs while processing JSON
-     */
-    public String createStripeUser(CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
-        // Set the API key for Stripe
-        Stripe.apiKey = "sk_test_51Of0HSDRpAtfI02p07kURFyWFuON9GhxXSEzZNxRpbVqLXc83KH0JcMjeURgkwf6UXsD9Xm7Z7sVf3g9tFC2Gdeo00fPYbS9G6";
+    @Autowired
+    private Environment env;
 
-        // Create customer parameters
+    public String createStripeUser(CreateStripeUserRequestDTO request) throws StripeException, JsonProcessingException {
+        Stripe.apiKey = env.getProperty("stripe.api.secretKey");
+
         CustomerCreateParams customerParams = CustomerCreateParams.builder()
                 .setPhone(request.getPhoneNumber())
                 .setName(request.getUserName())
                 .build();
 
-        // Create a new customer in Stripe
         Customer customer = Customer.create(customerParams);
 
-        // Retrieve customer details
         Customer customerRetrieve = Customer.retrieve(customer.getId());
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(customerRetrieve.toJson());
@@ -69,12 +61,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return customer.getId();
     }
 
-    /**
-     * Handles user signup operation.
-     * @param signUpRequest The DTO containing signup details
-     * @return The JWT authentication response containing token and refresh token
-     */
-    public JwtAuthenticationResponse signup(SignUpRequest signUpRequest) {
+    public JwtAuthenticationResponse signup(SignUpRequest signUpRequest, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMessageBuilder = new StringBuilder("Validation failed. Errors: ");
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errorMessageBuilder.append(error.getDefaultMessage()).append("; ");
+            }
+            String errorMessage = errorMessageBuilder.toString();
+
+            return JwtAuthenticationResponse.builder()
+                    .status(400) // Bad request
+                    .message(errorMessage)
+                    .build();
+        }
+
         try {
             CreateStripeUserRequestDTO request = new CreateStripeUserRequestDTO();
             request.setPhoneNumber(signUpRequest.getPhone());
@@ -94,27 +95,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             var jwtRefreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
             saveUserToken(savedUser, jwtToken);
 
-            // Return a success response with tokens
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("token", jwtToken);
+            responseData.put("refreshToken", jwtRefreshToken);
+            responseData.put("stripeId", stripeId);
+
             return JwtAuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .refreshToken(jwtRefreshToken)
-                    .success(true)
-                    .stripeId(stripeId)
+                    .data(responseData)
+                    .status(200) // Assuming success status code is 200
+                    .message("Request processed successfully.")
                     .build();
         } catch (Exception e) {
-            // If an exception occurs, return a failure response
             return JwtAuthenticationResponse.builder()
-                    .success(false)
+                    .status(500) // Internal server error
+                    .message("An error occurred while processing the request.")
                     .build();
         }
     }
 
-
-    /**
-     * Saves the user token in the database.
-     * @param user The user entity
-     * @param jwtToken The JWT token
-     */
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -126,43 +124,36 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         tokenRepository.save(token);
     }
 
-    /**
-     * Handles user signin operation.
-     * @param signinRequest The DTO containing signin details
-     * @return Optional containing JWT authentication response if signin is successful
-     */
     public JwtAuthenticationResponse signin(SignInRequest signinRequest) {
         try {
-            // Attempt to authenticate the user
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getUsername(),
                     signinRequest.getPassword()));
 
-            // If authentication succeeds, generate JWT tokens
             var user = userRepository.findByUsername(signinRequest.getUsername())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid Username or password"));
 
             var jwt = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
-            // Save the tokens and return a success response
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshToken);
-            jwtAuthenticationResponse.setSuccess(true);
-            revokeAllUserTokens(user);
-            saveUserToken(user, jwt);
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("token", jwt);
+            responseData.put("refreshToken", refreshToken);
+            responseData.put("stripeId", user.getStripeId());
 
-            return jwtAuthenticationResponse;
+            return JwtAuthenticationResponse.builder()
+                    .data(responseData)
+                    .status(200) // Assuming success status code is 200
+                    .message("Authentication successful.")
+                    .build();
+
         } catch (Exception e) {
-            // If authentication fails, return a failure response
-            return JwtAuthenticationResponse.builder().success(false).build();
+            return JwtAuthenticationResponse.builder()
+                    .status(401) // Unauthorized
+                    .message("Authentication failed: " + e.getMessage())
+                    .build();
         }
     }
 
-    /**
-     * Revokes all tokens associated with the user.
-     * @param user The user entity
-     */
     public void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -174,24 +165,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-    /**
-     * Handles token refresh operation.
-     * @param refreshTokenRequest The DTO containing refresh token
-     * @return The refreshed JWT authentication response
-     */
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
         User user = userRepository.findByUsername(userEmail).orElseThrow();
         if (jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
             var jwt = jwtService.generateToken(user);
 
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
-            jwtAuthenticationResponse.setSuccess(true);
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("token", jwt);
+            responseData.put("refreshToken", refreshTokenRequest.getToken());
 
-            return jwtAuthenticationResponse;
+            return JwtAuthenticationResponse.builder()
+                    .data(responseData)
+                    .status(200) // Assuming success status code is 200
+                    .message("Authentication successful.")
+                    .build();
         }
-        return JwtAuthenticationResponse.builder().success(false).build();
+        return JwtAuthenticationResponse.builder().build();
     }
 }
