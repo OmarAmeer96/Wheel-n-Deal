@@ -5,6 +5,7 @@ import com.graduationproject.entities.Role;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.UserRepository;
 import com.twilio.Twilio;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.annotation.PostConstruct;
@@ -24,8 +25,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //http://localhost:2000/swagger-ui.html
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Wheel n' Deal", version = "1.0", description = "testing level"))
+@EnableEncryptableProperties
 @EnableConfigurationProperties
+@OpenAPIDefinition(info = @Info(title = "Wheel n' Deal", version = "1.0", description = "testing level"))
 public class GraduationProject implements CommandLineRunner {
 
     @Autowired
