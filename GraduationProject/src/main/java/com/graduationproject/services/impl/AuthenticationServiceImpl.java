@@ -96,14 +96,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             saveUserToken(savedUser, jwtToken);
 
             Map<String, String> responseData = new HashMap<>();
+            responseData.put("stripeId", stripeId);
             responseData.put("token", jwtToken);
             responseData.put("refreshToken", jwtRefreshToken);
-            responseData.put("stripeId", stripeId);
 
             return JwtAuthenticationResponse.builder()
-                    .data(responseData)
                     .status(200) // Assuming success status code is 200
                     .message("Request processed successfully.")
+                    .data(responseData)
                     .build();
         } catch (Exception e) {
             return JwtAuthenticationResponse.builder()
@@ -136,14 +136,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
             Map<String, String> responseData = new HashMap<>();
+            responseData.put("stripeId", user.getStripeId());
             responseData.put("token", jwt);
             responseData.put("refreshToken", refreshToken);
-            responseData.put("stripeId", user.getStripeId());
 
             return JwtAuthenticationResponse.builder()
-                    .data(responseData)
                     .status(200) // Assuming success status code is 200
                     .message("Authentication successful.")
+                    .data(responseData)
                     .build();
 
         } catch (Exception e) {
@@ -176,9 +176,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("refreshToken", refreshTokenRequest.getToken());
 
             return JwtAuthenticationResponse.builder()
-                    .data(responseData)
                     .status(200) // Assuming success status code is 200
                     .message("Authentication successful.")
+                    .data(responseData)
                     .build();
         }
         return JwtAuthenticationResponse.builder().build();
