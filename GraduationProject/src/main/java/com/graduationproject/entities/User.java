@@ -1,10 +1,7 @@
 package com.graduationproject.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,16 +19,19 @@ public class User implements UserDetails {
     private Integer id;
 
     @NotNull
+    @NotBlank
     @Column(unique=true,length = 13)
     @Pattern(regexp = "^(\\+20)?01[0-2]{1}[0-9]{8}$", message = "Invalid Egyptian phone number")
     private String phoneNumber;
 
+    @NotBlank
     @Column(unique=true)
     @Size(min = 3, max = 100, message = "Username must be between 3 and 100 characters long")
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Invalid username format. Only alphanumeric characters and underscore are allowed.")
     private String username;
 
     @NotNull
+    @NotBlank
     @Column(unique=true)
     @Pattern(regexp = "^cus_[a-zA-Z0-9]+$", message = "Invalid Stripe ID format")
     private String stripeId;
@@ -39,21 +39,26 @@ public class User implements UserDetails {
     @Min(value = -100, message = "Minimum value for the attribute is -100")
     private Long amount;
 
+    @NotBlank
     private String fullName;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @NotBlank
     @Size(max = 100, message = "City name must be at most 100 characters long")
     private String city;
 
+    @NotBlank
     private String profilePictureUrl;
 
+    @NotBlank
     @Column(length = 14)
     @Pattern(regexp = "^\\d{14}$", message = "Invalid Egyptian national ID")
     private String nationalId;
 
     @NotNull
+    @NotBlank
     @Size(min = 6, message = "Password must be more than or equal 6 characters long")
     private String password;
 
