@@ -22,7 +22,6 @@ public class Token {
 
     @NotBlank
     @NotNull(message = "Token string must not be null")
-    @Size(min = 32, max = 128, message = "Token string must be between 32 and 128 characters long")
     private String token;
 
     @Enumerated(EnumType.STRING)
@@ -30,7 +29,6 @@ public class Token {
     private TokenType tokenType;
 
     private boolean expired;
-
     private boolean revoked;
 
     @ManyToOne
