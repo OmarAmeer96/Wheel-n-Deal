@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e76c4c6-e973-4de6-884f-b5e880c0542b" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f6d15228-5e4e-4899-b3a5-3ae7d1cbe53d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f6d15228-5e4e-4899-b3a5-3ae7d1cbe53d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/configuration/JWTAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/configuration/JWTAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/configuration/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/JWTServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/JWTServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/FavoriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/FavoriteService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,37 +59,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.GraduationProject.executor": "Run",
-    "Maven..executor": "Run",
-    "Maven.Quizapp [install].executor": "Run",
-    "Maven.Unnamed.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.GraduationProject.executor": "Run",
-    "git-widget-placeholder": "Backend",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/noora/Desktop/ChatExampleSpringBootJava-master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "two.files.diff.last.used.folder": "C:/Users/noora/IdeaProjects/Wheel-n-Deal",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.GraduationProject.executor&quot;: &quot;Run&quot;,
+    &quot;Maven..executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Quizapp [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.GraduationProject.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Backend&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noora/IdeaProjects/Wheel-n-Deal&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;two.files.diff.last.used.folder&quot;: &quot;C:/Users/noora/IdeaProjects/Wheel-n-Deal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\noora\IdeaProjects\Wheel-n-Deal\GraduationProject\src\main\java\com\graduationproject\DTOs\paymobPaymentDTOs" />
@@ -169,7 +168,13 @@
       <workItem from="1713404447539" duration="9458000" />
       <workItem from="1713428896138" duration="1811000" />
       <workItem from="1713473432539" duration="3975000" />
-      <workItem from="1713481243319" duration="5636000" />
+      <workItem from="1713481243319" duration="6554000" />
+      <workItem from="1713488598061" duration="798000" />
+      <workItem from="1713490284568" duration="18000" />
+      <workItem from="1713554612024" duration="28000" />
+      <workItem from="1713554663568" duration="20000" />
+      <workItem from="1713555812503" duration="27000" />
+      <workItem from="1713557753195" duration="2825000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -475,7 +480,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713485774145</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="update">
+      <option name="closed" value="true" />
+      <created>1713487150729</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1713487150729</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

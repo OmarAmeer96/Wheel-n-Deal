@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,23 +20,7 @@ public class FavoriteService {
     private final UserRepository userRepository;
     private final FavoriteRepository favoriteRepository;
 
-//    public ResponseEntity<String> manageFavoriteUser(int userId, int favoriteUserID) {
-//        Optional<User> user = userRepository.findById(userId);
-//        Optional<User> commuter = userRepository.findById(favoriteUserID);
-//        Favorite favorite = favoriteRepository.findByUserIdAndFavoriteUserId(userId, favoriteUserID);
-//        if (favorite != null) {
-//            favoriteRepository.delete(favorite);
-//            return ResponseEntity.ok("Removed Successfully");
-//        } else {
-//            // Create a new favorite object to hold the data if it doesn't exist
-//            favorite = new Favorite();
-//            favorite.setUser(user.get());
-//            favorite.setFavoriteUser(commuter.get());
-//            favoriteRepository.save(favorite);
-//            return ResponseEntity.ok("Added Successfully");
-//        }
-//    }
-
+    @Transactional
     public ResponseEntity<CustomResponse> manageFavoriteUser(Integer userId, Integer favoriteUserID) {
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<User> commuterOptional = userRepository.findById(favoriteUserID);
