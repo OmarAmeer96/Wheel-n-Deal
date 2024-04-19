@@ -21,23 +21,11 @@ public class StripeController {
     @Autowired
     private StripeServiceImpl stripeService;
 
-    /**
-     * Endpoint for charging a user's card via Stripe.
-     * @param chargeUserDTO The DTO containing charge details
-     * @return A string indicating the result of the charge operation
-     * @throws StripeException If an error occurs during the charging process
-     */
     @PostMapping("charge")
     public String charge(@RequestBody ChargeUserDTO chargeUserDTO) throws StripeException {
         return stripeService.chargeUser(chargeUserDTO);
     }
 
-    /**
-     * Endpoint for retrieving all charges associated with a user from Stripe.
-     * @param stripeUserId The Stripe user ID
-     * @return A list of Charge objects representing the user's charges
-     * @throws StripeException If an error occurs during the retrieval process
-     */
     @PostMapping("get-all-user-charges")
     public List<Charge> getAllUserCharges(@RequestParam String stripeUserId) throws StripeException {
         return stripeService.getAllUserCharges(stripeUserId);

@@ -1,20 +1,17 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.entities.Favorite;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.FavoriteRepository;
 import com.graduationproject.repositories.UserRepository;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-/**
- * Service implementation for managing favorites.
- */
-@Data
 @Service
 @RequiredArgsConstructor
 public class FavoriteService {
@@ -22,30 +19,65 @@ public class FavoriteService {
     private final UserRepository userRepository;
     private final FavoriteRepository favoriteRepository;
 
-    /**
-     * Manages adding or removing a user from favorites.
-     * @param userId The ID of the user
-     * @param favoriteUserID The ID of the user to be added or removed from favorites
-     * @return Response indicating the success of the operation
-     */
+//    public ResponseEntity<String> manageFavoriteUser(int userId, int favoriteUserID) {
+//        Optional<User> user = userRepository.findById(userId);
+//        Optional<User> commuter = userRepository.findById(favoriteUserID);
+//        Favorite favorite = favoriteRepository.findByUserIdAndFavoriteUserId(userId, favoriteUserID);
+//        if (favorite != null) {
+//            favoriteRepository.delete(favorite);
+//            return ResponseEntity.ok("Removed Successfully");
+//        } else {
+//            // Create a new favorite object to hold the data if it doesn't exist
+//            favorite = new Favorite();
+//            favorite.setUser(user.get());
+//            favorite.setFavoriteUser(commuter.get());
+//            favoriteRepository.save(favorite);
+//            return ResponseEntity.ok("Added Successfully");
+//        }
+//    }
 
-    /* In the fav part I make that the user and the commuter have thier own favs,
-    So If the user add commuter x this commuter x will be added to the user's fav list
-    but in the commuter x list it will not be shown till he makes him fav back */
-    public ResponseEntity<String> manageFavoriteUser(int userId, int favoriteUserID) {
-        Optional<User> user = userRepository.findById(userId);
-        Optional<User> commuter = userRepository.findById(favoriteUserID);
-        Favorite favorite = favoriteRepository.findByUserIdAndFavoriteUserId(userId, favoriteUserID);
-        if (favorite != null) {
-            favoriteRepository.delete(favorite);
-            return ResponseEntity.ok("Removed Successfully");
+    public ResponseEntity<CustomResponse> manageFavoriteUser(Integer userId, Integer favoriteUserID) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> commuterOptional = userRepository.findById(favoriteUserID);
+
+        if (userOptional.isEmpty() || commuterOptional.isEmpty()) {
+            // User or commuter not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(CustomResponse.builder()
+                            .status(HttpStatus.NOT_FOUND.value())
+                            .message("User or commuter not found")
+                            .build());
+        }
+
+        User user = userOptional.get();
+        User commuter = commuterOptional.get();
+
+        if (user.getId() == commuter.getId()) {
+            // User cannot add themselves to favorites
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(CustomResponse.builder()
+                            .status(HttpStatus.BAD_REQUEST.value())
+                            .message("Cannot add yourself to favorites")
+                            .build());
+        }
+
+        if (favoriteRepository.existsByUserIdAndFavoriteUserId(userId, favoriteUserID)) {
+            // If already favorite, remove it
+            favoriteRepository.deleteByUserIdAndFavoriteUserId(userId, favoriteUserID);
+            return ResponseEntity.ok().body(CustomResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Removed successfully")
+                    .build());
         } else {
-            // Create a new favorite object to hold the data if it doesn't exist
-            favorite = new Favorite();
-            favorite.setUser(user.get());
-            favorite.setFavoriteUser(commuter.get());
+            // If not favorite, add it
+            Favorite favorite = new Favorite();
+            favorite.setUser(user);
+            favorite.setFavoriteUser(commuter);
             favoriteRepository.save(favorite);
-            return ResponseEntity.ok("Added Successfully");
+            return ResponseEntity.ok().body(CustomResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Added successfully")
+                    .build());
         }
     }
 }

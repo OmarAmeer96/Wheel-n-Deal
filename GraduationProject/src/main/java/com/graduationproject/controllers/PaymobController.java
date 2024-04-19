@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Controller class for handling Paymob payment-related operations.
- */
 @RestController
 @RequestMapping("api/v1/vodafone-payments")
 public class PaymobController {
@@ -19,11 +16,7 @@ public class PaymobController {
     @Autowired
     private PaymobServiceImpl paymobService;
 
-    /**
-     * Retrieves the authentication token from Paymob API using the provided API key.
-     * @return Authentication token
-     * @throws JsonProcessingException If there is an error in processing JSON
-     */
+    
     public String getAuthToken() throws JsonProcessingException {
         String apiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RVMk5qYzNMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkubWdRME9MbXo4SlRBdE5HSmFnNjJrR21DcndoZzlyTEthN3dVdHRmQnc5bnRGSlN5NEhCbTVmWV9pelBuX2tQOGh4X2lhdzdDWnYwT0M5MDZaMk41UWc=";
         return paymobService.getAuthToken(apiKey);
