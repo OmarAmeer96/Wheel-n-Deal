@@ -5,6 +5,7 @@ import com.graduationproject.entities.Favorite;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.FavoriteRepository;
 import com.graduationproject.repositories.UserRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Data
 @Service
 @RequiredArgsConstructor
 public class FavoriteService {

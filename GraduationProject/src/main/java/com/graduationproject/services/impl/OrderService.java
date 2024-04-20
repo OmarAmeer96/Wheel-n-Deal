@@ -1,5 +1,6 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.OrderDTO;
 import com.graduationproject.DTOs.SearchOrderDTO;
 import com.graduationproject.entities.Order;
@@ -13,14 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-/**
- * Service class responsible for managing orders.
- */
 @Data
 @Service
 @RequiredArgsConstructor
@@ -28,12 +29,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
-    /**
-     * Creates or updates an order based on the provided OrderDTO.
-     * @param orderDTO The OrderDTO containing order information
-     * @return ResponseEntity with a message indicating the success or failure of the operation
-     */
-    public ResponseEntity<String> createOrUpdateOrder(OrderDTO orderDTO) {
+    public ResponseEntity<CustomResponse> createOrUpdateOrder(OrderDTO orderDTO) {
         if (orderDTO.getId() != null) {
             Optional<Order> optionalOrder = orderRepository.findById(orderDTO.getId());
 
@@ -41,36 +37,61 @@ public class OrderService {
                 Order existingOrder = optionalOrder.get();
                 updateOrderFromDTO(existingOrder, orderDTO);
                 orderRepository.save(existingOrder);
-                return ResponseEntity.ok("Order updated Successfully"); // Update the existing order
+                return ResponseEntity.ok().body(CustomResponse.builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Order updated Successfully")
+                        .build()); // Update the existing order
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found with ID: " + orderDTO.getId());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomResponse.builder()
+                        .status(HttpStatus.NOT_FOUND.value())
+                        .message("Order not found with ID: " + orderDTO.getId())
+                        .build());
             }
         } else {
-            saveNewOrderFromDTO(orderDTO);
-            return ResponseEntity.ok("Order Created Successfully");
+            ResponseEntity<CustomResponse> newOrderResponse = saveNewOrderFromDTO(orderDTO);
+            CustomResponse responseBody = newOrderResponse.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (newOrderResponse.getStatusCode() == HttpStatus.OK && responseBody.getData() != null) {
+                OrderDTO newOrderDTO = objectMapper.convertValue(responseBody.getData().get("orderDTO"), OrderDTO.class);
+                return ResponseEntity.ok().body(CustomResponse.builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Order Created Successfully")
+                        .data(Map.of("orderDTO", String.valueOf(newOrderDTO)))
+                        .build());
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CustomResponse.builder()
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .message("Failed to create order")
+                        .build());
+            }
         }
     }
 
-    /**
-     * Saves a new order based on the provided OrderDTO.
-     * @param orderDTO The OrderDTO containing order information
-     * @return The newly created Order
-     */
-    private Order saveNewOrderFromDTO(OrderDTO orderDTO) {
+    private ResponseEntity<CustomResponse> saveNewOrderFromDTO(OrderDTO orderDTO) {
         Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
-        if (optionalUser.isEmpty()) {
-            throw new RuntimeException("User not found with ID: " + orderDTO.getUserId());
+        if (optionalUser.isPresent()) {
+            Order order = new Order();
+            updateOrderFromDTO(order, orderDTO);
+
+            User user = optionalUser.get();
+            order.setUser(user);
+            order.setOrderStatus(OrderStatus.NOT_ACTIVE);
+
+            Order savedOrder = orderRepository.save(order);
+
+            return ResponseEntity.ok().body(CustomResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Order Created Successfully")
+                    .data(Map.of("orderId", savedOrder.getId().toString()))
+                    .build());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomResponse.builder()
+                    .status(HttpStatus.NOT_FOUND.value())
+                    .message("User not found with ID: " + orderDTO.getUserId())
+                    .build());
         }
-
-        Order order = new Order();
-        updateOrderFromDTO(order, orderDTO);
-
-        User user = optionalUser.get();
-        order.setUser(user);
-        order.setOrderStatus(OrderStatus.NOT_ACTIVE);
-
-        return orderRepository.save(order);
     }
+    
 
     /**
      * Updates an Order entity based on the provided OrderDTO.

@@ -1,5 +1,6 @@
 package com.graduationproject.controllers;
 
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.OrderDTO;
 import com.graduationproject.DTOs.SearchOrderDTO;
 import com.graduationproject.services.impl.OrderService;
@@ -17,7 +18,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("create-update")
-    public ResponseEntity<String> createOrder(@ModelAttribute OrderDTO orderDTO) {
+    public ResponseEntity<CustomResponse> createOrder(@ModelAttribute OrderDTO orderDTO) {
         return orderService.createOrUpdateOrder(orderDTO);
     }
 
