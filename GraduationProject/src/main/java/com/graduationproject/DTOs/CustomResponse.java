@@ -14,5 +14,5 @@ import java.util.Map;
 public class CustomResponse {
     private Integer status;
     private String message;
-    private Map<String, String> data;
+    private Object data;
 }

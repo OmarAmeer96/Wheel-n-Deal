@@ -1,6 +1,7 @@
 package com.graduationproject.services.impl;
 
 import com.graduationproject.DTOs.CommuterProfileDTO;
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.ProfileReviewsDTO;
 import com.graduationproject.DTOs.ProfileTripDetailsDTO;
 import com.graduationproject.entities.Review;
@@ -12,15 +13,13 @@ import com.graduationproject.repositories.TripRepository;
 import com.graduationproject.repositories.UserRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service implementation for managing commuter profiles.
- */
 @Data
 @Service
 @RequiredArgsConstructor
@@ -30,11 +29,45 @@ public class CommuterProfileService {
     private final UserRepository userRepository;
     private final TripRepository tripRepository;
 
-    /**
-     * Retrieves the full commuter profile by commuter ID.
-     * @param commuterId The ID of the commuter
-     * @return The commuter profile DTO containing details
-     */
+    public CustomResponse getFullCommuterProfile(Integer commuterId) {
+        Optional<User> optionalUser = userRepository.findById(commuterId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            if (user.getRole() == Role.COMMUTER) {
+                CommuterProfileDTO commuterProfileDTO = new CommuterProfileDTO();
+                commuterProfileDTO.setUsername(user.getUsername());
+                commuterProfileDTO.setTotalRate(calculateCommuterTotalRate(user.getId()));
+                commuterProfileDTO.setTotalDelivers(user.getTotalDelivers());
+                commuterProfileDTO.setCancelDelivers(user.getCancelDelivers());
+                commuterProfileDTO.setPhoneNumber(user.getPhoneNumber());
+                commuterProfileDTO.setCommuterPhotoURL(user.getProfilePictureUrl());
+                commuterProfileDTO.setProfileTripDetailsDTOs(profileTripDetailsDTOList(user.getId()));
+                commuterProfileDTO.setProfileReviewsDTOS(profileReviewsDTOS(user.getId()));
+
+                return CustomResponse.builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Commuter profile retrieved successfully")
+                        .data(commuterProfileDTO)
+                        .build();
+            } else {
+                return CustomResponse.builder()
+                        .status(HttpStatus.FORBIDDEN.value())
+                        .message("Unauthorized role: User is not a commuter")
+                        .data(null)
+                        .build();
+            }
+        } else {
+            return CustomResponse.builder()
+                    .status(HttpStatus.NOT_FOUND.value())
+                    .message("Commuter not found for ID: " + commuterId)
+                    .data(null)
+                    .build();
+        }
+    }
+
+
     public CommuterProfileDTO getFullCommuterProfile(int commuterId){
         Optional<User> optionalUser = userRepository.findById(commuterId);
         if(optionalUser.isPresent() && optionalUser.get().getRole() == Role.COMMUTER){
@@ -53,11 +86,6 @@ public class CommuterProfileService {
         return null;
     }
 
-    /**
-     * Calculates the total rating of a commuter.
-     * @param commuterId The ID of the commuter
-     * @return The total rating of the commuter
-     */
     private double calculateCommuterTotalRate(int commuterId){
         double totalRate = 0;
         double rateSum = 0;
@@ -73,11 +101,6 @@ public class CommuterProfileService {
         return totalRate;
     }
 
-    /**
-     * Retrieves the list of trip details for a commuter.
-     * @param commuterId The ID of the commuter
-     * @return List of trip details DTOs
-     */
     private List<ProfileTripDetailsDTO> profileTripDetailsDTOList(int commuterId){
         List<ProfileTripDetailsDTO> tirpDetailsDTOsList = new ArrayList<>();
         Optional<User> optionalUser = userRepository.findById(commuterId);

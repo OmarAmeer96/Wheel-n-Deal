@@ -29,6 +29,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public ResponseEntity<CustomResponse> createOrUpdateOrder(OrderDTO orderDTO) {
         if (orderDTO.getId() != null) {
             Optional<Order> optionalOrder = orderRepository.findById(orderDTO.getId());
@@ -37,37 +38,22 @@ public class OrderService {
                 Order existingOrder = optionalOrder.get();
                 updateOrderFromDTO(existingOrder, orderDTO);
                 orderRepository.save(existingOrder);
-                return ResponseEntity.ok().body(CustomResponse.builder()
-                        .status(HttpStatus.OK.value())
-                        .message("Order updated Successfully")
-                        .build()); // Update the existing order
+                return ResponseEntity.ok().body(CustomResponse.builder().status(HttpStatus.OK.value()).message("Order updated Successfully").build()); // Update the existing order
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomResponse.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
-                        .message("Order not found with ID: " + orderDTO.getId())
-                        .build());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Order not found with ID: " + orderDTO.getId()).build());
             }
         } else {
-            ResponseEntity<CustomResponse> newOrderResponse = saveNewOrderFromDTO(orderDTO);
-            CustomResponse responseBody = newOrderResponse.getBody();
-            ObjectMapper objectMapper = new ObjectMapper();
-            if (newOrderResponse.getStatusCode() == HttpStatus.OK && responseBody.getData() != null) {
-                OrderDTO newOrderDTO = objectMapper.convertValue(responseBody.getData().get("orderDTO"), OrderDTO.class);
-                return ResponseEntity.ok().body(CustomResponse.builder()
-                        .status(HttpStatus.OK.value())
-                        .message("Order Created Successfully")
-                        .data(Map.of("orderDTO", String.valueOf(newOrderDTO)))
-                        .build());
+            ResponseEntity<CustomResponse> newOrder = saveNewOrderFromDTO(orderDTO);
+            if (newOrder != null) {
+                return ResponseEntity.ok().body(CustomResponse.builder().status(HttpStatus.OK.value()).message("Order Created Successfully").data(Map.of("orderId", newOrder.getBody().toString())).build());
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CustomResponse.builder()
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .message("Failed to create order")
-                        .build());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CustomResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Failed to create order").build());
             }
         }
     }
 
-    private ResponseEntity<CustomResponse> saveNewOrderFromDTO(OrderDTO orderDTO) {
+    @Transactional
+    protected ResponseEntity<CustomResponse> saveNewOrderFromDTO(OrderDTO orderDTO) {
         Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
         if (optionalUser.isPresent()) {
             Order order = new Order();
@@ -91,13 +77,7 @@ public class OrderService {
                     .build());
         }
     }
-    
 
-    /**
-     * Updates an Order entity based on the provided OrderDTO.
-     * @param order The Order entity to be updated
-     * @param orderDTO The OrderDTO containing updated order information
-     */
     private void updateOrderFromDTO(Order order, OrderDTO orderDTO) {
         order.setOrderName(orderDTO.getOrderName());
         order.setCountOfOrders(orderDTO.getCountOfOrders());
@@ -112,11 +92,6 @@ public class OrderService {
         order.setReceiverPhoneNumber(orderDTO.getReceiverPhoneNumber());
     }
 
-    /**
-     * Updates a SearchOrderDTO object based on an Order entity.
-     * @param searchOrderDTO The SearchOrderDTO object to be updated
-     * @param order The Order entity containing order information
-     */
     private void updateSearchOrderDTOFromOrder(SearchOrderDTO searchOrderDTO, Order order){
         searchOrderDTO.setId(order.getId());
         searchOrderDTO.setOrderName(order.getOrderName());
@@ -133,12 +108,6 @@ public class OrderService {
         searchOrderDTO.setReceiverPhoneNumber(order.getReceiverPhoneNumber());
     }
 
-    /**
-     * Searches for orders with the specified origin and destination.
-     * @param from The origin of the order
-     * @param to The destination of the order
-     * @return List of SearchOrderDTO objects representing the search results
-     */
     public List<SearchOrderDTO> searchForOrder(String from, String to){
         List<SearchOrderDTO> searchOrderDTOS = new ArrayList<>();
         List<Order> existingOrders = orderRepository.findByFromAndTo(from,to);

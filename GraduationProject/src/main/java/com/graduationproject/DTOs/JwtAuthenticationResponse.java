@@ -11,5 +11,5 @@ import java.util.Map;
 public class JwtAuthenticationResponse {
     private Integer status;
     private String message;
-    private Map<String, String> data;
+    private Object data;
 }

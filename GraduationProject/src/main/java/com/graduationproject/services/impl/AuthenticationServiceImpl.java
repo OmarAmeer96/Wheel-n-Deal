@@ -18,6 +18,7 @@ import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,8 +37,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final JWTService jwtService;
     private final TokenRepository tokenRepository;
+    @Autowired
+    @Qualifier("JWTServiceImpl")
+    private JWTService jwtService;
 
     @Autowired
     private Environment env;

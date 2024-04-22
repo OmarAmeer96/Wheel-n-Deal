@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
 
+@Primary
 @Service
 public class JWTServiceImpl implements JWTService {
 
     public String generateToken(UserDetails userDetails){
-        // Set expiration time to 3 months
+//         Set expiration time to 3 months
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MONTH, 3);
