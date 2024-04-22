@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
@@ -26,23 +24,23 @@ public class UserController {
     }
 
     @PutMapping("update")
-    public ResponseEntity<String> updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
+    public CustomResponse updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
         return userProfileService.updateUserProfile(userProfileDTO);
     }
 
     @GetMapping("get-normal-user-porfile")
-    public ResponseEntity<NormalProfileDTO> getNormalUserProfile(@RequestParam Integer id){
+    public CustomResponse getNormalUserProfile(@RequestParam Integer id){
         return userProfileService.getNormalUserProfile(id);
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<String> deleteById(@RequestParam Integer id){
+    public CustomResponse deleteById(@RequestParam Integer id){
         return userServiceImpl.deleteById(id);
     }
 
     @PostMapping("search-for-trip/{from}/{to}")
-    public ResponseEntity<List<TripSearchResultDTO>> searchForTrip(@PathVariable String from, @PathVariable String to){
-        return tripService.SearchForTrip(from,to);
+    public CustomResponse searchForTrip(@PathVariable String from, @PathVariable String to){
+        return tripService.searchForTrip(from,to);
     }
 
 

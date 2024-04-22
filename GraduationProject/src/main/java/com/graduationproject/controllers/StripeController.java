@@ -4,12 +4,8 @@ import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.stripePaymentDTOs.ChargeUserDTO;
 import com.graduationproject.services.impl.StripeServiceImpl;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.C;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/visa-payments")

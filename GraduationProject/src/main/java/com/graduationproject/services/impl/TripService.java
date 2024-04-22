@@ -1,5 +1,6 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.TripDTO;
 import com.graduationproject.DTOs.TripSearchResultDTO;
 import com.graduationproject.entities.Role;
@@ -20,9 +21,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service class for managing trip-related operations.
- */
 @Data
 @Service
 @RequiredArgsConstructor
@@ -31,57 +29,119 @@ public class TripService {
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
 
-    /**
-     * Method to create or update a trip.
-     * @param tripDTO The trip DTO containing trip information
-     * @return ResponseEntity<String> Response indicating the success or failure of the operation
-     */
-    public ResponseEntity<String> postOrUpdateTrip(TripDTO tripDTO){
+    public CustomResponse postOrUpdateTrip(TripDTO tripDTO) {
+        if (tripDTO == null) {
+            return CustomResponse.builder()
+                    .status(400)  // HTTP Bad Request
+                    .message("Trip data must be provided.")
+                    .build();
+        }
 
         // Check if the user is authorized to access this endpoint
         if (!isCommuter()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Only COMMUTER users are allowed to access this endpoint.");
+            return CustomResponse.builder()
+                    .status(401)  // HTTP Unauthorized
+                    .message("Access denied. Only COMMUTER users are allowed to access this endpoint.")
+                    .build();
         }
 
-        // If trip ID exists, update the existing trip, else create a new trip
-        if(tripDTO.getId() != null){
-            Optional<Trip> optionalTrip = tripRepository.findById(tripDTO.getId());
-            if(optionalTrip.isPresent()){
-                Trip existingTrip = optionalTrip.get();
-                updateTripFromDTO(existingTrip,tripDTO);
-                tripRepository.save(existingTrip);
-                return ResponseEntity.ok("Trip updated Successfully");
+        try {
+            // If trip ID exists, update the existing trip, else create a new trip
+            if (tripDTO.getId() != null) {
+                Optional<Trip> optionalTrip = tripRepository.findById(tripDTO.getId());
+                if (optionalTrip.isPresent()) {
+                    Trip existingTrip = optionalTrip.get();
+                    updateTripFromDTO(existingTrip, tripDTO);  // Assume this method handles updating trip
+                    tripRepository.save(existingTrip);  // Save updated trip
+
+                    return CustomResponse.builder()
+                            .status(200)  // HTTP OK
+                            .message("Trip updated successfully.")
+                            .data(existingTrip)  // Include the updated trip data
+                            .build();
+
+                } else {
+                    return CustomResponse.builder()
+                            .status(404)  // HTTP Not Found
+                            .message("Trip not found with ID: " + tripDTO.getId())
+                            .build();
+                }
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trip not found with ID: " + tripDTO.getId());
+                // Create a new trip
+                CustomResponse newTrip = saveNewTripFromDTO(tripDTO);  // Assume this method creates and returns the new trip
+                return CustomResponse.builder()
+                        .status(200)  // HTTP OK
+                        .message("Trip created successfully.")
+                        .data(newTrip)  // Include the new trip data
+                        .build();
             }
-        } else {
-            saveNewTripFromDTO(tripDTO);
-            return ResponseEntity.ok("Trip Created Successfully");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CustomResponse.builder()
+                    .status(500)  // HTTP Internal Server Error
+                    .message("An error occurred while processing the trip request.")
+                    .data(e.getMessage())  // Include exception message for debugging
+                    .build();
         }
     }
 
-    /**
-     * Method to save a new trip from DTO.
-     * @param tripDTO The trip DTO containing trip information
-     * @return Trip The saved trip entity
-     */
-    private Trip saveNewTripFromDTO(TripDTO tripDTO){
-        Optional<User> optionalUser = userRepository.findById(tripDTO.getUserId());
-        if (optionalUser.isEmpty()) {
-            throw new RuntimeException("User not found with ID: " + tripDTO.getUserId());
+    public CustomResponse saveNewTripFromDTO(TripDTO tripDTO) {
+        // Check if tripDTO is null
+        if (tripDTO == null) {
+            return CustomResponse.builder()
+                    .status(400)  // HTTP Bad Request
+                    .message("Trip data must be provided.")
+                    .build();
         }
-        Trip trip = new Trip();
-        updateTripFromDTO(trip,tripDTO);
-        User user = optionalUser.get();
-        trip.setUser(user);
-        return tripRepository.save(trip);
+
+        // Validate the userId
+        Integer userId = tripDTO.getUserId();  // Assuming userId is an Integer
+        if (userId == null || userId <= 0) {
+            return CustomResponse.builder()
+                    .status(400)  // HTTP Bad Request
+                    .message("Valid User ID must be provided.")
+                    .build();
+        }
+
+        try {
+            // Find the user by ID
+            Optional<User> optionalUser = userRepository.findById(tripDTO.getUserId());
+            if (optionalUser.isEmpty()) {
+                return CustomResponse.builder()
+                        .status(404)  // HTTP Not Found
+                        .message("User not found with ID: " + tripDTO.getUserId())
+                        .build();
+            }
+
+            // Create a new trip and update its data from the DTO
+            Trip trip = new Trip();
+            updateTripFromDTO(trip, tripDTO);
+
+            // Associate the trip with the user
+            User user = optionalUser.get();
+            trip.setUser(user);
+
+            // Save the new trip to the repository
+            Trip savedTrip = tripRepository.save(trip);
+
+            return CustomResponse.builder()
+                    .status(201)  // HTTP Created
+                    .message("Trip created successfully.")
+                    .data(savedTrip)  // Include the saved trip data
+                    .build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CustomResponse.builder()
+                    .status(500)  // HTTP Internal Server Error
+                    .message("An error occurred while saving the trip.")
+                    .data(e.getMessage())  // Include exception message for debugging
+                    .build();
+        }
     }
 
-    /**
-     * Method to update trip information from DTO.
-     * @param trip The trip entity to be updated
-     * @param tripDTO The trip DTO containing updated trip information
-     */
+    /////////////////////////////////////////////////////
     private void updateTripFromDTO(Trip trip , TripDTO tripDTO){
         trip.setFrom(tripDTO.getFrom());
         trip.setTo(tripDTO.getTo());
@@ -92,71 +152,147 @@ public class TripService {
         trip.setCapacity(tripDTO.getCapacity());
     }
 
-    /**
-     * Method to delete a trip by ID.
-     * @param tripId The ID of the trip to be deleted
-     * @return String A message indicating the success of the deletion operation
-     */
-    public String deleteTrip(int tripId){
-        tripRepository.deleteById(tripId);
-        return "Trip deleted Successfully";
+    public CustomResponse deleteTrip(Integer tripId) {
+        // Validate the tripId
+        if (tripId == null || tripId <= 0) {
+            return CustomResponse.builder()
+                    .status(400)  // HTTP Bad Request
+                    .message("A valid Trip ID must be provided.")
+                    .build();
+        }
+
+        try {
+            Optional<Trip> optionalTrip = tripRepository.findById(tripId);
+
+            if (optionalTrip.isEmpty()) {
+                return CustomResponse.builder()
+                        .status(404)  // HTTP Not Found
+                        .message("Trip not found with ID: " + tripId)
+                        .build();
+            }
+
+            // If the trip exists, proceed with deletion
+            tripRepository.deleteById(tripId);
+
+            return CustomResponse.builder()
+                    .status(200)  // HTTP OK
+                    .message("Trip deleted successfully.")
+                    .build();
+
+        } catch (Exception e) {
+            return CustomResponse.builder()
+                    .status(500)  // HTTP Internal Server Error
+                    .message("An error occurred while deleting the trip.")
+                    .data(e.getMessage())  // Optional: Include exception message for debugging
+                    .build();
+        }
     }
 
-    /**
-     * Method to search for trips based on origin and destination.
-     * @param from The origin of the trip
-     * @param to The destination of the trip
-     * @return ResponseEntity<List<TripSearchResultDTO>> Response containing trip search results
-     */
-    public ResponseEntity<List<TripSearchResultDTO>> SearchForTrip(String from, String to){
-
+    public CustomResponse searchForTrip(String from, String to) {
         // Check if the user is authorized to access this endpoint
         if (!isUser()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Collections.emptyList()); // Return an empty list if unauthorized
+            return CustomResponse.builder()
+                            .status(401)  // HTTP Unauthorized
+                            .message("Access denied. Only authorized users are allowed to search for trips.")
+                            .build();
         }
 
-        List<TripSearchResultDTO> tripSearchResultDTOS = new ArrayList<>();
-        List<Trip> existingTrips = tripRepository.findByFromAndTo(from,to);
-        for (Trip trip : existingTrips){
-            TripSearchResultDTO tripResultDetails = new TripSearchResultDTO();
-            tripResultDetails.setFrom(trip.getFrom());
-            tripResultDetails.setTo(trip.getTo());
-            tripResultDetails.setUsername(trip.getUser().getUsername());
-            tripResultDetails.setPhoneNumber(trip.getUser().getPhoneNumber());
-            tripResultDetails.setCommuterProfilePhotoURL(trip.getUser().getProfilePictureUrl());
-            tripSearchResultDTOS.add(tripResultDetails);
+        if (from == null || from.isBlank() || to == null || to.isBlank()) {
+            return CustomResponse.builder()
+                            .status(400)  // HTTP Bad Request
+                            .message("Both 'from' and 'to' locations must be provided and cannot be empty.")
+                            .build();
         }
-        return ResponseEntity.ok(tripSearchResultDTOS);
+
+        try {
+            List<TripSearchResultDTO> tripSearchResultDTOS = new ArrayList<>();
+            List<Trip> existingTrips = tripRepository.findByFromAndTo(from, to);
+
+            if (existingTrips.isEmpty()) {
+                return CustomResponse.builder()
+                                .status(200)  // HTTP OK
+                                .message("No trips found matching the given criteria.")
+                                .data(Collections.emptyList())
+                                .build();
+            }
+
+            for (Trip trip : existingTrips) {
+                TripSearchResultDTO tripResultDetails = new TripSearchResultDTO();
+                tripResultDetails.setFrom(trip.getFrom());
+                tripResultDetails.setTo(trip.getTo());
+                tripResultDetails.setUsername(trip.getUser().getUsername());
+                tripResultDetails.setPhoneNumber(trip.getUser().getPhoneNumber());
+                tripResultDetails.setCommuterProfilePhotoURL(trip.getUser().getProfilePictureUrl());
+                tripSearchResultDTOS.add(tripResultDetails);
+            }
+
+            return CustomResponse.builder()
+                    .status(200)  // HTTP OK
+                    .message("Trips found successfully.")
+                    .data(tripSearchResultDTOS)
+                    .build();
+
+        } catch (Exception e) {
+            return CustomResponse.builder()
+                            .status(500)  // HTTP Internal Server Error
+                            .message("An error occurred while searching for trips.")
+                            .data(e.getMessage())  // Optional: include the error message for debugging
+                            .build();
+        }
     }
 
-    /**
-     * Method to check if the authenticated user is a commuter.
-     * @return boolean true if the user is a commuter, false otherwise
-     */
-    private boolean isCommuter(){
+    private boolean isCommuter() {
+        // Get the current authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authenticatedUsername = authentication.getName();
-        String neededRole = String.valueOf(Role.COMMUTER);
-        String authenticatedUserRole =String.valueOf(userRepository.findByUsername(authenticatedUsername).get().getRole());
-        if(neededRole.equals(authenticatedUserRole)){
-            return true;
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return false; // User is not authenticated
         }
-        return false;
+
+        try {
+            String authenticatedUsername = authentication.getName();
+
+            Optional<User> optionalUser = userRepository.findByUsername(authenticatedUsername);
+            if (optionalUser.isEmpty()) {
+                return false; // User with this username not found
+            }
+
+            User authenticatedUser = optionalUser.get();
+            Role userRole = authenticatedUser.getRole();
+
+            return Role.COMMUTER.equals(userRole); // Check if the user's role is COMMUTER
+
+        } catch (Exception e) {
+            // Handle exceptions such as NPE or database issues
+            e.printStackTrace(); // Log the exception
+            return false; // In case of an error, assume the user is not a COMMUTER
+        }
     }
 
-    /**
-     * Method to check if the authenticated user is a regular user.
-     * @return boolean true if the user is a regular user, false otherwise
-     */
-    private boolean isUser(){
+    public boolean isUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authenticatedUsername = authentication.getName();
-        String neededRole = String.valueOf(Role.USER);
-        String authenticatedUserRole =String.valueOf(userRepository.findByUsername(authenticatedUsername).get().getRole());
-        if(neededRole.equals(authenticatedUserRole)){
-            return true;
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return false;
         }
-        return false;
+
+        try {
+            String authenticatedUsername = authentication.getName();
+
+            Optional<User> optionalUser = userRepository.findByUsername(authenticatedUsername);
+            if (optionalUser.isEmpty()) {
+                return false;
+            }
+
+            User authenticatedUser = optionalUser.get();
+            Role userRole = authenticatedUser.getRole();
+
+            return Role.USER.equals(userRole);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
 }

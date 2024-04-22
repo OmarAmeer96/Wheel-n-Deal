@@ -2,13 +2,9 @@ package com.graduationproject.controllers;
 
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.OrderDTO;
-import com.graduationproject.DTOs.SearchOrderDTO;
 import com.graduationproject.services.impl.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/user")
