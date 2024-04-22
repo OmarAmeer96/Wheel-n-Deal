@@ -67,26 +67,7 @@ public class CommuterProfileService {
         }
     }
 
-
-    public CommuterProfileDTO getFullCommuterProfile(int commuterId){
-        Optional<User> optionalUser = userRepository.findById(commuterId);
-        if(optionalUser.isPresent() && optionalUser.get().getRole() == Role.COMMUTER){
-            User user = optionalUser.get();
-            CommuterProfileDTO commuterProfileDTO = new CommuterProfileDTO();
-            commuterProfileDTO.setUsername(user.getUsername());
-            commuterProfileDTO.setTotalRate(calculateCommuterTotalRate(user.getId()));
-            commuterProfileDTO.setTotalDelivers(user.getTotalDelivers());
-            commuterProfileDTO.setCancelDelivers(user.getCancelDelivers());
-            commuterProfileDTO.setPhoneNumber(user.getPhoneNumber());
-            commuterProfileDTO.setProfileTripDetailsDTOs(profileTripDetailsDTOList(user.getId()));
-            commuterProfileDTO.setProfileReviewsDTOS(profileReviewsDTOS(user.getId()));
-            commuterProfileDTO.setCommuterPhotoURL(user.getProfilePictureUrl());
-            return commuterProfileDTO;
-        }
-        return null;
-    }
-
-    private double calculateCommuterTotalRate(int commuterId){
+    private double calculateCommuterTotalRate(Integer commuterId){
         double totalRate = 0;
         double rateSum = 0;
         Optional<User> optionalUser = userRepository.findById(commuterId);
@@ -101,7 +82,7 @@ public class CommuterProfileService {
         return totalRate;
     }
 
-    private List<ProfileTripDetailsDTO> profileTripDetailsDTOList(int commuterId){
+    private List<ProfileTripDetailsDTO> profileTripDetailsDTOList(Integer commuterId){
         List<ProfileTripDetailsDTO> tirpDetailsDTOsList = new ArrayList<>();
         Optional<User> optionalUser = userRepository.findById(commuterId);
         if(optionalUser.isPresent() && optionalUser.get().getRole() == Role.COMMUTER){
@@ -123,11 +104,6 @@ public class CommuterProfileService {
         }
     }
 
-    /**
-     * Retrieves the list of reviews for a commuter.
-     * @param commuterId The ID of the commuter
-     * @return List of review DTOs
-     */
     private List<ProfileReviewsDTO> profileReviewsDTOS(int commuterId){
         List<ProfileReviewsDTO> profileReviewsDTOS = new ArrayList<>();
         Optional<User> optionalUser = userRepository.findById(commuterId);

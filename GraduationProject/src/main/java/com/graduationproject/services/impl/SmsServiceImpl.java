@@ -17,7 +17,6 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -31,14 +30,14 @@ public class SmsServiceImpl {
     public CustomResponse updatePassword(String phoneNumber, String newPassword) {
         if (phoneNumber == null) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("Phone number is required.")
                     .build();
         }
 
         if (newPassword == null || newPassword.isBlank() || newPassword.length() < 6) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("New password must be at least 6 characters long and not empty.")
                     .build();
         }
@@ -48,7 +47,7 @@ public class SmsServiceImpl {
 
             if (user == null) {
                 return CustomResponse.builder()
-                        .status(404)  // HTTP Not Found
+                        .status(404)
                         .message("User with phone number " + phoneNumber + " does not exist.")
                         .build();
             }
@@ -57,15 +56,15 @@ public class SmsServiceImpl {
             userRepository.save(user);
 
             return CustomResponse.builder()
-                    .status(200)  // HTTP OK
+                    .status(200)
                     .message("Password updated successfully.")
                     .build();
 
         } catch (Exception ex) {
             return CustomResponse.builder()
-                    .status(500)  // HTTP Internal Server Error
+                    .status(500)
                     .message("An error occurred while updating the password.")
-                    .data(ex.getMessage())  // Include exception message for debugging
+                    .data(ex.getMessage())
                     .build();
         }
     }
@@ -76,32 +75,30 @@ public class SmsServiceImpl {
     public CustomResponse sendSMS(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isBlank()) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("Phone number cannot be null or empty.")
                     .build();
         }
 
-        // Check if the phone number is in a valid format
         if (!phoneNumber.matches("^(\\+20)?01[0-2]{1}[0-9]{8}$")) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("Invalid phone number format. Must be a 13-digit number.")
                     .build();
         }
 
         try {
-            PhoneNumber to = new PhoneNumber("+20" + phoneNumber); // Receiver's phone number
-            PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber()); // Twilio phone number
-            String otp = generateOTP();  // Assume this generates a valid OTP
+            PhoneNumber to = new PhoneNumber("+20" + phoneNumber);
+            PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber());
+            String otp = generateOTP();
             String otpMessage = "Dear Customer, Your OTP is " + otp + ", welcome to Wheel n' Deal family. Thank You.";
 
             Message message = Message.creator(to, from, otpMessage).create();
 
-            // Store OTP against the phone number in the map
             otpMap.put(phoneNumber, otp);
 
             return CustomResponse.builder()
-                    .status(200)  // HTTP OK
+                    .status(200)
                     .message("OTP sent successfully.")
                     .data(new OtpResponseDTO(OtpStatus.DELIVERED, otpMessage))
                     .build();
@@ -109,9 +106,9 @@ public class SmsServiceImpl {
         } catch (Exception e) {
             e.printStackTrace();
             return CustomResponse.builder()
-                    .status(500)  // HTTP Internal Server Error
+                    .status(500)
                     .message("Failed to send OTP.")
-                    .data(e.getMessage())  // Include the exception message for debugging
+                    .data(e.getMessage())
                     .build();
         }
     }
@@ -119,7 +116,7 @@ public class SmsServiceImpl {
     public CustomResponse validateOtp(OtpValidationRequest otpValidationRequest) {
         if (otpValidationRequest.getPhoneNumber() == null || otpValidationRequest.getOtpNumber() == null) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("Phone number and OTP must be provided.")
                     .build();
         }
@@ -129,7 +126,7 @@ public class SmsServiceImpl {
 
         if (!otpMap.containsKey(phoneNumber)) {
             return CustomResponse.builder()
-                    .status(404)  // HTTP Not Found
+                    .status(404)
                     .message("No OTP found for the provided phone number.")
                     .build();
         }
@@ -139,23 +136,23 @@ public class SmsServiceImpl {
         if (storedOtp.equals(providedOtp)) {
             try {
                 updatePassword(phoneNumber, otpValidationRequest.getNewPassword());
-                otpMap.remove(phoneNumber);  // Remove the OTP once it's validated
+                otpMap.remove(phoneNumber);
 
                 return CustomResponse.builder()
-                        .status(200)  // HTTP OK
+                        .status(200)
                         .message("OTP is valid! Password has been updated.")
                         .build();
 
             } catch (Exception e) {
                 return CustomResponse.builder()
-                        .status(500)  // HTTP Internal Server Error
+                        .status(500)
                         .message("An error occurred while updating the password.")
-                        .data(e.getMessage())  // Include exception message for debugging
+                        .data(e.getMessage())
                         .build();
             }
         } else {
             return CustomResponse.builder()
-                    .status(401)  // HTTP Unauthorized
+                    .status(401)
                     .message("OTP is invalid!")
                     .build();
         }

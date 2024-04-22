@@ -6,7 +6,6 @@ import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,11 +31,10 @@ public class UserServiceImpl implements UserService {
 
     public CustomResponse deleteById(Integer id) {
         try {
-            // Check if the user exists before attempting to delete
             Optional<User> optionalUser = userRepository.findById(id);
             if (optionalUser.isEmpty()) {
                 return CustomResponse.builder()
-                                .status(HttpStatus.NOT_FOUND.value()) // HTTP 404
+                                .status(HttpStatus.NOT_FOUND.value())
                                 .message("User with ID " + id + " not found.")
                                 .build();
             }
@@ -44,15 +42,15 @@ public class UserServiceImpl implements UserService {
             userRepository.deleteById(id);
 
             return CustomResponse.builder()
-                            .status(HttpStatus.OK.value()) // HTTP 200
+                            .status(HttpStatus.OK.value())
                             .message("User deleted successfully.")
                             .build();
 
         } catch (Exception e) {
             return CustomResponse.builder()
-                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // HTTP 500
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                             .message("An error occurred while deleting the user.")
-                            .data(e.getMessage()) // Optionally include exception message
+                            .data(e.getMessage())
                             .build();
         }
     }

@@ -9,7 +9,6 @@ import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,6 @@ public class UserProfileService {
 
     public CustomResponse updateUserProfile(UserProfileDTO userProfileDTO) {
         try {
-            // Check if the user exists
             Optional<User> user = userRepository.findById(userProfileDTO.getId());
             if (user.isEmpty()) {
                 return CustomResponse.builder()
@@ -37,13 +35,11 @@ public class UserProfileService {
 
             User existingUser = user.get();
 
-            // Update basic profile information
             existingUser.setFullName(userProfileDTO.getFullName());
             existingUser.setGender(userProfileDTO.getGender());
             existingUser.setCity(userProfileDTO.getCity());
             existingUser.setPhoneNumber(userProfileDTO.getPhone());
 
-            // Handle profile picture update
             MultipartFile photo = userProfileDTO.getProfilePicture();
             if (photo != null && !photo.isEmpty()) {
                 try {
@@ -58,12 +54,10 @@ public class UserProfileService {
                 }
             }
 
-            // Specific handling for COMMUTER role
             if (existingUser.getRole() == Role.COMMUTER) {
                 existingUser.setNationalId(userProfileDTO.getNationalId());
             }
 
-            // Save updated user profile
             userRepository.save(existingUser);
 
             return CustomResponse.builder()
@@ -72,7 +66,6 @@ public class UserProfileService {
                             .build();
 
         } catch (Exception e) {
-            // Handle unexpected errors
             return CustomResponse.builder()
                             .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                             .message("An error occurred while updating the profile.")

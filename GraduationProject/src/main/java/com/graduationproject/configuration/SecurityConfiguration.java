@@ -37,12 +37,6 @@ public class SecurityConfiguration {
             "/swagger-ui.html"       // Swagger UI HTML
     };
 
-    /**
-     * Configures security filter chain for HTTP requests.
-     * @param http HttpSecurity object for configuring security settings
-     * @return SecurityFilterChain object representing the configured security filter chain
-     * @throws Exception If an error occurs during configuration
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)

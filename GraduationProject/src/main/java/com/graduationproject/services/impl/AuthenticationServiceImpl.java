@@ -74,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             String errorMessage = errorMessageBuilder.toString();
 
             return JwtAuthenticationResponse.builder()
-                    .status(400) // Bad request
+                    .status(400)
                     .message(errorMessage)
                     .build();
         }
@@ -104,13 +104,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("refreshToken", jwtRefreshToken);
 
             return JwtAuthenticationResponse.builder()
-                    .status(200) // Assuming success status code is 200
+                    .status(200)
                     .message("Request processed successfully.")
                     .data(responseData)
                     .build();
         } catch (Exception e) {
             return JwtAuthenticationResponse.builder()
-                    .status(500) // Internal server error
+                    .status(500)
                     .message("An error occurred while processing the request.")
                     .build();
         }
@@ -144,14 +144,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("refreshToken", refreshToken);
 
             return JwtAuthenticationResponse.builder()
-                    .status(200) // Assuming success status code is 200
+                    .status(200)
                     .message("Authentication successful.")
                     .data(responseData)
                     .build();
 
         } catch (Exception e) {
             return JwtAuthenticationResponse.builder()
-                    .status(401) // Unauthorized
+                    .status(401)
                     .message("Authentication failed: " + e.getMessage())
                     .build();
         }
@@ -179,7 +179,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("refreshToken", refreshTokenRequest.getToken());
 
             return JwtAuthenticationResponse.builder()
-                    .status(200) // Assuming success status code is 200
+                    .status(200)
                     .message("Authentication successful.")
                     .data(responseData)
                     .build();

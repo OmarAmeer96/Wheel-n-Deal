@@ -33,27 +33,21 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
-        // Check if Authorization header exists and starts with "Bearer "
         if(!StringUtils.hasText(authHeader) || !org.apache.commons.lang3.StringUtils.startsWith(authHeader,"Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
 
-        // Extract JWT token from Authorization header
         jwt = authHeader.substring(7);
         userEmail=jwtService.extractUserName(jwt);
 
-        // Check if user email exists and user is not already authenticated
         if(StringUtils.hasText(userEmail) && SecurityContextHolder.getContext().getAuthentication()==null){
-            // Load user details from user service
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
 
-            // Check if token is valid and not expired or revoked
             var isTokenValid = tokenRepository.findByToken(jwt)
                     .map(token -> !token.isExpired() && !token.isRevoked())
                     .orElse(false);
             if(jwtService.isTokenValid(jwt, userDetails) && isTokenValid){
-                // Set authentication in security context
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
@@ -64,7 +58,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        // Pass request and response to the next filter in the chain
         filterChain.doFilter(request,response);
     }
 }

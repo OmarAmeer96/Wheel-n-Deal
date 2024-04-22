@@ -12,7 +12,6 @@ import com.graduationproject.utils.Utils;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +36,7 @@ public class OrderService {
                 Order existingOrder = optionalOrder.get();
                 updateOrderFromDTO(existingOrder, orderDTO);
                 orderRepository.save(existingOrder);
-                return CustomResponse.builder().status(HttpStatus.OK.value()).message("Order updated Successfully").build(); // Update the existing order
+                return CustomResponse.builder().status(HttpStatus.OK.value()).message("Order updated Successfully").build();
             } else {
                 return CustomResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Order not found with ID: " + orderDTO.getId()).build();
             }
@@ -80,7 +79,7 @@ public class OrderService {
     public CustomResponse updateOrderFromDTO(Order order, OrderDTO orderDTO) {
         if (order == null) {
             return CustomResponse.builder()
-                    .status(404) // HTTP Not Found
+                    .status(404)
                     .message("Order not found.")
                     .build();
         }
@@ -88,20 +87,18 @@ public class OrderService {
         try {
             if (orderDTO == null) {
                 return CustomResponse.builder()
-                        .status(400) // HTTP Bad Request
+                        .status(400)
                         .message("OrderDTO is null.")
                         .build();
             }
 
-            // Validate required fields
             if (orderDTO.getOrderName() == null || orderDTO.getFrom() == null || orderDTO.getTo() == null) {
                 return CustomResponse.builder()
-                        .status(400) // HTTP Bad Request
+                        .status(400)
                         .message("Missing required fields in OrderDTO.")
                         .build();
             }
 
-            // Update the order with values from the DTO
             order.setOrderName(orderDTO.getOrderName());
             order.setCountOfOrders(orderDTO.getCountOfOrders());
             order.setWeight(orderDTO.getWeight());
@@ -114,19 +111,17 @@ public class OrderService {
             order.setSenderName(orderDTO.getSenderName());
             order.setReceiverPhoneNumber(orderDTO.getReceiverPhoneNumber());
 
-            // Return a success response
             return CustomResponse.builder()
-                    .status(200) // HTTP OK
+                    .status(200)
                     .message("Order updated successfully.")
-                    .data(order) // Include updated order as data
+                    .data(order)
                     .build();
 
         } catch (Exception e) {
-            // Return an exception response
             return CustomResponse.builder()
-                    .status(500) // HTTP Internal Server Error
+                    .status(500)
                     .message("An error occurred while updating the order.")
-                    .data(e.getMessage()) // Optional: Include exception message for debugging
+                    .data(e.getMessage())
                     .build();
         }
     }
@@ -134,21 +129,19 @@ public class OrderService {
     public CustomResponse updateSearchOrderDTOFromOrder(SearchOrderDTO searchOrderDTO, Order order) {
         if (searchOrderDTO == null || order == null) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("SearchOrderDTO or Order is null.")
                     .build();
         }
 
         try {
-            // Ensure the Order has required fields populated
             if (order.getUser() == null || order.getUser().getId() == null) {
                 return CustomResponse.builder()
-                        .status(422)  // HTTP Unprocessable Entity
+                        .status(422)
                         .message("User information is missing in Order.")
                         .build();
             }
 
-            // Update the SearchOrderDTO from Order
             searchOrderDTO.setId(order.getId());
             searchOrderDTO.setOrderName(order.getOrderName());
             searchOrderDTO.setUserId(order.getUser().getId());
@@ -164,16 +157,16 @@ public class OrderService {
             searchOrderDTO.setReceiverPhoneNumber(order.getReceiverPhoneNumber());
 
             return CustomResponse.builder()
-                    .status(200)  // HTTP OK
+                    .status(200)
                     .message("SearchOrderDTO updated successfully.")
-                    .data(searchOrderDTO)  // Return the updated DTO
+                    .data(searchOrderDTO)
                     .build();
 
         } catch (Exception ex) {
             return CustomResponse.builder()
-                    .status(500)  // HTTP Internal Server Error
+                    .status(500)
                     .message("An error occurred while updating SearchOrderDTO.")
-                    .data(ex.getMessage())  // Include the exception message for debugging
+                    .data(ex.getMessage())
                     .build();
         }
     }
@@ -181,7 +174,7 @@ public class OrderService {
     public CustomResponse searchForOrder(String from, String to) {
         if (from == null || to == null) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("Origin and destination must not be null.")
                     .build();
         }
@@ -192,7 +185,7 @@ public class OrderService {
 
             if (existingOrders == null || existingOrders.isEmpty()) {
                 return CustomResponse.builder()
-                        .status(404)  // HTTP Not Found
+                        .status(404)
                         .message("No orders found between " + from + " and " + to + ".")
                         .build();
             }
@@ -204,21 +197,21 @@ public class OrderService {
                 if (response.getStatus() == 200) {
                     searchOrderDTOS.add((SearchOrderDTO) response.getData());
                 } else {
-                    return response;  // Propagate the error from update method
+                    return response;
                 }
             }
 
             return CustomResponse.builder()
-                    .status(200)  // HTTP OK
+                    .status(200)
                     .message("Search results successfully retrieved.")
-                    .data(searchOrderDTOS)  // Return the list of SearchOrderDTOs
+                    .data(searchOrderDTOS)
                     .build();
 
         } catch (Exception ex) {
             return CustomResponse.builder()
-                    .status(500)  // HTTP Internal Server Error
+                    .status(500)
                     .message("An error occurred during the search.")
-                    .data(ex.getMessage())  // Include exception message for debugging
+                    .data(ex.getMessage())
                     .build();
         }
     }

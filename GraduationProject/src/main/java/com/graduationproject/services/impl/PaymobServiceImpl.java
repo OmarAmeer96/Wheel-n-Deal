@@ -111,7 +111,7 @@ public class PaymobServiceImpl {
     public CustomResponse sendPaymentRequest(WalletRequest walletRequest) {
         if (walletRequest == null || walletRequest.getPayment_token() == null) {
             return CustomResponse.builder()
-                    .status(400)  // HTTP Bad Request
+                    .status(400)
                     .message("Invalid wallet request or payment token.")
                     .build();
         }
@@ -136,13 +136,12 @@ public class PaymobServiceImpl {
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayResponseDTO walletResponse = objectMapper.readValue(response.getBody(), PayResponseDTO.class);
 
-                // Find the user by phone number
                 String phoneNumber = walletResponse.getSource_data().getPhone_number();
                 User user = userRepository.findByPhoneNumber(phoneNumber);
 
                 if (user == null) {
                     return CustomResponse.builder()
-                            .status(404)  // HTTP Not Found
+                            .status(404)
                             .message("User with phone number " + phoneNumber + " does not exist.")
                             .build();
                 }
@@ -152,17 +151,17 @@ public class PaymobServiceImpl {
                 user.setAmount((long) (user.getAmount() + amountInDollars));
                 userRepository.save(user);
 
-                savePayResponse(walletResponse);  // Save the payment response
+                savePayResponse(walletResponse);
 
                 return CustomResponse.builder()
-                        .status(200)  // HTTP OK
+                        .status(200)
                         .message("Payment request successful.")
-                        .data(walletResponse)  // Return the payment response DTO
+                        .data(walletResponse)
                         .build();
 
             } else {
                 return CustomResponse.builder()
-                        .status(response.getStatusCodeValue())  // Use the HTTP status code from the response
+                        .status(response.getStatusCodeValue())
                         .message("Payment request failed with status: " + response.getStatusCode())
                         .build();
             }
@@ -170,14 +169,14 @@ public class PaymobServiceImpl {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return CustomResponse.builder()
-                    .status(500)  // HTTP Internal Server Error
+                    .status(500)
                     .message("Failed to process payment response.")
-                    .data(e.getMessage())  // Include exception message for debugging
+                    .data(e.getMessage())
                     .build();
         } catch (Exception e) {
             e.printStackTrace();
             return CustomResponse.builder()
-                    .status(500)  // HTTP Internal Server Error
+                    .status(500)
                     .message("An error occurred while sending the payment request.")
                     .data(e.getMessage())
                     .build();

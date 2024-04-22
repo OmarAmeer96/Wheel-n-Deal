@@ -8,7 +8,6 @@ import com.graduationproject.repositories.UserRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,6 @@ public class FavoriteService {
         Optional<User> commuterOptional = userRepository.findById(favoriteUserID);
 
         if (userOptional.isEmpty() || commuterOptional.isEmpty()) {
-            // User or commuter not found
             return CustomResponse.builder()
                             .status(HttpStatus.NOT_FOUND.value())
                             .message("User or commuter not found")
@@ -39,7 +37,6 @@ public class FavoriteService {
         User commuter = commuterOptional.get();
 
         if (user.getId() == commuter.getId()) {
-            // User cannot add themselves to favorites
             return CustomResponse.builder()
                             .status(HttpStatus.BAD_REQUEST.value())
                             .message("Cannot add yourself to favorites")
@@ -47,14 +44,12 @@ public class FavoriteService {
         }
 
         if (favoriteRepository.existsByUserIdAndFavoriteUserId(userId, favoriteUserID)) {
-            // If already favorite, remove it
             favoriteRepository.deleteByUserIdAndFavoriteUserId(userId, favoriteUserID);
             return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
                     .message("Removed successfully")
                     .build();
         } else {
-            // If not favorite, add it
             Favorite favorite = new Favorite();
             favorite.setUser(user);
             favorite.setFavoriteUser(commuter);

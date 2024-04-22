@@ -2,8 +2,6 @@ package com.graduationproject.DTOs;
 
 import lombok.*;
 
-import java.util.Map;
-
 @Data
 @Builder
 @AllArgsConstructor
