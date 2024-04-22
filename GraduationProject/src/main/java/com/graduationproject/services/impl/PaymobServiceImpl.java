@@ -3,6 +3,7 @@ package com.graduationproject.services.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.paymobPaymentDTOs.PayResponseDTO;
 import com.graduationproject.DTOs.paymobPaymentDTOs.SecondRequest;
 import com.graduationproject.DTOs.paymobPaymentDTOs.ThirdRequest;
@@ -16,9 +17,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Service class for handling payment operations using the Paymob API.
- */
 @Service
 public class PaymobServiceImpl {
 
@@ -28,13 +26,6 @@ public class PaymobServiceImpl {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * Obtains an authentication token from the Paymob API using the provided API key.
-     *
-     * @param apiKey The API key for authentication
-     * @return The authentication token
-     * @throws JsonProcessingException If an error occurs during JSON processing
-     */
     public String getAuthToken(String apiKey) throws JsonProcessingException {
         // API endpoint for obtaining authentication token
         String url = "https://accept.paymob.com/api/auth/tokens";
@@ -60,13 +51,6 @@ public class PaymobServiceImpl {
         }
     }
 
-    /**
-     * Creates an ecommerce order using the Paymob API.
-     *
-     * @param secondRequest The request DTO containing order details
-     * @return The ID of the created order
-     * @throws JsonProcessingException If an error occurs during JSON processing
-     */
     public String createEcommerceOrder(SecondRequest secondRequest) throws JsonProcessingException {
         String orderUrl = "https://accept.paymob.com/api/ecommerce/orders";
 
@@ -89,13 +73,6 @@ public class PaymobServiceImpl {
         }
     }
 
-    /**
-     * Sends a payment key request to the Paymob API.
-     *
-     * @param thirdRequest The request DTO containing payment details
-     * @return The payment token received from the API
-     * @throws JsonProcessingException If an error occurs during JSON processing
-     */
     public String sendPaymentKeyRequest(ThirdRequest thirdRequest) throws JsonProcessingException {
         String paymentKeyUrl = "https://accept.paymob.com/api/acceptance/payment_keys";
 
@@ -121,11 +98,6 @@ public class PaymobServiceImpl {
         }
     }
 
-    /**
-     * Saves the payment response to the database.
-     *
-     * @param payResponse The payment response DTO to be saved
-     */
     public void savePayResponse(PayResponseDTO payResponse) {
         PaymobResponse responseEntity = new PaymobResponse();
         responseEntity.setExternalId(payResponse.getId());
@@ -136,13 +108,14 @@ public class PaymobServiceImpl {
         paymobResponseRepository.save(responseEntity);
     }
 
-    /**
-     * Sends a payment request to the Paymob API.
-     *
-     * @param walletRequest The request DTO containing payment details
-     * @return The payment response DTO received from the API
-     */
-    public PayResponseDTO sendPaymentRequest(WalletRequest walletRequest) {
+    public CustomResponse sendPaymentRequest(WalletRequest walletRequest) {
+        if (walletRequest == null || walletRequest.getPayment_token() == null) {
+            return CustomResponse.builder()
+                    .status(400)  // HTTP Bad Request
+                    .message("Invalid wallet request or payment token.")
+                    .build();
+        }
+
         String paymentUrl = "https://accept.paymob.com/api/acceptance/payments/pay";
 
         // Set request headers
@@ -153,25 +126,62 @@ public class PaymobServiceImpl {
         // Create HTTP request entity
         HttpEntity<WalletRequest> request = new HttpEntity<>(walletRequest, headers);
 
-        // Send POST request to the API endpoint
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(paymentUrl, request, String.class);
-
-        // Process the response
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            PayResponseDTO walletResponse = objectMapper.readValue(response.getBody(), PayResponseDTO.class);
-            String phoneNumber = walletResponse.getSource_data().getPhone_number();
-            User user = userRepository.findByPhoneNumber(phoneNumber);
-            if (user != null) {
-                user.setAmount(user.getAmount() + walletResponse.getAmount_cents() / 100);
+            // Send POST request to the API endpoint
+            ResponseEntity<String> response = restTemplate.postForEntity(paymentUrl, request, String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // Process the response
+                ObjectMapper objectMapper = new ObjectMapper();
+                PayResponseDTO walletResponse = objectMapper.readValue(response.getBody(), PayResponseDTO.class);
+
+                // Find the user by phone number
+                String phoneNumber = walletResponse.getSource_data().getPhone_number();
+                User user = userRepository.findByPhoneNumber(phoneNumber);
+
+                if (user == null) {
+                    return CustomResponse.builder()
+                            .status(404)  // HTTP Not Found
+                            .message("User with phone number " + phoneNumber + " does not exist.")
+                            .build();
+                }
+
+                // Update user's wallet amount
+                double amountInDollars = walletResponse.getAmount_cents() / 100.0;
+                user.setAmount((long) (user.getAmount() + amountInDollars));
                 userRepository.save(user);
+
+                savePayResponse(walletResponse);  // Save the payment response
+
+                return CustomResponse.builder()
+                        .status(200)  // HTTP OK
+                        .message("Payment request successful.")
+                        .data(walletResponse)  // Return the payment response DTO
+                        .build();
+
+            } else {
+                return CustomResponse.builder()
+                        .status(response.getStatusCodeValue())  // Use the HTTP status code from the response
+                        .message("Payment request failed with status: " + response.getStatusCode())
+                        .build();
             }
-            savePayResponse(walletResponse);
-            return walletResponse;
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return null;
+            return CustomResponse.builder()
+                    .status(500)  // HTTP Internal Server Error
+                    .message("Failed to process payment response.")
+                    .data(e.getMessage())  // Include exception message for debugging
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CustomResponse.builder()
+                    .status(500)  // HTTP Internal Server Error
+                    .message("An error occurred while sending the payment request.")
+                    .data(e.getMessage())
+                    .build();
         }
     }
+
 }

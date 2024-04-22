@@ -23,17 +23,16 @@ public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
 
     @Transactional
-    public ResponseEntity<CustomResponse> manageFavoriteUser(Integer userId, Integer favoriteUserID) {
+    public CustomResponse manageFavoriteUser(Integer userId, Integer favoriteUserID) {
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<User> commuterOptional = userRepository.findById(favoriteUserID);
 
         if (userOptional.isEmpty() || commuterOptional.isEmpty()) {
             // User or commuter not found
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(CustomResponse.builder()
+            return CustomResponse.builder()
                             .status(HttpStatus.NOT_FOUND.value())
                             .message("User or commuter not found")
-                            .build());
+                            .build();
         }
 
         User user = userOptional.get();
@@ -41,30 +40,29 @@ public class FavoriteService {
 
         if (user.getId() == commuter.getId()) {
             // User cannot add themselves to favorites
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(CustomResponse.builder()
+            return CustomResponse.builder()
                             .status(HttpStatus.BAD_REQUEST.value())
                             .message("Cannot add yourself to favorites")
-                            .build());
+                            .build();
         }
 
         if (favoriteRepository.existsByUserIdAndFavoriteUserId(userId, favoriteUserID)) {
             // If already favorite, remove it
             favoriteRepository.deleteByUserIdAndFavoriteUserId(userId, favoriteUserID);
-            return ResponseEntity.ok().body(CustomResponse.builder()
+            return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
                     .message("Removed successfully")
-                    .build());
+                    .build();
         } else {
             // If not favorite, add it
             Favorite favorite = new Favorite();
             favorite.setUser(user);
             favorite.setFavoriteUser(commuter);
             favoriteRepository.save(favorite);
-            return ResponseEntity.ok().body(CustomResponse.builder()
+            return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
                     .message("Added successfully")
-                    .build());
+                    .build();
         }
     }
 }

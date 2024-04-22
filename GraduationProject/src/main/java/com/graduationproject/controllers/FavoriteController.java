@@ -17,7 +17,7 @@ public class FavoriteController {
     private final FavoriteService favoriteService;
 
     @PostMapping("manageFavorites/{userId}/{favoriteUserId}")
-    public ResponseEntity<CustomResponse>  manageFavoriteUser(@PathVariable Integer userId, @PathVariable Integer favoriteUserId) {
+    public CustomResponse  manageFavoriteUser(@PathVariable Integer userId, @PathVariable Integer favoriteUserId) {
         return favoriteService.manageFavoriteUser(userId, favoriteUserId);
     }
 }
