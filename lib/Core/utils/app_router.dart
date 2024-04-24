@@ -1,6 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Features/FAQ/presentation/views/app_faq_view.dart';
 import 'package:wheel_n_deal/Features/about_app/presentation/views/about_app_view.dart';
+import 'package:wheel_n_deal/Features/auth/login/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/change_password/presentation/views/change_password_view.dart';
 import 'package:wheel_n_deal/Features/change_password/presentation/views/password_changed_2_view.dart';
 import 'package:wheel_n_deal/Features/privacy_policy/presentation/views/privacy_policy_view.dart';
@@ -223,7 +226,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kLoginView,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+          child: const LoginView(),
+        ),
       ),
       GoRoute(
         path: kUserHomeView,
