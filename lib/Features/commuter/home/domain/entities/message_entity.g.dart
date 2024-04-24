@@ -18,7 +18,7 @@ class MessageEntityAdapter extends TypeAdapter<MessageEntity> {
     };
     return MessageEntity(
       senderName: fields[0] as String,
-      message: fields[1] as String?,
+      message: fields[1] as String,
       receiverName: fields[2] as String,
       sentAt: fields[3] as DateTime?,
       read: fields[4] as bool?,

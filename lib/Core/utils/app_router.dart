@@ -206,7 +206,7 @@ abstract class AppRouter {
   static final router = GoRouter(
     routes: [
       GoRoute(
-        path: kCommuterChatView,
+        path: '/',
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
@@ -370,7 +370,7 @@ abstract class AppRouter {
         builder: (context, state) => const CommuterMessagesView(),
       ),
       GoRoute(
-        path: '/',
+        path: kCommuterChatView,
         builder: (context, state) => const CommuterChatView(),
       ),
       GoRoute(

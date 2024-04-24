@@ -31,7 +31,6 @@ class SenderMessage extends StatelessWidget {
               children: [
                 Text(
                   messageContent,
-                  maxLines: 3,
                   style: Styles.poppinsMedium.copyWith(color: Colors.white),
                 ),
               ],

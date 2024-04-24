@@ -6,7 +6,7 @@ class MessageEntity {
   @HiveField(0)
   final String senderName;
   @HiveField(1)
-  final String? message;
+  final String message;
   @HiveField(2)
   final String receiverName;
   @HiveField(3)

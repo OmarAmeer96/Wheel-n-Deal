@@ -4,6 +4,6 @@ import 'package:wheel_n_deal/Core/errors/failure.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failure, List<MessageEntity>>> fetchFeauredBooks();
-  Future<Either<Failure, List<MessageEntity>>> fetchNewewstBooks();
+  Future<Either<Failure, List<MessageEntity>>> sendMessage();
+  Future<Either<Failure, List<MessageEntity>>> receiveMessage();
 }

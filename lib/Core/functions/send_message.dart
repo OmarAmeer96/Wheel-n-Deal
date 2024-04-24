@@ -12,6 +12,8 @@ void sendMessage(
 ) {
   messages
       .add({
+        'senderName': 'Omar',
+        'receiverName': 'Omar',
         'message': value,
         'sentAt': currentTime,
       })

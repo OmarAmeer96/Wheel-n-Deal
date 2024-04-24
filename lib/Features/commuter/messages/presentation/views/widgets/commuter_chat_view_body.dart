@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/functions/send_message.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/chat_app_bar.dart';
-import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/receiver_message.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/widgets/sender_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,6 +14,8 @@ class CommuterChatViewBody extends StatefulWidget {
 }
 
 class _CommuterChatViewBodyState extends State<CommuterChatViewBody> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController messageController = TextEditingController();
@@ -63,17 +64,55 @@ class _CommuterChatViewBodyState extends State<CommuterChatViewBody> {
                         ),
                       ),
                       Expanded(
-                        child: ListView(
+                        child: Column(
                           children: [
                             const SizedBox(height: 15),
-                            SenderMessage(
-                              messageContent: 'When will you deliver my order',
+                            StreamBuilder<QuerySnapshot>(
+                              stream: messages
+                                  .orderBy('sentAt', descending: false)
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasData) {
+                                  final List<QueryDocumentSnapshot> documents =
+                                      snapshot.data!.docs;
+                                  if (documents.isNotEmpty) {
+                                    // Scroll to the end of the ListView when a new message is sent
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      _scrollController.animateTo(
+                                        _scrollController
+                                            .position.maxScrollExtent,
+                                        duration:
+                                            const Duration(milliseconds: 1000),
+                                        curve: Curves.linear,
+                                      );
+                                    });
+
+                                    return Expanded(
+                                      child: ListView.builder(
+                                        controller: _scrollController,
+                                        itemCount: documents.length,
+                                        itemBuilder: (context, index) {
+                                          final message =
+                                              documents[index].get('message');
+                                          // Replace this with your own condition to determine whether the message is sent or received
+                                          return SenderMessage(
+                                            messageContent: message,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                }
+                                return Container(
+                                  width: 50,
+                                  height: 50,
+                                  color: Colors.red,
+                                ); // // Placeholder widget if no messages are found
+                              },
                             ),
                             const SizedBox(height: 15),
-                            ReceiverMessage(
-                              messageContent:
-                                  'I’m on the way to your home, Please\nwait a moment. Thanks!',
-                            ),
                           ],
                         ),
                       ),

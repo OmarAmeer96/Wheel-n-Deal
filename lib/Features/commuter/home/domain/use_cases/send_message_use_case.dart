@@ -5,10 +5,10 @@ import 'package:wheel_n_deal/Core/use_cases/use_case.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/repos/home_repo.dart';
 
-class FetchFeaturedBooksUseCase extends UseCase<List<MessageEntity>, NoParam> {
+class SendMessageUseCase extends UseCase<List<MessageEntity>, NoParam> {
   final HomeRepo homeRepo;
 
-  FetchFeaturedBooksUseCase({required this.homeRepo});
+  SendMessageUseCase({required this.homeRepo});
 
   @override
   Future<Either<Failure, List<MessageEntity>>> call([NoParam? param]) async {
@@ -17,6 +17,6 @@ class FetchFeaturedBooksUseCase extends UseCase<List<MessageEntity>, NoParam> {
     and the functionality of fetching the featured books itself 
     is at the fetchFeauredBooks (so that i just called it in the next line). 
     */
-    return await homeRepo.fetchFeauredBooks();
+    return await homeRepo.sendMessage();
   }
 }
