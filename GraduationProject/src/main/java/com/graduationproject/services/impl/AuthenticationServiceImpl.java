@@ -142,6 +142,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("stripeId", user.getStripeId());
             responseData.put("token", jwt);
             responseData.put("refreshToken", refreshToken);
+            revokeAllUserTokens(user);
+            saveUserToken(user, jwt);
 
             return JwtAuthenticationResponse.builder()
                     .status(200)
