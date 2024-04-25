@@ -64,7 +64,7 @@ public class User implements UserDetails {
     private String profilePictureUrl;
 
     @NotBlank
-    @Column(name = "national_id",length = 14)
+    @Column(name = "national_id",length = 14,unique = true)
     @Pattern(regexp = "^\\d{14}$", message = "Invalid Egyptian national ID")
     private String nationalId;
 

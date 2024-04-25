@@ -43,6 +43,7 @@ public class UserProfileService {
             existingUser.setGender(userProfileDTO.getGender());
             existingUser.setCity(userProfileDTO.getCity());
             existingUser.setPhoneNumber(userProfileDTO.getPhone());
+            existingUser.setNationalId(userProfileDTO.getNationalId());
 
             MultipartFile photo = userProfileDTO.getProfilePicture();
             if (photo != null && !photo.isEmpty()) {
@@ -58,9 +59,6 @@ public class UserProfileService {
                 }
             }
 
-            if (existingUser.getRole() == Role.COMMUTER) {
-                existingUser.setNationalId(userProfileDTO.getNationalId());
-            }
 
             userRepository.save(existingUser);
 
