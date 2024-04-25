@@ -66,6 +66,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponse signup(SignUpRequest signUpRequest, BindingResult bindingResult) {
 
+        if (!signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword())) {
+            return JwtAuthenticationResponse.builder()
+                    .status(400)
+                    .message("Passwords do not match")
+                    .build();
+        }
+
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessageBuilder = new StringBuilder("Validation failed. Errors: ");
             for (FieldError error : bindingResult.getFieldErrors()) {
