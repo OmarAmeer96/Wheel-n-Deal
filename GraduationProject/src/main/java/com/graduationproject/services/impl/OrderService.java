@@ -40,9 +40,13 @@ public class OrderService {
 
             if (optionalOrder.isPresent()) {
                 Order existingOrder = optionalOrder.get();
+                if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
                 updateOrderFromDTO(existingOrder, orderDTO);
                 orderRepository.save(existingOrder);
                 return CustomResponse.builder().status(HttpStatus.OK.value()).message("Order updated Successfully").build();
+                }else {
+                    return CustomResponse.builder().status(HttpStatus.FORBIDDEN.value()).message("You are allowed only for updating non active orders").build();
+                }
             } else {
                 return CustomResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Order not found with ID: " + orderDTO.getId()).build();
             }

@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Controller class for handling user orders.
- */
 @RestController
 @RequestMapping("api/v1/user")
 @RequiredArgsConstructor
@@ -22,22 +19,11 @@ public class OrderController {
     private final OrderService orderService;
     private final PromocodeService promocodeService;
 
-    /**
-     * Endpoint for creating or updating an order.
-     * @param orderDTO DTO containing order details
-     * @return ResponseEntity containing the result of the operation
-     */
     @PostMapping("create-update")
     public CustomResponse createOrder(@ModelAttribute OrderDTO orderDTO) {
         return orderService.createOrUpdateOrder(orderDTO);
     }
 
-    /**
-     * Endpoint for searching orders by start and end locations.
-     * @param from The starting location
-     * @param to The destination location
-     * @return List of SearchOrderDTOs representing the search results
-     */
     @GetMapping("searchOrders/{from}/{to}")
     public CustomResponse searchOrder(@PathVariable String from, @PathVariable String to){
         return orderService.searchForOrder(from,to);
