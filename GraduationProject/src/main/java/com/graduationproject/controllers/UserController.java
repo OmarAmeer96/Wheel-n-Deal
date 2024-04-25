@@ -45,4 +45,9 @@ public class UserController {
     public CustomResponse getCommuterProfile(@PathVariable Integer commuterId){
         return commuterProfileService.getFullCommuterProfile(commuterId);
     }
+
+    @PutMapping("change-password")
+    public CustomResponse changePassword(@RequestBody ChangePasswordDTO changePasswordDTO){
+        return userProfileService.changePassword(changePasswordDTO);
+    }
 }

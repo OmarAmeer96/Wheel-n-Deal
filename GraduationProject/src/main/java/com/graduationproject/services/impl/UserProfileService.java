@@ -1,17 +1,17 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.ChangePasswordDTO;
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.NormalProfileDTO;
 import com.graduationproject.DTOs.UserProfileDTO;
-import com.graduationproject.entities.Role;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +25,8 @@ import java.util.Optional;
 public class UserProfileService {
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
 
     public CustomResponse updateUserProfile(UserProfileDTO userProfileDTO) {
@@ -137,4 +139,40 @@ public class UserProfileService {
                     .build();
         }
     }
+
+    public CustomResponse changePassword(ChangePasswordDTO changePasswordDTO) {
+        User user = userRepository.findById(changePasswordDTO.getUserId()).orElse(null);
+
+        if (user == null) {
+            return CustomResponse.builder()
+                    .status(404)
+                    .message("User not found")
+                    .build();
+        }
+
+        if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
+            return CustomResponse.builder()
+                    .status(400)
+                    .message("Old password is incorrect")
+                    .build();
+        }
+
+        if (!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmPassword())) {
+            return CustomResponse.builder()
+                    .status(400)
+                    .message("New password and confirm password do not match")
+                    .build();
+        }
+
+
+        user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+        userRepository.save(user);
+
+        return CustomResponse.builder()
+                .status(200)
+                .message("Password changed successfully")
+                .build();
+    }
+
+
 }
