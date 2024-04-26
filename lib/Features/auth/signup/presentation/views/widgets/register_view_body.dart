@@ -460,6 +460,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
         content: Center(
           child: Text(
             error,
+            textAlign: TextAlign.center,
             style: Styles.manropeBold32.copyWith(
               color: kPrimaryColor,
               fontSize: 15,

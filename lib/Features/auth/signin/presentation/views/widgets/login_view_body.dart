@@ -293,6 +293,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         content: Center(
           child: Text(
             error,
+            textAlign: TextAlign.center,
             style: Styles.manropeBold32.copyWith(
               color: kPrimaryColor,
               fontSize: 15,
