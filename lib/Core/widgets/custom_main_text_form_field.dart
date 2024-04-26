@@ -55,7 +55,7 @@ class CustomMainTextFormField extends StatelessWidget {
         color: Colors.black,
       ),
       decoration: InputDecoration(
-        filled: true,
+        // filled: true,
         fillColor: fillColor,
         contentPadding: EdgeInsets.symmetric(vertical: contentPadding),
         floatingLabelStyle: Styles.poppinsSemiBold16.copyWith(
@@ -96,7 +96,7 @@ class CustomMainTextFormField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 14),
           child: prefixIcon,
         ),
-        suffixIcon: InkWell(
+        suffixIcon: GestureDetector(
           onTap: suffixIconOnTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 14),

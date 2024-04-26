@@ -1,6 +1,7 @@
 class ApiConstants {
-  static const String apiBaseUrl = "http://localhost:2000/api/v1/";
-  static const String login = "auth/signin";
+  static const String apiBaseUrl = "http://10.0.2.2:2000/api/v1/";
+  static const String signin = "auth/signin";
+  static const String signup = "auth/signup";
 }
 
 class ApiErrors {

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
@@ -20,7 +21,7 @@ void main() async {
   await Hive.openBox<MessageEntity>(kMessageBox);
 
   Bloc.observer = SimpleBlocObserver();
-
+  setupGetIt();
   runApp(const MyApp());
 }
 

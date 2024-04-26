@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Features/FAQ/presentation/views/app_faq_view.dart';
 import 'package:wheel_n_deal/Features/about_app/presentation/views/about_app_view.dart';
-import 'package:wheel_n_deal/Features/auth/login/logic/login_cubit/login_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
 import 'package:wheel_n_deal/Features/change_password/presentation/views/change_password_view.dart';
 import 'package:wheel_n_deal/Features/change_password/presentation/views/password_changed_2_view.dart';
 import 'package:wheel_n_deal/Features/privacy_policy/presentation/views/privacy_policy_view.dart';
@@ -20,9 +21,9 @@ import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/ot
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/create_new_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/forgot_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/password_changed_view.dart';
-import 'package:wheel_n_deal/Features/auth/login/presentation/views/login_view.dart';
-import 'package:wheel_n_deal/Features/auth/register/presentation/views/register_view.dart';
-import 'package:wheel_n_deal/Features/auth/register/presentation/views/successful_register_view.dart';
+import 'package:wheel_n_deal/Features/auth/signin/presentation/views/login_view.dart';
+import 'package:wheel_n_deal/Features/auth/signup/presentation/views/register_view.dart';
+import 'package:wheel_n_deal/Features/auth/signup/presentation/views/successful_register_view.dart';
 import 'package:wheel_n_deal/Features/change_language/presentation/views/change_app_language_view.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/commuter_home_view.dart';
 import 'package:wheel_n_deal/Features/commuter/messages/presentation/views/commuter_chat_view.dart';
@@ -222,7 +223,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kRegisterView,
-        builder: (context, state) => const RegisterView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<SignupCubit>(),
+          child: const RegisterView(),
+        ),
       ),
       GoRoute(
         path: kLoginView,
