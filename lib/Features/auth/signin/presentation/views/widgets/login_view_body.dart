@@ -8,7 +8,6 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
-import 'package:wheel_n_deal/Features/auth/signin/data/models/login_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_state.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -205,30 +204,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         CustomMainButton(
                           text: "Login",
                           onPressed: () async {
-                            if (context
-                                .read<LoginCubit>()
-                                .formKey
-                                .currentState!
-                                .validate()) {
-                              if (context
-                                  .read<LoginCubit>()
-                                  .formKey
-                                  .currentState!
-                                  .validate()) {
-                                context.read<LoginCubit>().emitLoginState(
-                                      LoginRequestBody(
-                                        username: context
-                                            .read<LoginCubit>()
-                                            .usernameController
-                                            .text,
-                                        password: context
-                                            .read<LoginCubit>()
-                                            .passwordController
-                                            .text,
-                                      ),
-                                    );
-                              }
-                            }
+                            validateThenLogin(context);
                           },
                           color: kPrimaryColor,
                         ),
@@ -280,6 +256,19 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     );
   }
 
+  void validateThenLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+        context.read<LoginCubit>().emitLoginState(
+            // LoginRequestBody(
+            //   username: context.read<LoginCubit>().usernameController.text,
+            //   password: context.read<LoginCubit>().passwordController.text,
+            // ),
+            );
+      }
+    }
+  }
+
   void setupErrorState(BuildContext context, String error) {
     context.pop();
     showDialog(
@@ -290,14 +279,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           color: Colors.red,
           size: 32,
         ),
-        content: Center(
-          child: Text(
-            error,
-            textAlign: TextAlign.center,
-            style: Styles.manropeBold32.copyWith(
-              color: kPrimaryColor,
-              fontSize: 15,
-            ),
+        content: Text(
+          error,
+          textAlign: TextAlign.center,
+          style: Styles.manropeBold32.copyWith(
+            color: kPrimaryColor,
+            fontSize: 15,
           ),
         ),
         actions: [

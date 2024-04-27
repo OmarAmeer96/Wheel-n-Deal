@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +9,6 @@ import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_username.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
-import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_state.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -318,6 +316,10 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                                 onChanged: (value) {
                                   setState(() {
                                     role = value!;
+                                    context
+                                        .read<SignupCubit>()
+                                        .rolController
+                                        .text = value;
                                   });
                                 },
                               ),
@@ -347,6 +349,10 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                                 onChanged: (value) {
                                   setState(() {
                                     role = value!;
+                                    context
+                                        .read<SignupCubit>()
+                                        .rolController
+                                        .text = value;
                                   });
                                 },
                               ),
@@ -364,39 +370,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         CustomMainButton(
                           text: "Register",
                           onPressed: () async {
-                            if (context
-                                .read<SignupCubit>()
-                                .formKey
-                                .currentState!
-                                .validate()) {
-                              if (context
-                                  .read<SignupCubit>()
-                                  .formKey
-                                  .currentState!
-                                  .validate()) {
-                                context.read<SignupCubit>().emitSignupState(
-                                      SignupRequestBody(
-                                        username: context
-                                            .read<SignupCubit>()
-                                            .usernameController
-                                            .text,
-                                        password: context
-                                            .read<SignupCubit>()
-                                            .passwordController
-                                            .text,
-                                        phone: context
-                                            .read<SignupCubit>()
-                                            .phoneController
-                                            .text,
-                                        confirmPassword: context
-                                            .read<SignupCubit>()
-                                            .confirmPasswordController
-                                            .text,
-                                        role: role,
-                                      ),
-                                    );
-                              }
-                            }
+                            validateThenSigup(context);
                           },
                           color: kPrimaryColor,
                         ),
@@ -447,6 +421,23 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
     );
   }
 
+  void validateThenSigup(BuildContext context) {
+    if (context.read<SignupCubit>().formKey.currentState!.validate()) {
+      if (context.read<SignupCubit>().formKey.currentState!.validate()) {
+        context.read<SignupCubit>().emitSignupState(
+            // SignupRequestBody(
+            //   username: context.read<SignupCubit>().usernameController.text,
+            //   password: context.read<SignupCubit>().passwordController.text,
+            //   phone: context.read<SignupCubit>().phoneController.text,
+            //   confirmPassword:
+            //       context.read<SignupCubit>().confirmPasswordController.text,
+            //   role: role,
+            // ),
+            );
+      }
+    }
+  }
+
   void setupErrorState(BuildContext context, String error) {
     context.pop();
     showDialog(
@@ -457,14 +448,12 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
           color: Colors.red,
           size: 32,
         ),
-        content: Center(
-          child: Text(
-            error,
-            textAlign: TextAlign.center,
-            style: Styles.manropeBold32.copyWith(
-              color: kPrimaryColor,
-              fontSize: 15,
-            ),
+        content: Text(
+          error,
+          textAlign: TextAlign.center,
+          style: Styles.manropeBold32.copyWith(
+            color: kPrimaryColor,
+            fontSize: 15,
           ),
         ),
         actions: [
