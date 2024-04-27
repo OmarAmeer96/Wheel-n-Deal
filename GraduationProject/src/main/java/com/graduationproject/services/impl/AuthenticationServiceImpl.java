@@ -101,14 +101,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             user.setAmount(0L);
 
             var savedUser = userRepository.save(user);
+            Integer userId = savedUser.getId();
             var jwtToken = jwtService.generateToken(user);
             var jwtRefreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
             saveUserToken(savedUser, jwtToken);
 
-            Map<String, String> responseData = new HashMap<>();
+            Map<String, Object> responseData = new HashMap<>();
             responseData.put("stripeId", stripeId);
             responseData.put("token", jwtToken);
             responseData.put("refreshToken", jwtRefreshToken);
+            responseData.put("userId",userId);
 
             return JwtAuthenticationResponse.builder()
                     .status(200)
@@ -145,10 +147,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             var jwt = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
-            Map<String, String> responseData = new HashMap<>();
+            Map<String, Object> responseData = new HashMap<>();
             responseData.put("stripeId", user.getStripeId());
             responseData.put("token", jwt);
             responseData.put("refreshToken", refreshToken);
+            responseData.put("userId",user.getId());
             revokeAllUserTokens(user);
             saveUserToken(user, jwt);
 
