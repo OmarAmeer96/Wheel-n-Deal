@@ -128,6 +128,7 @@ public class TripService {
             tripResultDetails.setUsername(trip.getUser().getUsername());
             tripResultDetails.setPhoneNumber(trip.getUser().getPhoneNumber());
             tripResultDetails.setCommuterProfilePhotoURL(trip.getUser().getProfilePictureUrl());
+            tripResultDetails.setCommuterId(trip.getUser().getId());
             tripSearchResultDTOS.add(tripResultDetails);
         }
 
