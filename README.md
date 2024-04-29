@@ -200,5 +200,3 @@ Non-functional requirements specify how the system should perform without focusi
 - TypeScript
 - Angular
 
-(Include any additional tools and languages used in the project)
-
