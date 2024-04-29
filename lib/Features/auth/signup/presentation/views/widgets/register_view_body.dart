@@ -71,6 +71,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                 success: (loginResponse) {
                   // GoRouter.of(context).pop();
                   GoRouter.of(context).push(AppRouter.kUserHomeView);
+                  // context.read<SignupCubit>().fetchUserData();
                 },
                 error: (error) {
                   GoRouter.of(context).pop();
@@ -371,6 +372,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           text: "Register",
                           onPressed: () async {
                             validateThenSigup(context);
+                            // BlocProvider.of<SignupCubit>(context)
+                            //     .fetchUserData();
                           },
                           color: kPrimaryColor,
                         ),
@@ -421,20 +424,19 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
     );
   }
 
-  void validateThenSigup(BuildContext context) {
+  void validateThenSigup(BuildContext context) async {
+    BlocProvider.of<SignupCubit>(context).emitSignupState();
     if (context.read<SignupCubit>().formKey.currentState!.validate()) {
-      if (context.read<SignupCubit>().formKey.currentState!.validate()) {
-        context.read<SignupCubit>().emitSignupState(
-            // SignupRequestBody(
-            //   username: context.read<SignupCubit>().usernameController.text,
-            //   password: context.read<SignupCubit>().passwordController.text,
-            //   phone: context.read<SignupCubit>().phoneController.text,
-            //   confirmPassword:
-            //       context.read<SignupCubit>().confirmPasswordController.text,
-            //   role: role,
-            // ),
-            );
-      }
+      context.read<SignupCubit>().formKey.currentState!.save();
+      // await context.read<SignupCubit>().saveUserData(
+      //       SignupRequestBody(
+      //         username: username ?? 'nooo',
+      //         phone: phoneNumber ?? 'nooo',
+      //         password: password ?? 'nooo',
+      //         confirmPassword: rePassword ?? 'nooo',
+      //         role: role,
+      //       ),
+      //     );
     }
   }
 

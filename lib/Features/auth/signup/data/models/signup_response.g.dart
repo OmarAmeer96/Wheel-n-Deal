@@ -24,12 +24,14 @@ Map<String, dynamic> _$SignupResponseToJson(SignupResponse instance) =>
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       stripeId: json['stripeId'] as String?,
+      userId: json['userId'] as int?,
       token: json['token'] as String?,
       refreshToken: json['refreshToken'] as String?,
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'stripeId': instance.stripeId,
+      'userId': instance.userId,
       'token': instance.token,
       'refreshToken': instance.refreshToken,
     };

@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-
 import '../../../../../../Core/utils/assets.dart';
 import '../../../../../../Core/utils/responsive.dart';
 import '../../../../../user/home/presentation/views/widgets/home_features_item.dart';

@@ -10,17 +10,25 @@ import 'package:wheel_n_deal/constants.dart';
 import 'package:wheel_n_deal/firebase_options.dart';
 
 void main() async {
+  // Initialize Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   await Hive.initFlutter();
+
+  // Messaging Local Database
   Hive.registerAdapter(MessageEntityAdapter());
-  // setupServiceLocator();
   await Hive.openBox<MessageEntity>(kMessageBox);
 
+  // UserData Local Database
+  // Hive.registerAdapter(SignupRequestBodyAdapter());
+  // await Hive.openBox<SignupRequestBody>(kUserDataBox);
+
+  // Bloc Observer
   Bloc.observer = SimpleBlocObserver();
+
+  // Dependency Injection
   setupGetIt();
   runApp(const MyApp());
 }

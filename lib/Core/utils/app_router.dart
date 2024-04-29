@@ -237,7 +237,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kUserHomeView,
-        builder: (context, state) => const UserHomeView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<SignupCubit>(),
+          child: const UserHomeView(),
+        ),
       ),
       GoRoute(
         path: kCommuterHomeView,

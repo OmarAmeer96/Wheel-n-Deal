@@ -39,4 +39,29 @@ class SignupCubit extends Cubit<SignupState> {
       },
     );
   }
+
+  // saveUserData(SignupRequestBody userData) async {
+  //   final SignupRequestBody user = SignupRequestBody(
+  //     username: userData.username,
+  //     phone: userData.phone,
+  //     password: userData.password,
+  //     confirmPassword: userData.confirmPassword,
+  //     role: userData.role,
+  //   );
+  //   emit(const SignupState.loading());
+  //   try {
+  //     var userDataBox = Hive.box<SignupRequestBody>(kUserDataBox);
+  //     await userDataBox.add(user);
+  //   } catch (e) {
+  //     emit(SignupState.error(error: 'Error: $e'));
+  //   }
+  // }
+
+  // List<SignupRequestBody> userData;
+  // fetchUserData() async {
+  //   var userDataBox = Hive.box<SignupRequestBody>(kUserDataBox);
+  //   await userData[0].put();
+  //   userData = userDataBox.values.toList();
+  //   emit(SignupState.success(userData.toString()));
+  // }
 }

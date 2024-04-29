@@ -32,3 +32,4 @@ const kCairoSemiBold = 'Cairo-SemiBold';
 const kCairoBold = 'Cairo-Bold';
 
 const kMessageBox = 'message_box';
+// const kUserDataBox = "user_data_box";
