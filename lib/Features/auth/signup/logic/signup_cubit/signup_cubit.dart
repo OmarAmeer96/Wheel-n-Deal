@@ -4,6 +4,8 @@ import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_bod
 import 'package:wheel_n_deal/Features/auth/signup/data/repos/signup_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_state.dart';
 
+import '../../../../../Core/networking/shared_prefs/shared_prefs.dart';
+
 class SignupCubit extends Cubit<SignupState> {
   final SignupRepo _signupRepo;
   SignupCubit(this._signupRepo) : super(const SignupState.initial());
@@ -13,7 +15,7 @@ class SignupCubit extends Cubit<SignupState> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController rolController = TextEditingController();
+  TextEditingController rolController = TextEditingController(text: 'USER');
 
   void emitSignupState() async {
     emit(const SignupState.loading());
@@ -27,10 +29,43 @@ class SignupCubit extends Cubit<SignupState> {
       ),
     );
     response.when(
-      success: (signupResponse) {
+      success: (signupResponse) async {
         if (signupResponse.status != 200) {
           emit(SignupState.error(error: signupResponse.message ?? ''));
         } else {
+          // Save User's Token
+          await SharedPrefs.setString(
+            key: 'token',
+            value: signupResponse.userData!.token!,
+          );
+
+          // Save User's Stripe Id
+          await SharedPrefs.setString(
+            key: 'stripeId',
+            value: signupResponse.userData!.stripeId!,
+          );
+-
+          // Save user's Enterd Data
+          await SharedPrefs.setString(
+            key: 'username',
+            value: usernameController.text,
+          );
+          await SharedPrefs.setString(
+            key: 'phone',
+            value: phoneController.text,
+          );
+          await SharedPrefs.setString(
+            key: 'password',
+            value: passwordController.text,
+          );
+          await SharedPrefs.setString(
+            key: 'confirmPassword',
+            value: confirmPasswordController.text,
+          );
+          await SharedPrefs.setString(
+            key: 'role',
+            value: rolController.text,
+          );
           emit(SignupState.success(signupResponse));
         }
       },

@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -69,12 +72,15 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                   );
                 },
                 success: (loginResponse) {
-                  // GoRouter.of(context).pop();
-                  GoRouter.of(context).push(AppRouter.kUserHomeView);
-                  // context.read<SignupCubit>().fetchUserData();
+                  log(
+                    'TOKEN: ${loginResponse.userData!.token}',
+                    name: 'TOKEN',
+                  );
+                  SharedPrefs.getString(key: 'role') == 'USER'
+                      ? GoRouter.of(context).go(AppRouter.kUserHomeView)
+                      : GoRouter.of(context).go(AppRouter.kCommuterHomeView);
                 },
                 error: (error) {
-                  GoRouter.of(context).pop();
                   setupErrorState(context, error);
                 },
               );

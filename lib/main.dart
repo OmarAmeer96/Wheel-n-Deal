@@ -8,22 +8,24 @@ import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 import 'package:wheel_n_deal/constants.dart';
 import 'package:wheel_n_deal/firebase_options.dart';
+import 'Core/networking/shared_prefs/shared_prefs.dart';
+import 'Core/networking/shared_prefs/shred_prefs_constants.dart';
 
 void main() async {
-  // Initialize Firebase
+  // Make sure WidgetsBinding is initialized before Firebase (runApp won't do be triggered before them).
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Shared Preferences
+  await initSharedPrefsAndGetData();
+
+  // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Hive Database
   await Hive.initFlutter();
-
-  // Messaging Local Database
-  Hive.registerAdapter(MessageEntityAdapter());
-  await Hive.openBox<MessageEntity>(kMessageBox);
-
-  // UserData Local Database
-  // Hive.registerAdapter(SignupRequestBodyAdapter());
-  // await Hive.openBox<SignupRequestBody>(kUserDataBox);
+  await registerAdapterAndOpenBox();
 
   // Bloc Observer
   Bloc.observer = SimpleBlocObserver();
@@ -46,4 +48,21 @@ class MyApp extends StatelessWidget {
       routerConfig: AppRouter.router,
     );
   }
+}
+
+Future<void> registerAdapterAndOpenBox() async {
+  // Messaging Local Database
+  Hive.registerAdapter(MessageEntityAdapter());
+  await Hive.openBox<MessageEntity>(kMessageBox);
+
+  // UserData Local Database
+  // Hive.registerAdapter(SignupRequestBodyAdapter());
+  // await Hive.openBox<SignupRequestBody>(kUserDataBox);
+}
+
+Future<void> initSharedPrefsAndGetData() async {
+  await SharedPrefs.cacheintialization();
+
+  // Retrieve Token
+  // token = SharedPrefs.getString(key: 'token');
 }
