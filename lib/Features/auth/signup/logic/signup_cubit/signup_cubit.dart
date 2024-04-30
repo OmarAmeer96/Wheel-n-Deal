@@ -44,7 +44,7 @@ class SignupCubit extends Cubit<SignupState> {
             key: 'stripeId',
             value: signupResponse.userData!.stripeId!,
           );
--
+
           // Save user's Enterd Data
           await SharedPrefs.setString(
             key: 'username',
