@@ -1,5 +1,6 @@
 package com.graduationproject.controllers;
 
+import com.graduationproject.DTOs.GetAllOrders;
 import com.graduationproject.DTOs.GetOrdersDTO;
 import com.graduationproject.DTOs.UserDTO;
 import com.graduationproject.entities.OrderStatus;
@@ -30,8 +31,19 @@ public class AdminController {
         return adminService.countUsersByRole(role);
     }
 
+    @GetMapping("orders")
+    public Page<GetAllOrders> findAllOrders(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return adminService.findAllOrders(pageNum, pageSize);
+    }
+
     @GetMapping("orders/based-on-status")
     public Page<GetOrdersDTO> findOrdersByOrderStatus(@RequestParam OrderStatus orderStatus, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.findOrdersByOrderStatus(orderStatus, pageNum, pageSize);
     }
+
+    @GetMapping("orders/count")
+    public long countOrdersByStatus(@RequestParam OrderStatus orderStatus) {
+        return adminService.countOrdersByStatus(orderStatus);
+    }
+
 }
