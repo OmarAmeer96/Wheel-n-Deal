@@ -284,24 +284,23 @@ public class OrderService {
                         .status(400) // You can set appropriate status codes
                         .message("Order already assigned")
                         .build();
-            } else {
-
-                if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
+            } else if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
 
                     existingOrder.setCommuter(existingCommuter);
                     existingOrder.setTrip(existingTrip);
                     orderRepository.save(existingOrder);
 
-                    CustomResponse.builder()
+                    return CustomResponse.builder()
                             .status(200)
                             .message("Order assigned successfully, waiting for commuter to agree")
                             .build();
+
+                }else {
+                    return CustomResponse.builder()
+                            .status(400)
+                            .message("Order status must be NOT_ACTIVE to assign it")
+                            .build();
                 }
-                return CustomResponse.builder()
-                        .status(400)
-                        .message("Order status must be NOT_ACTIVE to assign it")
-                        .build();
-            }
         } else return CustomResponse.builder()
                 .status(404)
                 .message("Error: User ID or Order ID not found")
@@ -697,6 +696,7 @@ public class OrderService {
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             order.setCommuter(null);
+            order.setTrip(null);
             orderRepository.save(order);
             return CustomResponse.builder()
                     .status(200) // Success status

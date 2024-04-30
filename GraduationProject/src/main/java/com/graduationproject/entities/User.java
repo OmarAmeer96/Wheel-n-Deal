@@ -26,8 +26,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    //TODO : see why length and size annotations don't work
+
     @NotNull
     @NotBlank
+    @Size(min = 13, max = 13, message = "Phone number must be exactly 13 characters long")
     @Column(unique=true,length = 13)
     @Pattern(regexp = "^(\\+20)?01[0-2]{1}[0-9]{8}$", message = "Invalid Egyptian phone number")
     private String phoneNumber;
