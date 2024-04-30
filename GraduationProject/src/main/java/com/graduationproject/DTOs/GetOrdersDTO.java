@@ -1,13 +1,12 @@
 package com.graduationproject.DTOs;
 
-import com.graduationproject.entities.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
 public class GetOrdersDTO {
-    private Integer Id;
+    private Integer id;
     private String orderName;
     private Integer countOfOrders;
     private boolean breakable;
@@ -16,7 +15,6 @@ public class GetOrdersDTO {
     private String orderPhotoUrl;
     private String from;
     private String to;
-    private String SenderPhoneNumber;
-    private String ReceiverPhoneNumber;
-    private OrderStatus orderStatus;
+    private String senderPhoneNumber;
+    private String receiverPhoneNumber;
 }

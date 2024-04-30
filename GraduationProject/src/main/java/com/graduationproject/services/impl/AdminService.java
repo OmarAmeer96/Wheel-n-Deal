@@ -1,6 +1,8 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.GetOrdersDTO;
 import com.graduationproject.DTOs.UserDTO;
+import com.graduationproject.entities.OrderStatus;
 import com.graduationproject.entities.Role;
 import com.graduationproject.repositories.OrderRepository;
 import com.graduationproject.repositories.UserRepository;
@@ -23,6 +25,11 @@ public class AdminService {
     }
     public long countUsersByRole(Role role) {
         return userRepository.countUsersByRole(role);
+    }
+
+    public Page<GetOrdersDTO> findOrdersByOrderStatus(OrderStatus orderStatus, Integer pageNum, Integer pageSize) {
+        Pageable page = PageRequest.of(pageNum, pageSize, Sort.by("id"));
+        return orderRepository.findOrdersByOrderStatus(orderStatus , page);
     }
 
 }
