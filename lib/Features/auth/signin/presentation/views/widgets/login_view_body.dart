@@ -63,6 +63,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     '${loginResponse.userData!.token}',
                     name: 'TOKEN',
                   );
+                  logUserData(loginResponse);
                   SharedPrefs.getString(key: 'role') == 'USER'
                       ? GoRouter.of(context).go(AppRouter.kUserHomeView)
                       : GoRouter.of(context).go(AppRouter.kCommuterHomeView);
@@ -309,6 +310,29 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           ),
         ],
       ),
+    );
+  }
+  
+  void logUserData(loginResponse) {
+    log(
+      '${loginResponse.userData!.token}',
+      name: 'TOKEN',
+    );
+    log(
+      '${SharedPrefs.getString(key: 'username')}',
+      name: 'UserName',
+    );
+    log(
+      '${SharedPrefs.getString(key: 'stripeId')}',
+      name: 'StripeId',
+    );
+    log(
+      '${SharedPrefs.getString(key: 'phone')}',
+      name: 'Phone',
+    );
+    log(
+      '${SharedPrefs.getString(key: 'role')}',
+      name: 'Role',
     );
   }
 }

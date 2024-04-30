@@ -9,7 +9,6 @@ import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_enti
 import 'package:wheel_n_deal/constants.dart';
 import 'package:wheel_n_deal/firebase_options.dart';
 import 'Core/networking/shared_prefs/shared_prefs.dart';
-import 'Core/networking/shared_prefs/shred_prefs_constants.dart';
 
 void main() async {
   // Make sure WidgetsBinding is initialized before Firebase (runApp won't do be triggered before them).
