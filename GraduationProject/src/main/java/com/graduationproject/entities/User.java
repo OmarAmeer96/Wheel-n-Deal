@@ -16,6 +16,7 @@ import org.testcontainers.shaded.org.checkerframework.common.aliasing.qual.Uniqu
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -86,6 +87,10 @@ public class User implements UserDetails {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<Address> addressList;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     @JsonManagedReference

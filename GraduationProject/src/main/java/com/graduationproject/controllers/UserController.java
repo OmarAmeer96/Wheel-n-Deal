@@ -50,4 +50,14 @@ public class UserController {
     public CustomResponse changePassword(@RequestBody ChangePasswordDTO changePasswordDTO){
         return userProfileService.changePassword(changePasswordDTO);
     }
+
+    @PostMapping("add-address/{userId}")
+    public CustomResponse addAddress(@PathVariable Integer userId, @RequestBody AddressDTO addressDTO){
+        return userServiceImpl.addAddress(userId,addressDTO);
+    }
+    @GetMapping("getUserAddresses/{userId}")
+    public CustomResponse getAllAddressesForUser(@PathVariable Integer userId) {
+        CustomResponse response = userServiceImpl.getAllAddressesResponseForUser(userId);
+        return response;
+    }
 }
