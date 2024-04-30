@@ -11,6 +11,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -27,7 +28,14 @@ public class SmsServiceImpl {
     @Autowired
     private TwilioConfiguration twilioConfig;
 
-    public CustomResponse updatePassword(String phoneNumber, String newPassword) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    public CustomResponse forgetPassword(String phoneNumber, String newPassword) {
+        System.out.println(phoneNumber);
+        phoneNumber = phoneNumber.trim();
+        System.out.println(phoneNumber);
         if (phoneNumber == null) {
             return CustomResponse.builder()
                     .status(400)
@@ -43,16 +51,16 @@ public class SmsServiceImpl {
         }
 
         try {
-            User user = userRepository.findByPhoneNumber(phoneNumber);
+            User user = userRepository.findByPhoneNumber("+20" + phoneNumber.trim());
 
             if (user == null) {
                 return CustomResponse.builder()
                         .status(404)
-                        .message("User with phone number " + phoneNumber + " does not exist.")
+                        .message("User with phone number " + "+20" + phoneNumber.trim() + " does not exist.")
                         .build();
             }
 
-            user.setPassword(newPassword);
+            user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
 
             return CustomResponse.builder()
@@ -80,15 +88,10 @@ public class SmsServiceImpl {
                     .build();
         }
 
-        if (!phoneNumber.matches("^(\\+20)?01[0-2]{1}[0-9]{8}$")) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Invalid phone number format. Must be a 13-digit number.")
-                    .build();
-        }
-
         try {
             PhoneNumber to = new PhoneNumber("+20" + phoneNumber);
+            System.out.println(to);
+
             PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber());
             String otp = generateOTP();
             String otpMessage = "Dear Customer, Your OTP is " + otp + ", welcome to Wheel n' Deal family. Thank You.";
@@ -122,6 +125,7 @@ public class SmsServiceImpl {
         }
 
         String phoneNumber = otpValidationRequest.getPhoneNumber();
+
         String providedOtp = otpValidationRequest.getOtpNumber();
 
         if (!otpMap.containsKey(phoneNumber)) {
@@ -135,18 +139,16 @@ public class SmsServiceImpl {
 
         if (storedOtp.equals(providedOtp)) {
             try {
-                updatePassword(phoneNumber, otpValidationRequest.getNewPassword());
                 otpMap.remove(phoneNumber);
-
                 return CustomResponse.builder()
                         .status(200)
-                        .message("OTP is valid! Password has been updated.")
+                        .message("OTP is valid!")
                         .build();
 
             } catch (Exception e) {
                 return CustomResponse.builder()
                         .status(500)
-                        .message("An error occurred while updating the password.")
+                        .message("An error occurred")
                         .data(e.getMessage())
                         .build();
             }
