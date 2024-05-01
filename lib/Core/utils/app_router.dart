@@ -74,6 +74,8 @@ import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_vodafo
 import 'package:wheel_n_deal/Features/user/wallet/presentation/views/user_wallet_view.dart';
 import 'package:wheel_n_deal/Features/welcome/presentation/views/welcome_view.dart';
 
+import '../networking/shared_prefs/shared_prefs.dart';
+
 abstract class AppRouter {
   static const kOnBoardingView = '/onBoardingView';
   static const kHomeView = '/homeView';
@@ -215,7 +217,17 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kOnBoardingView,
-        builder: (context, state) => const OnBoardingView(),
+        builder: (context, state) {
+          if (SharedPrefs.getString(key: 'token') == null) {
+            return const OnBoardingView();
+          } else if (SharedPrefs.getString(key: 'role') == 'USER') {
+            return const UserHomeView();
+          } else if (SharedPrefs.getString(key: 'role') == 'COMMUTER') {
+            return const CommuterHomeView();
+          } else {
+            return const OnBoardingView();
+          }
+        },
       ),
       GoRoute(
         path: kWelcomeView,
