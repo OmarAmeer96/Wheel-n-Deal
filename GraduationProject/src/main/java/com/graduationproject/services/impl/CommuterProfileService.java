@@ -112,6 +112,7 @@ public class CommuterProfileService {
             List<Review> receivedReviewsList = user.getReceivedReviews();
             for(Review review : receivedReviewsList){
                 ProfileReviewsDTO profileReviewsDTO = new ProfileReviewsDTO();
+                profileReviewsDTO.setReviewId(review.getId());
                 profileReviewsDTO.setReviewerFullName(review.getReviewer().getFullName());
                 profileReviewsDTO.setReviewerProfilePhotoURL(review.getReviewer().getProfilePictureUrl());
                 profileReviewsDTO.setRate(review.getRate());

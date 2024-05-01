@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class ProfileReviewsDTO {
+    private Integer reviewId;
     private String reviewerFullName;
     private String reviewerProfilePhotoURL;
     private int rate;
