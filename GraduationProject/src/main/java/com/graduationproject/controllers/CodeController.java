@@ -14,15 +14,15 @@ public class CodeController {
     private final CodeService codeService;
 
     @PostMapping("/generate-code/{orderId}")
-    public void generateCode(@PathVariable Integer orderId){
-        codeService.generateCode(orderId);
+    public CustomResponse generateCode(@PathVariable Integer orderId){
+       return codeService.generateCode(orderId);
     }
-
+    /*
     @GetMapping("getSenderCode/{orderId}")
     public CustomResponse getSenderCode(@PathVariable Integer orderId){
         return codeService.getSenderCode(orderId);
     }
-
+    */
     @GetMapping("getReceiverCode/{orderId}")
     public CustomResponse getReceiverCode(@PathVariable Integer orderId){
         return codeService.getReceiverCode(orderId);

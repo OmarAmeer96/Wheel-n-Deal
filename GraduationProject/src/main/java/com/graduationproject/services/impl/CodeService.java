@@ -23,7 +23,7 @@ public class CodeService {
 
     private final UserRepository userRepository;
 
-    public void generateCode(Integer orderId) {
+    public CustomResponse generateCode(Integer orderId) {
         Optional<Order> optioanlOrder = orderRepository.findById(orderId);
         if (optioanlOrder.isPresent()) {
             Order order = optioanlOrder.get();
@@ -37,7 +37,8 @@ public class CodeService {
             order.setSenderCode(senderCode);
             order.setReceiverCode(receiverCode);
             orderRepository.save(order);
-        }
+            return CustomResponse.builder().status(201).message("Sender and receiver codes generated successfully").data(senderCode).build();
+        }else return CustomResponse.builder().status(404).message("Order not found with id : " + orderId).build();
     }
     //TODO : Don't forget the payment process
     public CustomResponse checkSenderCode(Integer orderId, String enteredCode) {
