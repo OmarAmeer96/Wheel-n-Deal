@@ -436,6 +436,7 @@ public class OrderService {
             commuter.setAmount(commuterAmount);
             admin.setAmount(adminAmount);
             existingOrder.setOrderStatus(OrderStatus.FAILED);
+            existingOrder.setCancellerId(cancelerId);
             userRepository.save(orderOwner);
             userRepository.save(commuter);
             userRepository.save(admin);

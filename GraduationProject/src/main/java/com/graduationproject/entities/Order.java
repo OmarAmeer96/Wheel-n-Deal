@@ -111,6 +111,9 @@ public class Order {
     @Column(name = "negotiation_price")
     private double negotiationPrice;
 
+    @Column(name = "canceller_id")
+    private Integer cancellerId;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<OrderApplicants> orderApplicants;

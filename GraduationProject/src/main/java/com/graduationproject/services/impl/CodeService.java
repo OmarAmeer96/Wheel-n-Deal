@@ -3,6 +3,7 @@ package com.graduationproject.services.impl;
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.entities.Order;
 import com.graduationproject.entities.OrderStatus;
+import com.graduationproject.entities.Role;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.OrderRepository;
 import com.graduationproject.repositories.UserRepository;
@@ -140,10 +141,30 @@ public class CodeService {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
             Order existingOrder = optionalOrder.get();
+            Optional<User> optionalCanceller = userRepository.findById(existingOrder.getCancellerId());
             OrderStatus orderStatus = existingOrder.getOrderStatus();
             if (orderStatus.equals(OrderStatus.FAILED)) {
                 String failureCode = existingOrder.getSenderCode();
                 if (failureCode.equals(enteredCode)) {
+                    if (optionalCanceller.isPresent()){
+                        User canceller = optionalCanceller.get();
+                        if (canceller.getRole().equals(Role.USER)){
+                            User admin = userRepository.findById(1).get();
+                            Long adminAmount = admin.getAmount();
+                            User commuter =existingOrder.getCommuter();
+                            Long commuterAmount = commuter.getAmount();
+                            Long adminBenefit = (long)(existingOrder.getExpectedPrice() * 7.5 * 2  / 100 );
+                            Long commuterBenefit = (long)existingOrder.getExpectedPrice() * 2 - adminBenefit;
+                            adminAmount = adminAmount - commuterBenefit;
+                            commuterAmount = commuterAmount + commuterBenefit;
+                            commuter.setAmount(commuterAmount);
+                            admin.setAmount(adminAmount);
+                            userRepository.save(admin);
+                            userRepository.save(commuter);
+                        }
+                    }
+
+                    //TODO : The commuter should Take his money(If the canceller is the user)
                     existingOrder.setOrderStatus(OrderStatus.RETURNED);
                     orderRepository.save(existingOrder);
                     return CustomResponse.builder()
