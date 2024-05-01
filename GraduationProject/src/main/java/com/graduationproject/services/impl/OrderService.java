@@ -746,4 +746,15 @@ public class OrderService {
                     .build();
         }
     }
+
+    public CustomResponse deleteOrder(Integer orderId) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if (orderOptional.isPresent()){
+            Order order = orderOptional.get();
+            if (order.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
+                orderRepository.deleteById(orderId);
+                return CustomResponse.builder().status(200).message("Order deleted successfully").build();
+            }else return CustomResponse.builder().status(400).message("Order status must be not active to delete it.").build();
+        }else return CustomResponse.builder().status(404).message("Order not found with id : " + orderId).build();
+    }
 }
