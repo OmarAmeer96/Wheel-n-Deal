@@ -39,7 +39,6 @@ public class GraduationProject implements CommandLineRunner {
 			user.setPhoneNumber("admin");
 			user.setRole(Role.ADMIN);
 			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-			user.setAmount((long)0);
 			userRepository.save(user);
 		}
 	}

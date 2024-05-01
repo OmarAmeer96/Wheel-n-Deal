@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -80,6 +81,7 @@ public class CodeService {
 
 
     //TODO : here add the order money to the commuter amount
+    @Transactional
     public CustomResponse checkReceiverCode(Integer orderId, String enteredCode) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
@@ -88,6 +90,25 @@ public class CodeService {
             if (orderStatus.equals(OrderStatus.IN_PROGRESS)) {
                 String receiverCode = existingOrder.getReceiverCode();
                 if (receiverCode.equals(enteredCode)) {
+
+                    Optional<User> optionalAdmin = userRepository.findById(1);
+                    Optional<User> optionalCommuter = userRepository.findById(existingOrder.getCommuter().getId());
+                    if (optionalAdmin.isPresent() && optionalCommuter.isPresent()){
+                        User commuter = optionalCommuter.get();
+                        User admin = optionalAdmin.get();
+                        Long commuterAmount = commuter.getAmount();
+                        Long adminAmount = admin.getAmount();
+                        Long orderTotalPrice = (long) existingOrder.getExpectedPrice();
+                        Long adminBenefit = (long)(orderTotalPrice * (7.5 / 100));
+                        Long commuterBenefit = orderTotalPrice - adminBenefit;
+                        adminAmount = adminAmount - commuterBenefit;
+                        commuterAmount = commuterAmount + commuterBenefit;
+                        commuter.setAmount(commuterAmount);
+                        admin.setAmount(adminAmount);
+                        userRepository.save(commuter);
+                        userRepository.save(admin);
+                    }
+
                     existingOrder.setOrderStatus(OrderStatus.SUCCESS);
                     orderRepository.save(existingOrder);
                     return CustomResponse.builder()

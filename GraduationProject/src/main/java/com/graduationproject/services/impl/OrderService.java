@@ -307,6 +307,8 @@ public class OrderService {
                 .build();
     }
 
+
+
     public CustomResponse createOrderAndAssignIt(OrderDTO orderDTO, Integer tripId) {
         Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
         Optional<Trip> optionalTrip = tripRepository.findById(tripId);
@@ -711,11 +713,27 @@ public class OrderService {
     }
 
 
+    @Transactional
     public CustomResponse confirmOrder(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             order.setOrderStatus(OrderStatus.PENDING);
+            Optional<User> optionalUser = userRepository.findById(order.getUser().getId());
+            Optional<User> optionalAdmin = userRepository.findById(1);
+            if (optionalUser.isPresent() && optionalAdmin.isPresent()){
+                User user = optionalUser.get();
+                User admin = optionalAdmin.get();
+                Long userAmount = user.getAmount();
+                Long adminAmount = admin.getAmount();
+                Long orderPrice = (long) order.getExpectedPrice();
+                userAmount = userAmount - orderPrice;
+                adminAmount = adminAmount + orderPrice;
+                user.setAmount(userAmount);
+                admin.setAmount(adminAmount);
+                userRepository.save(user);
+                userRepository.save(admin);
+            }
             orderRepository.save(order);
             return CustomResponse.builder()
                     .status(200) // Success status

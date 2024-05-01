@@ -50,7 +50,7 @@ public class User implements UserDetails {
 
     //TODO : handle the logic for that (freeze or delete acc(without deleting data) so he can't enter with his data again)
     @Min(value = -100, message = "Minimum value for the attribute is -100")
-    private Long amount;
+    private Long amount = 0L;
 
     @NotBlank
     @Column(name = "full_name")
@@ -79,11 +79,11 @@ public class User implements UserDetails {
 
     @Min(value = 0, message = "Minimum value for Total Delivers is 0")
     @Column(name = "total_delivers")
-    private Integer totalDelivers;
+    private Integer totalDelivers = 0;
 
     @Min(value = 0, message = "Minimum value for Cancel Delivers is 0")
     @Column(name = "cancel_delivers")
-    private Integer cancelDelivers;
+    private Integer cancelDelivers = 0;
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
