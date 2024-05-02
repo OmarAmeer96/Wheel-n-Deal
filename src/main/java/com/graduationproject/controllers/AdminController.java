@@ -1,5 +1,6 @@
 package com.graduationproject.controllers;
 
+import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.GetAllOrders;
 import com.graduationproject.DTOs.GetOrdersDTO;
 import com.graduationproject.DTOs.UserDTO;
@@ -23,26 +24,26 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("users")
-    public Page<UserDTO> findUsersByRole(@RequestParam Role role, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public CustomResponse findUsersByRole(@RequestParam Role role, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.findUsersByRole(role, pageNum, pageSize);
     }
     @GetMapping("users/count")
-    public long countUsersByRole(@RequestParam Role role) {
+    public CustomResponse countUsersByRole(@RequestParam Role role) {
         return adminService.countUsersByRole(role);
     }
 
     @GetMapping("orders")
-    public Page<GetAllOrders> findAllOrders(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public CustomResponse findAllOrders(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.findAllOrders(pageNum, pageSize);
     }
 
     @GetMapping("orders/based-on-status")
-    public Page<GetOrdersDTO> findOrdersByOrderStatus(@RequestParam OrderStatus orderStatus, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public CustomResponse findOrdersByOrderStatus(@RequestParam OrderStatus orderStatus, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.findOrdersByOrderStatus(orderStatus, pageNum, pageSize);
     }
 
     @GetMapping("orders/count")
-    public long countOrdersByStatus(@RequestParam OrderStatus orderStatus) {
+    public CustomResponse countOrdersByStatus(@RequestParam OrderStatus orderStatus) {
         return adminService.countOrdersByStatus(orderStatus);
     }
 
