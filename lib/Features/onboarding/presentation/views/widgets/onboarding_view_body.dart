@@ -53,14 +53,14 @@ class OnBoardingViewBody extends StatelessWidget {
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 480,
+                height: Responsive.screenHeight(context) * 0.52,
               ),
-              Text(
+              const Text(
                 'E- Payment In Different Ways',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -69,15 +69,15 @@ class OnBoardingViewBody extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(
-                height: 20,
+              const SizedBox(
+                height: 15,
               ),
-              Text(
+              const Text(
                 'Free Eloctronic payments for seamless and secure transaction experience. to keep pace with technological development in the field of payment.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -88,14 +88,14 @@ class OnBoardingViewBody extends StatelessWidget {
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 480,
+                height: Responsive.screenHeight(context) * 0.52,
               ),
-              Text(
+              const Text(
                 'Delivery Right to Your Door Step',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -104,15 +104,15 @@ class OnBoardingViewBody extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(
-                height: 20,
+              const SizedBox(
+                height: 15,
               ),
-              Text(
+              const Text(
                 'Our delivery will ensure your items are delivered right to the door steps!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -123,14 +123,14 @@ class OnBoardingViewBody extends StatelessWidget {
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 480,
+                height: Responsive.screenHeight(context) * 0.52,
               ),
-              Text(
+              const Text(
                 'Welcome to Wheel en Deal',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -139,15 +139,15 @@ class OnBoardingViewBody extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(
-                height: 20,
+              const SizedBox(
+                height: 15,
               ),
-              Text(
+              const Text(
                 'Wheel en Deal is the best solution to deliver and track goods from local and world shipping.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black26,
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),

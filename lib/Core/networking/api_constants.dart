@@ -1,5 +1,7 @@
 class ApiConstants {
-  static const String apiBaseUrl = "http://10.0.2.2:2000/api/v1/";
+  // static const String apiBaseUrl = "http://10.0.2.2:2000/api/v1/";
+  static const String apiBaseUrl =
+      "https://wheel-n-deal-production.up.railway.app/api/v1/";
   static const String signin = "auth/signin";
   static const String signup = "auth/signup";
 }
