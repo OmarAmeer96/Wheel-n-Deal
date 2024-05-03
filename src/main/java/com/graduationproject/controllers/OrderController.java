@@ -102,4 +102,9 @@ public class OrderController {
         return orderService.confirmOrder(orderId);
     }
 
+    @DeleteMapping("deleteOrder/{orderId}")
+    public CustomResponse deleteOrder(@PathVariable Integer orderId){
+        return orderService.deleteOrder(orderId);
+    }
+
 }
