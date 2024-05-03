@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -73,7 +74,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                 },
                 success: (loginResponse) {
                   logUserData(loginResponse);
-                  SharedPrefs.getString(key: 'role') == 'USER'
+                  SharedPrefs.getString(key: kRole) == 'USER'
                       ? GoRouter.of(context).go(AppRouter.kUserHomeView)
                       : GoRouter.of(context).go(AppRouter.kCommuterHomeView);
                 },
@@ -433,20 +434,24 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
       name: 'TOKEN',
     );
     log(
-      '${SharedPrefs.getString(key: 'username')}',
+      '${SharedPrefs.getString(key: kUserId)}',
       name: 'UserName',
     );
     log(
-      '${SharedPrefs.getString(key: 'stripeId')}',
+      '${SharedPrefs.getString(key: kStripeId)}',
       name: 'StripeId',
     );
     log(
-      '${SharedPrefs.getString(key: 'phone')}',
+      '${SharedPrefs.getString(key: kPhone)}',
       name: 'Phone',
     );
     log(
-      '${SharedPrefs.getString(key: 'role')}',
+      '${SharedPrefs.getString(key: kRole)}',
       name: 'Role',
+    );
+    log(
+      '${SharedPrefs.getInt(key: kUserId)}',
+      name: 'UserId',
     );
   }
 

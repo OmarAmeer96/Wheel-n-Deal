@@ -4,6 +4,7 @@ class ApiConstants {
       "https://wheel-n-deal-production.up.railway.app/api/v1/";
   static const String signin = "auth/signin";
   static const String signup = "auth/signup";
+  static const String getUserProfile = "user/get-normal-user-porfile";
 }
 
 class ApiErrors {

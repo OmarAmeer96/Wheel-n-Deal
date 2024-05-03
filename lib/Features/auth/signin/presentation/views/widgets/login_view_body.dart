@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -64,7 +65,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     name: 'TOKEN',
                   );
                   logUserData(loginResponse);
-                  SharedPrefs.getString(key: 'role') == 'USER'
+                  SharedPrefs.getString(key: kRole) == 'USER'
                       ? GoRouter.of(context).go(AppRouter.kUserHomeView)
                       : GoRouter.of(context).go(AppRouter.kCommuterHomeView);
                 },
@@ -264,15 +265,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     );
   }
 
-  void validateThenLogin(BuildContext context) {
+  void validateThenLogin(BuildContext context) async {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
       if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-        context.read<LoginCubit>().emitLoginState(
-            // LoginRequestBody(
-            //   username: context.read<LoginCubit>().usernameController.text,
-            //   password: context.read<LoginCubit>().passwordController.text,
-            // ),
-            );
+        context.read<LoginCubit>().emitLoginState();
       }
     }
   }
@@ -312,27 +308,31 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       ),
     );
   }
-  
+
   void logUserData(loginResponse) {
     log(
       '${loginResponse.userData!.token}',
       name: 'TOKEN',
     );
     log(
-      '${SharedPrefs.getString(key: 'username')}',
+      '${SharedPrefs.getString(key: kUsername)}',
       name: 'UserName',
     );
     log(
-      '${SharedPrefs.getString(key: 'stripeId')}',
+      '${SharedPrefs.getString(key: kStripeId)}',
       name: 'StripeId',
     );
     log(
-      '${SharedPrefs.getString(key: 'phone')}',
+      '${SharedPrefs.getString(key: kPhone)}',
       name: 'Phone',
     );
     log(
-      '${SharedPrefs.getString(key: 'role')}',
+      '${SharedPrefs.getString(key: kRole)}',
       name: 'Role',
+    );
+    log(
+      '${SharedPrefs.getInt(key: kUserId)}',
+      name: 'UserId',
     );
   }
 }

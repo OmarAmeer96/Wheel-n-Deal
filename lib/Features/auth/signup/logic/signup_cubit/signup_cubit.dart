@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/repos/signup_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_state.dart';
-
 import '../../../../../Core/networking/shared_prefs/shared_prefs.dart';
 
 class SignupCubit extends Cubit<SignupState> {
@@ -35,35 +35,41 @@ class SignupCubit extends Cubit<SignupState> {
         } else {
           // Save User's Token
           await SharedPrefs.setString(
-            key: 'token',
+            key: kToken,
             value: signupResponse.userData!.token!,
           );
 
           // Save User's Stripe Id
           await SharedPrefs.setString(
-            key: 'stripeId',
+            key: kStripeId,
             value: signupResponse.userData!.stripeId!,
+          );
+
+          // Save User's Id
+          await SharedPrefs.setInt(
+            key: kUserId,
+            value: signupResponse.userData!.userId!,
           );
 
           // Save user's Enterd Data
           await SharedPrefs.setString(
-            key: 'username',
+            key: kUsername,
             value: usernameController.text,
           );
           await SharedPrefs.setString(
-            key: 'phone',
+            key: kPhone,
             value: phoneController.text,
           );
           await SharedPrefs.setString(
-            key: 'password',
+            key: kPassword,
             value: passwordController.text,
           );
           await SharedPrefs.setString(
-            key: 'confirmPassword',
+            key: kConfirmPassword,
             value: confirmPasswordController.text,
           );
           await SharedPrefs.setString(
-            key: 'role',
+            key: kRole,
             value: rolController.text,
           );
           emit(SignupState.success(signupResponse));

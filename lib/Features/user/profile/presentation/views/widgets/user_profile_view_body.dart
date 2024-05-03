@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
@@ -61,11 +62,11 @@ class UserProfileViewBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              SharedPrefs.getString(key: 'username')!,
+                              SharedPrefs.getString(key: kUsername)!,
                               style: Styles.cairoSemiBold,
                             ),
                             Text(
-                              SharedPrefs.getString(key: 'phone')!,
+                              SharedPrefs.getString(key: kPhone)!,
                               style: Styles.cairoSemiBold,
                             ),
                           ],

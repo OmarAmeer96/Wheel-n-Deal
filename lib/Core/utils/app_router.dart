@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Features/FAQ/presentation/views/app_faq_view.dart';
 import 'package:wheel_n_deal/Features/about_app/presentation/views/about_app_view.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
@@ -218,11 +219,13 @@ abstract class AppRouter {
       GoRoute(
         path: kOnBoardingView,
         builder: (context, state) {
-          if (SharedPrefs.getString(key: 'token') == null) {
+          if (SharedPrefs.getString(key: kToken) == null) {
             return const OnBoardingView();
-          } else if (SharedPrefs.getString(key: 'role') == 'USER') {
+          } else if ((SharedPrefs.getString(key: kRole) == 'USER') &&
+              (SharedPrefs.getString(key: kToken) != null)) {
             return const UserHomeView();
-          } else if (SharedPrefs.getString(key: 'role') == 'COMMUTER') {
+          } else if ((SharedPrefs.getString(key: kRole) == 'COMMUTER') &&
+              (SharedPrefs.getString(key: kToken) != null)) {
             return const CommuterHomeView();
           } else {
             return const OnBoardingView();
@@ -249,14 +252,31 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kUserHomeView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<SignupCubit>(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<LoginCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<SignupCubit>(),
+            ),
+          ],
           child: const UserHomeView(),
         ),
       ),
       GoRoute(
         path: kCommuterHomeView,
-        builder: (context, state) => const CommuterHomeView(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<LoginCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<SignupCubit>(),
+            ),
+          ],
+          child: const CommuterHomeView(),
+        ),
       ),
       GoRoute(
         path: kSuccessfulRegisterView,

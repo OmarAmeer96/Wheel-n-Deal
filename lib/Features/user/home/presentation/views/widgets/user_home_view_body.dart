@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
@@ -64,7 +65,7 @@ class UserHomeViewBody extends StatelessWidget {
                     height: 45,
                   ),
                   Text(
-                    "WELCOME ${SharedPrefs.getString(key: 'username')} !",
+                    "WELCOME ${SharedPrefs.getString(key: kUsername)} !",
                     style: Styles.manropeBold32.copyWith(
                       fontSize: 25,
                       color: Colors.white,

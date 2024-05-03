@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
@@ -56,15 +58,17 @@ class CommuterProfileViewBody extends StatelessWidget {
                         const SizedBox(
                           width: 17,
                         ),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "My Name",
+                              // "My Name",
+                              SharedPrefs.getString(key: kUsername) ?? '',
                               style: Styles.cairoSemiBold,
                             ),
                             Text(
-                              "+20 1554111002",
+                              // "+20 1554111002",
+                              SharedPrefs.getString(key: kPhone) ?? '',
                               style: Styles.cairoSemiBold,
                             ),
                           ],
