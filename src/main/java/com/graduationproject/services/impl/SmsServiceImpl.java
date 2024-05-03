@@ -27,7 +27,6 @@ public class SmsServiceImpl {
     private UserRepository userRepository;
     @Autowired
     private TwilioConfiguration twilioConfig;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
