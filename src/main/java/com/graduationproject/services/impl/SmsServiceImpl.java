@@ -50,12 +50,12 @@ public class SmsServiceImpl {
         }
 
         try {
-            User user = userRepository.findByPhoneNumber("+20" + phoneNumber.trim());
+            User user = userRepository.findByPhoneNumber("+2" + phoneNumber.trim());
 
             if (user == null) {
                 return CustomResponse.builder()
                         .status(404)
-                        .message("User with phone number " + "+20" + phoneNumber.trim() + " does not exist.")
+                        .message("User with phone number " + "+2" + phoneNumber.trim() + " does not exist.")
                         .build();
             }
 
@@ -88,7 +88,7 @@ public class SmsServiceImpl {
         }
 
         try {
-            PhoneNumber to = new PhoneNumber("+20" + phoneNumber);
+            PhoneNumber to = new PhoneNumber("+2" + phoneNumber);
             System.out.println(to);
 
             PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber());
