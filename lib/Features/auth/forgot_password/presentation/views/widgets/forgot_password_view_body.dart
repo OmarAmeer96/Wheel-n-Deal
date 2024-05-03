@@ -47,11 +47,11 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                       ),
                     );
                   },
-                  success: (forgotPasswordResponse) {
-                    // log(forgotPasswordResponse.otpData.message, name: 'OTP');
+                  success: (sendOTPResponse) {
+                    // log(sendOTPResponse.otpData.message, name: 'OTP');
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(forgotPasswordResponse.message),
+                        content: Text(sendOTPResponse.message),
                         duration: const Duration(seconds: 2),
                       ),
                     );

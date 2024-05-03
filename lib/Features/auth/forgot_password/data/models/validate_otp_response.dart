@@ -20,17 +20,7 @@ class ValidateOTPResponse {
 
 @JsonSerializable()
 class OTPData {
-  String? stripeId;
-  int? userId;
-  String? token;
-  String? refreshToken;
-
-  OTPData({
-    this.stripeId,
-    this.userId,
-    this.token,
-    this.refreshToken,
-  });
+  OTPData();
 
   factory OTPData.fromJson(Map<String, dynamic> json) =>
       _$OTPDataFromJson(json);

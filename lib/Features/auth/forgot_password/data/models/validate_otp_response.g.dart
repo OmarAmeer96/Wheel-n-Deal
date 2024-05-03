@@ -23,16 +23,6 @@ Map<String, dynamic> _$ValidateOTPResponseToJson(
       'status': instance.status,
     };
 
-OTPData _$OTPDataFromJson(Map<String, dynamic> json) => OTPData(
-      stripeId: json['stripeId'] as String?,
-      userId: json['userId'] as int?,
-      token: json['token'] as String?,
-      refreshToken: json['refreshToken'] as String?,
-    );
+OTPData _$OTPDataFromJson(Map<String, dynamic> json) => OTPData();
 
-Map<String, dynamic> _$OTPDataToJson(OTPData instance) => <String, dynamic>{
-      'stripeId': instance.stripeId,
-      'userId': instance.userId,
-      'token': instance.token,
-      'refreshToken': instance.refreshToken,
-    };
+Map<String, dynamic> _$OTPDataToJson(OTPData instance) => <String, dynamic>{};

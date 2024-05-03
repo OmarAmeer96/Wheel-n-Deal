@@ -292,7 +292,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kOtpVerificationView,
-        builder: (context, state) => const OtpVerificationView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ForgotPasswordCubit>(),
+          child: const OtpVerificationView(),
+        ),
       ),
       GoRoute(
         path: kCreateNewPasswordView,

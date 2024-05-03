@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_state.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/widgets/otp_text_fields_row.dart';
 import 'package:wheel_n_deal/constants.dart';
 
@@ -17,6 +20,35 @@ class OtpVerificationViewBody extends StatelessWidget {
           FocusScope.of(context).unfocus();
         },
         child: Form(
+            child: BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+          listenWhen: (previous, current) =>
+              current is Loading || current is Success || current is Error,
+          listener: (context, state) {
+            state.whenOrNull(
+              loading: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const Center(
+                    child: CircularProgressIndicator(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                );
+              },
+              success: (validateOTPResponse) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(validateOTPResponse.message),
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
+                GoRouter.of(context).push(AppRouter.kCreateNewPasswordView);
+              },
+              error: (error) {
+                setupErrorState(context, error);
+              },
+            );
+          },
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -51,7 +83,16 @@ class OtpVerificationViewBody extends StatelessWidget {
                         height: 35,
                       ),
                       // Text Fields Here
-                      const OtpTextFieldsRow(),
+                      OtpTextFieldsRow(
+                        otpController1:
+                            context.read<ForgotPasswordCubit>().otpController1,
+                        otpController2:
+                            context.read<ForgotPasswordCubit>().otpController2,
+                        otpController3:
+                            context.read<ForgotPasswordCubit>().otpController3,
+                        otpController4:
+                            context.read<ForgotPasswordCubit>().otpController4,
+                      ),
                     ],
                   ),
                 ),
@@ -67,9 +108,8 @@ class OtpVerificationViewBody extends StatelessWidget {
                       CustomMainButton(
                         text: "Verify",
                         onPressed: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kCreateNewPasswordView,
-                          );
+                          BlocProvider.of<ForgotPasswordCubit>(context)
+                              .emitValidateOTP();
                         },
                         color: kPrimaryColor,
                       ),
@@ -112,7 +152,43 @@ class OtpVerificationViewBody extends StatelessWidget {
               ),
             ],
           ),
+        )),
+      ),
+    );
+  }
+
+  void setupErrorState(BuildContext context, String error) {
+    context.pop();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 32,
         ),
+        content: Text(
+          error,
+          textAlign: TextAlign.center,
+          style: Styles.manropeBold32.copyWith(
+            color: kPrimaryColor,
+            fontSize: 15,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.pop();
+            },
+            child: Text(
+              'Got it',
+              style: Styles.manropeBold32.copyWith(
+                color: kPrimaryColor,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

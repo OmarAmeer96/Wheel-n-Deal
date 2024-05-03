@@ -7,9 +7,11 @@ class OtpTextFieldsRowItem extends StatefulWidget {
   const OtpTextFieldsRowItem({
     super.key,
     required this.onChanged,
+    required this.otpController,
   });
 
   final Function(String) onChanged;
+  final TextEditingController otpController;
 
   @override
   State<OtpTextFieldsRowItem> createState() => _OtpTextFieldsRowItemState();
@@ -48,6 +50,7 @@ class _OtpTextFieldsRowItemState extends State<OtpTextFieldsRowItem> {
                 FilteringTextInputFormatter.digitsOnly,
               ],
               decoration: otpTextFieldsRowDecoration(),
+              controller: widget.otpController,
             ),
           ),
           Positioned(

@@ -11,7 +11,6 @@ ValidateOTPRequestBody _$ValidateOTPRequestBodyFromJson(
     ValidateOTPRequestBody(
       otpNumber: json['otpNumber'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      newPassword: json['newPassword'] as String,
     );
 
 Map<String, dynamic> _$ValidateOTPRequestBodyToJson(
@@ -19,5 +18,4 @@ Map<String, dynamic> _$ValidateOTPRequestBodyToJson(
     <String, dynamic>{
       'otpNumber': instance.otpNumber,
       'phoneNumber': instance.phoneNumber,
-      'newPassword': instance.newPassword,
     };

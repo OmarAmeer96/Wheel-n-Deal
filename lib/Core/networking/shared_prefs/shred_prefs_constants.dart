@@ -1,5 +1,4 @@
 // User Data
-
 const String kToken = 'token';
 const String kRefreshToken = 'refreshToken';
 const String kUserId = 'userId';
@@ -11,3 +10,4 @@ const String kConfirmPassword = 'confirmPassword';
 const String kRole = 'role';
 const String kFullName = 'fullName';
 const String kProfilePhotoURL = 'profilePhotoURL';
+const String kForgotPasswordPhoneNumber = 'forgotPasswordPhoneNumber';
