@@ -124,6 +124,7 @@ public class UserProfileService {
             normalProfileDTO.setProfilePhotoURL(user.getProfilePictureUrl());
             normalProfileDTO.setFullName(user.getFullName());
             normalProfileDTO.setPhoneNumber(user.getPhoneNumber());
+            normalProfileDTO.setRole(user.getRole());
 
             return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
