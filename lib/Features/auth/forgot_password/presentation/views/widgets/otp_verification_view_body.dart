@@ -42,7 +42,9 @@ class OtpVerificationViewBody extends StatelessWidget {
                     duration: const Duration(seconds: 3),
                   ),
                 );
-                GoRouter.of(context).push(AppRouter.kCreateNewPasswordView);
+                if (validateOTPResponse.message != "OTP sent successfully.") {
+                  GoRouter.of(context).push(AppRouter.kCreateNewPasswordView);
+                }
               },
               error: (error) {
                 setupErrorState(context, error);
@@ -137,7 +139,10 @@ class OtpVerificationViewBody extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            BlocProvider.of<ForgotPasswordCubit>(context)
+                                .emitSendOTPState();
+                          },
                           child: Text(
                             "Resend",
                             style: Styles.manropeRegular15.copyWith(

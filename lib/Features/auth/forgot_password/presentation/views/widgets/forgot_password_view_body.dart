@@ -120,10 +120,15 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                               return null;
                             },
                             labelText: "Phone Number",
+                            hintText: "1554111002",
                             borderColor: Colors.transparent,
                             focusedBorderColor: Colors.transparent,
                             enabledBorderColor: Colors.transparent,
                             inputType: TextInputType.phone,
+                            prefixIcon: const Icon(
+                              Icons.phone,
+                              color: kPrimaryColor,
+                            ),
                             suffixIcon: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 21),
                               child: Row(
@@ -144,7 +149,6 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                               ),
                             ),
                             obscureText: false,
-                            hintText: '',
                           ),
                           const SizedBox(
                             height: 40,

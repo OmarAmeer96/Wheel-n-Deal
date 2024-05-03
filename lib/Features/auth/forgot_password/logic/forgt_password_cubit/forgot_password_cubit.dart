@@ -31,8 +31,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     response.when(
       success: (sendOTPResponse) async {
         if (sendOTPResponse.status != 200) {
-          emit(ForgotPasswordState.error(
-              error: sendOTPResponse.message ?? ''));
+          emit(ForgotPasswordState.error(error: sendOTPResponse.message ?? ''));
         } else {
           // Save User's phoneNumber
           await SharedPrefs.setString(

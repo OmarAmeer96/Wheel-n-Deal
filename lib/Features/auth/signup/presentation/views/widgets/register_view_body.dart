@@ -434,7 +434,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
       name: 'TOKEN',
     );
     log(
-      '${SharedPrefs.getString(key: kUserId)}',
+      '${SharedPrefs.getString(key: kUsername)}',
       name: 'UserName',
     );
     log(
