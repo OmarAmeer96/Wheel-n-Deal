@@ -7,6 +7,7 @@ class ApiConstants {
   static const String getUserProfile = "user/get-normal-user-porfile";
   static const String sendOTP = "OTP/send-otp";
   static const String validateOTP = "OTP/validate-otp";
+  static const String forgotPassword = "OTP/forget-password";
 }
 
 class ApiErrors {

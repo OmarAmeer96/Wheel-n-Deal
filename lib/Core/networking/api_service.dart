@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:wheel_n_deal/Core/networking/api_constants.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/forgot_password_response.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/send_otp_response.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/validate_otp_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/validate_otp_response.dart';
@@ -46,5 +47,12 @@ abstract class ApiService {
   @POST(ApiConstants.validateOTP)
   Future<ValidateOTPResponse> validateOTP(
     @Body() ValidateOTPRequestBody validateOTPRequestBody,
+  );
+
+  // Forgot Password
+  @POST(ApiConstants.forgotPassword)
+  Future<ForgotPasswordResponse> forgotPassword(
+    @Query('phoneNumber') String phoneNumber,
+    @Query('newPassword') String newPassword,
   );
 }

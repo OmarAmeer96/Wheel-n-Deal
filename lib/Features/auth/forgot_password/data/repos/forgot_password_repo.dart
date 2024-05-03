@@ -1,6 +1,7 @@
 import 'package:wheel_n_deal/Core/networking/api_error_handler.dart';
 import 'package:wheel_n_deal/Core/networking/api_result.dart';
 import 'package:wheel_n_deal/Core/networking/api_service.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/forgot_password_response.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/send_otp_response.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/validate_otp_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/data/models/validate_otp_response.dart';
@@ -30,6 +31,22 @@ class ForgotPasswordRepo {
   ) async {
     try {
       final response = await _apiServices.validateOTP(validateOTPRequestBody);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  // Forgot Password
+  Future<ApiResult<ForgotPasswordResponse>> forgotPasswrod(
+    String phoneNumber,
+    String newPassword,
+  ) async {
+    try {
+      final response = await _apiServices.forgotPassword(
+        phoneNumber,
+        newPassword,
+      );
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));

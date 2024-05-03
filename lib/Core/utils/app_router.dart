@@ -299,7 +299,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kCreateNewPasswordView,
-        builder: (context, state) => const CreateNewPasswordView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ForgotPasswordCubit>(),
+          child: const CreateNewPasswordView(),
+        ),
       ),
       GoRoute(
         path: kPasswordChangedView,

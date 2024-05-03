@@ -22,6 +22,10 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   TextEditingController otpController3 = TextEditingController();
   TextEditingController otpController4 = TextEditingController();
 
+  // Forgot Password
+  final formKey3 = GlobalKey<FormState>();
+  TextEditingController newPasswordController = TextEditingController();
+
   // Send OTP
   void emitSendOTPState() async {
     emit(const ForgotPasswordState.loading());
@@ -65,6 +69,34 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
               error: validateOTPResponse.message ?? ''));
         } else {
           emit(ForgotPasswordState.success(validateOTPResponse));
+        }
+      },
+      failure: (error) {
+        emit(ForgotPasswordState.error(
+            error: error.apiErrorModel.message ?? 'Something went wrong!'));
+      },
+    );
+  }
+
+  // Forgot Password
+  void emitForgotPasswordState() async {
+    emit(const ForgotPasswordState.loading());
+    final response = await _forgotPasswordRepo.forgotPasswrod(
+      SharedPrefs.getString(key: kForgotPasswordPhoneNumber)!,
+      newPasswordController.text,
+    );
+    response.when(
+      success: (forgotPasswordResponse) async {
+        if (forgotPasswordResponse.status != 200) {
+          emit(ForgotPasswordState.error(
+              error: forgotPasswordResponse.message ?? ''));
+        } else {
+          // Save User's password
+          await SharedPrefs.setString(
+            key: kPassword,
+            value: newPasswordController.text,
+          );
+          emit(ForgotPasswordState.success(forgotPasswordResponse));
         }
       },
       failure: (error) {

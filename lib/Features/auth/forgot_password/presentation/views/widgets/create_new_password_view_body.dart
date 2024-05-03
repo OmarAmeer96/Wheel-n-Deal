@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
@@ -6,6 +7,8 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_state.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class CreateNewPasswordViewBody extends StatefulWidget {
@@ -21,7 +24,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
 
   String? rePassword;
 
-  final _passwordController = TextEditingController();
+  // final _passwordController = TextEditingController();
 
   final _rePasswordController = TextEditingController();
 
@@ -43,12 +46,44 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Form(
-          key: _form,
+        child: GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Form(
+        key: _form,
+        child: BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+          listenWhen: (previous, current) =>
+              current is Loading || current is Success || current is Error,
+          listener: (context, state) {
+            state.whenOrNull(
+              loading: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const Center(
+                    child: CircularProgressIndicator(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                );
+              },
+              success: (forgotPasswordResponse) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(forgotPasswordResponse.message),
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
+                if (forgotPasswordResponse.message !=
+                    "Password updated successfully.") {
+                  GoRouter.of(context).push(AppRouter.kPasswordChangedView);
+                }
+              },
+              error: (error) {
+                setupErrorState(context, error);
+              },
+            );
+          },
           child: CustomScrollView(
             slivers: [
               const SliverToBoxAdapter(
@@ -91,7 +126,9 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                         onChanged: (data) {
                           password = data;
                         },
-                        controller: _passwordController,
+                        controller: context
+                            .read<ForgotPasswordCubit>()
+                            .newPasswordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a password.';
@@ -143,7 +180,11 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                         },
                         controller: _rePasswordController,
                         validator: (value) {
-                          if (value != _passwordController.text) {
+                          if (value !=
+                              context
+                                  .read<ForgotPasswordCubit>()
+                                  .newPasswordController
+                                  .text) {
                             return 'Passwords do not match.';
                           }
                           return null;
@@ -177,9 +218,8 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                         text: "Reset Password",
                         onPressed: () async {
                           if (_form.currentState!.validate()) {
-                            GoRouter.of(context).push(
-                              AppRouter.kPasswordChangedView,
-                            );
+                            BlocProvider.of<ForgotPasswordCubit>(context)
+                                .emitForgotPasswordState();
                           }
                         },
                         color: kPrimaryColor,
@@ -194,6 +234,42 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
             ],
           ),
         ),
+      ),
+    ));
+  }
+
+  void setupErrorState(BuildContext context, String error) {
+    context.pop();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 32,
+        ),
+        content: Text(
+          error,
+          textAlign: TextAlign.center,
+          style: Styles.manropeBold32.copyWith(
+            color: kPrimaryColor,
+            fontSize: 15,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.pop();
+            },
+            child: Text(
+              'Got it',
+              style: Styles.manropeBold32.copyWith(
+                color: kPrimaryColor,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
