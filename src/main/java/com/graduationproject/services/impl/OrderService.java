@@ -436,6 +436,7 @@ public class OrderService {
             commuter.setAmount(commuterAmount);
             admin.setAmount(adminAmount);
             existingOrder.setOrderStatus(OrderStatus.FAILED);
+            existingOrder.setCancellerId(cancelerId);
             userRepository.save(orderOwner);
             userRepository.save(commuter);
             userRepository.save(admin);
@@ -745,5 +746,16 @@ public class OrderService {
                     .message("Order not found")
                     .build();
         }
+    }
+
+    public CustomResponse deleteOrder(Integer orderId) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if (orderOptional.isPresent()){
+            Order order = orderOptional.get();
+            if (order.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
+                orderRepository.deleteById(orderId);
+                return CustomResponse.builder().status(200).message("Order deleted successfully").build();
+            }else return CustomResponse.builder().status(400).message("Order status must be not active to delete it.").build();
+        }else return CustomResponse.builder().status(404).message("Order not found with id : " + orderId).build();
     }
 }
