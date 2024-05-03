@@ -5,6 +5,7 @@ class ApiConstants {
   static const String signin = "auth/signin";
   static const String signup = "auth/signup";
   static const String getUserProfile = "user/get-normal-user-porfile";
+  static const String sendOTP = "OTP/send-otp";
 }
 
 class ApiErrors {

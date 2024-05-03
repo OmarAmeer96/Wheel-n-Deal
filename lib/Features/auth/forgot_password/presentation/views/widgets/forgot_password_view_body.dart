@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
@@ -6,6 +7,8 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_state.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class ForgotPasswordViewBody extends StatefulWidget {
@@ -18,8 +21,6 @@ class ForgotPasswordViewBody extends StatefulWidget {
 class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
   String? phoneNumber;
 
-  final _phoneNumberController = TextEditingController();
-
   final _form = GlobalKey<FormState>();
 
   @override
@@ -30,119 +31,187 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
           FocusScope.of(context).unfocus();
         },
         child: Form(
-          key: _form,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Forgot Password?",
-                          style: Styles.manropeBold32,
+            key: _form,
+            child: BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+              listenWhen: (previous, current) =>
+                  current is Loading || current is Success || current is Error,
+              listener: (context, state) {
+                state.whenOrNull(
+                  loading: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const Center(
+                        child: CircularProgressIndicator(
+                          color: kPrimaryColor,
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                    );
+                  },
+                  success: (forgotPasswordResponse) {
+                    // log(forgotPasswordResponse.otpData.message, name: 'OTP');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(forgotPasswordResponse.message),
+                        duration: const Duration(seconds: 2),
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Don't worry! It occurs. Please enter phone number linked with your account.",
-                          style: Styles.manropeRegular15.copyWith(
-                            color: const Color(0xFFA3A3A3),
-                            fontSize: 16,
+                    );
+                    GoRouter.of(context).push(AppRouter.kOtpVerificationView);
+                  },
+                  error: (error) {
+                    setupErrorState(context, error);
+                  },
+                );
+              },
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      CustomMainTextFormField(
-                        onChanged: (data) {
-                          phoneNumber = data;
-                        },
-                        controller: _phoneNumberController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a phone number.';
-                          } else if (!isValidPhoneNumber(value)) {
-                            return 'Please enter a valid Egyptian phone number.';
-                          }
-                          return null;
-                        },
-                        labelText: "Phone Number",
-                        borderColor: Colors.transparent,
-                        focusedBorderColor: Colors.transparent,
-                        enabledBorderColor: Colors.transparent,
-                        inputType: TextInputType.phone,
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 21),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Text(
-                                "+20",
-                                style: Styles.poppinsSemiBold16,
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              Image.asset(
-                                AssetsData.egyptFlagPng,
-                                height: 26,
-                              ),
-                            ],
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Forgot Password?",
+                              style: Styles.manropeBold32,
+                            ),
                           ),
-                        ),
-                        obscureText: false,
-                        hintText: '',
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Don't worry! It occurs. Please enter phone number linked with your account.",
+                              style: Styles.manropeRegular15.copyWith(
+                                color: const Color(0xFFA3A3A3),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      CustomMainButton(
-                        text: "Send Code",
-                        onPressed: () async {
-                          if (_form.currentState!.validate()) {
-                            GoRouter.of(context).push(
-                              AppRouter.kOtpVerificationView,
-                            );
-                          }
-                        },
-                        color: kPrimaryColor,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        children: [
+                          CustomMainTextFormField(
+                            onChanged: (data) {
+                              phoneNumber = data;
+                            },
+                            controller: context
+                                .read<ForgotPasswordCubit>()
+                                .phoneController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a phone number.';
+                              } else if (!isValidPhoneNumber(value)) {
+                                return 'Please enter a valid Egyptian phone number.';
+                              }
+                              return null;
+                            },
+                            labelText: "Phone Number",
+                            borderColor: Colors.transparent,
+                            focusedBorderColor: Colors.transparent,
+                            enabledBorderColor: Colors.transparent,
+                            inputType: TextInputType.phone,
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 21),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                    "+20",
+                                    style: Styles.poppinsSemiBold16,
+                                  ),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                  Image.asset(
+                                    AssetsData.egyptFlagPng,
+                                    height: 26,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            obscureText: false,
+                            hintText: '',
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          CustomMainButton(
+                            text: "Send Code",
+                            onPressed: () async {
+                              validateThenSendOTP(context);
+                            },
+                            color: kPrimaryColor,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16, right: 16, bottom: 15),
+                    ),
+                  ),
+                ],
               ),
-              const SliverFillRemaining(
-                hasScrollBody: false,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16, right: 16, bottom: 15),
-                ),
-              ),
-            ],
+            )),
+      ),
+    );
+  }
+
+  void validateThenSendOTP(BuildContext context) {
+    BlocProvider.of<ForgotPasswordCubit>(context).emitSendOTPState();
+  }
+
+  void setupErrorState(BuildContext context, String error) {
+    context.pop();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 32,
+        ),
+        content: Text(
+          error,
+          textAlign: TextAlign.center,
+          style: Styles.manropeBold32.copyWith(
+            color: kPrimaryColor,
+            fontSize: 15,
           ),
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.pop();
+            },
+            child: Text(
+              'Got it',
+              style: Styles.manropeBold32.copyWith(
+                color: kPrimaryColor,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

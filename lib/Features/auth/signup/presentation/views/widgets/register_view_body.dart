@@ -459,15 +459,6 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
     BlocProvider.of<SignupCubit>(context).emitSignupState();
     if (context.read<SignupCubit>().formKey.currentState!.validate()) {
       context.read<SignupCubit>().formKey.currentState!.save();
-      // await context.read<SignupCubit>().saveUserData(
-      //       SignupRequestBody(
-      //         username: username ?? 'nooo',
-      //         phone: phoneNumber ?? 'nooo',
-      //         password: password ?? 'nooo',
-      //         confirmPassword: rePassword ?? 'nooo',
-      //         role: role,
-      //       ),
-      //     );
     }
   }
 

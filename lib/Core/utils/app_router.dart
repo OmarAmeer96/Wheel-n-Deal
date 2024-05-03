@@ -4,6 +4,7 @@ import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Features/FAQ/presentation/views/app_faq_view.dart';
 import 'package:wheel_n_deal/Features/about_app/presentation/views/about_app_view.dart';
+import 'package:wheel_n_deal/Features/auth/forgot_password/logic/forgt_password_cubit/forgot_password_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
 import 'package:wheel_n_deal/Features/change_password/presentation/views/change_password_view.dart';
@@ -284,7 +285,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kForgotPasswodView,
-        builder: (context, state) => const ForgotPasswordView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ForgotPasswordCubit>(),
+          child: const ForgotPasswordView(),
+        ),
       ),
       GoRoute(
         path: kOtpVerificationView,
