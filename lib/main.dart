@@ -57,15 +57,8 @@ Future<void> registerAdapterAndOpenBox() async {
   // Messaging Local Database
   Hive.registerAdapter(MessageEntityAdapter());
   await Hive.openBox<MessageEntity>(kMessageBox);
-
-  // UserData Local Database
-  // Hive.registerAdapter(SignupRequestBodyAdapter());
-  // await Hive.openBox<SignupRequestBody>(kUserDataBox);
 }
 
 Future<void> initSharedPrefsAndGetData() async {
   await SharedPrefs.cacheintialization();
-
-  // Retrieve Token
-  // token = SharedPrefs.getString(key: 'token');
 }
