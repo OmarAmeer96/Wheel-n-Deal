@@ -1,5 +1,6 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.CommentClassifierDTO;
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.ReviewDTO;
 import com.graduationproject.entities.Review;
@@ -28,15 +29,19 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
 
+    private final AIService aiService;
+
     /**
      * Submits or edits a review based on the provided ReviewDTO.
      * Checks for inappropriate language and previous reviews by the same reviewer.
      * @param reviewDTO The ReviewDTO containing review details
      * @return ResponseEntity indicating the success or failure of the operation
      */
-    public CustomResponse submitOrEditReview(ReviewDTO reviewDTO) {
+    public CustomResponse submitOrEditReview(ReviewDTO reviewDTO) throws Exception {
         if (reviewDTO != null) {
             String comment = reviewDTO.getComment();
+            CommentClassifierDTO commentClassifierDTO = new CommentClassifierDTO();
+            commentClassifierDTO.setComment(comment);
 
             List<String> VERY_BAD_WORDS = Arrays.asList("fuck","2g1c", "2 girls 1 cup", "acrotomophilia", "alabama hot pocket", "alaskan pipeline",
                     "anilingus", "anus", "apeshit", "arsehole", "ass", "asshole", "assmunch",
@@ -75,7 +80,7 @@ public class ReviewService {
                     "mr hands", "muff diver", "muffdiving", "nambla", "nawashi", "negro", "neonazi", "nigga",
                     "nigger", "nig nog", "nimphomania", "nipple", "nipples", "nsfw", "nsfw images", "nude",
                     "nudity", "nutten");
-            if (containsVeryBadWords(comment, VERY_BAD_WORDS)) {
+            if (containsVeryBadWords(comment, VERY_BAD_WORDS) || aiService.getToxicity(commentClassifierDTO) == 1) {
                 return CustomResponse.builder()
                         .status(400)
                         .message("Your review contains inappropriate language. Please revise.")

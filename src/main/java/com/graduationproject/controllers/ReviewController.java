@@ -23,7 +23,7 @@ public class ReviewController {
      * @return ResponseEntity indicating the success of the operation
      */
     @PostMapping("submit-or-edit-review")
-    public CustomResponse submitOrEditReview(@RequestBody ReviewDTO reviewDTO){
+    public CustomResponse submitOrEditReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
         return reviewService.submitOrEditReview(reviewDTO);
     }
 
