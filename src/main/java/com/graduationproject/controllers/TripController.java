@@ -56,4 +56,9 @@ public class TripController {
     public CustomResponse cancelTrip(@PathVariable Integer tripId){
         return tripService.cancelTrip(tripId);
     }
+
+    @PostMapping("create-trip-assign-order/{orderId}")
+    public CustomResponse createTripAndAssignOrder(@RequestBody TripDTO tripDTO,@PathVariable Integer orderId){
+        return tripService.createTripAndAssignOrder(tripDTO,orderId);
+    }
 }

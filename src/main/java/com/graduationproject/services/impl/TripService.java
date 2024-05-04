@@ -7,6 +7,7 @@ import com.graduationproject.entities.Order;
 import com.graduationproject.entities.Role;
 import com.graduationproject.entities.Trip;
 import com.graduationproject.entities.User;
+import com.graduationproject.repositories.OrderRepository;
 import com.graduationproject.repositories.TripRepository;
 import com.graduationproject.repositories.UserRepository;
 import lombok.Data;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +37,8 @@ public class TripService {
     private final UserRepository userRepository;
 
     private final OrderService orderService;
+
+    private final OrderRepository orderRepository;
 
 
     public CustomResponse postOrUpdateTrip(TripDTO tripDTO) {
@@ -249,4 +253,18 @@ public class TripService {
         }
     }
 
+    @Transactional
+    public CustomResponse createTripAndAssignOrder(TripDTO tripDTO, Integer orderId) {
+        Optional<User> optionalCommuter = userRepository.findById(tripDTO.getUserId());
+        Optional<Order> optionalOrder= orderRepository.findById(orderId);
+        if (optionalOrder.isPresent() && optionalCommuter.isPresent()){
+            User commuter = optionalCommuter.get();
+            Order order = optionalOrder.get();
+            Trip trip = saveNewTripFromDTO(tripDTO);
+            order.setCommuter(commuter);
+            order.setTrip(trip);
+            orderRepository.save(order);
+            return CustomResponse.builder().status(200).message("Trip made and Order Assigned to it successfully").build();
+        }return CustomResponse.builder().status(404).message("Order does not exist or commuter does not exist.").build();
+    }
 }

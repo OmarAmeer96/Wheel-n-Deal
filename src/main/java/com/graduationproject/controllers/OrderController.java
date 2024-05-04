@@ -40,8 +40,10 @@ public class OrderController {
     }
 
 
-    //here I assigne order to the commuter but make the order not active yet
-    //when The commuter Accept it becomes active(pending) and the commuter moves to take it
+
+    /**
+     * This is used for both assigning order to trip and vice versa
+    */
     @PostMapping("/assign-existing-order/{orderId}/{tripId}")
     public CustomResponse assignExistingOrder(@PathVariable Integer orderId,@PathVariable Integer tripId){
         return orderService.assignExistingOrder(orderId,tripId);
@@ -52,7 +54,6 @@ public class OrderController {
     public CustomResponse createOrderAndAssignIt(@ModelAttribute OrderDTO orderDTO,@PathVariable Integer tripId){
         return orderService.createOrderAndAssignIt(orderDTO,tripId);
     }
-
     @PostMapping("cancel-order/{orderId}/{canclerId}")
     public CustomResponse cancleOrder(@PathVariable Integer orderId,@PathVariable Integer canclerId){
         return orderService.cancleOrder(orderId,canclerId);
