@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/widgets/commuter_home_view_body.dart';
 import 'package:wheel_n_deal/Features/commuter/orders/presentation/views/widgets/commuter_orders_view_body.dart';
 import 'package:wheel_n_deal/Features/commuter/pick_order/presentation/views/widgets/commuter_pick_order_view_body.dart';
+import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/user_home_view_body.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/styles.dart';
 import '../../../../../constants.dart';
@@ -67,7 +70,9 @@ class _CommuterHomeViewState extends State<CommuterHomeView> {
       case 0:
         return BlocProvider(
           create: (context) => getIt<LoginCubit>(),
-          child: const CommuterHomeViewBody(),
+          child: SharedPrefs.getString(key: kRole) == "COMMUTER"
+              ? const CommuterHomeViewBody()
+              : const UserHomeViewBody(),
         );
       case 1:
         return const CommuterPickOrderViewBody(

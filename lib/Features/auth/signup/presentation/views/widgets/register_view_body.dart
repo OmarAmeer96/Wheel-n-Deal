@@ -163,19 +163,19 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         ),
                         CustomMainTextFormField(
                           onChanged: (data) {
-                            phoneNumber = data;
+                            phoneNumber = '+20$data';
                           },
                           controller:
                               context.read<SignupCubit>().phoneController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a phone number.';
-                            } else if (!isValidPhoneNumber(value)) {
+                            } else if (!isValidRegisterPhoneNumber(value)) {
                               return 'Please enter a valid Egyptian phone number.';
                             }
                             return null;
                           },
-                          hintText: 'Enter Phone Number',
+                          hintText: '+20 xxx xxx xxxx',
                           borderColor: const Color(0xFFA3A3A3),
                           focusedBorderColor: const Color(0xff55433c),
                           enabledBorderColor: const Color(0xFFA3A3A3),
@@ -456,9 +456,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
   }
 
   void validateThenSigup(BuildContext context) async {
-    BlocProvider.of<SignupCubit>(context).emitSignupState();
     if (context.read<SignupCubit>().formKey.currentState!.validate()) {
-      context.read<SignupCubit>().formKey.currentState!.save();
+      BlocProvider.of<SignupCubit>(context).emitSignupState();
     }
   }
 

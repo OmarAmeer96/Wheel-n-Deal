@@ -52,7 +52,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(sendOTPResponse.message),
-                        duration: const Duration(seconds: 2),
+                        duration: const Duration(seconds: 3),
                       ),
                     );
                     GoRouter.of(context).push(AppRouter.kOtpVerificationView);
@@ -120,7 +120,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                               return null;
                             },
                             labelText: "Phone Number",
-                            hintText: "1554111002",
+                            hintText: "01554111002",
                             borderColor: Colors.transparent,
                             focusedBorderColor: Colors.transparent,
                             enabledBorderColor: Colors.transparent,
@@ -181,7 +181,9 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
   }
 
   void validateThenSendOTP(BuildContext context) {
-    BlocProvider.of<ForgotPasswordCubit>(context).emitSendOTPState();
+    if (_form.currentState!.validate()) {
+      BlocProvider.of<ForgotPasswordCubit>(context).emitSendOTPState();
+    }
   }
 
   void setupErrorState(BuildContext context, String error) {
@@ -195,7 +197,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
           size: 32,
         ),
         content: Text(
-          error,
+          'Faliled to send OTP.\n$error',
           textAlign: TextAlign.center,
           style: Styles.manropeBold32.copyWith(
             color: kPrimaryColor,

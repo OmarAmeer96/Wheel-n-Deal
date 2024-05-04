@@ -14,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void emitLoginState() async {
+  Future<void> emitLoginState() async {
     emit(const LoginState.loading());
     final response = await _loginRepo.login(
       LoginRequestBody(
@@ -61,7 +61,7 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  void emitGetUserProfile() async {
+  Future<void> emitGetUserProfile() async {
     emit(const LoginState.loading());
     final response = await _loginRepo.getUserProfile(
       SharedPrefs.getString(key: kToken)!,
@@ -70,8 +70,12 @@ class LoginCubit extends Cubit<LoginState> {
     response.when(
       success: (getUserProfileResponse) async {
         await SharedPrefs.setString(
+          key: kRole,
+          value: getUserProfileResponse.userData!.role!,
+        );
+        await SharedPrefs.setString(
           key: kPhone,
-          value: getUserProfileResponse.userData!.phoneNumber ?? '',
+          value: getUserProfileResponse.userData!.phoneNumber!,
         );
         await SharedPrefs.setString(
           key: kFullName,
@@ -81,6 +85,7 @@ class LoginCubit extends Cubit<LoginState> {
           key: kProfilePhotoURL,
           value: getUserProfileResponse.userData!.profilePhotoURL ?? '',
         );
+        emit(LoginState.getUserProfileSuccess(getUserProfileResponse));
       },
       failure: (error) {
         emit(

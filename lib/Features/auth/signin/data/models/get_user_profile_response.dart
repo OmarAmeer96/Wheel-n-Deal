@@ -23,11 +23,13 @@ class UserData {
   String? phoneNumber;
   String? fullName;
   String? profilePhotoURL;
+  String? role;
 
   UserData({
     this.phoneNumber,
     this.fullName,
     this.profilePhotoURL,
+    this.role,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) =>

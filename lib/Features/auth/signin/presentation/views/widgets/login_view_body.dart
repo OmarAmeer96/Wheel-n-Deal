@@ -46,7 +46,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           key: context.read<LoginCubit>().formKey,
           child: BlocListener<LoginCubit, LoginState>(
             listenWhen: (previous, current) =>
-                current is Loading || current is Success || current is Error,
+                current is Loading ||
+                current is Success ||
+                current is Error ||
+                current is GetUserProfileSuccess,
             listener: (context, state) {
               state.whenOrNull(
                 loading: () {
@@ -59,15 +62,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     ),
                   );
                 },
-                success: (loginResponse) {
+                success: (loginResponse) async {
                   log(
                     '${loginResponse.userData!.token}',
                     name: 'TOKEN',
                   );
                   logUserData(loginResponse);
-                  SharedPrefs.getString(key: kRole) == 'USER'
-                      ? GoRouter.of(context).go(AppRouter.kUserHomeView)
-                      : GoRouter.of(context).go(AppRouter.kCommuterHomeView);
+                  String? role = SharedPrefs.getString(key: kRole);
+                  role == 'USER'
+                      ? GoRouter.of(context).push(AppRouter.kUserHomeView)
+                      : GoRouter.of(context).push(AppRouter.kCommuterHomeView);
                 },
                 error: (error) {
                   setupErrorState(context, error);
@@ -213,7 +217,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         CustomMainButton(
                           text: "Login",
                           onPressed: () async {
-                            validateThenLogin(context);
+                            await validateThenLoginAndFetchUserData(context);
                           },
                           color: kPrimaryColor,
                         ),
@@ -265,10 +269,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     );
   }
 
-  void validateThenLogin(BuildContext context) async {
+  Future<void> validateThenLoginAndFetchUserData(BuildContext context) async {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
       if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-        context.read<LoginCubit>().emitLoginState();
+        await context.read<LoginCubit>().emitLoginState();
+        if (State is Success) {
+          await context.read<LoginCubit>().emitGetUserProfile();
+        }
       }
     }
   }

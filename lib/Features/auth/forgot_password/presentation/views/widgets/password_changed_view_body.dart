@@ -47,7 +47,7 @@ class PasswordChangedViewBody extends StatelessWidget {
               CustomMainButton(
                 text: 'Back to login',
                 onPressed: () {
-                  GoRouter.of(context).push(AppRouter.kLoginView);
+                  GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
                 },
                 color: kPrimaryColor,
               ),

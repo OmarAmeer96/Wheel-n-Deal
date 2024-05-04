@@ -74,7 +74,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                     duration: const Duration(seconds: 3),
                   ),
                 );
-                if (forgotPasswordResponse.message !=
+                if (forgotPasswordResponse.message ==
                     "Password updated successfully.") {
                   GoRouter.of(context).push(AppRouter.kPasswordChangedView);
                 }

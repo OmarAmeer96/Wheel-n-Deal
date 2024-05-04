@@ -35,7 +35,7 @@ abstract class ApiService {
     @Query('id') int id,
   );
 
-  // Forgot Password
+  // Forgot Password -----------------------------
 
   // Send OTP
   @POST(ApiConstants.sendOTP)

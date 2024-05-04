@@ -28,10 +28,12 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       phoneNumber: json['phoneNumber'] as String?,
       fullName: json['fullName'] as String?,
       profilePhotoURL: json['profilePhotoURL'] as String?,
+      role: json['role'] as String?,
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'phoneNumber': instance.phoneNumber,
       'fullName': instance.fullName,
       'profilePhotoURL': instance.profilePhotoURL,
+      'role': instance.role,
     };

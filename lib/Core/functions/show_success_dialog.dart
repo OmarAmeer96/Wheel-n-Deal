@@ -31,7 +31,7 @@ void showLogoutConfirmationDialog(
                     onYesPressed();
                     await SharedPrefs.remove(key: kToken);
                     // ignore: use_build_context_synchronously
-                    GoRouter.of(context).push(AppRouter.kLoginView);
+                    GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
                   },
                   color: kPrimaryColor,
                 ),
