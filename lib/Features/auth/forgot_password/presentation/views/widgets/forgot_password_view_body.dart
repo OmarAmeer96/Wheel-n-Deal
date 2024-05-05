@@ -114,13 +114,13 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter a phone number.';
-                              } else if (!isValidPhoneNumber(value)) {
+                              } else if (!isValidOTPPhoneNumber(value)) {
                                 return 'Please enter a valid Egyptian phone number.';
                               }
                               return null;
                             },
                             labelText: "Phone Number",
-                            hintText: "01554111002",
+                            hintText: "1554111002",
                             borderColor: Colors.transparent,
                             focusedBorderColor: Colors.transparent,
                             enabledBorderColor: Colors.transparent,
