@@ -111,6 +111,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("token", jwtToken);
             responseData.put("refreshToken", jwtRefreshToken);
             responseData.put("userId",userId);
+            responseData.put("role", user.getRole());
 
             return JwtAuthenticationResponse.builder()
                     .status(200)
@@ -152,6 +153,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("token", jwt);
             responseData.put("refreshToken", refreshToken);
             responseData.put("userId",user.getId());
+            responseData.put("role", user.getRole());
             revokeAllUserTokens(user);
             saveUserToken(user, jwt);
 
