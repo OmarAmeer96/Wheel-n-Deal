@@ -41,6 +41,8 @@ class AssetsData {
 
   static const citySvg = 'assets/svg/city.svg';
 
+  static const naionalIdSvg = 'assets/svg/nationalIdIcon.svg';
+
   static const favoritesIcon = 'assets/svg/favorites.svg';
 
   static const backGroundImage = 'assets/images/backGround.png';

@@ -24,10 +24,12 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
   String? phoneNumber;
   String? gender;
   String? city;
+  String? nationalId;
 
   final _fullNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _cityController = TextEditingController();
+  final _nationalIdController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
@@ -236,6 +238,43 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
+                            'National ID',
+                            style: Styles.manropeBold32.copyWith(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CustomMainTextFormField(
+                          onChanged: (data) {
+                            nationalId = data;
+                          },
+                          controller: _nationalIdController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter the national ID.';
+                            }
+                            return null;
+                          },
+                          hintText: '3020785656789',
+                          borderColor: const Color(0xFFA3A3A3),
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: const Color(0xFFA3A3A3),
+                          inputType: TextInputType.text,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: SvgPicture.asset(AssetsData.naionalIdSvg),
+                          ),
+                          obscureText: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
                             'Gender',
                             style: Styles.manropeBold32.copyWith(
                               fontSize: 16,
@@ -302,14 +341,17 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 80,
+                        ),
                       ],
                     ),
                   ],
                 ),
                 Positioned(
                   bottom: 16,
-                  right: 0,
-                  left: 0,
+                  right: 16,
+                  left: 16,
                   child: CustomMainButton(
                     text: "Save Changes",
                     onPressed: () {
