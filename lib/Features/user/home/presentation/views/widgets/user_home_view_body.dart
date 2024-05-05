@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
@@ -7,11 +8,23 @@ import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/home_features_item.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/user_post_order_item.dart';
 
-class UserHomeViewBody extends StatelessWidget {
+class UserHomeViewBody extends StatefulWidget {
   const UserHomeViewBody({super.key});
+
+  @override
+  State<UserHomeViewBody> createState() => _UserHomeViewBodyState();
+}
+
+class _UserHomeViewBodyState extends State<UserHomeViewBody> {
+  @override
+  void initState() {
+    context.read<LoginCubit>().emitGetUserProfile();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

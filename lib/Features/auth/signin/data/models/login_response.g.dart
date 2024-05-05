@@ -23,6 +23,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
     };
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
+      role: json['role'] as String?,
       stripeId: json['stripeId'] as String?,
       userId: json['userId'] as int?,
       token: json['token'] as String?,
@@ -30,6 +31,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
+      'role': instance.role,
       'stripeId': instance.stripeId,
       'userId': instance.userId,
       'token': instance.token,

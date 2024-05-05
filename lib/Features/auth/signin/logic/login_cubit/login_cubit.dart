@@ -49,7 +49,7 @@ class LoginCubit extends Cubit<LoginState> {
           );
           await SharedPrefs.setString(
             key: kRole,
-            value: 'COMMUTER',
+            value: loginResponse.userData!.role!,
           );
           emit(LoginState.success(loginResponse));
         }

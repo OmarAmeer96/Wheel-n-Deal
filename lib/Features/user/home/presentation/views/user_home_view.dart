@@ -1,9 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/nav_bar_item.dart';
+import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/widgets/commuter_home_view_body.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/user_home_view_body.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/widgets/user_orders_view_body.dart';
@@ -64,9 +67,12 @@ class _UserHomeViewState extends State<UserHomeView> {
   Widget _buildBody() {
     switch (index) {
       case 0:
-        return SharedPrefs.getString(key: kRole) == "USER"
-            ? const UserHomeViewBody()
-            : const CommuterHomeViewBody();
+        return BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+          child: SharedPrefs.getString(key: kRole) == "USER"
+              ? const UserHomeViewBody()
+              : const CommuterHomeViewBody(),
+        );
       case 1:
         return const UserSearchForCommuterViewBody();
       case 2:

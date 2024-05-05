@@ -20,8 +20,8 @@ class HomeFeaturesItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 85,
-        width: 108,
+        height: 80,
+        width: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,

@@ -20,12 +20,14 @@ class LoginResponse {
 
 @JsonSerializable()
 class UserData {
+  String? role;
   String? stripeId;
   int? userId;
   String? token;
   String? refreshToken;
 
   UserData({
+    this.role,
     this.stripeId,
     this.userId,
     this.token,
