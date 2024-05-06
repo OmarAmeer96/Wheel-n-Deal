@@ -93,7 +93,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             String stripeId = createStripeUser(request);
 
             User user = new User();
-            user.setPhoneNumber(signUpRequest.getPhone());
+            user.setPhoneNumber("+2" + signUpRequest.getPhone());
             user.setUsername(signUpRequest.getUsername());
             user.setRole(signUpRequest.getRole());
             user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
