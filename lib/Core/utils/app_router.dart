@@ -64,6 +64,7 @@ import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_orders
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/done_notify_fav_commuters_view.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_post_order_view.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_search_location_view.dart';
+import 'package:wheel_n_deal/Features/user/profile/logic/update_user_profile_cubit/update_user_profile_cubit.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/user_edit_profile_view.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/choose_commuter_but_no_order_yet_view.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/commuter_profile_seen_by_the_user_view.dart';
@@ -310,7 +311,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kUserEditProfileView,
-        builder: (context, state) => const UserEditProfileView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<UpdateUserProfileCubit>(),
+          child: const UserEditProfileView(),
+        ),
       ),
       GoRoute(
         path: kCommuterEditProfileView,

@@ -11,3 +11,7 @@ const String kRole = 'role';
 const String kFullName = 'fullName';
 const String kProfilePhotoURL = 'profilePhotoURL';
 const String kForgotPasswordPhoneNumber = 'forgotPasswordPhoneNumber';
+const String kGender = 'gender';
+const String kCity = 'city';
+const String kProfilePicturePath = 'profilePicturePath';
+const String kNationalId = 'nationalId';

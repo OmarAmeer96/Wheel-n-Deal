@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:wheel_n_deal/Core/networking/api_constants.dart';
@@ -10,6 +12,7 @@ import 'package:wheel_n_deal/Features/auth/signin/data/models/login_request_body
 import 'package:wheel_n_deal/Features/auth/signin/data/models/login_response.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_response.dart';
+import 'package:wheel_n_deal/Features/user/profile/data/models/update_user_profile_response.dart';
 part 'api_service.g.dart';
 
 @RestApi(baseUrl: ApiConstants.apiBaseUrl)
@@ -54,5 +57,19 @@ abstract class ApiService {
   Future<ForgotPasswordResponse> forgotPassword(
     @Query('phoneNumber') String phoneNumber,
     @Query('newPassword') String newPassword,
+  );
+
+  // Update Profile
+  @PUT(ApiConstants.updateProfile)
+  @MultiPart()
+  Future<UpdateUserProfileResponse> updateUserProfile(
+    @Header('Authorization') String token,
+    @Part() int id,
+    @Part() String fullName,
+    @Part() String gender,
+    @Part() String city,
+    @Part() File profilePicture,
+    @Part() String nationalId,
+    @Part() String phone,
   );
 }

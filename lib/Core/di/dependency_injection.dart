@@ -8,6 +8,8 @@ import 'package:wheel_n_deal/Features/auth/signin/data/repos/login_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/repos/signup_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
+import 'package:wheel_n_deal/Features/user/profile/data/repos/update_user_profile_repo.dart';
+import 'package:wheel_n_deal/Features/user/profile/logic/update_user_profile_cubit/update_user_profile_cubit.dart';
 
 // TODO: If there was an error, so make it here await an make the {DioFactory} Future.
 
@@ -28,4 +30,8 @@ Future<void> setupGetIt() async {
   // Forgot Password Repo & Cubit
   getIt.registerLazySingleton<ForgotPasswordRepo>(() => ForgotPasswordRepo(getIt()));
   getIt.registerFactory<ForgotPasswordCubit>(() => ForgotPasswordCubit(getIt()));
+
+  // Update User Profile Repo & Cubit
+  getIt.registerLazySingleton<UpdateUserProfileRepo>(() => UpdateUserProfileRepo(getIt()));
+  getIt.registerFactory<UpdateUserProfileCubit>(() => UpdateUserProfileCubit(getIt()));
 }
