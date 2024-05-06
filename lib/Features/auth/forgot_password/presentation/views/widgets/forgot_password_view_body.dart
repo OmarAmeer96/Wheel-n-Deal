@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
@@ -120,30 +121,35 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                               return null;
                             },
                             labelText: "Phone Number",
-                            hintText: "1554111002",
+                            hintText: "01x xxx xxxx x",
                             borderColor: Colors.transparent,
                             focusedBorderColor: Colors.transparent,
                             enabledBorderColor: Colors.transparent,
                             inputType: TextInputType.phone,
-                            prefixIcon: const Icon(
-                              Icons.phone,
-                              color: kPrimaryColor,
-                            ),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 21),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(5),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Text(
-                                    "+20",
-                                    style: Styles.poppinsSemiBold16,
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  SvgPicture.asset(
+                                    AssetsData.countryCodePicker,
+                                    height: 22,
                                   ),
                                   const SizedBox(
-                                    width: 7,
+                                    width: 8,
                                   ),
-                                  Image.asset(
-                                    AssetsData.egyptFlagPng,
-                                    height: 26,
+                                  SizedBox(
+                                    width: 1.5,
+                                    height: 22,
+                                    child: Container(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
                                   ),
                                 ],
                               ),

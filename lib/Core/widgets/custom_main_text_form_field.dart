@@ -70,6 +70,7 @@ class CustomMainTextFormField extends StatelessWidget {
         hintText: hintText,
         hintStyle: Styles.poppinsSemiBold16.copyWith(
           color: const Color(0xFF757575),
+          fontWeight: FontWeight.w400,
         ),
         labelText: labelText,
         labelStyle: Styles.poppinsSemiBold16.copyWith(

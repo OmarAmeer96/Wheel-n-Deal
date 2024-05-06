@@ -33,6 +33,8 @@ class AssetsData {
 
   static const egyptFlagPng = 'assets/images/Flag.png';
 
+  static const countryCodePicker = 'assets/svg/countryCodePicker.svg';
+
   static const profileImage = 'assets/images/profileImage.png';
 
   static const cameraIcon = 'assets/svg/camera icon.svg';

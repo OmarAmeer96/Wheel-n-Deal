@@ -163,19 +163,19 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         ),
                         CustomMainTextFormField(
                           onChanged: (data) {
-                            phoneNumber = '+20$data';
+                            phoneNumber = data;
                           },
                           controller:
                               context.read<SignupCubit>().phoneController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a phone number.';
-                            } else if (!isValidRegisterPhoneNumber(value)) {
+                            } else if (!isValidPhoneNumber(value)) {
                               return 'Please enter a valid Egyptian phone number.';
                             }
                             return null;
                           },
-                          hintText: '+20 xxx xxx xxxx',
+                          hintText: '01xx xxx xxxx',
                           borderColor: const Color(0xFFA3A3A3),
                           focusedBorderColor: const Color(0xff55433c),
                           enabledBorderColor: const Color(0xFFA3A3A3),
