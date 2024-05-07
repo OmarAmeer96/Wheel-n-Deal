@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:wheel_n_deal/Core/networking/api_error_handler.dart';
 import 'package:wheel_n_deal/Core/networking/api_result.dart';
 import 'package:wheel_n_deal/Core/networking/api_service.dart';
