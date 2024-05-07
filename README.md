@@ -199,5 +199,5 @@ Non-functional requirements specify how the system should perform without focusi
 - HTML
 - CSS
 - TypeScript
-- Angular
+- Angular 
 
