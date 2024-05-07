@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:wheel_n_deal/Core/networking/api_error_handler.dart';
 import 'package:wheel_n_deal/Core/networking/api_result.dart';
 import 'package:wheel_n_deal/Core/networking/api_service.dart';
@@ -16,20 +17,20 @@ class UpdateUserProfileRepo {
     String fullName,
     String gender,
     String city,
-    File profilePicture,
+    File? profilePicture,
     String nationalId,
     String phone,
   ) async {
     try {
       final response = await _apiServices.updateUserProfile(
-        'Bearer $token',
-        id,
-        fullName,
-        gender,
-        city,
-        profilePicture,
-        nationalId,
-        phone,
+        token: 'Bearer $token',
+        id: id,
+        fullName: fullName,
+        gender: gender,
+        city: city,
+        profilePicture: profilePicture,
+        nationalId: nationalId,
+        phone: phone,
       );
       return ApiResult.success(response);
     } catch (error) {

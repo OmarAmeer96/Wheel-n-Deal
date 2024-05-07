@@ -12,7 +12,7 @@ SendOTPResponse _$SendOTPResponseFromJson(Map<String, dynamic> json) =>
       otpData: json['data'] == null
           ? null
           : OTPData.fromJson(json['data'] as Map<String, dynamic>),
-      status: json['status'] as int?,
+      status: (json['status'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$SendOTPResponseToJson(SendOTPResponse instance) =>

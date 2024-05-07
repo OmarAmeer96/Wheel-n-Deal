@@ -372,14 +372,17 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                         const SizedBox(
                           height: 20,
                         ),
-                        CustomMainButton(
-                          text: "Register",
-                          onPressed: () async {
-                            validateThenSigup(context);
-                            // BlocProvider.of<SignupCubit>(context)
-                            //     .fetchUserData();
-                          },
-                          color: kPrimaryColor,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: CustomMainButton(
+                            text: "Register",
+                            onPressed: () async {
+                              validateThenSigup(context);
+                              // BlocProvider.of<SignupCubit>(context)
+                              //     .fetchUserData();
+                            },
+                            color: kPrimaryColor,
+                          ),
                         ),
                         const SizedBox(
                           height: 15,

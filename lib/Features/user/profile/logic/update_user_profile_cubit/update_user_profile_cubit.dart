@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
@@ -23,17 +24,29 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
   File? selectedImage;
 
   void emitUpdateProfileState() async {
+    // print("=========== IMAGE: ================ $selectedImage");
     emit(const UpdateUserProfileState.loading());
+
+    // MultipartFile? multipartFile;
+    // if (selectedImage != null) {
+    //   final fileName = selectedImage!.path.split('/').last;
+    //   multipartFile = await MultipartFile.fromFile(
+    //     selectedImage!.path,
+    //     filename: fileName,
+    //   );
+    // }
+
     final response = await _updateUserProfileRepo.updateUserProfile(
       SharedPrefs.getString(key: kToken)!,
       SharedPrefs.getInt(key: kUserId)!,
       fullNameController.text,
       genderController.text,
       cityController.text,
-      selectedImage!,
+      selectedImage,
       nationalIdController.text,
       phoneNumberController.text,
     );
+
     response.when(
       success: (updateUserProfileResponse) async {
         if (updateUserProfileResponse.status != 200) {

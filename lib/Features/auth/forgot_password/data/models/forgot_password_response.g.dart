@@ -13,7 +13,7 @@ ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
       forgotPasswordData: json['data'] == null
           ? null
           : ForgotPasswordData.fromJson(json['data'] as Map<String, dynamic>),
-      status: json['status'] as int?,
+      status: (json['status'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ForgotPasswordResponseToJson(

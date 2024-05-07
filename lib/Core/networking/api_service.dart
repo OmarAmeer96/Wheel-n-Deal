@@ -62,14 +62,14 @@ abstract class ApiService {
   // Update Profile
   @PUT(ApiConstants.updateProfile)
   @MultiPart()
-  Future<UpdateUserProfileResponse> updateUserProfile(
-    @Header('Authorization') String token,
-    @Part() int id,
-    @Part() String fullName,
-    @Part() String gender,
-    @Part() String city,
-    @Part() File profilePicture,
-    @Part() String nationalId,
-    @Part() String phone,
-  );
+  Future<UpdateUserProfileResponse> updateUserProfile({
+    @Header('Authorization') required String token,
+    @Part(name: "id") required int id,
+    @Part(name: "fullName") String? fullName,
+    @Part(name: "gender") String? gender,
+    @Part(name: "city") String? city,
+    @Part(name: "profilePicture") File? profilePicture,
+    @Part(name: "nationalId") String? nationalId,
+    @Part(name: "phone") String? phone,
+  });
 }

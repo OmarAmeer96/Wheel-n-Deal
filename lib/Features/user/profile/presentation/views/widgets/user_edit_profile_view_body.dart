@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -64,6 +63,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                 );
                 if (updateUserProfileResponse.message ==
                     "Profile updated successfully.") {
+                  GoRouter.of(context).pop();
                   GoRouter.of(context).pop();
                 }
               },
@@ -184,8 +184,12 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                               }
                               return null;
                             },
-                            hintText: SharedPrefs.getString(key: kFullName) ??
-                                'Input full name',
+                            hintText: SharedPrefs.getString(key: kFullName) ==
+                                        null ||
+                                    SharedPrefs.getString(key: kFullName)!
+                                        .isEmpty
+                                ? 'Enter Full Name'
+                                : '${SharedPrefs.getString(key: kFullName)}',
                             borderColor: const Color(0xFFA3A3A3),
                             focusedBorderColor: const Color(0xff55433c),
                             enabledBorderColor: const Color(0xFFA3A3A3),
@@ -224,8 +228,11 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                               }
                               return null;
                             },
-                            hintText: SharedPrefs.getString(key: kPhone) ??
-                                'Input phone number',
+                            hintText: SharedPrefs.getString(key: kPhone) ==
+                                        null ||
+                                    SharedPrefs.getString(key: kPhone)!.isEmpty
+                                ? 'Input phone number'
+                                : '${SharedPrefs.getString(key: kPhone)}',
                             borderColor: const Color(0xFFA3A3A3),
                             focusedBorderColor: const Color(0xff55433c),
                             enabledBorderColor: const Color(0xFFA3A3A3),
@@ -264,8 +271,11 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                               }
                               return null;
                             },
-                            hintText: SharedPrefs.getString(key: kCity) ??
-                                'Input city name',
+                            hintText: SharedPrefs.getString(key: kCity) ==
+                                        null ||
+                                    SharedPrefs.getString(key: kCity)!.isEmpty
+                                ? 'Enter City'
+                                : '${SharedPrefs.getString(key: kCity)}',
                             borderColor: const Color(0xFFA3A3A3),
                             focusedBorderColor: const Color(0xff55433c),
                             enabledBorderColor: const Color(0xFFA3A3A3),
@@ -304,8 +314,12 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                               }
                               return null;
                             },
-                            hintText: SharedPrefs.getString(key: kNationalId) ??
-                                'Input national ID',
+                            hintText: SharedPrefs.getString(key: kNationalId) ==
+                                        null ||
+                                    SharedPrefs.getString(key: kNationalId)!
+                                        .isEmpty
+                                ? 'Enter National ID'
+                                : '${SharedPrefs.getString(key: kNationalId)}',
                             borderColor: const Color(0xFFA3A3A3),
                             focusedBorderColor: const Color(0xff55433c),
                             enabledBorderColor: const Color(0xFFA3A3A3),
@@ -348,7 +362,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                             const MaterialStatePropertyAll(
                                           kPrimaryColor,
                                         ),
-                                        value: 'Male',
+                                        value: 'MALE',
                                         groupValue: selectedGender,
                                         onChanged: (value) {
                                           setState(() {
@@ -375,7 +389,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                             const MaterialStatePropertyAll(
                                           kPrimaryColor,
                                         ),
-                                        value: 'Female',
+                                        value: 'FEMALE',
                                         groupValue: selectedGender,
                                         onChanged: (value) {
                                           setState(() {
@@ -399,30 +413,30 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                             ],
                           ),
                           const SizedBox(
-                            height: 80,
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: CustomMainButton(
+                              text: "Save Changes",
+                              onPressed: () {
+                                // if (context
+                                //     .read<UpdateUserProfileCubit>()
+                                //     .formKey
+                                //     .currentState!
+                                //     .validate()) {}
+                                BlocProvider.of<UpdateUserProfileCubit>(context)
+                                    .emitUpdateProfileState();
+                              },
+                              color: kPrimaryColor,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                         ],
                       ),
                     ],
-                  ),
-                  Positioned(
-                    bottom: 16,
-                    right: 16,
-                    left: 16,
-                    child: CustomMainButton(
-                      text: "Save Changes",
-                      onPressed: () {
-                        if (context
-                            .read<UpdateUserProfileCubit>()
-                            .formKey
-                            .currentState!
-                            .validate()) {
-                          BlocProvider.of<UpdateUserProfileCubit>(context)
-                              .emitUpdateProfileState();
-                        }
-                      },
-                      color: kPrimaryColor,
-                    ),
                   ),
                 ],
               ),

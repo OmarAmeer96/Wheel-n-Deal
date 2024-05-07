@@ -9,7 +9,7 @@ part of 'update_user_profile_request_body.dart';
 UpdateUserProfileRequestBody _$UpdateUserProfileRequestBodyFromJson(
         Map<String, dynamic> json) =>
     UpdateUserProfileRequestBody(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       fullName: json['fullName'] as String,
       gender: json['gender'] as String,
       city: json['city'] as String,

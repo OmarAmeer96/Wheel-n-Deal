@@ -197,18 +197,19 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<UpdateUserProfileResponse> updateUserProfile(
-    String token,
-    int id,
-    String fullName,
-    String gender,
-    String city,
-    File profilePicture,
-    String nationalId,
-    String phone,
-  ) async {
+  Future<UpdateUserProfileResponse> updateUserProfile({
+    required String token,
+    required int id,
+    String? fullName,
+    String? gender,
+    String? city,
+    File? profilePicture,
+    String? nationalId,
+    String? phone,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = FormData();
@@ -216,33 +217,45 @@ class _ApiService implements ApiService {
       'id',
       id.toString(),
     ));
-    _data.fields.add(MapEntry(
-      'fullName',
-      fullName,
-    ));
-    _data.fields.add(MapEntry(
-      'gender',
-      gender,
-    ));
-    _data.fields.add(MapEntry(
-      'city',
-      city,
-    ));
-    _data.files.add(MapEntry(
-      'profilePicture',
-      MultipartFile.fromFileSync(
-        profilePicture.path,
-        filename: profilePicture.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    _data.fields.add(MapEntry(
-      'nationalId',
-      nationalId,
-    ));
-    _data.fields.add(MapEntry(
-      'phone',
-      phone,
-    ));
+    if (fullName != null) {
+      _data.fields.add(MapEntry(
+        'fullName',
+        fullName,
+      ));
+    }
+    if (gender != null) {
+      _data.fields.add(MapEntry(
+        'gender',
+        gender,
+      ));
+    }
+    if (city != null) {
+      _data.fields.add(MapEntry(
+        'city',
+        city,
+      ));
+    }
+    if (profilePicture != null) {
+      _data.files.add(MapEntry(
+        'profilePicture',
+        MultipartFile.fromFileSync(
+          profilePicture.path,
+          filename: profilePicture.path.split(Platform.pathSeparator).last,
+        ),
+      ));
+    }
+    if (nationalId != null) {
+      _data.fields.add(MapEntry(
+        'nationalId',
+        nationalId,
+      ));
+    }
+    if (phone != null) {
+      _data.fields.add(MapEntry(
+        'phone',
+        phone,
+      ));
+    }
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UpdateUserProfileResponse>(Options(
       method: 'PUT',

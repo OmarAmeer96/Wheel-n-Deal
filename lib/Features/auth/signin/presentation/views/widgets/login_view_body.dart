@@ -214,12 +214,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         const SizedBox(
                           height: 30,
                         ),
-                        CustomMainButton(
-                          text: "Login",
-                          onPressed: () async {
-                            await validateThenLoginAndFetchUserData(context);
-                          },
-                          color: kPrimaryColor,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: CustomMainButton(
+                            text: "Login",
+                            onPressed: () async {
+                              await validateThenLoginAndFetchUserData(context);
+                            },
+                            color: kPrimaryColor,
+                          ),
                         ),
                         const SizedBox(
                           height: 15,
