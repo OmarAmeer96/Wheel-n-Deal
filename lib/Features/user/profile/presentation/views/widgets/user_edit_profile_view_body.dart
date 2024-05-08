@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
@@ -133,7 +134,8 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                         radius: 27,
                                         backgroundColor: Colors.white,
                                         child: RawMaterialButton(
-                                          onPressed: () {
+                                          onPressed: () async {
+                                            requestPermission();
                                             imagePickerBottomSheet(context,
                                                 onTap1: () {
                                               _pickImageFromCamera();
@@ -445,6 +447,13 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
         ),
       ),
     );
+  }
+
+  Future<void> requestPermission() async {
+    var status = await Permission.manageExternalStorage.status;
+    if (!status.isGranted) {
+      await Permission.manageExternalStorage.request();
+    }
   }
 
   Future _pickImageFromGallery() async {
