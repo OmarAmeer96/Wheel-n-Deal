@@ -1,9 +1,6 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.ChangePasswordDTO;
-import com.graduationproject.DTOs.CustomResponse;
-import com.graduationproject.DTOs.NormalProfileDTO;
-import com.graduationproject.DTOs.UserProfileDTO;
+import com.graduationproject.DTOs.*;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.utils.Utils;
@@ -120,16 +117,19 @@ public class UserProfileService {
             }
 
             User user = optionalUser.get();
-            NormalProfileDTO normalProfileDTO = new NormalProfileDTO();
-            normalProfileDTO.setProfilePhotoURL(user.getProfilePictureUrl());
-            normalProfileDTO.setFullName(user.getFullName());
-            normalProfileDTO.setPhoneNumber(user.getPhoneNumber());
-            normalProfileDTO.setRole(user.getRole());
+            ProfileDTO profileDTO = new ProfileDTO();
+            profileDTO.setProfilePhotoURL(user.getProfilePictureUrl());
+            profileDTO.setFullName(user.getFullName());
+            profileDTO.setPhoneNumber(user.getPhoneNumber());
+            profileDTO.setRole(user.getRole());
+            profileDTO.setCity(user.getCity());
+            profileDTO.setGender(user.getGender());
+            profileDTO.setNationalId(user.getNationalId());
 
             return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
                     .message("Profile retrieved successfully.")
-                    .data(normalProfileDTO)
+                    .data(profileDTO)
                     .build();
 
         } catch (Exception e) {
