@@ -3,6 +3,7 @@ package com.graduationproject.services.impl;
 import com.graduationproject.DTOs.*;
 import com.graduationproject.entities.*;
 import com.graduationproject.repositories.*;
+import com.graduationproject.services.CloudinaryImageService;
 import com.graduationproject.utils.Utils;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class OrderService {
     private final PromocodeService promocodeService;
 
     private final TripRepository tripRepository;
+    private final CloudinaryImageService cloudinaryImageService;
 
     @Transactional
     public CustomResponse createOrUpdateOrder(OrderDTO orderDTO) {
@@ -116,7 +118,11 @@ public class OrderService {
             order.setBreakable(orderDTO.isBreakable());
             order.setExpiryDate(orderDTO.getExpiryDate());
             order.setExpectedPrice(orderDTO.getExpectedPrice());
-            order.setOrderPhotoUrl(Utils.storePhotoAndGetUrl(orderDTO.getOrderPhoto()));
+
+            Map uploadImageMap = cloudinaryImageService.upload(orderDTO.getOrderPhoto());
+            String photoUrl = (String)uploadImageMap.get("secure_url");
+            order.setOrderPhotoUrl(photoUrl);
+
             order.setFrom(orderDTO.getFrom());
             order.setTo(orderDTO.getTo());
             order.setSenderName(orderDTO.getSenderName());

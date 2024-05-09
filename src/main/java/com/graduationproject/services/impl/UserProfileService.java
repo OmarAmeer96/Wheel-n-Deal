@@ -3,6 +3,7 @@ package com.graduationproject.services.impl;
 import com.graduationproject.DTOs.*;
 import com.graduationproject.entities.User;
 import com.graduationproject.repositories.UserRepository;
+import com.graduationproject.services.CloudinaryImageService;
 import com.graduationproject.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -24,6 +26,7 @@ public class UserProfileService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final CloudinaryImageService cloudinaryImageService;
 
 
     public CustomResponse updateUserProfile(UserProfileDTO userProfileDTO) {
@@ -47,7 +50,8 @@ public class UserProfileService {
             MultipartFile photo = userProfileDTO.getProfilePicture();
             if (photo != null && !photo.isEmpty()) {
                 try {
-                    String photoUrl = Utils.storePhotoAndGetUrl(photo);
+                    Map uploadImageMap = cloudinaryImageService.upload(photo);
+                    String photoUrl = (String)uploadImageMap.get("secure_url");
                     existingUser.setProfilePictureUrl(photoUrl);
                 } catch (Exception e) {
                     return CustomResponse.builder()
