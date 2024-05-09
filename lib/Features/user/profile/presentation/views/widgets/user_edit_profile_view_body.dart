@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -96,22 +97,42 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                 fit: StackFit.expand,
                                 children: [
                                   Positioned(
-                                    child: SharedPrefs.getString(
-                                                key: kProfilePhotoURL) !=
+                                    child: context
+                                                .read<UpdateUserProfileCubit>()
+                                                .selectedImage !=
                                             null
-                                        ? CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                              SharedPrefs.getString(
-                                                key: kProfilePhotoURL,
-                                              )!,
+                                        ? ClipOval(
+                                            child: Image.file(
+                                              context
+                                                  .read<
+                                                      UpdateUserProfileCubit>()
+                                                  .selectedImage!,
+                                              fit: BoxFit.cover,
                                             ),
                                           )
-                                        : const CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            backgroundImage: AssetImage(
-                                              AssetsData.profileImage,
-                                            ),
-                                          ),
+                                        : SharedPrefs.getString(
+                                                    key: kProfilePhotoURL) !=
+                                                null
+                                            ? ClipOval(
+                                                child: CachedNetworkImage(
+                                                  fit: BoxFit.cover,
+                                                  imageUrl:
+                                                      SharedPrefs.getString(
+                                                          key:
+                                                              kProfilePhotoURL)!,
+                                                  placeholder: (context, url) =>
+                                                      const CircularProgressIndicator(),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
+                                                ),
+                                              )
+                                            : const CircleAvatar(
+                                                backgroundColor: Colors.white,
+                                                backgroundImage: AssetImage(
+                                                  AssetsData.profileImage,
+                                                ),
+                                              ),
                                   ),
                                   Positioned(
                                     bottom: 0,
@@ -237,7 +258,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                             borderColor: const Color(0xFFA3A3A3),
                             focusedBorderColor: const Color(0xff55433c),
                             enabledBorderColor: const Color(0xFFA3A3A3),
-                            inputType: TextInputType.text,
+                            inputType: TextInputType.phone,
                             prefixIcon: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               child: SvgPicture.asset(AssetsData.phoneIcon),
@@ -324,7 +345,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                             borderColor: const Color(0xFFA3A3A3),
                             focusedBorderColor: const Color(0xff55433c),
                             enabledBorderColor: const Color(0xFFA3A3A3),
-                            inputType: TextInputType.text,
+                            inputType: TextInputType.number,
                             prefixIcon: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               child: SvgPicture.asset(AssetsData.naionalIdSvg),

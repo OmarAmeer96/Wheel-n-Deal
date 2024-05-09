@@ -13,12 +13,16 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
       : super(const UpdateUserProfileState.initial());
 
   final formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController nationalIdController = TextEditingController();
-  TextEditingController genderController = TextEditingController(text: "MALE");
+  TextEditingController fullNameController =
+      TextEditingController(text: SharedPrefs.getString(key: kFullName));
+  TextEditingController phoneNumberController =
+      TextEditingController(text: SharedPrefs.getString(key: kPhone));
+  TextEditingController cityController =
+      TextEditingController(text: SharedPrefs.getString(key: kCity));
+  TextEditingController nationalIdController =
+      TextEditingController(text: SharedPrefs.getString(key: kNationalId));
+  TextEditingController genderController =
+      TextEditingController(text: SharedPrefs.getString(key: kGender));
 
   File? selectedImage;
 
@@ -44,55 +48,30 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
           );
         } else {
           // Save User's Fullname
-          if ((fullNameController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kFullName) == null) ||
-              (fullNameController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kFullName) != null)) {
-            await SharedPrefs.setString(
-              key: kFullName,
-              value: fullNameController.text,
-            );
-          }
+          await SharedPrefs.setString(
+            key: kFullName,
+            value: fullNameController.text,
+          );
           // Save User's Gender
-          if ((genderController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kGender) == null) ||
-              (genderController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kGender) != null)) {
-            await SharedPrefs.setString(
-              key: kGender,
-              value: genderController.text,
-            );
-          }
+          await SharedPrefs.setString(
+            key: kGender,
+            value: genderController.text,
+          );
           // Save User's City
-          if ((cityController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kCity) == null) ||
-              (cityController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kCity) != null)) {
-            await SharedPrefs.setString(
-              key: kCity,
-              value: cityController.text,
-            );
-          }
+          await SharedPrefs.setString(
+            key: kCity,
+            value: cityController.text,
+          );
           // Save User's National ID
-          if ((nationalIdController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kNationalId) == null) ||
-              (nationalIdController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kNationalId) != null)) {
-            await SharedPrefs.setString(
-              key: kNationalId,
-              value: nationalIdController.text,
-            );
-          }
+          await SharedPrefs.setString(
+            key: kNationalId,
+            value: nationalIdController.text,
+          );
           // Save User's Phone Number
-          if ((phoneNumberController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kPhone) == null) ||
-              (phoneNumberController.text.isNotEmpty &&
-                  SharedPrefs.getString(key: kPhone) != null)) {
-            await SharedPrefs.setString(
-              key: kPhone,
-              value: phoneNumberController.text,
-            );
-          }
+          await SharedPrefs.setString(
+            key: kPhone,
+            value: phoneNumberController.text,
+          );
           emit(UpdateUserProfileState.success(updateUserProfileResponse));
         }
       },

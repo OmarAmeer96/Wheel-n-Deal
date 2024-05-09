@@ -10,6 +10,7 @@ import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.
 import 'package:wheel_n_deal/Features/commuter/home/presentation/views/widgets/commuter_home_view_body.dart';
 import 'package:wheel_n_deal/Features/user/home/presentation/views/widgets/user_home_view_body.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/widgets/user_orders_view_body.dart';
+import 'package:wheel_n_deal/Features/user/profile/logic/update_user_profile_cubit/update_user_profile_cubit.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/user_profile_view_body.dart';
 import 'package:wheel_n_deal/Features/user/search_for_commuter/presentation/views/user_search_for_commuter_view_body.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -78,7 +79,17 @@ class _UserHomeViewState extends State<UserHomeView> {
       case 2:
         return const UserOrdersViewBody();
       case 3:
-        return const UserProfileViewBody();
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<LoginCubit>(
+              create: (context) => getIt<LoginCubit>(),
+            ),
+            BlocProvider<UpdateUserProfileCubit>(
+              create: (context) => getIt<UpdateUserProfileCubit>(),
+            ),
+          ],
+          child: const UserProfileViewBody(),
+        );
       default:
         return Container();
     }

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
@@ -7,260 +9,292 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/functions/show_success_dialog.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_state.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/edit_profile_button.dart';
 import 'package:wheel_n_deal/Features/user/profile/presentation/views/widgets/user_profile_item.dart';
+import 'package:wheel_n_deal/constants.dart';
 
-class UserProfileViewBody extends StatelessWidget {
+class UserProfileViewBody extends StatefulWidget {
   const UserProfileViewBody({super.key});
 
   @override
+  State<UserProfileViewBody> createState() => _UserProfileViewBodyState();
+}
+
+class _UserProfileViewBodyState extends State<UserProfileViewBody> {
+  @override
+  void initState() {
+    context.read<LoginCubit>().emitGetUserProfile();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                width: Responsive.screenWidth(context),
-                child: Image.asset(
-                  AssetsData.backGroundImage,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Positioned(
-                top: 60,
-                left: 20,
-                right: 25,
-                child: Column(
+    return RefreshIndicator(
+      backgroundColor: const Color(0xFF1c272e),
+      color: kPrimaryColor,
+      displacement: 10,
+      onRefresh: () async {
+        context.read<LoginCubit>().emitGetUserProfile();
+      },
+      child: BlocBuilder<LoginCubit, LoginState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          "My Profile",
-                          style: Styles.manropeBold32.copyWith(
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      width: Responsive.screenWidth(context),
+                      child: Image.asset(
+                        AssetsData.backGroundImage,
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 56,
-                          width: 56,
-                          child: SharedPrefs.getString(key: kProfilePhotoURL) !=
-                                  null
-                              ? CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    SharedPrefs.getString(
-                                      key: kProfilePhotoURL,
-                                    )!,
-                                  ),
-                                )
-                              : const CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  backgroundImage: AssetImage(
-                                    AssetsData.profileImage,
-                                  ),
+                    Positioned(
+                      top: 60,
+                      left: 20,
+                      right: 25,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "My Profile",
+                                style: Styles.manropeBold32.copyWith(
+                                  fontSize: 24,
+                                  color: Colors.white,
                                 ),
-                        ),
-                        const SizedBox(
-                          width: 17,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              SharedPrefs.getString(key: kUsername)!,
-                              style: Styles.cairoSemiBold,
-                            ),
-                            Text(
-                              SharedPrefs.getString(key: kPhone)!,
-                              style: Styles.cairoSemiBold,
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        EditProfileButton(
-                          color: const Color(0x4CA3A3A3),
-                          text: 'Edit Profile',
-                          onPressed: () {
-                            GoRouter.of(context).push(
-                              AppRouter.kUserEditProfileView,
-                            );
-                          },
-                        ),
-                      ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 56,
+                                width: 56,
+                                child: SharedPrefs.getString(
+                                            key: kProfilePhotoURL) !=
+                                        null
+                                    ? ClipOval(
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl: SharedPrefs.getString(
+                                              key: kProfilePhotoURL)!,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
+                                      )
+                                    : const CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        backgroundImage: AssetImage(
+                                          AssetsData.profileImage,
+                                        ),
+                                      ),
+                              ),
+                              const SizedBox(
+                                width: 17,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    SharedPrefs.getString(key: kUsername)!,
+                                    style: Styles.cairoSemiBold,
+                                  ),
+                                  Text(
+                                    SharedPrefs.getString(key: kPhone)!,
+                                    style: Styles.cairoSemiBold,
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              EditProfileButton(
+                                color: const Color(0x4CA3A3A3),
+                                text: 'Edit Profile',
+                                onPressed: () {
+                                  GoRouter.of(context).push(
+                                    AppRouter.kUserEditProfileView,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Settings",
-                    style: Styles.manropeBold32.copyWith(fontSize: 18),
+                const SizedBox(
+                  height: 26,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Settings",
+                          style: Styles.manropeBold32.copyWith(fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kChangeAppLanguageView,
+                          );
+                        },
+                        text: 'Language',
+                        icon: AssetsData.languageIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(AppRouter.kUserWalletView);
+                        },
+                        text: 'My Wallet',
+                        icon: AssetsData.walletIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {},
+                        text: 'Notifications',
+                        icon: AssetsData.bellIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context)
+                              .push(AppRouter.kChangePasswordView);
+                        },
+                        text: 'Change Password',
+                        icon: AssetsData.passWord,
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "General",
+                          style: Styles.manropeBold32.copyWith(fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kAboutAppView,
+                          );
+                        },
+                        text: 'About Wheel N’ Deal',
+                        icon: AssetsData.infoIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(AppRouter.kAppFaqView);
+                        },
+                        text: 'FAQ',
+                        icon: AssetsData.faqIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {},
+                        text: 'Rate App',
+                        icon: AssetsData.rateAppIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kSupportView,
+                          );
+                        },
+                        text: 'Support',
+                        icon: AssetsData.supportIcon,
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Legal",
+                          style: Styles.manropeBold32.copyWith(fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kTermsView,
+                          );
+                        },
+                        text: 'Terms and Conditions',
+                        icon: AssetsData.termsIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kPrivacyPolicyView,
+                          );
+                        },
+                        text: 'Privacy Policy',
+                        icon: AssetsData.privacyIcon,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      UserProfileItem(
+                        onTap: () {
+                          showLogoutConfirmationDialog(
+                            context,
+                            () {},
+                          );
+                        },
+                        text: 'Log Out',
+                        icon: AssetsData.logOutIcon,
+                      ),
+                      const SizedBox(
+                        height: 70,
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kChangeAppLanguageView,
-                    );
-                  },
-                  text: 'Language',
-                  icon: AssetsData.languageIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(AppRouter.kUserWalletView);
-                  },
-                  text: 'My Wallet',
-                  icon: AssetsData.walletIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {},
-                  text: 'Notifications',
-                  icon: AssetsData.bellIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(AppRouter.kChangePasswordView);
-                  },
-                  text: 'Change Password',
-                  icon: AssetsData.passWord,
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "General",
-                    style: Styles.manropeBold32.copyWith(fontSize: 18),
-                  ),
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kAboutAppView,
-                    );
-                  },
-                  text: 'About Wheel N’ Deal',
-                  icon: AssetsData.infoIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(AppRouter.kAppFaqView);
-                  },
-                  text: 'FAQ',
-                  icon: AssetsData.faqIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {},
-                  text: 'Rate App',
-                  icon: AssetsData.rateAppIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kSupportView,
-                    );
-                  },
-                  text: 'Support',
-                  icon: AssetsData.supportIcon,
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Legal",
-                    style: Styles.manropeBold32.copyWith(fontSize: 18),
-                  ),
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kTermsView,
-                    );
-                  },
-                  text: 'Terms and Conditions',
-                  icon: AssetsData.termsIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kPrivacyPolicyView,
-                    );
-                  },
-                  text: 'Privacy Policy',
-                  icon: AssetsData.privacyIcon,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                UserProfileItem(
-                  onTap: () {
-                    showLogoutConfirmationDialog(
-                      context,
-                      () {},
-                    );
-                  },
-                  text: 'Log Out',
-                  icon: AssetsData.logOutIcon,
-                ),
-                const SizedBox(
-                  height: 70,
                 ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
