@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -214,15 +215,18 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
                       const SizedBox(
                         height: 35,
                       ),
-                      CustomMainButton(
-                        text: "Reset Password",
-                        onPressed: () async {
-                          if (_form.currentState!.validate()) {
-                            BlocProvider.of<ForgotPasswordCubit>(context)
-                                .emitForgotPasswordState();
-                          }
-                        },
-                        color: kPrimaryColor,
+                      Hero(
+                        tag: 'sendOTPCodeButton',
+                        child: CustomMainButton(
+                          text: "Reset Password",
+                          onPressed: () async {
+                            if (_form.currentState!.validate()) {
+                              BlocProvider.of<ForgotPasswordCubit>(context)
+                                  .emitForgotPasswordState();
+                            }
+                          },
+                          color: kPrimaryColor,
+                        ),
                       ),
                       const SizedBox(
                         height: 15,

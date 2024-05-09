@@ -115,14 +115,17 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                                 ],
                               ),
                               const Spacer(),
-                              EditProfileButton(
-                                color: const Color(0x4CA3A3A3),
-                                text: 'Edit Profile',
-                                onPressed: () {
-                                  GoRouter.of(context).push(
-                                    AppRouter.kUserEditProfileView,
-                                  );
-                                },
+                              Hero(
+                                tag: 'editProfileButton',
+                                child: EditProfileButton(
+                                  color: const Color(0x4CA3A3A3),
+                                  text: 'Edit Profile',
+                                  onPressed: () {
+                                    GoRouter.of(context).push(
+                                      AppRouter.kUserEditProfileView,
+                                    );
+                                  },
+                                ),
                               ),
                             ],
                           ),

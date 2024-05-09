@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
@@ -107,13 +108,16 @@ class OtpVerificationViewBody extends StatelessWidget {
                       const SizedBox(
                         height: 40,
                       ),
-                      CustomMainButton(
-                        text: "Verify",
-                        onPressed: () {
-                          BlocProvider.of<ForgotPasswordCubit>(context)
-                              .emitValidateOTP();
-                        },
-                        color: kPrimaryColor,
+                      Hero(
+                        tag: 'sendOTPCodeButton',
+                        child: CustomMainButton(
+                          text: "Verify",
+                          onPressed: () {
+                            BlocProvider.of<ForgotPasswordCubit>(context)
+                                .emitValidateOTP();
+                          },
+                          color: kPrimaryColor,
+                        ),
                       ),
                       const SizedBox(
                         height: 15,

@@ -439,13 +439,17 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: CustomMainButton(
-                              text: "Save Changes",
-                              onPressed: () {
-                                BlocProvider.of<UpdateUserProfileCubit>(context)
-                                    .emitUpdateProfileState();
-                              },
-                              color: kPrimaryColor,
+                            child: Hero(
+                              tag: 'editProfileButton',
+                              child: CustomMainButton(
+                                text: "Save Changes",
+                                onPressed: () {
+                                  BlocProvider.of<UpdateUserProfileCubit>(
+                                          context)
+                                      .emitUpdateProfileState();
+                                },
+                                color: kPrimaryColor,
+                              ),
                             ),
                           ),
                           const SizedBox(
