@@ -51,9 +51,22 @@ class UserProfileViewBody extends StatelessWidget {
                       children: [
                         SizedBox(
                           height: 56,
-                          child: Image.asset(
-                            AssetsData.profileImage,
-                          ),
+                          width: 56,
+                          child: SharedPrefs.getString(key: kProfilePhotoURL) !=
+                                  null
+                              ? CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                    SharedPrefs.getString(
+                                      key: kProfilePhotoURL,
+                                    )!,
+                                  ),
+                                )
+                              : const CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: AssetImage(
+                                    AssetsData.profileImage,
+                                  ),
+                                ),
                         ),
                         const SizedBox(
                           width: 17,

@@ -23,18 +23,7 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
   File? selectedImage;
 
   void emitUpdateProfileState() async {
-    // print("=========== IMAGE: ================ $selectedImage");
     emit(const UpdateUserProfileState.loading());
-
-    // MultipartFile? multipartFile;
-    // if (selectedImage != null) {
-    //   final fileName = selectedImage!.path.split('/').last;
-    //   multipartFile = await MultipartFile.fromFile(
-    //     selectedImage!.path,
-    //     filename: fileName,
-    //   );
-    // }
-
     final response = await _updateUserProfileRepo.updateUserProfile(
       SharedPrefs.getString(key: kToken)!,
       SharedPrefs.getInt(key: kUserId)!,
@@ -45,38 +34,65 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
       nationalIdController.text,
       phoneNumberController.text,
     );
-
     response.when(
       success: (updateUserProfileResponse) async {
         if (updateUserProfileResponse.status != 200) {
-          emit(UpdateUserProfileState.error(
-              error: updateUserProfileResponse.message ?? ''));
+          emit(
+            UpdateUserProfileState.error(
+              error: updateUserProfileResponse.message ?? '',
+            ),
+          );
         } else {
           // Save User's Fullname
-          await SharedPrefs.setString(
-            key: kFullName,
-            value: fullNameController.text,
-          );
+          if ((fullNameController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kFullName) == null) ||
+              (fullNameController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kFullName) != null)) {
+            await SharedPrefs.setString(
+              key: kFullName,
+              value: fullNameController.text,
+            );
+          }
           // Save User's Gender
-          await SharedPrefs.setString(
-            key: kGender,
-            value: genderController.text,
-          );
+          if ((genderController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kGender) == null) ||
+              (genderController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kGender) != null)) {
+            await SharedPrefs.setString(
+              key: kGender,
+              value: genderController.text,
+            );
+          }
           // Save User's City
-          await SharedPrefs.setString(
-            key: kCity,
-            value: cityController.text,
-          );
+          if ((cityController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kCity) == null) ||
+              (cityController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kCity) != null)) {
+            await SharedPrefs.setString(
+              key: kCity,
+              value: cityController.text,
+            );
+          }
           // Save User's National ID
-          await SharedPrefs.setString(
-            key: kNationalId,
-            value: nationalIdController.text,
-          );
+          if ((nationalIdController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kNationalId) == null) ||
+              (nationalIdController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kNationalId) != null)) {
+            await SharedPrefs.setString(
+              key: kNationalId,
+              value: nationalIdController.text,
+            );
+          }
           // Save User's Phone Number
-          await SharedPrefs.setString(
-            key: kPhone,
-            value: phoneNumberController.text,
-          );
+          if ((phoneNumberController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kPhone) == null) ||
+              (phoneNumberController.text.isNotEmpty &&
+                  SharedPrefs.getString(key: kPhone) != null)) {
+            await SharedPrefs.setString(
+              key: kPhone,
+              value: phoneNumberController.text,
+            );
+          }
           emit(UpdateUserProfileState.success(updateUserProfileResponse));
         }
       },

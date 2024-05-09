@@ -24,12 +24,18 @@ class UserData {
   String? fullName;
   String? profilePhotoURL;
   String? role;
+  String? gender;
+  String? nationalId;
+  String? city;
 
   UserData({
     this.phoneNumber,
     this.fullName,
     this.profilePhotoURL,
     this.role,
+    this.gender,
+    this.nationalId,
+    this.city,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) =>

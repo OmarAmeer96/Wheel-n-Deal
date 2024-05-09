@@ -69,22 +69,38 @@ class LoginCubit extends Cubit<LoginState> {
     );
     response.when(
       success: (getUserProfileResponse) async {
-        await SharedPrefs.setString(
-          key: kRole,
-          value: getUserProfileResponse.userData!.role!,
-        );
-        await SharedPrefs.setString(
-          key: kPhone,
-          value: getUserProfileResponse.userData!.phoneNumber!,
-        );
-        await SharedPrefs.setString(
-          key: kFullName,
-          value: getUserProfileResponse.userData!.fullName ?? '',
-        );
-        await SharedPrefs.setString(
-          key: kProfilePhotoURL,
-          value: getUserProfileResponse.userData!.profilePhotoURL ?? '',
-        );
+        if (getUserProfileResponse.status != 200) {
+          emit(LoginState.error(error: getUserProfileResponse.message ?? ''));
+        } else {
+          await SharedPrefs.setString(
+            key: kRole,
+            value: getUserProfileResponse.userData!.role!,
+          );
+          await SharedPrefs.setString(
+            key: kPhone,
+            value: getUserProfileResponse.userData!.phoneNumber!,
+          );
+          await SharedPrefs.setString(
+            key: kFullName,
+            value: getUserProfileResponse.userData!.fullName ?? '',
+          );
+          await SharedPrefs.setString(
+            key: kProfilePhotoURL,
+            value: getUserProfileResponse.userData!.profilePhotoURL ?? '',
+          );
+          await SharedPrefs.setString(
+            key: kGender,
+            value: getUserProfileResponse.userData!.gender ?? 'MALE',
+          );
+          await SharedPrefs.setString(
+            key: kCity,
+            value: getUserProfileResponse.userData!.city ?? '',
+          );
+          await SharedPrefs.setString(
+            key: kNationalId,
+            value: getUserProfileResponse.userData!.nationalId ?? '',
+          );
+        }
         emit(LoginState.getUserProfileSuccess(getUserProfileResponse));
       },
       failure: (error) {

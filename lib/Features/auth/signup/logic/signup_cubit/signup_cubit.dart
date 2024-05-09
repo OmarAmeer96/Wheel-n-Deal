@@ -31,26 +31,27 @@ class SignupCubit extends Cubit<SignupState> {
     response.when(
       success: (signupResponse) async {
         if (signupResponse.status != 200) {
-          emit(SignupState.error(error: signupResponse.message ?? ''));
+          emit(
+            SignupState.error(
+              error: signupResponse.message ?? '',
+            ),
+          );
         } else {
           // Save User's Token
           await SharedPrefs.setString(
             key: kToken,
             value: signupResponse.userData!.token!,
           );
-
           // Save User's Stripe Id
           await SharedPrefs.setString(
             key: kStripeId,
             value: signupResponse.userData!.stripeId!,
           );
-
           // Save User's Id
           await SharedPrefs.setInt(
             key: kUserId,
             value: signupResponse.userData!.userId!,
           );
-
           // Save user's Enterd Data
           await SharedPrefs.setString(
             key: kUsername,

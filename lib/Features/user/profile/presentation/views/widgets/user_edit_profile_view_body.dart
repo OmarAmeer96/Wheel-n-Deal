@@ -31,7 +31,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
   String? city;
   String? nationalId;
 
-  String selectedGender = "MALE";
+  String selectedGender = SharedPrefs.getString(key: kGender) ?? "MALE";
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,8 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                 }
               },
               error: (error) {
-                setupErrorState(context, error);
+                setupErrorState(context,
+                    "An error occurred while updating the profile. $error");
               },
             );
           },
@@ -95,16 +96,14 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                 fit: StackFit.expand,
                                 children: [
                                   Positioned(
-                                    child: context
-                                                .read<UpdateUserProfileCubit>()
-                                                .selectedImage !=
+                                    child: SharedPrefs.getString(
+                                                key: kProfilePhotoURL) !=
                                             null
                                         ? CircleAvatar(
-                                            backgroundImage: FileImage(
-                                              context
-                                                  .read<
-                                                      UpdateUserProfileCubit>()
-                                                  .selectedImage!,
+                                            backgroundImage: NetworkImage(
+                                              SharedPrefs.getString(
+                                                key: kProfilePhotoURL,
+                                              )!,
                                             ),
                                           )
                                         : const CircleAvatar(
@@ -422,11 +421,6 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                             child: CustomMainButton(
                               text: "Save Changes",
                               onPressed: () {
-                                // if (context
-                                //     .read<UpdateUserProfileCubit>()
-                                //     .formKey
-                                //     .currentState!
-                                //     .validate()) {}
                                 BlocProvider.of<UpdateUserProfileCubit>(context)
                                     .emitUpdateProfileState();
                               },
