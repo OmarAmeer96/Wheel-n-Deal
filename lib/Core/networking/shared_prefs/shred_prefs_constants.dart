@@ -14,3 +14,12 @@ const String kForgotPasswordPhoneNumber = 'forgotPasswordPhoneNumber';
 const String kGender = 'gender';
 const String kCity = 'city';
 const String kNationalId = 'nationalId';
+
+// Order Data
+// const String kOrderName = 'orderName';
+// const String kCountOfOrders = 'countOfOrders';
+// const String kOrderWeight = 'orderWeight';
+// const String kIsOrderBreakable = 'isOrderBreakable';
+// const String kOrderExpiryDate = 'orderExpiryDate';
+// const String kExpectedPrice = 'expectedPrice';
+// const String kOrderPhotoUrl = 'orderPhotoUrl';

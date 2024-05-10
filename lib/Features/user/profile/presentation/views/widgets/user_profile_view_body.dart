@@ -78,8 +78,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                                 height: 56,
                                 width: 56,
                                 child: SharedPrefs.getString(
-                                            key: kProfilePhotoURL) !=
-                                        null
+                                            key: kProfilePhotoURL)!
+                                        .isNotEmpty
                                     ? ClipOval(
                                         child: CachedNetworkImage(
                                           fit: BoxFit.cover,

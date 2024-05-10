@@ -12,6 +12,7 @@ import 'package:wheel_n_deal/Features/auth/signin/data/models/login_request_body
 import 'package:wheel_n_deal/Features/auth/signin/data/models/login_response.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_response.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/post_order_response.dart';
 import 'package:wheel_n_deal/Features/user/profile/data/models/update_user_profile_response.dart';
 part 'api_service.g.dart';
 
@@ -71,5 +72,27 @@ abstract class ApiService {
     @Part(name: "profilePicture") File? profilePicture,
     @Part(name: "nationalId") String? nationalId,
     @Part(name: "phone") String? phone,
+  });
+  // Post Order (Create/Update Order)
+  @POST(ApiConstants.postOrder)
+  @MultiPart()
+  Future<PostOrderResponse> postOrder({
+    @Header('Authorization') required String token,
+    @Part(name: "userId") required int userId,
+    @Part(name: "orderName") String? orderName,
+    @Part(name: "countOfOrders") int? countOfOrders,
+    @Part(name: "weight") int? weight,
+    @Part(name: "breakable") String? breakable,
+    // TODO: Change type of date
+    @Part(name: "expiryDate") String? expiryDate,
+    @Part(name: "expectedPrice") double? expectedPrice,
+    @Part(name: "orderPhoto") File? orderPhoto,
+    // TODO: Change type of date
+    @Part(name: "from") String? from,
+    // TODO: Change type of date
+    @Part(name: "to") String? to,
+    // TODO: Add Sender Phone Number
+    @Part(name: "senderName") String? senderName,
+    @Part(name: "receiverPhoneNumber") String? receiverPhoneNumber,
   });
 }

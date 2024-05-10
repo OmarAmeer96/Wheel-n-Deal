@@ -278,6 +278,123 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<PostOrderResponse> postOrder({
+    required String token,
+    required int userId,
+    String? orderName,
+    int? countOfOrders,
+    int? weight,
+    String? breakable,
+    String? expiryDate,
+    double? expectedPrice,
+    File? orderPhoto,
+    String? from,
+    String? to,
+    String? senderName,
+    String? receiverPhoneNumber,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'userId',
+      userId.toString(),
+    ));
+    if (orderName != null) {
+      _data.fields.add(MapEntry(
+        'orderName',
+        orderName,
+      ));
+    }
+    if (countOfOrders != null) {
+      _data.fields.add(MapEntry(
+        'countOfOrders',
+        countOfOrders.toString(),
+      ));
+    }
+    if (weight != null) {
+      _data.fields.add(MapEntry(
+        'weight',
+        weight.toString(),
+      ));
+    }
+    if (breakable != null) {
+      _data.fields.add(MapEntry(
+        'breakable',
+        breakable,
+      ));
+    }
+    if (expiryDate != null) {
+      _data.fields.add(MapEntry(
+        'expiryDate',
+        expiryDate,
+      ));
+    }
+    if (expectedPrice != null) {
+      _data.fields.add(MapEntry(
+        'expectedPrice',
+        expectedPrice.toString(),
+      ));
+    }
+    if (orderPhoto != null) {
+      _data.files.add(MapEntry(
+        'orderPhoto',
+        MultipartFile.fromFileSync(
+          orderPhoto.path,
+          filename: orderPhoto.path.split(Platform.pathSeparator).last,
+        ),
+      ));
+    }
+    if (from != null) {
+      _data.fields.add(MapEntry(
+        'from',
+        from,
+      ));
+    }
+    if (to != null) {
+      _data.fields.add(MapEntry(
+        'to',
+        to,
+      ));
+    }
+    if (senderName != null) {
+      _data.fields.add(MapEntry(
+        'senderName',
+        senderName,
+      ));
+    }
+    if (receiverPhoneNumber != null) {
+      _data.fields.add(MapEntry(
+        'receiverPhoneNumber',
+        receiverPhoneNumber,
+      ));
+    }
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<PostOrderResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              'create-update',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = PostOrderResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
