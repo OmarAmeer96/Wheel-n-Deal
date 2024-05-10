@@ -20,7 +20,7 @@ class PostOrderResponse {
 
 @JsonSerializable()
 class PostOrderResponseData {
-  String? orderId;
+  int? orderId;
   PostOrderResponseData({
     this.orderId,
   });

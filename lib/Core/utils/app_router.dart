@@ -61,6 +61,7 @@ import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_cancel
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_completed_order_details_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_order_details_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_orders_view.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/done_notify_fav_commuters_view.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_post_order_view.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/user_search_location_view.dart';
@@ -406,7 +407,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kUserPostOrderView,
-        builder: (context, state) => const UserPostOrderView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<PostOrderCubit>(),
+          child: const UserPostOrderView(),
+        ),
       ),
       GoRoute(
         path: kUserSearchLocationView,

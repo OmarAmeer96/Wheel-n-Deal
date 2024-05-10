@@ -8,6 +8,8 @@ import 'package:wheel_n_deal/Features/auth/signin/data/repos/login_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/repos/signup_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/repos/post_order_repo.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/profile/data/repos/update_user_profile_repo.dart';
 import 'package:wheel_n_deal/Features/user/profile/logic/update_user_profile_cubit/update_user_profile_cubit.dart';
 
@@ -28,10 +30,18 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt()));
 
   // Forgot Password Repo & Cubit
-  getIt.registerLazySingleton<ForgotPasswordRepo>(() => ForgotPasswordRepo(getIt()));
-  getIt.registerFactory<ForgotPasswordCubit>(() => ForgotPasswordCubit(getIt()));
+  getIt.registerLazySingleton<ForgotPasswordRepo>(
+      () => ForgotPasswordRepo(getIt()));
+  getIt
+      .registerFactory<ForgotPasswordCubit>(() => ForgotPasswordCubit(getIt()));
 
   // Update User Profile Repo & Cubit
-  getIt.registerLazySingleton<UpdateUserProfileRepo>(() => UpdateUserProfileRepo(getIt()));
-  getIt.registerFactory<UpdateUserProfileCubit>(() => UpdateUserProfileCubit(getIt()));
+  getIt.registerLazySingleton<UpdateUserProfileRepo>(
+      () => UpdateUserProfileRepo(getIt()));
+  getIt.registerFactory<UpdateUserProfileCubit>(
+      () => UpdateUserProfileCubit(getIt()));
+
+  // Post Order Repo & Cubit
+  getIt.registerLazySingleton<PostOrderRepo>(() => PostOrderRepo(getIt()));
+  getIt.registerFactory<PostOrderCubit>(() => PostOrderCubit(getIt()));
 }

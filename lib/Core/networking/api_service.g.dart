@@ -292,6 +292,8 @@ class _ApiService implements ApiService {
     String? from,
     String? to,
     String? senderName,
+    String? senderPhoneNumber,
+    String? receiverName,
     String? receiverPhoneNumber,
   }) async {
     final _extra = <String, dynamic>{};
@@ -365,6 +367,18 @@ class _ApiService implements ApiService {
       _data.fields.add(MapEntry(
         'senderName',
         senderName,
+      ));
+    }
+    if (senderPhoneNumber != null) {
+      _data.fields.add(MapEntry(
+        'senderPhoneNumber',
+        senderPhoneNumber,
+      ));
+    }
+    if (receiverName != null) {
+      _data.fields.add(MapEntry(
+        'receiverName',
+        receiverName,
       ));
     }
     if (receiverPhoneNumber != null) {

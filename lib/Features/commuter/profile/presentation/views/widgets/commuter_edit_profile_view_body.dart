@@ -97,12 +97,15 @@ class _CommuterEditProfileViewBodyState
                                     backgroundColor: Colors.white,
                                     child: RawMaterialButton(
                                       onPressed: () {
-                                        imagePickerBottomSheet(context,
-                                            onTap1: () {
-                                          _pickImageFromCamera();
-                                        }, onTap2: () {
-                                          _pickImageFromGallery();
-                                        });
+                                        imagePickerBottomSheet(
+                                          context,
+                                          onTap1: () {
+                                            _pickImageFromCamera();
+                                          },
+                                          onTap2: () {
+                                            _pickImageFromGallery();
+                                          },
+                                        );
                                       },
                                       elevation: 2.0,
                                       fillColor: const Color(0xFF191D31),

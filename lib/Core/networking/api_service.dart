@@ -73,6 +73,7 @@ abstract class ApiService {
     @Part(name: "nationalId") String? nationalId,
     @Part(name: "phone") String? phone,
   });
+
   // Post Order (Create/Update Order)
   @POST(ApiConstants.postOrder)
   @MultiPart()
@@ -83,16 +84,14 @@ abstract class ApiService {
     @Part(name: "countOfOrders") int? countOfOrders,
     @Part(name: "weight") int? weight,
     @Part(name: "breakable") String? breakable,
-    // TODO: Change type of date
     @Part(name: "expiryDate") String? expiryDate,
     @Part(name: "expectedPrice") double? expectedPrice,
     @Part(name: "orderPhoto") File? orderPhoto,
-    // TODO: Change type of date
     @Part(name: "from") String? from,
-    // TODO: Change type of date
     @Part(name: "to") String? to,
-    // TODO: Add Sender Phone Number
     @Part(name: "senderName") String? senderName,
+    @Part(name: "senderPhoneNumber") String? senderPhoneNumber,
+    @Part(name: "receiverName") String? receiverName,
     @Part(name: "receiverPhoneNumber") String? receiverPhoneNumber,
   });
 }

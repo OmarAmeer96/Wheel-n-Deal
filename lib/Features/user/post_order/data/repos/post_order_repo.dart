@@ -23,6 +23,8 @@ class PostOrderRepo {
     String from,
     String to,
     String senderName,
+    String senderPhoneNumber,
+    String receiverName,
     String receiverPhoneNumber,
   ) async {
     try {
@@ -39,6 +41,8 @@ class PostOrderRepo {
         from: from,
         to: to,
         senderName: senderName,
+        senderPhoneNumber: senderPhoneNumber,
+        receiverName: receiverName,
         receiverPhoneNumber: receiverPhoneNumber,
       );
       return ApiResult.success(response);

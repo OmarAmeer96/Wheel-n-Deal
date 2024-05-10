@@ -13,7 +13,11 @@ class CustomReviewSummaryKeyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: Styles.manropeBold32.copyWith(fontSize: 15),
+      overflow: TextOverflow.ellipsis,
+      style: Styles.manropeBold32.copyWith(
+        fontSize: 15,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
+import 'package:wheel_n_deal/Core/functions/setup_error_state.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -70,8 +71,10 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                 }
               },
               error: (error) {
-                setupErrorState(context,
-                    "An error occurred while updating the profile. $error");
+                setupErrorState(
+                  context,
+                  "An error occurred while updating the profile. $error",
+                );
               },
             );
           },
@@ -156,12 +159,15 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                         child: RawMaterialButton(
                                           onPressed: () async {
                                             requestPermission();
-                                            imagePickerBottomSheet(context,
-                                                onTap1: () {
-                                              _pickImageFromCamera();
-                                            }, onTap2: () {
-                                              _pickImageFromGallery();
-                                            });
+                                            imagePickerBottomSheet(
+                                              context,
+                                              onTap1: () {
+                                                _pickImageFromCamera();
+                                              },
+                                              onTap2: () {
+                                                _pickImageFromGallery();
+                                              },
+                                            );
                                           },
                                           elevation: 2.0,
                                           fillColor: const Color(0xFF191D31),
@@ -497,41 +503,5 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
       context.read<UpdateUserProfileCubit>().selectedImage =
           File(returnedImage.path);
     });
-  }
-
-  void setupErrorState(BuildContext context, String error) {
-    context.pop();
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-          size: 32,
-        ),
-        content: Text(
-          error,
-          textAlign: TextAlign.center,
-          style: Styles.manropeBold32.copyWith(
-            color: kPrimaryColor,
-            fontSize: 15,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text(
-              'Got it',
-              style: Styles.manropeBold32.copyWith(
-                color: kPrimaryColor,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

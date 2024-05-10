@@ -23,3 +23,5 @@ const String kNationalId = 'nationalId';
 // const String kOrderExpiryDate = 'orderExpiryDate';
 // const String kExpectedPrice = 'expectedPrice';
 // const String kOrderPhotoUrl = 'orderPhotoUrl';
+
+const String kOrderIds = 'orderIds';

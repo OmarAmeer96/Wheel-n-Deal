@@ -26,7 +26,7 @@ Map<String, dynamic> _$PostOrderResponseToJson(PostOrderResponse instance) =>
 PostOrderResponseData _$PostOrderResponseDataFromJson(
         Map<String, dynamic> json) =>
     PostOrderResponseData(
-      orderId: json['orderId'] as String?,
+      orderId: (json['orderId'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$PostOrderResponseDataToJson(

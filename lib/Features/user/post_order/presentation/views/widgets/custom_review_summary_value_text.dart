@@ -13,9 +13,11 @@ class CustomReviewSummaryValueText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
       style: Styles.manropeSemiBold12.copyWith(
         fontSize: 16,
         color: Colors.deepOrange,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

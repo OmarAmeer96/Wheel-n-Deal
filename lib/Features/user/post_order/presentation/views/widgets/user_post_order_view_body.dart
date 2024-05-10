@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wheel_n_deal/Core/functions/setup_error_state.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
@@ -14,6 +16,8 @@ import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_state.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/user_stepper_steps_item.dart';
@@ -36,33 +40,18 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
   String? senderPhoneNumber;
   String? receiverPhoneNumber;
 
-  // ignore: unused_field
-  final _fromController = TextEditingController();
-  // ignore: unused_field
-  final _toController = TextEditingController();
-  final _senderNameController = TextEditingController();
-  final _senderPhoneNumberController = TextEditingController();
-  final _receiverPhoneNumberController = TextEditingController();
-
   final _form1 = GlobalKey<FormState>();
 
   // Step 2 Things
   final _form2 = GlobalKey<FormState>();
   String? orderName;
   String? weight;
-  String? expectedPrice;
 
-  final _orderNameController = TextEditingController();
-  final _weightController = TextEditingController();
-  final _expectedPriceController = TextEditingController();
-
-  String? selectedCount = "1";
-
-  String? selectedExpiryDate = "1-2 Days";
-
-  bool _switchValue = false;
-
-  File? _selectedImage;
+  bool isPostPubic = true;
+  String? countOfOrders = "1";
+  int? orderWeight;
+  double? expectedPrice;
+  String? expiryDate = "1-2 Days";
 
   @override
   Widget build(BuildContext context) {
@@ -87,103 +76,146 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
             ),
           ),
         ),
-        child: Stepper(
-          type: StepperType.horizontal,
-          steps: getSteps(),
-          currentStep: currentStep,
-          onStepContinue: () async {
-            final isLastStep = currentStep == getSteps().length - 1;
-            log(currentStep.toString());
-            if (isLastStep) {
-              log("Completed");
-              showModalBottomSheet(
-                isScrollControlled: true,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
+        child: BlocListener<PostOrderCubit, PostOrderState>(
+          listenWhen: (previous, current) =>
+              current is Loading || current is Success || current is Error,
+          listener: (context, state) {
+            state.whenOrNull(
+              loading: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const Center(
+                    child: CircularProgressIndicator(
+                      color: kPrimaryColor,
+                    ),
                   ),
-                ),
-                context: context,
-                builder: (context) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 60,
-                              height: 6,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFFA3A3A3),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                );
+              },
+              success: (postOrderResponse) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(postOrderResponse.message),
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
+                if (postOrderResponse.message == "Order Created Successfully") {
+                  GoRouter.of(context).pop();
+                }
+              },
+              error: (error) {
+                setupErrorState(
+                  context,
+                  error,
+                );
+              },
+            );
+          },
+          child: Stepper(
+            type: StepperType.horizontal,
+            steps: getSteps(),
+            currentStep: currentStep,
+            onStepContinue: () async {
+              final isLastStep = currentStep == getSteps().length - 1;
+              log(currentStep.toString());
+              if (isLastStep) {
+                log("Completed");
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: 60,
+                                height: 6,
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFA3A3A3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            CustomMainButton(
-                              onPressed: () {
-                                GoRouter.of(context)
-                                    .push(AppRouter.kUserOrdersView);
-                              },
-                              text: "Post Public",
-                              color: kPrimaryColor,
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            CustomMainButton(
-                              onPressed: () {
-                                GoRouter.of(context).push(
-                                    AppRouter.kDoneNotifyFavCommutersView);
-                              },
-                              text: "Notify All Favorites",
-                              textColor: Colors.black,
-                              color: const Color(0xfff3f3f3),
-                              borderSideColor: Colors.black,
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              CustomMainButton(
+                                onPressed: () {
+                                  isPostPubic = true;
+                                  BlocProvider.of<PostOrderCubit>(context)
+                                      .emitPostOrderState();
+                                  isPostPubic
+                                      ? GoRouter.of(context).pushReplacement(
+                                          AppRouter.kUserOrdersView,
+                                        )
+                                      : null;
+                                },
+                                text: "Post Public",
+                                color: kPrimaryColor,
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              CustomMainButton(
+                                onPressed: () {
+                                  isPostPubic = false;
+                                  GoRouter.of(context).push(
+                                    AppRouter.kDoneNotifyFavCommutersView,
+                                  );
+                                },
+                                text: "Notify All Favorites",
+                                textColor: Colors.black,
+                                color: const Color(0xfff3f3f3),
+                                borderSideColor: Colors.black,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              );
-            }
-            if (currentStep == 0) {
-              if (_form1.currentState!.validate()) {
-                setState(() {
-                  currentStep++;
-                });
+                    );
+                  },
+                );
               }
-            } else if (currentStep == 1) {
-              if (_form2.currentState!.validate()) {
-                setState(() {
-                  currentStep++;
-                });
-              }
-            } else {
-              log(currentStep.toString());
-            }
-          },
-          onStepCancel: () {
-            currentStep == 0
-                ? null
-                : setState(() {
-                    currentStep--;
+              if (currentStep == 0) {
+                if (_form1.currentState!.validate()) {
+                  setState(() {
+                    currentStep++;
                   });
-          },
+                }
+              } else if (currentStep == 1) {
+                if (_form2.currentState!.validate()) {
+                  setState(() {
+                    currentStep++;
+                  });
+                }
+              } else {
+                log(currentStep.toString());
+              }
+            },
+            onStepCancel: () {
+              currentStep == 0
+                  ? null
+                  : setState(() {
+                      currentStep--;
+                    });
+            },
+          ),
         ),
       ),
     );
@@ -272,9 +304,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
                           hintText: 'Input your name..',
-                          controller: _senderNameController,
+                          controller: context
+                              .read<PostOrderCubit>()
+                              .senderNameController,
                           onChanged: (value) {
-                            senderName = value;
+                            context
+                                .read<PostOrderCubit>()
+                                .senderNameController
+                                .text = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
@@ -314,15 +351,21 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
                           hintText: 'Input your number..',
-                          controller: _senderPhoneNumberController,
+                          controller: context
+                              .read<PostOrderCubit>()
+                              .senderPhoneNumberController,
                           onChanged: (value) {
-                            senderName = value;
+                            context
+                                .read<PostOrderCubit>()
+                                .senderPhoneNumberController
+                                .text = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Please enter sender's phone number.";
-                            } else if (!isValidPhoneNumber(value)) {
+                            } else if (!isValidEgyptianPhoneNumberWithCountryCode(
+                                value)) {
                               return 'Please enter a valid Egyptian phone number.';
                             }
                             return null;
@@ -331,6 +374,53 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           enabledBorderColor: kPrimaryColor,
                           inputType: TextInputType.number,
                           prefixIcon: const Icon(Icons.phone),
+                          obscureText: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  StepItem(
+                    widget: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Receiver's Name",
+                            style: Styles.manropeRegular15.copyWith(
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomMainTextFormField(
+                          borderColor: Colors.transparent,
+                          fillColor: Colors.transparent,
+                          hintText: 'Input receiver name..',
+                          controller: context
+                              .read<PostOrderCubit>()
+                              .receiverNameController,
+                          onChanged: (value) {
+                            context
+                                .read<PostOrderCubit>()
+                                .receiverNameController
+                                .text = value;
+                          },
+                          contentPadding: 7,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter receiver's name.";
+                            }
+                            return null;
+                          },
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: kPrimaryColor,
+                          inputType: TextInputType.text,
+                          prefixIcon: const Icon(Icons.person),
                           obscureText: false,
                         ),
                       ],
@@ -358,9 +448,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
                           hintText: "Input receiver's number..",
-                          controller: _receiverPhoneNumberController,
+                          controller: context
+                              .read<PostOrderCubit>()
+                              .receiverPhoneNumberController,
                           onChanged: (value) {
-                            receiverPhoneNumber = value;
+                            context
+                                .read<PostOrderCubit>()
+                                .receiverPhoneNumberController
+                                .text = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
@@ -419,9 +514,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                 borderColor: Colors.transparent,
                                 fillColor: Colors.transparent,
                                 hintText: 'Name of order',
-                                controller: _orderNameController,
+                                controller: context
+                                    .read<PostOrderCubit>()
+                                    .orderNameController,
                                 onChanged: (value) {
-                                  orderName = value;
+                                  context
+                                      .read<PostOrderCubit>()
+                                      .orderNameController
+                                      .text = value;
                                 },
                                 contentPadding: 7,
                                 validator: (value) {
@@ -465,11 +565,15 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                   color: Colors.black,
                                 ),
                                 onPressed: () {
-                                  imagePickerBottomSheet(context, onTap1: () {
-                                    _pickImageFromCamera();
-                                  }, onTap2: () {
-                                    _pickImageFromGallery();
-                                  });
+                                  imagePickerBottomSheet(
+                                    context,
+                                    onTap1: () {
+                                      _pickImageFromCamera();
+                                    },
+                                    onTap2: () {
+                                      _pickImageFromGallery();
+                                    },
+                                  );
                                 },
                               ),
                             ),
@@ -501,16 +605,20 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     fillColor: const MaterialStatePropertyAll(
                                       kPrimaryColor,
                                     ),
-                                    value: '1',
-                                    groupValue: selectedCount,
+                                    value: "1",
+                                    groupValue: countOfOrders,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedCount = value;
+                                        countOfOrders = value;
+                                        context
+                                            .read<PostOrderCubit>()
+                                            .countOfOrdersController
+                                            .text = value!;
                                       });
                                     },
                                   ),
                                   Text(
-                                    '1',
+                                    "1",
                                     style: Styles.poppinsSemiBold16
                                         .copyWith(fontSize: 14),
                                   ),
@@ -530,16 +638,20 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     fillColor: const MaterialStatePropertyAll(
                                       kPrimaryColor,
                                     ),
-                                    value: '2',
-                                    groupValue: selectedCount,
+                                    value: "2",
+                                    groupValue: countOfOrders,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedCount = value;
+                                        countOfOrders = value;
+                                        context
+                                            .read<PostOrderCubit>()
+                                            .countOfOrdersController
+                                            .text = value!;
                                       });
                                     },
                                   ),
                                   Text(
-                                    '2',
+                                    "2",
                                     style: Styles.poppinsSemiBold16
                                         .copyWith(fontSize: 14),
                                   ),
@@ -559,16 +671,20 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     fillColor: const MaterialStatePropertyAll(
                                       kPrimaryColor,
                                     ),
-                                    value: '3',
-                                    groupValue: selectedCount,
+                                    value: "3",
+                                    groupValue: countOfOrders,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedCount = value;
+                                        countOfOrders = value;
+                                        context
+                                            .read<PostOrderCubit>()
+                                            .countOfOrdersController
+                                            .text = value!;
                                       });
                                     },
                                   ),
                                   Text(
-                                    '3',
+                                    "3",
                                     style: Styles.poppinsSemiBold16
                                         .copyWith(fontSize: 14),
                                   ),
@@ -588,16 +704,20 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     fillColor: const MaterialStatePropertyAll(
                                       kPrimaryColor,
                                     ),
-                                    value: '4 or more',
-                                    groupValue: selectedCount,
+                                    value: "4",
+                                    groupValue: countOfOrders,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedCount = value;
+                                        countOfOrders = value;
+                                        context
+                                            .read<PostOrderCubit>()
+                                            .countOfOrdersController
+                                            .text = value!;
                                       });
                                     },
                                   ),
                                   Text(
-                                    '4 or more',
+                                    "4",
                                     style: Styles.poppinsSemiBold16
                                         .copyWith(fontSize: 14),
                                   ),
@@ -631,9 +751,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
                           hintText: "Input order's weight",
-                          controller: _weightController,
+                          controller: context
+                              .read<PostOrderCubit>()
+                              .orderWeightController,
                           onChanged: (value) {
-                            weight = value;
+                            context
+                                .read<PostOrderCubit>()
+                                .orderWeightController
+                                .text = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
@@ -680,9 +805,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           borderColor: Colors.transparent,
                           fillColor: Colors.transparent,
                           hintText: "0",
-                          controller: _expectedPriceController,
+                          controller: context
+                              .read<PostOrderCubit>()
+                              .expectedPriceController,
                           onChanged: (value) {
-                            expectedPrice = value;
+                            context
+                                .read<PostOrderCubit>()
+                                .expectedPriceController
+                                .text = value;
                           },
                           contentPadding: 7,
                           validator: (value) {
@@ -720,10 +850,11 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                             ),
                             const Spacer(),
                             CupertinoSwitch(
-                              value: _switchValue,
+                              value: context.read<PostOrderCubit>().switchValue,
                               onChanged: (value) {
                                 setState(() {
-                                  _switchValue = value;
+                                  context.read<PostOrderCubit>().switchValue =
+                                      value;
                                 });
                               },
                             ),
@@ -761,10 +892,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     kPrimaryColor,
                                   ),
                                   value: '1-2 Days',
-                                  groupValue: selectedExpiryDate,
+                                  groupValue: expiryDate,
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedExpiryDate = value;
+                                      expiryDate = value;
+                                      context
+                                          .read<PostOrderCubit>()
+                                          .orderExpiryDateController
+                                          .text = value!;
                                     });
                                   },
                                 ),
@@ -790,10 +925,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     kPrimaryColor,
                                   ),
                                   value: '3-5 Days',
-                                  groupValue: selectedExpiryDate,
+                                  groupValue: expiryDate,
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedExpiryDate = value;
+                                      expiryDate = value;
+                                      context
+                                          .read<PostOrderCubit>()
+                                          .orderExpiryDateController
+                                          .text = value!;
                                     });
                                   },
                                 ),
@@ -819,10 +958,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                     kPrimaryColor,
                                   ),
                                   value: '1 Week',
-                                  groupValue: selectedExpiryDate,
+                                  groupValue: expiryDate,
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedExpiryDate = value;
+                                      expiryDate = value;
+                                      context
+                                          .read<PostOrderCubit>()
+                                          .orderExpiryDateController
+                                          .text = value!;
                                     });
                                   },
                                 ),
@@ -865,30 +1008,47 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                 decoration: ShapeDecoration(
                   color: const Color(0x7FA3A3A3),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomReviewSummaryItem(
+                      CustomReviewSummaryItem(
                         keyText: 'Sender Name',
-                        valText: 'Omar',
+                        valText: context
+                            .read<PostOrderCubit>()
+                            .senderNameController
+                            .text,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const CustomReviewSummaryItem(
+                      CustomReviewSummaryItem(
                         keyText: 'Sender Phone Number',
-                        valText: '01554111002',
+                        valText: context
+                            .read<PostOrderCubit>()
+                            .senderPhoneNumberController
+                            .text,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const CustomReviewSummaryItem(
+                      CustomReviewSummaryItem(
+                        keyText: 'Receiver Name',
+                        valText: context
+                            .read<PostOrderCubit>()
+                            .receiverNameController
+                            .text,
+                      ),
+                      CustomReviewSummaryItem(
                         keyText: 'Receiver Phone Number',
-                        valText: '01554111002',
+                        valText: context
+                            .read<PostOrderCubit>()
+                            .receiverPhoneNumberController
+                            .text,
                       ),
                       const SizedBox(
                         height: 20,
@@ -897,17 +1057,23 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         "Address",
                         style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
                         child: Column(
                           children: [
                             CustomReviewSummaryItem(
                               keyText: 'From',
-                              valText: 'Port-said mohammed ali St',
+                              valText: context
+                                  .read<PostOrderCubit>()
+                                  .fromController
+                                  .text,
                             ),
                             CustomReviewSummaryItem(
                               keyText: 'To      ',
-                              valText: 'Tanta',
+                              valText: context
+                                  .read<PostOrderCubit>()
+                                  .toController
+                                  .text,
                             ),
                           ],
                         ),
@@ -923,35 +1089,46 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         padding: const EdgeInsets.only(left: 20),
                         child: Column(
                           children: [
-                            const CustomReviewSummaryItem(
+                            CustomReviewSummaryItem(
                               keyText: 'Name   ',
-                              valText: 'Camera',
+                              valText: context
+                                  .read<PostOrderCubit>()
+                                  .orderNameController
+                                  .text,
                             ),
-                            const CustomReviewSummaryItem(
+                            CustomReviewSummaryItem(
                               keyText: 'Count  ',
-                              valText: '2',
+                              valText: context
+                                  .read<PostOrderCubit>()
+                                  .countOfOrdersController
+                                  .text,
                             ),
-                            const CustomReviewSummaryItem(
+                            CustomReviewSummaryItem(
                               keyText: 'Weight',
-                              valText: '0.5 KG',
+                              valText:
+                                  '${context.read<PostOrderCubit>().orderWeightController.text} KG',
                             ),
                             const SizedBox(
                               height: 10,
                             ),
                             Align(
                               alignment: Alignment.bottomLeft,
-                              child: _selectedImage != null
-                                  ? CircleAvatar(
-                                      backgroundImage: FileImage(
-                                        _selectedImage!,
-                                      ),
-                                    )
-                                  : const CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      backgroundImage: AssetImage(
-                                        AssetsData.profileImage,
-                                      ),
-                                    ),
+                              child:
+                                  context.read<PostOrderCubit>().orderPhoto !=
+                                          null
+                                      ? CircleAvatar(
+                                          backgroundImage: FileImage(
+                                            context
+                                                .read<PostOrderCubit>()
+                                                .orderPhoto!,
+                                          ),
+                                        )
+                                      : const CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          backgroundImage: AssetImage(
+                                            AssetsData.profileImage,
+                                          ),
+                                        ),
                             ),
                           ],
                         ),
@@ -961,21 +1138,28 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                       ),
                       CustomReviewSummaryItem(
                         keyText: 'Breakable Order',
-                        valText: _switchValue.toString(),
+                        valText: context
+                            .read<PostOrderCubit>()
+                            .switchValue
+                            .toString(),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const CustomReviewSummaryItem(
+                      CustomReviewSummaryItem(
                         keyText: 'Expiry Date',
-                        valText: '3-5 Dayes',
+                        valText: context
+                            .read<PostOrderCubit>()
+                            .orderExpiryDateController
+                            .text,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const CustomReviewSummaryItem(
+                      CustomReviewSummaryItem(
                         keyText: 'Expected Price',
-                        valText: '100 LE',
+                        valText:
+                            '${context.read<PostOrderCubit>().expectedPriceController.text} LE',
                       ),
                     ],
                   ),
@@ -993,7 +1177,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
       return;
     }
     setState(() {
-      _selectedImage = File(returnedImage.path);
+      context.read<PostOrderCubit>().orderPhoto = File(returnedImage.path);
     });
   }
 
@@ -1004,7 +1188,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
       return;
     }
     setState(() {
-      _selectedImage = File(returnedImage.path);
+      context.read<PostOrderCubit>().orderPhoto = File(returnedImage.path);
     });
   }
 }

@@ -13,41 +13,70 @@ class PostOrderCubit extends Cubit<PostOrderState> {
 
   final formKey = GlobalKey<FormState>();
   // Step 1
-  TextEditingController fromController = TextEditingController();
-  TextEditingController toController = TextEditingController();
+  TextEditingController fromController =
+      TextEditingController(text: "This is FROM test");
+  TextEditingController toController =
+      TextEditingController(text: "This is TO test");
   TextEditingController senderNameController =
       TextEditingController(text: SharedPrefs.getString(key: kFullName)!);
-  // Not Used Yet
   TextEditingController senderPhoneNumberController =
       TextEditingController(text: SharedPrefs.getString(key: kPhone)!);
+  TextEditingController receiverNameController = TextEditingController();
   TextEditingController receiverPhoneNumberController = TextEditingController();
 
   // Step 2
   TextEditingController orderNameController = TextEditingController();
-  TextEditingController countOfOrdersController = TextEditingController();
+  TextEditingController countOfOrdersController =
+      TextEditingController(text: "1");
   TextEditingController orderWeightController = TextEditingController();
   TextEditingController expectedPriceController = TextEditingController();
-  TextEditingController isOrderBreakableController = TextEditingController();
-  TextEditingController orderExpiryDateController = TextEditingController();
+  TextEditingController orderExpiryDateController =
+      TextEditingController(text: "1-2 Days");
   File? orderPhoto;
+  bool switchValue = false;
 
   void emitPostOrderState() async {
     emit(const PostOrderState.loading());
+
+    // int countOfOrders = int.parse(countOfOrdersController.text);
+    // int orderWeight = int.parse(orderWeightController.text);
+    // double expectedPrice = double.parse(expectedPriceController.text);
+
     final response = await _postOrderRepo.postOrder(
       SharedPrefs.getString(key: kToken)!,
       SharedPrefs.getInt(key: kUserId)!,
       orderNameController.text,
       int.parse(countOfOrdersController.text),
       int.parse(orderWeightController.text),
-      isOrderBreakableController.text,
+      switchValue.toString(),
       orderExpiryDateController.text,
       double.parse(expectedPriceController.text),
       orderPhoto,
       fromController.text,
       toController.text,
       senderNameController.text,
+      senderPhoneNumberController.text,
+      receiverNameController.text,
       receiverPhoneNumberController.text,
     );
+
+    // Save a list of order IDs
+    Future<void> saveOrderIds(List<String> orderIds) async {
+      await SharedPrefs.setStringList(key: kOrderIds, value: orderIds);
+    }
+
+    // Load the list of order IDs
+    Future<List<String>> loadOrderIds() async {
+      return SharedPrefs.getStringList(key: kOrderIds) ?? [];
+    }
+
+    // Add an order ID to the list
+    Future<void> addOrderId(String orderId) async {
+      List<String> orderIds = await loadOrderIds();
+      orderIds.add(orderId);
+      await saveOrderIds(orderIds);
+    }
+
     response.when(
       success: (postOrderResponse) async {
         if (postOrderResponse.status != 200) {
@@ -57,12 +86,19 @@ class PostOrderCubit extends Cubit<PostOrderState> {
             ),
           );
         } else {
+          // Save the order ID to the list
+          await addOrderId(
+            postOrderResponse.postOrderResponseData!.orderId.toString(),
+          );
           emit(PostOrderState.success(postOrderResponse));
         }
       },
       failure: (error) {
-        emit(PostOrderState.error(
-            error: error.apiErrorModel.message ?? 'Something went wrong!'));
+        emit(
+          PostOrderState.error(
+            error: error.apiErrorModel.message ?? 'Something went wrong!',
+          ),
+        );
       },
     );
   }
