@@ -55,7 +55,7 @@ public class OrderService {
         } else {
             CustomResponse newOrder = saveNewOrderFromDTO(orderDTO);
             if (newOrder != null) {
-                return CustomResponse.builder().status(HttpStatus.OK.value()).message("Order Created Successfully").data(Map.of("orderId", newOrder.getData().toString())).build();
+                return newOrder;
             } else {
                 return CustomResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Failed to create order").build();
             }
@@ -79,13 +79,10 @@ public class OrderService {
             return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
                     .message("Order Created Successfully")
-                    .data(Map.of("orderId", savedOrder.getId().toString()))
+                    .data(Map.of("orderId", savedOrder.getId()))
                     .build();
         } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("User not found with ID: " + orderDTO.getUserId())
-                    .build();
+            return null;
         }
     }
 
