@@ -8,7 +8,7 @@ class GetUserOrdersRepo {
 
   GetUserOrdersRepo(this._apiServices);
 
-  Future<ApiResult<GetUserOrdersResponse>> postOrder(
+  Future<ApiResult<GetUserOrdersResponse>> getUserOrders(
     String token,
     int userId,
   ) async {
