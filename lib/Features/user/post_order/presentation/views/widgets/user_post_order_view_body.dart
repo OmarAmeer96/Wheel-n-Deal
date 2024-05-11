@@ -171,10 +171,10 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                   GoRouter.of(context).pop();
                                 }
                                 isPostPubic
-                                    ? GoRouter.of(context).push(
+                                    ? GoRouter.of(context).pushReplacement(
                                         AppRouter.kUserOrdersView,
                                       )
-                                    : GoRouter.of(context).push(
+                                    : GoRouter.of(context).pushReplacement(
                                         AppRouter.kDoneNotifyFavCommutersView,
                                       );
                               },
