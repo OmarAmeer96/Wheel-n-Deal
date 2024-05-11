@@ -94,4 +94,11 @@ abstract class ApiService {
     @Part(name: "receiverName") String? receiverName,
     @Part(name: "receiverPhoneNumber") String? receiverPhoneNumber,
   });
+
+  // Get All User Orders
+  @GET(ApiConstants.getAllUserOrders)
+  Future<void> getAllUserOrders({
+    @Header('Authorization') required String token,
+    @Path('userId') required int userId,
+  });
 }

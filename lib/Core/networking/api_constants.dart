@@ -10,6 +10,7 @@ class ApiConstants {
   static const String forgotPassword = "OTP/forget-password";
   static const String updateProfile = "user/update";
   static const String postOrder = "user/create-update";
+  static const String getAllUserOrders = "user/findAll/{userId}";
 }
 
 class ApiErrors {
