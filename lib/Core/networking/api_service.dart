@@ -12,6 +12,7 @@ import 'package:wheel_n_deal/Features/auth/signin/data/models/login_request_body
 import 'package:wheel_n_deal/Features/auth/signin/data/models/login_response.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_response.dart';
+import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
 import 'package:wheel_n_deal/Features/user/post_order/data/models/post_order_response.dart';
 import 'package:wheel_n_deal/Features/user/profile/data/models/update_user_profile_response.dart';
 part 'api_service.g.dart';
@@ -97,7 +98,7 @@ abstract class ApiService {
 
   // Get All User Orders
   @GET(ApiConstants.getAllUserOrders)
-  Future<void> getAllUserOrders({
+  Future<GetUserOrdersResponse> getUserOrders({
     @Header('Authorization') required String token,
     @Path('userId') required int userId,
   });

@@ -410,7 +410,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<void> getAllUserOrders({
+  Future<void> getUserOrders({
     required String token,
     required int userId,
   }) async {
