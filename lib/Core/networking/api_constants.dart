@@ -9,7 +9,7 @@ class ApiConstants {
   static const String validateOTP = "OTP/validate-otp";
   static const String forgotPassword = "OTP/forget-password";
   static const String updateProfile = "user/update";
-  static const String postOrder = "create-update";
+  static const String postOrder = "user/create-update";
 }
 
 class ApiErrors {

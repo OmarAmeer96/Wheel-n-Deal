@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -36,11 +37,8 @@ class PostOrderCubit extends Cubit<PostOrderState> {
   bool switchValue = false;
 
   void emitPostOrderState() async {
+    log("OrderPhoto: ${orderPhoto!.path}");
     emit(const PostOrderState.loading());
-
-    // int countOfOrders = int.parse(countOfOrdersController.text);
-    // int orderWeight = int.parse(orderWeightController.text);
-    // double expectedPrice = double.parse(expectedPriceController.text);
 
     final response = await _postOrderRepo.postOrder(
       SharedPrefs.getString(key: kToken)!,
@@ -87,9 +85,9 @@ class PostOrderCubit extends Cubit<PostOrderState> {
           );
         } else {
           // Save the order ID to the list
-          await addOrderId(
-            postOrderResponse.postOrderResponseData!.orderId.toString(),
-          );
+          // await addOrderId(
+          //   postOrderResponse.postOrderResponseData!.orderId.toString(),
+          // );
           emit(PostOrderState.success(postOrderResponse));
         }
       },

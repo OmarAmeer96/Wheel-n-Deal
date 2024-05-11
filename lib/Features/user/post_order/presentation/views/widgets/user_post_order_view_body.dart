@@ -76,64 +76,116 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
             ),
           ),
         ),
-        child: BlocListener<PostOrderCubit, PostOrderState>(
-          listenWhen: (previous, current) =>
-              current is Loading || current is Success || current is Error,
-          listener: (context, state) {
-            state.whenOrNull(
-              loading: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const Center(
-                    child: CircularProgressIndicator(
-                      color: kPrimaryColor,
-                    ),
+        child:
+            //BlocListener<PostOrderCubit, PostOrderState>(
+            //   listenWhen: (previous, current) =>
+            //       current is Loading || current is Success || current is Error,
+            //   listener: (context, state) {
+            //     state.whenOrNull(
+            //       loading: () {
+            //         showDialog(
+            //           context: context,
+            //           builder: (context) => const Center(
+            //             child: CircularProgressIndicator(
+            //               color: kPrimaryColor,
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //       success: (postOrderResponse) {
+            //         ScaffoldMessenger.of(context).showSnackBar(
+            //           SnackBar(
+            //             content: Text(postOrderResponse.message),
+            //             duration: const Duration(seconds: 3),
+            //           ),
+            //         );
+            //         if (postOrderResponse.message == "Order Created Successfully") {
+            //           GoRouter.of(context).pop();
+            //         }
+            //         isPostPubic
+            //             ? GoRouter.of(context).push(
+            //                 AppRouter.kUserOrdersView,
+            //               )
+            //             : GoRouter.of(context).push(
+            //                 AppRouter.kDoneNotifyFavCommutersView,
+            //               );
+            //       },
+            //       error: (error) {
+            //         setupErrorState(
+            //           context,
+            //           error,
+            //         );
+            //       },
+            //     );
+            //   },
+            Stepper(
+          type: StepperType.horizontal,
+          steps: getSteps(),
+          currentStep: currentStep,
+          onStepContinue: () async {
+            final isLastStep = currentStep == getSteps().length - 1;
+            log(currentStep.toString());
+            if (isLastStep) {
+              log("Completed");
+              showModalBottomSheet(
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
                   ),
-                );
-              },
-              success: (postOrderResponse) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(postOrderResponse.message),
-                    duration: const Duration(seconds: 3),
-                  ),
-                );
-                if (postOrderResponse.message == "Order Created Successfully") {
-                  GoRouter.of(context).pop();
-                }
-              },
-              error: (error) {
-                setupErrorState(
-                  context,
-                  error,
-                );
-              },
-            );
-          },
-          child: Stepper(
-            type: StepperType.horizontal,
-            steps: getSteps(),
-            currentStep: currentStep,
-            onStepContinue: () async {
-              final isLastStep = currentStep == getSteps().length - 1;
-              log(currentStep.toString());
-              if (isLastStep) {
-                log("Completed");
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
-                  ),
-                  context: context,
-                  builder: (context) {
-                    return SizedBox(
-                      width: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                ),
+                context: context,
+                builder: (context) {
+                  return SizedBox(
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: BlocListener<PostOrderCubit, PostOrderState>(
+                          listenWhen: (previous, current) =>
+                              current is Loading ||
+                              current is Success ||
+                              current is Error,
+                          listener: (context, state) {
+                            state.whenOrNull(
+                              loading: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const Center(
+                                    child: CircularProgressIndicator(
+                                      color: kPrimaryColor,
+                                    ),
+                                  ),
+                                );
+                              },
+                              success: (postOrderResponse) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(postOrderResponse.message),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                                if (postOrderResponse.message ==
+                                    "Order Created Successfully") {
+                                  GoRouter.of(context).pop();
+                                }
+                                isPostPubic
+                                    ? GoRouter.of(context).push(
+                                        AppRouter.kUserOrdersView,
+                                      )
+                                    : GoRouter.of(context).push(
+                                        AppRouter.kDoneNotifyFavCommutersView,
+                                      );
+                              },
+                              error: (error) {
+                                setupErrorState(
+                                  context,
+                                  error,
+                                );
+                              },
+                            );
+                          },
                           child: Column(
                             children: [
                               const SizedBox(
@@ -157,11 +209,6 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                   isPostPubic = true;
                                   BlocProvider.of<PostOrderCubit>(context)
                                       .emitPostOrderState();
-                                  isPostPubic
-                                      ? GoRouter.of(context).pushReplacement(
-                                          AppRouter.kUserOrdersView,
-                                        )
-                                      : null;
                                 },
                                 text: "Post Public",
                                 color: kPrimaryColor,
@@ -172,9 +219,8 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                               CustomMainButton(
                                 onPressed: () {
                                   isPostPubic = false;
-                                  GoRouter.of(context).push(
-                                    AppRouter.kDoneNotifyFavCommutersView,
-                                  );
+                                  BlocProvider.of<PostOrderCubit>(context)
+                                      .emitPostOrderState();
                                 },
                                 text: "Notify All Favorites",
                                 textColor: Colors.black,
@@ -188,35 +234,36 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           ),
                         ),
                       ),
-                    );
-                  },
-                );
+                    ),
+                  );
+                },
+              );
+            }
+            if (currentStep == 0) {
+              if (_form1.currentState!.validate()) {
+                setState(() {
+                  currentStep++;
+                });
               }
-              if (currentStep == 0) {
-                if (_form1.currentState!.validate()) {
-                  setState(() {
-                    currentStep++;
-                  });
-                }
-              } else if (currentStep == 1) {
-                if (_form2.currentState!.validate()) {
-                  setState(() {
-                    currentStep++;
-                  });
-                }
-              } else {
-                log(currentStep.toString());
+            } else if (currentStep == 1) {
+              if (_form2.currentState!.validate()) {
+                setState(() {
+                  currentStep++;
+                });
               }
-            },
-            onStepCancel: () {
-              currentStep == 0
-                  ? null
-                  : setState(() {
-                      currentStep--;
-                    });
-            },
-          ),
+            } else {
+              log(currentStep.toString());
+            }
+          },
+          onStepCancel: () {
+            currentStep == 0
+                ? null
+                : setState(() {
+                    currentStep--;
+                  });
+          },
         ),
+        // ),
       ),
     );
   }
@@ -362,12 +409,11 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           },
                           contentPadding: 7,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter sender's phone number.";
-                            } else if (!isValidEgyptianPhoneNumberWithCountryCode(
-                                value)) {
-                              return 'Please enter a valid Egyptian phone number.';
-                            }
+                            // if (value == null || value.isEmpty) {
+                            //   return "Please enter sender's phone number.";
+                            // } else if (!isValidPhoneNumber(value)) {
+                            //   return 'Please enter a valid Egyptian phone number.';
+                            // }
                             return null;
                           },
                           focusedBorderColor: const Color(0xff55433c),
@@ -564,7 +610,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                   // ignore: deprecated_member_use
                                   color: Colors.black,
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
                                   imagePickerBottomSheet(
                                     context,
                                     onTap1: () {

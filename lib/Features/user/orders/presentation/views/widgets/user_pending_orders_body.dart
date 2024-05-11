@@ -29,6 +29,24 @@ class UserPendingOrdersBody extends StatelessWidget {
             GoRouter.of(context).push(AppRouter.kUserOrderDetailsView);
           },
         ),
+        SizedBox(
+          height: 300,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  textAlign: TextAlign.center,
+                  "عموره لسه هيظبطها 😊",
+                  style: Styles.manropeRegular15.copyWith(
+                    fontSize: 30,
+                  ),
+                  overflow: TextOverflow.fade,
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

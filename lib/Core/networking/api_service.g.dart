@@ -396,7 +396,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              'create-update',
+              'user/create-update',
               queryParameters: queryParameters,
               data: _data,
             )

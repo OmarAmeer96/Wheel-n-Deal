@@ -33,13 +33,18 @@ class UserPendingOrdersItem extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-            Text(
-              "Iphone 15 Pro Max",
-              style: Styles.manropeRegular15.copyWith(
-                fontSize: 20,
+            Expanded(
+              child: SizedBox(
+                width: 100,
+                child: Text(
+                  "Order name will appear here :)",
+                  style: Styles.manropeRegular15.copyWith(
+                    fontSize: 20,
+                  ),
+                  overflow: TextOverflow.fade,
+                ),
               ),
             ),
-            const Spacer(),
             Text(
               "pending",
               style: Styles.manropeRegular15.copyWith(
