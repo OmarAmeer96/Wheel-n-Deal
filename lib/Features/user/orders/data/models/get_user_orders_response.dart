@@ -5,12 +5,12 @@ part 'get_user_orders_response.g.dart';
 class GetUserOrdersResponse {
   String? message;
   @JsonKey(name: 'data')
-  GetUserOrdersResponseData? getUserOrdersResponseData;
+  List<GetUserOrdersResponseData>? data;
   int? status;
 
   GetUserOrdersResponse({
     this.message,
-    this.getUserOrdersResponseData,
+    this.data,
     this.status,
   });
 

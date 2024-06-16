@@ -8,6 +8,7 @@ import 'package:wheel_n_deal/Core/networking/firebase_services.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
+import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
 import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
 import 'package:wheel_n_deal/constants.dart';
 import 'package:wheel_n_deal/firebase_options.dart';
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<PostOrderCubit>(
           create: (context) => getIt<PostOrderCubit>(),
+        ),
+        BlocProvider<GetUserOrdersCubit>(
+          create: (context) => getIt<GetUserOrdersCubit>(),
         ),
         // Add more BlocProviders as needed
       ],

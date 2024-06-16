@@ -16,12 +16,12 @@ class CommuterCompletedOrderDetailsViewBody extends StatefulWidget {
 
 class _CommuterCompletedOrderDetailsViewBodyState
     extends State<CommuterCompletedOrderDetailsViewBody> {
-
-      @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

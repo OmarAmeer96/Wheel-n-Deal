@@ -148,4 +148,6 @@ class AssetsData {
   static const hint = 'assets/svg/hintIcon.svg';
 
   static const withdrawIcon = 'assets/svg/withdraw_icon.svg';
+
+  static const verifiedIcon = 'assets/svg/verifiedIcon.svg';
 }

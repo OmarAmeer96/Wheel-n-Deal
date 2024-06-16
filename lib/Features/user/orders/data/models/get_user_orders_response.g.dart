@@ -10,10 +10,10 @@ GetUserOrdersResponse _$GetUserOrdersResponseFromJson(
         Map<String, dynamic> json) =>
     GetUserOrdersResponse(
       message: json['message'] as String?,
-      getUserOrdersResponseData: json['data'] == null
-          ? null
-          : GetUserOrdersResponseData.fromJson(
-              json['data'] as Map<String, dynamic>),
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) =>
+              GetUserOrdersResponseData.fromJson(e as Map<String, dynamic>))
+          .toList(),
       status: (json['status'] as num?)?.toInt(),
     );
 
@@ -21,7 +21,7 @@ Map<String, dynamic> _$GetUserOrdersResponseToJson(
         GetUserOrdersResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
-      'data': instance.getUserOrdersResponseData,
+      'data': instance.data,
       'status': instance.status,
     };
 

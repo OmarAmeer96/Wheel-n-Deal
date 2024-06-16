@@ -8,9 +8,11 @@ class UserPendingOrdersItem extends StatelessWidget {
   const UserPendingOrdersItem({
     super.key,
     required this.onTap,
+    this.orderName,
   });
 
   final void Function()? onTap;
+  final String? orderName;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class UserPendingOrdersItem extends StatelessWidget {
               child: SizedBox(
                 width: 100,
                 child: Text(
-                  "Order name will appear here :)",
+                  orderName ?? "Order Name",
                   style: Styles.manropeRegular15.copyWith(
                     fontSize: 20,
                   ),

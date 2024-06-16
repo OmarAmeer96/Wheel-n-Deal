@@ -35,7 +35,7 @@ class CommuterOrdersViewBodyState extends State<UserOrdersViewBody> {
               },
             ),
             _isPending
-                ? const UserPendingOrdersBody()
+                ?  const UserPendingOrdersBody()
                 : const UserCompletedOrdersBody(),
           ],
         ),
