@@ -4,11 +4,8 @@
 <a href="https://github.com/OmarAmeer96">
     <img src="https://readme-typing-svg.demolab.com?font=Georgia&size=40&duration=2000&pause=100&multiline=true&width=1000&height=120&lines=%F0%9F%9A%80+Wheel-N'-Deal%3A+Revolutionizing+Commuting+with;Collaborative+Package+Delivery+%F0%9F%93%A6" alt="Typing SVG" />
 </a>
-
    
 </p>
-
-
 🎉 Welcome to Wheel-n-Deal, the groundbreaking platform that's set to redefine your daily commute. We're not just about getting from point A to point B; we're a revolution in motion, integrating package deliveries into your daily routine. With us, every commute is an opportunity to earn extra income while promoting efficiency and sustainability.
 
 ## 🌟 Key Features:
@@ -200,4 +197,3 @@ Non-functional requirements specify how the system should perform without focusi
 - CSS
 - TypeScript
 - Angular 
-
