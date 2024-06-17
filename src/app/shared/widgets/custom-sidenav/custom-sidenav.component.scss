@@ -69,9 +69,13 @@
       .sidenav-nav-link {
         display: flex;
         align-items: center;
-        width: 230px;
+        // width: 230px;
         padding: 16px;
         gap: 16px;
+
+        &:hover {
+          background-color: #333;
+        }
 
         .sidenav-link-text {
           color: $color-gray-6;

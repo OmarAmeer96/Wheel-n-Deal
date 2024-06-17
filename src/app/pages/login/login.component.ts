@@ -60,6 +60,6 @@ export class LoginComponent {
     //   }
     // );
 
-    this.router.navigate(['admin']);
+    this.router.navigate(['admin/dashboard']);
   }
 }
