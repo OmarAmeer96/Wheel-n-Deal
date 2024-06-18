@@ -104,6 +104,7 @@ export class OrdersComponent {
     'Breakable',
     'Picture',
   ];
+  filteredOrdersData: IOrder[] = [];
 
   mappedOrders = this.ordersData.map((order) => ({
     ID: order.id,
