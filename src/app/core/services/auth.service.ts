@@ -10,9 +10,14 @@ import { base_url } from '../constant/api-constant';
 export class AuthService {
   constructor(private _http: HttpClient) {}
 
-  private baseUrl = 'https://wheel-n-deal-production.up.railway.app/api/v1';
+  private baseUrl = base_url;
 
   logIn(formData: IAdmin): Observable<any> {
-    return this._http.post(`${this.baseUrl}/auth/signin`, formData);
+    console.log('formData', formData);
+    // return this._http.post(`${this.baseUrl}/auth/signin`, formData);
+    return this._http.post(
+      'https://wheel-n-deal-production.up.railway.app/api/v1/auth/signin',
+      formData
+    );
   }
 }

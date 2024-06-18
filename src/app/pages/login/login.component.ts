@@ -30,14 +30,14 @@ export class LoginComponent {
   isLoading = false;
   inSubmission = false;
 
-  userName = new FormControl('', [Validators.required]);
+  username = new FormControl('', [Validators.required]);
   password = new FormControl('', [
     Validators.required,
     Validators.minLength(4),
   ]);
 
   loginForm = new FormGroup({
-    userName: this.userName,
+    username: this.username,
     password: this.password,
   });
 
@@ -58,6 +58,7 @@ export class LoginComponent {
     // );
 
     this._auth.logIn(this.loginForm.value as IAdmin).subscribe((res: any) => {
+      console.log(res);
       if (res.status === 200) {
         // Authentication was successful
         console.log(res.message); // "Authentication successful."
