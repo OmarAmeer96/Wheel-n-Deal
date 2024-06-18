@@ -5,13 +5,20 @@ import { ToggleBarComponent } from '../../shared/widgets/toggle-bar/toggle-bar.c
 import { ToggleStaticsData } from '../../core/constant/toggle-data';
 import { TableComponent } from '../../shared/widgets/table/table.component';
 import { IOrder } from '../../core/models/interfaces/order';
+import { SvgComponent } from '../../shared/widgets/svg/svg.component';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
-  imports: [HCardsComponent, CommonModule, ToggleBarComponent, TableComponent],
+  imports: [
+    HCardsComponent,
+    CommonModule,
+    ToggleBarComponent,
+    TableComponent,
+    SvgComponent,
+  ],
 })
 export class OrdersComponent {
   toggleData = ToggleStaticsData;
@@ -33,8 +40,7 @@ export class OrdersComponent {
       breakable: true,
       expiryDate: '1-2 Days',
       expectedPrice: 100.0,
-      orderPhotoUrl:
-        'https://res.cloudinary.com/dzwidv5zn/image/upload/v1718456145/kqupogytjk0dfocik6t8.jpg',
+      orderPhotoUrl: 'https://picsum.photos/id/9/200',
       from: 'This is FROM test',
       to: 'This is TO test',
       senderPhoneNumber: '+201554111002',

@@ -11,11 +11,21 @@
 <app-toggle-bar [toggleData]="toggleData" (setActive$)="activeTab = $event">
 </app-toggle-bar>
 
-<div class="my-4 order-table">
-  <!-- <div class="table-caption">
-    <h3>Orders</h3>
-    <p>Here you can see {{ activeTab }} orders</p>
-  </div> -->
+<div class="order-table">
+  <div class="table-caption">
+    <div class="table-info w-max">
+      <h3>
+        Here you can see
+        <span class="text-primary">{{ activeTab }}</span> orders
+      </h3>
+    </div>
+    <div class="table-operation">
+      <button class="btn export-btn">
+        <app-svg name="download-cloud"></app-svg>
+        <span>Export</span>
+      </button>
+    </div>
+  </div>
   <app-table [headings]="tableHeaders" [tableData]="ordersData"> </app-table>
 </div>
 
