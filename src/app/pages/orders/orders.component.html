@@ -1,2 +1,10 @@
 <h2 class="hFP">Orders</h2>
-<app-h-cards></app-h-cards>
+<div class="card-container">
+  <app-h-cards
+    *ngFor="let card of cards"
+    [icon]="'order_icon'"
+    [record]="card.record"
+    [label]="card.label"
+  ></app-h-cards>
+</div>
+<!-- <app-h-cards></app-h-cards> -->
