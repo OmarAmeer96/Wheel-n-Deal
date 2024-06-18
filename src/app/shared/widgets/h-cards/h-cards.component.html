@@ -4,6 +4,12 @@
     <span class="card__content__info__record">{{ record }}</span>
   </div>
   <div class="card__content__subtitle">
-    <h3 class="card__content__subtitle__lable">{{ label }}</h3>
+    <!-- <h3 class="card__content__subtitle__lable">{{ label }}</h3> -->
+    <h3
+      class="card__content__subtitle__lable"
+      *ngFor="let word of label.split(' ')"
+    >
+      {{ word }}
+    </h3>
   </div>
 </div>

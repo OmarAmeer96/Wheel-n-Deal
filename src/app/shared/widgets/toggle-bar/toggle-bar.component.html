@@ -1,1 +1,9 @@
-<p>toggle-bar works!</p>
+<button
+  class="toggle-btn"
+  [ngClass]="{ 'toggle-btn_active': currentActiveBtn === item.status }"
+  *ngFor="let item of toggleData"
+  (click)="setActiveBtn(item.status)"
+>
+  <span>{{ item.title }}</span>
+  <ng-content></ng-content>
+</button>

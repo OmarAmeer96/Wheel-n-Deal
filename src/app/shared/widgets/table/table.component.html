@@ -1,1 +1,20 @@
-<p>table works!</p>
+<table>
+  <tr>
+    <th *ngFor="let heading of headings">{{ heading }}</th>
+  </tr>
+  <tr *ngFor="let row of tableData">
+    <td>{{ row.id }}</td>
+    <td>{{ row.orderStatus }}</td>
+    <td>{{ row.senderPhoneNumber }}</td>
+    <td>{{ row.receiverPhoneNumber }}</td>
+    <td>{{ row.from }}</td>
+    <td>{{ row.to }}</td>
+    <td>{{ row.orderName }}</td>
+    <td>{{ row.expiryDate }}</td>
+    <td>{{ row.expectedPrice }}</td>
+    <td>{{ row.countOfOrders }}</td>
+
+    <td>{{ row.breakable }}</td>
+    <td><img width="100px" [src]="row.orderPhotoUrl" alt="Order picture" /></td>
+  </tr>
+</table>
