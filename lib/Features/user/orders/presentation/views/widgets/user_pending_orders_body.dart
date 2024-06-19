@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,49 +25,54 @@ class _UserPendingOrdersBodyState extends State<UserPendingOrdersBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GetUserOrdersCubit, GetUserOrdersState>(
-      listenWhen: (previous, current) =>
-          current is Loading || current is Success || current is Error,
-      listener: (context, state) {
-        state.whenOrNull(
-          loading: () {
-            showDialog(
-              context: context,
-              builder: (context) => const Center(
+    return Column(
+      children: [
+        Column(
+          children: [
+            const SizedBox(
+              height: 26,
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Recent Packages",
+                style: Styles.manropeSemiBold16.copyWith(fontSize: 18),
+              ),
+            ),
+            const SizedBox(
+              height: 26,
+            ),
+          ],
+        ),
+        BlocBuilder<GetUserOrdersCubit, GetUserOrdersState>(
+          builder: (context, state) {
+            if (state is UserOrdersLoading) {
+              return const Center(
                 child: CircularProgressIndicator(
                   color: kPrimaryColor,
                 ),
-              ),
-            );
-          },
-          success: (getUserOrdersResponse) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(getUserOrdersResponse.message),
-                duration: const Duration(seconds: 3),
-              ),
-            );
-            if (getUserOrdersResponse.message == "Orders found") {
-              final List<GetUserOrdersResponseData> userOrders = [];
-              userOrders.addAll(getUserOrdersResponse.data);
-              log(userOrders.toString());
-              // GoRouter.of(context).pop();
+              );
+            } else if (state is UserOrdersFetched) {
+              return SizedBox(
+                height: 500,
+                width: 200,
+                child: ListView.builder(
+                  itemCount: state.data.data.length,
+                  itemBuilder: (context, index) {
+                    final userOrder = (state).data.data[index];
+                    return UserOrderItem(userOrder: userOrder);
+                  },
+                ),
+              );
+            } else if (state is UserOrdersError) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                setupErrorState(context, state.error);
+              });
             }
-            // GoRouter.of(context).pushReplacement(
-            //   AppRouter.kUserOrdersView,
-            // );
+            return const SizedBox.shrink();
           },
-          error: (error) {
-            setupErrorState(
-              context,
-              error,
-            );
-          },
-        );
-      },
-      child: UserOrderItem(
-        userOrder: ,
-      ),
+        ),
+      ],
     );
   }
 

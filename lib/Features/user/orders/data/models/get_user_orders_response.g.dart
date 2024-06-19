@@ -9,20 +9,20 @@ part of 'get_user_orders_response.dart';
 GetUserOrdersResponse _$GetUserOrdersResponseFromJson(
         Map<String, dynamic> json) =>
     GetUserOrdersResponse(
+      status: (json['status'] as num?)?.toInt(),
       message: json['message'] as String?,
       data: (json['data'] as List<dynamic>?)
           ?.map((e) =>
               GetUserOrdersResponseData.fromJson(e as Map<String, dynamic>))
           .toList(),
-      status: (json['status'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$GetUserOrdersResponseToJson(
         GetUserOrdersResponse instance) =>
     <String, dynamic>{
+      'status': instance.status,
       'message': instance.message,
       'data': instance.data,
-      'status': instance.status,
     };
 
 GetUserOrdersResponseData _$GetUserOrdersResponseDataFromJson(
@@ -31,17 +31,17 @@ GetUserOrdersResponseData _$GetUserOrdersResponseDataFromJson(
       orderName: json['orderName'] as String?,
       countOfOrders: (json['countOfOrders'] as num?)?.toInt(),
       weight: (json['weight'] as num?)?.toInt(),
-      breakable: json['breakable'] as String?,
+      breakable: json['breakable'] as bool?,
       expiryDate: json['expiryDate'] as String?,
-      expectedPrice: (json['expectedPrice'] as num?)?.toDouble(),
+      expectedPrice: (json['expectedPrice'] as num?)?.toInt(),
       orderPhotoUrl: json['orderPhotoUrl'] as String?,
       from: json['from'] as String?,
       to: json['to'] as String?,
       orderStatus: json['orderStatus'] as String?,
-      senderCode: json['senderCode'] as String?,
-      receiverCode: json['receiverCode'] as String?,
-      negotiationPrice: (json['negotiationPrice'] as num?)?.toDouble(),
-      cancellerId: json['cancellerId'] as String?,
+      senderCode: json['senderCode'],
+      receiverCode: json['receiverCode'],
+      negotiationPrice: (json['negotiationPrice'] as num?)?.toInt(),
+      cancellerId: json['cancellerId'],
       id: (json['id'] as num?)?.toInt(),
       senderName: json['senderName'] as String?,
       senderPhoneNumber: json['senderPhoneNumber'] as String?,

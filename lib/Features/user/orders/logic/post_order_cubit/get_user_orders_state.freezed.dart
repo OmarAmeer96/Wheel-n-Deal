@@ -44,25 +44,25 @@ mixin _$GetUserOrdersState<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(UserOrdersLoading<T> value) loading,
+    required TResult Function(UserOrdersFetched<T> value) success,
+    required TResult Function(UserOrdersError<T> value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(UserOrdersLoading<T> value)? loading,
+    TResult? Function(UserOrdersFetched<T> value)? success,
+    TResult? Function(UserOrdersError<T> value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(UserOrdersLoading<T> value)? loading,
+    TResult Function(UserOrdersFetched<T> value)? success,
+    TResult Function(UserOrdersError<T> value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -163,9 +163,9 @@ class _$InitialImpl<T> implements _Initial<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(UserOrdersLoading<T> value) loading,
+    required TResult Function(UserOrdersFetched<T> value) success,
+    required TResult Function(UserOrdersError<T> value) error,
   }) {
     return initial(this);
   }
@@ -174,9 +174,9 @@ class _$InitialImpl<T> implements _Initial<T> {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(UserOrdersLoading<T> value)? loading,
+    TResult? Function(UserOrdersFetched<T> value)? success,
+    TResult? Function(UserOrdersError<T> value)? error,
   }) {
     return initial?.call(this);
   }
@@ -185,9 +185,9 @@ class _$InitialImpl<T> implements _Initial<T> {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(UserOrdersLoading<T> value)? loading,
+    TResult Function(UserOrdersFetched<T> value)? success,
+    TResult Function(UserOrdersError<T> value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -202,25 +202,26 @@ abstract class _Initial<T> implements GetUserOrdersState<T> {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<T, $Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl<T> value, $Res Function(_$LoadingImpl<T>) then) =
-      __$$LoadingImplCopyWithImpl<T, $Res>;
+abstract class _$$UserOrdersLoadingImplCopyWith<T, $Res> {
+  factory _$$UserOrdersLoadingImplCopyWith(_$UserOrdersLoadingImpl<T> value,
+          $Res Function(_$UserOrdersLoadingImpl<T>) then) =
+      __$$UserOrdersLoadingImplCopyWithImpl<T, $Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<T, $Res>
-    extends _$GetUserOrdersStateCopyWithImpl<T, $Res, _$LoadingImpl<T>>
-    implements _$$LoadingImplCopyWith<T, $Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl<T> _value, $Res Function(_$LoadingImpl<T>) _then)
+class __$$UserOrdersLoadingImplCopyWithImpl<T, $Res>
+    extends _$GetUserOrdersStateCopyWithImpl<T, $Res,
+        _$UserOrdersLoadingImpl<T>>
+    implements _$$UserOrdersLoadingImplCopyWith<T, $Res> {
+  __$$UserOrdersLoadingImplCopyWithImpl(_$UserOrdersLoadingImpl<T> _value,
+      $Res Function(_$UserOrdersLoadingImpl<T>) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl<T> implements Loading<T> {
-  const _$LoadingImpl();
+class _$UserOrdersLoadingImpl<T> implements UserOrdersLoading<T> {
+  const _$UserOrdersLoadingImpl();
 
   @override
   String toString() {
@@ -230,7 +231,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl<T>);
+        (other.runtimeType == runtimeType &&
+            other is _$UserOrdersLoadingImpl<T>);
   }
 
   @override
@@ -277,9 +279,9 @@ class _$LoadingImpl<T> implements Loading<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(UserOrdersLoading<T> value) loading,
+    required TResult Function(UserOrdersFetched<T> value) success,
+    required TResult Function(UserOrdersError<T> value) error,
   }) {
     return loading(this);
   }
@@ -288,9 +290,9 @@ class _$LoadingImpl<T> implements Loading<T> {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(UserOrdersLoading<T> value)? loading,
+    TResult? Function(UserOrdersFetched<T> value)? success,
+    TResult? Function(UserOrdersError<T> value)? error,
   }) {
     return loading?.call(this);
   }
@@ -299,9 +301,9 @@ class _$LoadingImpl<T> implements Loading<T> {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(UserOrdersLoading<T> value)? loading,
+    TResult Function(UserOrdersFetched<T> value)? success,
+    TResult Function(UserOrdersError<T> value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -311,25 +313,26 @@ class _$LoadingImpl<T> implements Loading<T> {
   }
 }
 
-abstract class Loading<T> implements GetUserOrdersState<T> {
-  const factory Loading() = _$LoadingImpl<T>;
+abstract class UserOrdersLoading<T> implements GetUserOrdersState<T> {
+  const factory UserOrdersLoading() = _$UserOrdersLoadingImpl<T>;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<T, $Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl<T> value, $Res Function(_$SuccessImpl<T>) then) =
-      __$$SuccessImplCopyWithImpl<T, $Res>;
+abstract class _$$UserOrdersFetchedImplCopyWith<T, $Res> {
+  factory _$$UserOrdersFetchedImplCopyWith(_$UserOrdersFetchedImpl<T> value,
+          $Res Function(_$UserOrdersFetchedImpl<T>) then) =
+      __$$UserOrdersFetchedImplCopyWithImpl<T, $Res>;
   @useResult
   $Res call({T data});
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<T, $Res>
-    extends _$GetUserOrdersStateCopyWithImpl<T, $Res, _$SuccessImpl<T>>
-    implements _$$SuccessImplCopyWith<T, $Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl<T> _value, $Res Function(_$SuccessImpl<T>) _then)
+class __$$UserOrdersFetchedImplCopyWithImpl<T, $Res>
+    extends _$GetUserOrdersStateCopyWithImpl<T, $Res,
+        _$UserOrdersFetchedImpl<T>>
+    implements _$$UserOrdersFetchedImplCopyWith<T, $Res> {
+  __$$UserOrdersFetchedImplCopyWithImpl(_$UserOrdersFetchedImpl<T> _value,
+      $Res Function(_$UserOrdersFetchedImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -337,7 +340,7 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
   $Res call({
     Object? data = freezed,
   }) {
-    return _then(_$SuccessImpl<T>(
+    return _then(_$UserOrdersFetchedImpl<T>(
       freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -348,8 +351,8 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$SuccessImpl<T> implements Success<T> {
-  const _$SuccessImpl(this.data);
+class _$UserOrdersFetchedImpl<T> implements UserOrdersFetched<T> {
+  const _$UserOrdersFetchedImpl(this.data);
 
   @override
   final T data;
@@ -363,7 +366,7 @@ class _$SuccessImpl<T> implements Success<T> {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl<T> &&
+            other is _$UserOrdersFetchedImpl<T> &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -374,8 +377,10 @@ class _$SuccessImpl<T> implements Success<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
-      __$$SuccessImplCopyWithImpl<T, _$SuccessImpl<T>>(this, _$identity);
+  _$$UserOrdersFetchedImplCopyWith<T, _$UserOrdersFetchedImpl<T>>
+      get copyWith =>
+          __$$UserOrdersFetchedImplCopyWithImpl<T, _$UserOrdersFetchedImpl<T>>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -418,9 +423,9 @@ class _$SuccessImpl<T> implements Success<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(UserOrdersLoading<T> value) loading,
+    required TResult Function(UserOrdersFetched<T> value) success,
+    required TResult Function(UserOrdersError<T> value) error,
   }) {
     return success(this);
   }
@@ -429,9 +434,9 @@ class _$SuccessImpl<T> implements Success<T> {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(UserOrdersLoading<T> value)? loading,
+    TResult? Function(UserOrdersFetched<T> value)? success,
+    TResult? Function(UserOrdersError<T> value)? error,
   }) {
     return success?.call(this);
   }
@@ -440,9 +445,9 @@ class _$SuccessImpl<T> implements Success<T> {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(UserOrdersLoading<T> value)? loading,
+    TResult Function(UserOrdersFetched<T> value)? success,
+    TResult Function(UserOrdersError<T> value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -452,30 +457,30 @@ class _$SuccessImpl<T> implements Success<T> {
   }
 }
 
-abstract class Success<T> implements GetUserOrdersState<T> {
-  const factory Success(final T data) = _$SuccessImpl<T>;
+abstract class UserOrdersFetched<T> implements GetUserOrdersState<T> {
+  const factory UserOrdersFetched(final T data) = _$UserOrdersFetchedImpl<T>;
 
   T get data;
   @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UserOrdersFetchedImplCopyWith<T, _$UserOrdersFetchedImpl<T>>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<T, $Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl<T> value, $Res Function(_$ErrorImpl<T>) then) =
-      __$$ErrorImplCopyWithImpl<T, $Res>;
+abstract class _$$UserOrdersErrorImplCopyWith<T, $Res> {
+  factory _$$UserOrdersErrorImplCopyWith(_$UserOrdersErrorImpl<T> value,
+          $Res Function(_$UserOrdersErrorImpl<T>) then) =
+      __$$UserOrdersErrorImplCopyWithImpl<T, $Res>;
   @useResult
   $Res call({String error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<T, $Res>
-    extends _$GetUserOrdersStateCopyWithImpl<T, $Res, _$ErrorImpl<T>>
-    implements _$$ErrorImplCopyWith<T, $Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl<T> _value, $Res Function(_$ErrorImpl<T>) _then)
+class __$$UserOrdersErrorImplCopyWithImpl<T, $Res>
+    extends _$GetUserOrdersStateCopyWithImpl<T, $Res, _$UserOrdersErrorImpl<T>>
+    implements _$$UserOrdersErrorImplCopyWith<T, $Res> {
+  __$$UserOrdersErrorImplCopyWithImpl(_$UserOrdersErrorImpl<T> _value,
+      $Res Function(_$UserOrdersErrorImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -483,7 +488,7 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$ErrorImpl<T>(
+    return _then(_$UserOrdersErrorImpl<T>(
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -494,8 +499,8 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$ErrorImpl<T> implements Error<T> {
-  const _$ErrorImpl({required this.error});
+class _$UserOrdersErrorImpl<T> implements UserOrdersError<T> {
+  const _$UserOrdersErrorImpl({required this.error});
 
   @override
   final String error;
@@ -509,7 +514,7 @@ class _$ErrorImpl<T> implements Error<T> {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl<T> &&
+            other is _$UserOrdersErrorImpl<T> &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -519,8 +524,9 @@ class _$ErrorImpl<T> implements Error<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
-      __$$ErrorImplCopyWithImpl<T, _$ErrorImpl<T>>(this, _$identity);
+  _$$UserOrdersErrorImplCopyWith<T, _$UserOrdersErrorImpl<T>> get copyWith =>
+      __$$UserOrdersErrorImplCopyWithImpl<T, _$UserOrdersErrorImpl<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -563,9 +569,9 @@ class _$ErrorImpl<T> implements Error<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(UserOrdersLoading<T> value) loading,
+    required TResult Function(UserOrdersFetched<T> value) success,
+    required TResult Function(UserOrdersError<T> value) error,
   }) {
     return error(this);
   }
@@ -574,9 +580,9 @@ class _$ErrorImpl<T> implements Error<T> {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(UserOrdersLoading<T> value)? loading,
+    TResult? Function(UserOrdersFetched<T> value)? success,
+    TResult? Function(UserOrdersError<T> value)? error,
   }) {
     return error?.call(this);
   }
@@ -585,9 +591,9 @@ class _$ErrorImpl<T> implements Error<T> {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(UserOrdersLoading<T> value)? loading,
+    TResult Function(UserOrdersFetched<T> value)? success,
+    TResult Function(UserOrdersError<T> value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -597,11 +603,12 @@ class _$ErrorImpl<T> implements Error<T> {
   }
 }
 
-abstract class Error<T> implements GetUserOrdersState<T> {
-  const factory Error({required final String error}) = _$ErrorImpl<T>;
+abstract class UserOrdersError<T> implements GetUserOrdersState<T> {
+  const factory UserOrdersError({required final String error}) =
+      _$UserOrdersErrorImpl<T>;
 
   String get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
+  _$$UserOrdersErrorImplCopyWith<T, _$UserOrdersErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

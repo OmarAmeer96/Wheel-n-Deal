@@ -1,21 +1,24 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'get_user_orders_response.g.dart';
 
 @JsonSerializable()
 class GetUserOrdersResponse {
+  int? status;
   String? message;
   @JsonKey(name: 'data')
   List<GetUserOrdersResponseData>? data;
-  int? status;
 
   GetUserOrdersResponse({
+    this.status,
     this.message,
     this.data,
-    this.status,
   });
 
   factory GetUserOrdersResponse.fromJson(Map<String, dynamic> json) =>
       _$GetUserOrdersResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetUserOrdersResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -23,17 +26,17 @@ class GetUserOrdersResponseData {
   String? orderName;
   int? countOfOrders;
   int? weight;
-  String? breakable;
+  bool? breakable;
   String? expiryDate;
-  double? expectedPrice;
+  int? expectedPrice;
   String? orderPhotoUrl;
   String? from;
   String? to;
   String? orderStatus;
-  String? senderCode;
-  String? receiverCode;
-  double? negotiationPrice;
-  String? cancellerId;
+  dynamic senderCode;
+  dynamic receiverCode;
+  int? negotiationPrice;
+  dynamic cancellerId;
   int? id;
   String? senderName;
   String? senderPhoneNumber;
@@ -64,4 +67,6 @@ class GetUserOrdersResponseData {
 
   factory GetUserOrdersResponseData.fromJson(Map<String, dynamic> json) =>
       _$GetUserOrdersResponseDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetUserOrdersResponseDataToJson(this);
 }
