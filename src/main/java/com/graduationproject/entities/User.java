@@ -84,6 +84,7 @@ public class User implements UserDetails {
     @Min(value = 0, message = "Minimum value for Cancel Delivers is 0")
     @Column(name = "cancel_delivers")
     private Integer cancelDelivers = 0;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;

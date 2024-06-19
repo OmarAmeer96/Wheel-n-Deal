@@ -1,6 +1,8 @@
 package com.graduationproject.repositories;
 
 import com.graduationproject.DTOs.UserDTO;
+import com.graduationproject.DTOs.aiDTOs.AICommuterDTO;
+import com.graduationproject.DTOs.aiDTOs.AIUserDTO;
 import com.graduationproject.entities.Role;
 import com.graduationproject.entities.User;
 import org.springframework.data.domain.Page;
@@ -23,4 +25,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     Page<UserDTO> findUsersByRole(@Param("role") Role role, Pageable pageable);
     @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
     long countUsersByRole(@Param("role") Role role);
+
+    @Query("SELECT new com.graduationproject.DTOs.aiDTOs.AIUserDTO(u.id, u.city, u.gender) FROM User u")
+    List<AIUserDTO> findAllUserDTOs();
 }
