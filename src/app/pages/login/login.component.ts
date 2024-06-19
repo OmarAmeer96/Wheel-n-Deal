@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
-import { IAdmin } from '../../core/models/interfaces/admin';
+import { AdminResponse, IAdmin } from '../../core/models/interfaces/admin';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -45,23 +45,26 @@ export class LoginComponent {
 
   login() {
     this.isLoading = true;
-    // this._auth.logIn(this.loginForm.value as IAdmin).subscribe(
-    //   () => {
-    //     // Navigate to admin page
-    //     // Replace 'admin' with the actual route path for the admin page
-    //     this.router.navigate(['admin/dashboard']);
-    //   },
-    //   (error) => {
-    //     // Handle login error
-    //     console.error(error);
-    //   }
-    // );
 
-    this._auth.logIn(this.loginForm.value as IAdmin).subscribe((res: any) => {
-      console.log(res);
-      if (res.status === 200) {
-        // Authentication was successful
-        console.log(res.message); // "Authentication successful."
+    // Call the login method from the AuthService
+    this._auth
+      .logIn(this.loginForm.value as IAdmin)
+      .subscribe((res: AdminResponse) => {
+        console.log(res);
+        if (res.status === 200) {
+          localStorage.setItem('token', res.data.token);
+          this.router.navigate(['admin/dashboard']);
+        } else {
+          // Handle error
+          console.log('Authentication failed with status: ' + res.status);
+        }
+      });
+  }
+}
+
+/**
+ *       Authentication was successful
+        console.log(res); // "Authentication successful."
         console.log(res.data.role); // "ADMIN"
         console.log(res.data.userId); // 1
         console.log(res.data.token); // The token
@@ -69,12 +72,5 @@ export class LoginComponent {
 
         // You can now store the tokens and the user's role and ID in your application,
         // for example in a service or in local storage, and use them for subsequent API calls.
-      } else {
-        // Handle error
-        console.log('Authentication failed with status: ' + res.status);
-      }
-    });
-
-    this.router.navigate(['admin/dashboard']);
-  }
-}
+ *
+ */

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { IOrder } from '../../../core/models/interfaces/order';
+import { OrderTableData } from '../../../core/constant/table-data';
 
 @Component({
   selector: 'app-table',
@@ -11,5 +12,5 @@ import { IOrder } from '../../../core/models/interfaces/order';
 })
 export class TableComponent {
   @Input() headings: string[] = [];
-  @Input() tableData: IOrder[] = [];
+  @Input() tableData: OrderTableData[] = [];
 }

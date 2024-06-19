@@ -6,19 +6,19 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of tableData">
-      <td>{{ row.id }}</td>
-      <td>{{ row.orderStatus }}</td>
-      <td>{{ row.senderPhoneNumber }}</td>
-      <td>{{ row.receiverPhoneNumber }}</td>
-      <td>{{ row.from }}</td>
-      <td>{{ row.to }}</td>
-      <td>{{ row.orderName }}</td>
-      <td>{{ row.expiryDate }}</td>
-      <td>{{ row.expectedPrice }}</td>
-      <td>{{ row.countOfOrders }}</td>
-      <td>{{ row.breakable }}</td>
+      <td>{{ row.ID }}</td>
+      <td>{{ row.Status }}</td>
+      <td>{{ row["Commuter ID"] }}</td>
+      <td>{{ row["Customer ID"] }}</td>
+      <td>{{ row.From }}</td>
+      <td>{{ row.To }}</td>
+      <td>{{ row["Order Name"] }}</td>
+      <td>{{ row["Expiry Data"] }}</td>
+      <td>{{ row.Price }}</td>
+      <td>{{ row.Amount }}</td>
+      <td>{{ row.Amount }}</td>
       <td>
-        <img class="order-img" [src]="row.orderPhotoUrl" alt="Order picture" />
+        <img class="order-img" [src]="row.Picture" alt="Order picture" />
       </td>
     </tr>
   </tbody>
