@@ -63,6 +63,10 @@ class _UserPendingOrdersBodyState extends State<UserPendingOrdersBody> {
                       onTap: () {
                         GoRouter.of(context)
                             .push(AppRouter.kUserOrderDetailsView);
+                        // context.pushNamed(
+                        //           AppRouter.kUserOrderDetailsView,
+                        //           arguments: product,
+                        //         );
                       },
                       userOrder: userOrder,
                     );
