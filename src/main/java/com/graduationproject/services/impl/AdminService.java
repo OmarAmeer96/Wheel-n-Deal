@@ -61,51 +61,6 @@ public class AdminService {
     public Long countUsersByRole(Role role) {
         return userRepository.countUsersByRole(role);
     }
-
-    public CustomResponse findOrdersByOrderStatus(OrderStatus orderStatus, Integer pageNum, Integer pageSize) {
-        try {
-            if (orderStatus == null) {
-                return new CustomResponse(
-                        HttpStatus.BAD_REQUEST.value(),
-                        "Order status cannot be null",
-                        null);
-            }
-
-            if (pageNum < 0 || pageSize <= 0) {
-                return new CustomResponse(
-                        HttpStatus.BAD_REQUEST.value(),
-                        "Invalid page number or page size",
-                        null);
-            }
-
-            Pageable page = PageRequest.of(pageNum, pageSize, Sort.by("id"));
-            Page<GetOrdersDTO> orders = orderRepository.findOrdersByOrderStatus(orderStatus, page);
-
-            if (orders.isEmpty()) {
-                return new CustomResponse(
-                        HttpStatus.NO_CONTENT.value(),
-                        "No orders found for the given status",
-                        null);
-            }
-
-            CustomResponse successResponse = CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Orders retrieved successfully")
-                    .data(orders)
-                    .build();
-
-            return successResponse;
-
-        } catch (Exception e) {
-            CustomResponse errorResponse = CustomResponse.builder()
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("An error occurred while retrieving orders: " + e.getMessage())
-                    .data(null)
-                    .build();
-
-            return errorResponse;
-        }
-    }
     public CustomResponse findAllOrders(Integer pageNum, Integer pageSize) {
         try {
             if (pageNum < 0 || pageSize <= 0) {

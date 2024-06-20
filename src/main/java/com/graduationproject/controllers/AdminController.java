@@ -22,14 +22,14 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
 
+    @GetMapping("users")
+    public CustomResponse findUsersByRole(@RequestParam Role role, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return adminService.findUsersByRole(role, pageNum, pageSize);
+    }
+
     @GetMapping("orders")
     public CustomResponse findAllOrders(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.findAllOrders(pageNum, pageSize);
-    }
-
-    @GetMapping("orders/based-on-status")
-    public CustomResponse findOrdersByOrderStatus(@RequestParam OrderStatus orderStatus, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return adminService.findOrdersByOrderStatus(orderStatus, pageNum, pageSize);
     }
 
     @GetMapping("count")
