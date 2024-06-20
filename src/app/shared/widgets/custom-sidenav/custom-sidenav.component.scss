@@ -1,0 +1,111 @@
+@import "../../../../styles";
+.sidenav {
+  background-color: #2c2c2c;
+  height: 100vh;
+  width: 260px;
+  position: fixed;
+  z-index: 1;
+  transition: all 500ms ease-in-out;
+  // transition-delay: 200s;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 15.5px 32px 15px;
+    width: 100%;
+    gap: 33.5px;
+
+    .logo-text {
+      font-size: 24px;
+      text-transform: capitalize;
+      font-weight: 700;
+      font-family: "Raleway", sans-serif;
+      line-height: 19.2px;
+      letter-spacing: normal;
+      // white-space: nowrap;
+
+      background-image: linear-gradient(
+        90deg,
+        #ff981a 0% 16%,
+        #ffad48 16% 26%,
+        #ffb75e 26% 42%,
+        #ffc176 42% 51%,
+        #ffcc8d 52% 64%,
+        #ffd6a3 64% 77%,
+        #ffe0ba 80% 88%,
+        #ffead1 88% 96.1%,
+        #fff 96.1% 100%
+      );
+
+      display: inline-block;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+
+      .u-inter {
+        font-family: "Inter", sans-serif;
+      }
+    }
+
+    .menu-btn {
+      justify-self: center;
+    }
+  }
+
+  .sidenav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40rem;
+    .sidenav-nav {
+      display: flex;
+      flex-direction: column;
+      // justify-content: space-between;
+
+      .sidenav-nav-item {
+        padding: 16px;
+      }
+      .sidenav-nav-link {
+        display: flex;
+        align-items: center;
+        // width: 230px;
+        padding: 16px;
+        gap: 16px;
+
+        &:hover {
+          background-color: #333;
+        }
+
+        .sidenav-link-text {
+          color: $color-gray-6;
+          font-family: "Inter", sans-serif;
+          font-size: 1.6rem;
+          font-weight: 600;
+          line-height: 120%; /* 19.2px */
+        }
+      }
+    }
+
+    .logout-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #333;
+      padding: 10px 12.3%;
+      margin: auto;
+      .logout-btn-text {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 120%; /* 19.2px */
+      }
+      &:hover {
+        box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
+      }
+    }
+  }
+}

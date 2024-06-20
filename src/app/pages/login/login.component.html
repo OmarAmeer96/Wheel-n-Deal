@@ -1,4 +1,4 @@
-<main class="container">
+<div class="container">
   <div class="box">
     <div class="box__illutration">
       <app-svg name="Illustration" class="lock"></app-svg>
@@ -20,23 +20,23 @@
             <input
               [ngClass]="{
                 'is-invalid':
-                  this.userName.touched &&
-                  this.userName.dirty &&
-                  this.userName.invalid,
-                'is-valid': this.userName.valid
+                  this.username.touched &&
+                  this.username.dirty &&
+                  this.username.invalid,
+                'is-valid': this.username.valid
               }"
               type="text"
-              id="userName"
+              id="username"
               placeholder="Enter your username "
               required
-              formControlName="userName"
+              formControlName="username"
             />
             <app-svg name="user" class="icon"></app-svg>
             <div
-              *ngIf="userName.touched && userName.dirty && userName.invalid"
+              *ngIf="username.touched && username.dirty && username.invalid"
               class="text-red-400"
             >
-              <p *ngIf="userName.errors?.['required']">Felid is required</p>
+              <p *ngIf="username.errors?.['required']">Felid is required</p>
             </div>
           </div>
 
@@ -97,4 +97,4 @@
       </form>
     </div>
   </div>
-</main>
+</div>

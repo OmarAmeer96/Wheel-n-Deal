@@ -26,3 +26,8 @@
   top: 3.7rem;
   left: 0;
 }
+
+:host ::ng-deep .menu-btn > * {
+  width: 2.85rem;
+  height: 2.85rem;
+}

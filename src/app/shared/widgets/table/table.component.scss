@@ -1,0 +1,19 @@
+.order-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  border: 0.5px solid var(--Main-orange, #ff981a);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+td,
+th {
+  padding: 12px 24px;
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+}
