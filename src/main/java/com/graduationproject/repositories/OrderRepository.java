@@ -34,10 +34,24 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
     @Query("SELECT new com.graduationproject.DTOs.GetOrdersDTO(o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, o.ReceiverPhoneNumber) FROM Order o WHERE o.orderStatus = :orderStatus")
     Page<GetOrdersDTO> findOrdersByOrderStatus(@Param("orderStatus") OrderStatus orderStatus, Pageable pageable);
 
-    @Query("SELECT new com.graduationproject.DTOs.GetAllOrders(o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, o.ReceiverPhoneNumber, o.orderStatus) FROM Order o")
+
+    @Query("SELECT new com.graduationproject.DTOs.GetAllOrders(" +
+            "o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, " +
+            "o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, c.phoneNumber, o.orderStatus) " +
+            "FROM Order o LEFT JOIN o.commuter c")
+//    @Query("SELECT new com.graduationproject.DTOs.GetAllOrders(o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, o.ReceiverPhoneNumber, o.orderStatus) FROM Order o")
     Page<GetAllOrders> findAllOrders(Pageable pageable);
 
     @Query("SELECT COUNT(o) FROM Order o WHERE o.orderStatus = :orderStatus")
     long countOrdersByStatus(@Param("orderStatus") OrderStatus orderStatus);
+
+    @Query("SELECT COUNT(o) FROM Order o ")
+    long countAllOrders();
+
+//    @Query("SELECT new com.graduationproject.DTOs.GetAllOrders(" +
+//            "o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, " +
+//            "o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, c.phoneNumber, o.orderStatus) " +
+//            "FROM Order o LEFT JOIN o.commuter c")
+//    List<GetAllOrders> findAllOrdersWithCommuter();
 
 }

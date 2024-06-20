@@ -1,9 +1,6 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CustomResponse;
-import com.graduationproject.DTOs.GetAllOrders;
-import com.graduationproject.DTOs.GetOrdersDTO;
-import com.graduationproject.DTOs.UserDTO;
+import com.graduationproject.DTOs.*;
 import com.graduationproject.entities.OrderStatus;
 import com.graduationproject.entities.Role;
 import com.graduationproject.repositories.OrderRepository;
@@ -61,33 +58,8 @@ public class AdminService {
         }
     }
 
-    public CustomResponse countUsersByRole(Role role) {
-        try {
-            if (role == null) {
-                return new CustomResponse(
-                        HttpStatus.BAD_REQUEST.value(),
-                        "Role cannot be null",
-                        null);
-            }
-            long count = userRepository.countUsersByRole(role);
-
-            CustomResponse response = CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("User count retrieved successfully")
-                    .data(count)
-                    .build();
-
-            return response;
-
-        } catch (Exception e) {
-            CustomResponse errorResponse = CustomResponse.builder()
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("An error occurred while counting users by role: " + e.getMessage())
-                    .data(null)
-                    .build();
-
-            return errorResponse;
-        }
+    public Long countUsersByRole(Role role) {
+        return userRepository.countUsersByRole(role);
     }
 
     public CustomResponse findOrdersByOrderStatus(OrderStatus orderStatus, Integer pageNum, Integer pageSize) {
@@ -170,31 +142,44 @@ public class AdminService {
         }
     }
 
-    public CustomResponse countOrdersByStatus(OrderStatus orderStatus) {
+    public Long countOrders() {
+        return orderRepository.countAllOrders();
+    }
+
+    public CustomResponse countAll() {
         try {
-            if (orderStatus == null) {
+            Long users = countUsersByRole(Role.valueOf("USER"));
+            Long commuters = countUsersByRole(Role.valueOf("COMMUTER"));
+            Long orders = countOrders(); // Assuming countOrders returns Long
+
+            if (users == null || commuters == null || orders == null) {
                 return CustomResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .message("Order status cannot be null")
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .message("An error occurred while counting")
                         .data(null)
                         .build();
             }
 
-            long orderCount = orderRepository.countOrdersByStatus(orderStatus);
+            GetNumbersResponseDTO responseDTO = new GetNumbersResponseDTO(
+                    users.longValue(),
+                    commuters.longValue(),
+                    orders
+            );
 
             return CustomResponse.builder()
                     .status(HttpStatus.OK.value())
-                    .message("Order count retrieved successfully")
-                    .data(orderCount)
+                    .message("Counts retrieved successfully")
+                    .data(responseDTO)
                     .build();
 
         } catch (Exception e) {
             return CustomResponse.builder()
                     .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("An error occurred while counting orders by status: " + e.getMessage())
+                    .message("An error occurred while counting all entities: " + e.getMessage())
                     .data(null)
                     .build();
         }
     }
+
 
 }

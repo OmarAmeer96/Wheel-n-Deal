@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.graduationproject.DTOs.CommentClassifierDTO;
 
-@FeignClient(name = "toxic-comment-classifier", url = "https://toxic-comment-classifier-ht7kuzqwha-ww.a.run.app")
+@FeignClient(name = "toxic-comment-classifier", url = "https://comment-classifier-vwprh3aw2a-ww.a.run.app")
 public interface ToxicCommentClassifierClient {
 
     @PostMapping("/")

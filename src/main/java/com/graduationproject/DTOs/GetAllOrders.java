@@ -17,6 +17,6 @@ public class GetAllOrders {
     private String from;
     private String to;
     private String senderPhoneNumber;
-    private String receiverPhoneNumber;
+    private String commuterPhoneNumber;
     private OrderStatus orderStatus;
 }
