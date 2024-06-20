@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wheel_n_deal/Core/utils/app_router.dart';
+import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
-import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_state.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/widgets/user_pending_orders_item.dart';
@@ -54,13 +54,18 @@ class _UserPendingOrdersBodyState extends State<UserPendingOrdersBody> {
               );
             } else if (state is UserOrdersFetched) {
               return SizedBox(
-                height: 500,
-                width: 200,
+                height: Responsive.screenHeight(context) * 0.7,
                 child: ListView.builder(
                   itemCount: state.data.data.length,
                   itemBuilder: (context, index) {
                     final userOrder = (state).data.data[index];
-                    return UserOrderItem(userOrder: userOrder);
+                    return UserPendingOrdersItem(
+                      onTap: () {
+                        GoRouter.of(context)
+                            .push(AppRouter.kUserOrderDetailsView);
+                      },
+                      userOrder: userOrder,
+                    );
                   },
                 ),
               );
@@ -108,41 +113,6 @@ class _UserPendingOrdersBodyState extends State<UserPendingOrdersBody> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class UserOrderItem extends StatelessWidget {
-  const UserOrderItem({
-    super.key,
-    required this.userOrder,
-  });
-
-  final GetUserOrdersResponseData userOrder;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 26,
-        ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            "Recent Packages",
-            style: Styles.manropeSemiBold16.copyWith(fontSize: 18),
-          ),
-        ),
-        const SizedBox(
-          height: 26,
-        ),
-        UserPendingOrdersItem(
-          onTap: () {
-            GoRouter.of(context).push(AppRouter.kUserOrderDetailsView);
-          },
-        ),
-      ],
     );
   }
 }

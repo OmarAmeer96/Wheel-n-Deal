@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
+import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class UserPendingOrdersItem extends StatelessWidget {
   const UserPendingOrdersItem({
     super.key,
     required this.onTap,
-    this.orderName,
+    required this.userOrder,
   });
 
   final void Function()? onTap;
-  final String? orderName;
+  final GetUserOrdersResponseData userOrder;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class UserPendingOrdersItem extends StatelessWidget {
               child: SizedBox(
                 width: 100,
                 child: Text(
-                  orderName ?? "Order Name",
+                  userOrder.orderName ?? "Order Name",
                   style: Styles.manropeRegular15.copyWith(
                     fontSize: 20,
                   ),
@@ -48,7 +49,7 @@ class UserPendingOrdersItem extends StatelessWidget {
               ),
             ),
             Text(
-              "pending",
+              userOrder.orderStatus ?? "Order Status",
               style: Styles.manropeRegular15.copyWith(
                 fontSize: 15,
                 color: kPrimaryColor,
