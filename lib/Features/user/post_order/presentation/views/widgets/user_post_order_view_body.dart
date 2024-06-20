@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wheel_n_deal/Core/functions/setup_error_state.dart';
-import 'package:wheel_n_deal/Core/utils/app_router.dart';
+import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
