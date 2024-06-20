@@ -1,7 +1,6 @@
 package com.graduationproject.repositories;
 
 import com.graduationproject.DTOs.UserDTO;
-import com.graduationproject.DTOs.aiDTOs.AICommuterDTO;
 import com.graduationproject.DTOs.aiDTOs.AIUserDTO;
 import com.graduationproject.entities.Role;
 import com.graduationproject.entities.User;
@@ -28,4 +27,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query("SELECT new com.graduationproject.DTOs.aiDTOs.AIUserDTO(u.id, u.city, u.gender) FROM User u")
     List<AIUserDTO> findAllUserDTOs();
+
+    List<User> findCommuterByRole(Role role);
+
+
 }

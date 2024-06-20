@@ -17,4 +17,6 @@ public interface ReviewRepository extends JpaRepository<Review,Integer> {
 
     @Query("SELECT new com.graduationproject.DTOs.aiDTOs.AIReviewsDTO(r.id, r.rate, r.reviewee, r.reviewer) FROM Review r")
     List<AIReviewsDTO> findAllReviewDTOs();
+
+    List<Review> findByRevieweeId(Integer revieweeId);
 }

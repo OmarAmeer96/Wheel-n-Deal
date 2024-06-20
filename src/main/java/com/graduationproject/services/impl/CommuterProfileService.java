@@ -1,9 +1,6 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CommuterProfileDTO;
-import com.graduationproject.DTOs.CustomResponse;
-import com.graduationproject.DTOs.ProfileReviewsDTO;
-import com.graduationproject.DTOs.ProfileTripDetailsDTO;
+import com.graduationproject.DTOs.*;
 import com.graduationproject.entities.Review;
 import com.graduationproject.entities.Role;
 import com.graduationproject.entities.Trip;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Data
 @Service
@@ -123,5 +121,27 @@ public class CommuterProfileService {
         } else {
             return null;
         }
+    }
+
+    public List<AiCommuterDto> getAllCommutersDetails() {
+        List<User> commuters = userRepository.findCommuterByRole(Role.COMMUTER);
+        return commuters.stream().map(user -> {
+            List<Trip> trips = tripRepository.findByUserId(user.getId());
+            List<Review> reviews = reviewRepository.findByRevieweeId(user.getId());
+
+            int totalRate = reviews.stream().mapToInt(Review::getRate).sum();
+            int numberOfReviews = reviews.size();
+            double averageRate = numberOfReviews > 0 ? (double) totalRate / numberOfReviews : 0;
+
+            AiCommuterDto userDetailsDTO = new AiCommuterDto();
+            userDetailsDTO.setCommuterId(user.getId());
+            userDetailsDTO.setCity(user.getCity());
+            userDetailsDTO.setGender(user.getGender());
+            userDetailsDTO.setTotalRate(averageRate);
+            userDetailsDTO.setTrips(trips.stream()
+                    .map(trip -> new AiCommuterDto.TripDTO(trip.getId(), trip.getFrom(), trip.getTo()))
+                    .collect(Collectors.toList()));
+            return userDetailsDTO;
+        }).collect(Collectors.toList());
     }
 }
