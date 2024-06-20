@@ -124,7 +124,6 @@ export class OrdersComponent implements OnInit {
   mappedOrders: OrderTableData[] = [];
 
   fetchAllOrders() {
-    // debugger;
     this._order.getAllOrders(0, 10).subscribe((res: ApiResponse) => {
       console.log(res.data.content[0]);
       if (res.status === 200) {

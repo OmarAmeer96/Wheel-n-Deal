@@ -28,7 +28,12 @@
       </button>
     </div>
   </div>
-  <app-table [headings]="tableHeaders" [tableData]="mappedOrders"> </app-table>
+  <app-table
+    [headings]="tableHeaders"
+    [tableData]="mappedOrders"
+    [activeTab]="activeTab"
+  >
+  </app-table>
 </div>
 
 <!-- <div class="order-table">

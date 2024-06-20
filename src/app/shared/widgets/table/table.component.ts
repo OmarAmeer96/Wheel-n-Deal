@@ -13,4 +13,5 @@ import { OrderTableData } from '../../../core/constant/table-data';
 export class TableComponent {
   @Input() headings: string[] = [];
   @Input() tableData: OrderTableData[] = [];
+  @Input() activeTab: string = 'all';
 }
