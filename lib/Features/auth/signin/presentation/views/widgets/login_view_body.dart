@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_username.dart';
@@ -70,8 +70,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   logUserData(loginResponse);
                   String? role = SharedPrefs.getString(key: kRole);
                   role == 'USER'
-                      ? GoRouter.of(context).push(AppRouter.kUserHomeView)
-                      : GoRouter.of(context).push(AppRouter.kCommuterHomeView);
+                      ? context.pushReplacementNamed(Routes.kUserHomeView)
+                      : context.pushReplacementNamed(Routes.kCommuterHomeView);
                 },
                 error: (error) {
                   setupErrorState(context, error);
@@ -199,8 +199,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             onTap: () {
-                              GoRouter.of(context)
-                                  .push(AppRouter.kForgotPasswodView);
+                              context.pushNamed(Routes.kForgotPasswodView);
                             },
                             child: Text(
                               "Forgot Password?",
@@ -249,8 +248,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           ),
                           InkWell(
                             onTap: () {
-                              GoRouter.of(context)
-                                  .push(AppRouter.kRegisterView);
+                              context.pushNamed(Routes.kRegisterView);
                             },
                             child: Text(
                               "Register Now",
@@ -277,6 +275,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       if (context.read<LoginCubit>().formKey.currentState!.validate()) {
         await context.read<LoginCubit>().emitLoginState();
         if (State is Success) {
+          // ignore: use_build_context_synchronously
           await context.read<LoginCubit>().emitGetUserProfile();
         }
       }

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -215,7 +215,7 @@ class _CustomerAcceptOrderDetailsViewBodyState
               child: CustomMainButton(
                 text: "Ok",
                 onPressed: () {
-                  GoRouter.of(context).push(AppRouter.kConfirmedDealView);
+                  context.pushNamed(Routes.kConfirmedDealView);
                 },
                 color: kPrimaryColor,
               ),

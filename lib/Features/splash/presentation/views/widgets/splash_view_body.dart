@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Features/splash/presentation/views/widgets/fading_logo.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -62,7 +63,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        GoRouter.of(context).push(AppRouter.kOnBoardingView);
+        context.pushNamed(Routes.kOnBoardingView);
       },
     );
   }

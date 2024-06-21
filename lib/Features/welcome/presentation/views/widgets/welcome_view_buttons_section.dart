@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 
@@ -17,7 +18,7 @@ class WelcomeViewButtonsSection extends StatelessWidget {
             text: "Login",
             color: const Color(0xffFF981A),
             onPressed: () {
-              GoRouter.of(context).push(AppRouter.kLoginView);
+              context.pushNamed(Routes.kLoginView);
             },
           ),
         ),
@@ -29,7 +30,7 @@ class WelcomeViewButtonsSection extends StatelessWidget {
           child: CustomMainButton(
             text: "Register",
             onPressed: () {
-              GoRouter.of(context).push(AppRouter.kRegisterView);
+              context.pushNamed(Routes.kRegisterView);
             },
             color: const Color(0xffF3F3F3),
             textColor: const Color(0xff1D272F),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -151,8 +151,7 @@ class _CommuterPickOrderDetailsViewBdyState
                   CustomMainButton(
                     text: "Pick",
                     onPressed: () {
-                      GoRouter.of(context)
-                          .push(AppRouter.kCommuterOrderPickedView);
+                      context.pushNamed(Routes.kCommuterOrderPickedView);
                     },
                     color: kPrimaryColor,
                   ),
@@ -164,8 +163,7 @@ class _CommuterPickOrderDetailsViewBdyState
                     textColor: Colors.black,
                     borderSideColor: Colors.black,
                     onPressed: () {
-                      GoRouter.of(context)
-                          .push(AppRouter.kSetAnotherExpectedPriceView);
+                      context.pushNamed(Routes.kSetAnotherExpectedPriceView);
                     },
                     color: const Color(0xfff3f3f3),
                   ),

@@ -50,7 +50,7 @@ class _ChangeAppLanguageViewBodyState extends State<ChangeAppLanguageViewBody> {
                       children: [
                         Radio(
                           focusColor: const Color(0xff99A0A8),
-                          fillColor: const MaterialStatePropertyAll(
+                          fillColor: const WidgetStatePropertyAll(
                             kPrimaryColor,
                           ),
                           value: 'English',
@@ -72,7 +72,7 @@ class _ChangeAppLanguageViewBodyState extends State<ChangeAppLanguageViewBody> {
                       children: [
                         Radio(
                           focusColor: const Color(0xff99A0A8),
-                          fillColor: const MaterialStatePropertyAll(
+                          fillColor: const WidgetStatePropertyAll(
                             kPrimaryColor,
                           ),
                           value: 'Arabic',

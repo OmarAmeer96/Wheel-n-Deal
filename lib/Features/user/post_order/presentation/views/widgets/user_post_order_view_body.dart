@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:wheel_n_deal/Core/functions/setup_error_state.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
@@ -100,7 +102,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
             //           ),
             //         );
             //         if (postOrderResponse.message == "Order Created Successfully") {
-            //           GoRouter.of(context).pop();
+            //           context.pop();
             //         }
             //         isPostPubic
             //             ? GoRouter.of(context).push(
@@ -168,14 +170,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                 );
                                 if (postOrderResponse.message ==
                                     "Order Created Successfully") {
-                                  GoRouter.of(context).pop();
+                                  context.pop();
                                 }
                                 isPostPubic
-                                    ? GoRouter.of(context).pushReplacement(
-                                        AppRouter.kUserOrdersView,
+                                    ? context.pushNamed(
+                                        Routes.kUserOrdersView,
                                       )
-                                    : GoRouter.of(context).pushReplacement(
-                                        AppRouter.kDoneNotifyFavCommutersView,
+                                    : context.pushNamed(
+                                        Routes.kDoneNotifyFavCommutersView,
                                       );
                               },
                               error: (error) {
@@ -310,8 +312,8 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         MakeOrderSelectLocationItem(
                           text: 'From',
                           onPressed: () {
-                            GoRouter.of(context).push(
-                              AppRouter.kUserSearchLocationView,
+                            context.pushNamed(
+                              Routes.kUserSearchLocationView,
                             );
                           },
                         ),
@@ -321,8 +323,8 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         MakeOrderSelectLocationItem(
                           text: 'To',
                           onPressed: () {
-                            GoRouter.of(context).push(
-                              AppRouter.kUserSearchLocationView,
+                            context.pushNamed(
+                              Routes.kUserSearchLocationView,
                             );
                           },
                         ),
@@ -648,7 +650,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                 children: [
                                   Radio(
                                     focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
+                                    fillColor: const WidgetStatePropertyAll(
                                       kPrimaryColor,
                                     ),
                                     value: "1",
@@ -681,7 +683,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                 children: [
                                   Radio(
                                     focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
+                                    fillColor: const WidgetStatePropertyAll(
                                       kPrimaryColor,
                                     ),
                                     value: "2",
@@ -714,7 +716,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                 children: [
                                   Radio(
                                     focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
+                                    fillColor: const WidgetStatePropertyAll(
                                       kPrimaryColor,
                                     ),
                                     value: "3",
@@ -747,7 +749,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                                 children: [
                                   Radio(
                                     focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
+                                    fillColor: const WidgetStatePropertyAll(
                                       kPrimaryColor,
                                     ),
                                     value: "4",
@@ -934,7 +936,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                               children: [
                                 Radio(
                                   focusColor: const Color(0xff99A0A8),
-                                  fillColor: const MaterialStatePropertyAll(
+                                  fillColor: const WidgetStatePropertyAll(
                                     kPrimaryColor,
                                   ),
                                   value: '1-2 Days',
@@ -967,7 +969,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                               children: [
                                 Radio(
                                   focusColor: const Color(0xff99A0A8),
-                                  fillColor: const MaterialStatePropertyAll(
+                                  fillColor: const WidgetStatePropertyAll(
                                     kPrimaryColor,
                                   ),
                                   value: '3-5 Days',
@@ -1000,7 +1002,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                               children: [
                                 Radio(
                                   focusColor: const Color(0xff99A0A8),
-                                  fillColor: const MaterialStatePropertyAll(
+                                  fillColor: const WidgetStatePropertyAll(
                                     kPrimaryColor,
                                   ),
                                   value: '1 Week',

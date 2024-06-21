@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -48,7 +49,7 @@ class DoneNotifyFavCommutersViewBody extends StatelessWidget {
               child: CustomMainButton(
                 text: 'Back to Home',
                 onPressed: () {
-                  GoRouter.of(context).push(AppRouter.kUserHomeView);
+                  context.pushNamed(Routes.kUserHomeView);
                 },
                 color: kPrimaryColor,
               ),

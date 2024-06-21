@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -111,7 +111,7 @@ class MyScheduledTripsItem extends StatelessWidget {
                 child: CustomMainButton(
                   text: "Edit Trip",
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kCommuterPostTripView);
+                    context.pushNamed(Routes.kCommuterPostTripView);
                   },
                   color: const Color(0x66A4A4A4),
                 ),

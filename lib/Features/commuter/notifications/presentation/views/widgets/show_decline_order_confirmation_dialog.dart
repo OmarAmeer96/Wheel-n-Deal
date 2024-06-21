@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/commuter/my%20trips/presentation/views/widgets/trip_deleted_confirmation_button.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -26,7 +26,7 @@ void showDeclineOrderConfirmationDialog(BuildContext context) {
                 TripDeletedConfirmationButton(
                   text: 'No',
                   onPressed: () {
-                    GoRouter.of(context).pop();
+                    context.pop();
                   },
                   color: kPrimaryColor,
                 ),
@@ -35,7 +35,7 @@ void showDeclineOrderConfirmationDialog(BuildContext context) {
                   text: 'Yes',
                   textColor: const Color(0xFF1D272F),
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kHomeView);
+                    context.pushNamed(Routes.kHomeView);
                   },
                   color: const Color(0xfff3f3f3),
                 )

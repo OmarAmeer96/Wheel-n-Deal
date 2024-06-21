@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
@@ -14,7 +15,7 @@ class ChatAppBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                GoRouter.of(context).pop();
+                context.pop();
               },
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
             ),

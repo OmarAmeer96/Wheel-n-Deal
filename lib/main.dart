@@ -1,11 +1,10 @@
-import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Core/networking/firebase_services.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
@@ -55,13 +54,13 @@ class MyApp extends StatelessWidget {
         ),
         // Add more BlocProviders as needed
       ],
-      child: MaterialApp.router(
+      child: MaterialApp(
         theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: Colors.white,
         ),
         debugShowCheckedModeBanner: false,
         title: "Wheel n' Deal",
-        routerConfig: AppRouter.router,
+        onGenerateRoute: AppRouter().generateRoute,
       ),
     );
   }

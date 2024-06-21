@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:go_router/go_router.dart';
+
 import 'package:intl/intl.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
@@ -128,8 +130,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                             ),
                             CustomMainButton(
                               onPressed: () {
-                                GoRouter.of(context)
-                                    .push(AppRouter.kMyTripsView);
+                                context.pushNamed(Routes.kMyTripsView);
                               },
                               text: "Post",
                               color: kPrimaryColor,
@@ -221,8 +222,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         MakeOrderSelectLocationItem(
                           text: 'From',
                           onPressed: () {
-                            GoRouter.of(context).push(
-                              AppRouter.kCommuterSearchLocationView,
+                            context.pushNamed(Routes.kCommuterSearchLocationView,
                             );
                           },
                         ),
@@ -232,8 +232,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         MakeOrderSelectLocationItem(
                           text: 'To',
                           onPressed: () {
-                            GoRouter.of(context).push(
-                              AppRouter.kCommuterSearchLocationView,
+                            context.pushNamed(Routes.kCommuterSearchLocationView,
                             );
                           },
                         ),

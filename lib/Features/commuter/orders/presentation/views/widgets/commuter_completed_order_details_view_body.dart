@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -36,7 +36,7 @@ class _CommuterCompletedOrderDetailsViewBodyState
                 alignment: Alignment.topLeft,
                 child: InkWell(
                   onTap: () {
-                    GoRouter.of(context).pop();
+                    context.pop();
                   },
                   borderRadius: BorderRadius.circular(500),
                   child: const Padding(

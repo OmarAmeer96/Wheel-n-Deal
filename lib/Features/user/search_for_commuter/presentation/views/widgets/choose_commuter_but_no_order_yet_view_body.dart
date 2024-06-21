@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -50,7 +51,7 @@ class ChooseCommuterButNoOrderYetViewBody extends StatelessWidget {
                   CustomMainButton(
                     text: 'Make order',
                     onPressed: () {
-                      GoRouter.of(context).push(AppRouter.kUserPostOrderView);
+                      context.pushNamed(Routes.kUserPostOrderView);
                     },
                     color: kPrimaryColor,
                   ),
@@ -62,7 +63,7 @@ class ChooseCommuterButNoOrderYetViewBody extends StatelessWidget {
                     textColor: Colors.black,
                     borderSideColor: Colors.black,
                     onPressed: () {
-                      GoRouter.of(context).push(AppRouter.kUserOrdersView);
+                      context.pushNamed(Routes.kUserOrdersView);
                     },
                     color: const Color(0xFFF3F3F3),
                   ),

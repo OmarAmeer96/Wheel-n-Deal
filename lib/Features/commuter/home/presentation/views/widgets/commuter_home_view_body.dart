@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_state.dart';
@@ -71,8 +71,8 @@ class _CommuterHomeViewBodyState extends State<CommuterHomeViewBody> {
                         const Spacer(),
                         InkWell(
                           onTap: () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kCommuterNotificationsView);
+                            context
+                                .pushNamed(Routes.kCommuterNotificationsView);
                           },
                           child: SvgPicture.asset(
                             AssetsData.noNotificationIcon,
@@ -120,24 +120,21 @@ class _CommuterHomeViewBodyState extends State<CommuterHomeViewBody> {
                       icon: AssetsData.ordersIcon,
                       text: 'Orders',
                       onTap: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kCommuterOrdersView);
+                        context.pushNamed(Routes.kCommuterOrdersView);
                       },
                     ),
                     HomeFeaturesItem(
                       icon: AssetsData.favoritesIcon,
                       text: 'Favorite',
                       onTap: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kCommuterFavouriteView);
+                        context.pushNamed(Routes.kCommuterFavouriteView);
                       },
                     ),
                     HomeFeaturesItem(
                       icon: AssetsData.messagesIcon,
                       text: 'Messages',
                       onTap: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kCommuterMessagesView);
+                        context.pushNamed(Routes.kCommuterMessagesView);
                       },
                     ),
                   ],
@@ -150,23 +147,21 @@ class _CommuterHomeViewBodyState extends State<CommuterHomeViewBody> {
                       icon: AssetsData.ordersIcon,
                       text: 'My Trips',
                       onTap: () {
-                        GoRouter.of(context).push(AppRouter.kMyTripsView);
+                        context.pushNamed(Routes.kMyTripsView);
                       },
                     ),
                     HomeFeaturesItem(
                       icon: AssetsData.favoritesIcon,
                       text: 'Reviews',
                       onTap: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kCommuterReviewsView);
+                        context.pushNamed(Routes.kCommuterReviewsView);
                       },
                     ),
                     HomeFeaturesItem(
                       icon: AssetsData.messagesIcon,
                       text: 'Wallet',
                       onTap: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kCommuterWalletView);
+                        context.pushNamed(Routes.kCommuterWalletView);
                       },
                     ),
                   ],

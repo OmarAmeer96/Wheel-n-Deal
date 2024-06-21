@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -105,7 +107,7 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                   ),
                   ElevatedButton(
                     style: const ButtonStyle(
-                      foregroundColor: MaterialStatePropertyAll(kPrimaryColor),
+                      foregroundColor: WidgetStatePropertyAll(kPrimaryColor),
                     ),
                     onPressed: () {
                       setState(() {});
@@ -328,8 +330,7 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                                       child: CustomMainButton(
                                         height: 25,
                                         onPressed: () {
-                                          GoRouter.of(context).push(
-                                            AppRouter.kUserCanceledOrderView,
+                                          context.pushNamed(Routes.kUserCanceledOrderView,
                                           );
                                         },
                                         text: "Yes",
@@ -343,7 +344,7 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                                       child: CustomMainButton(
                                         height: 25,
                                         onPressed: () {
-                                          GoRouter.of(context).pop();
+                                          context.pop();
                                         },
                                         text: "No",
                                         textColor: Colors.black,

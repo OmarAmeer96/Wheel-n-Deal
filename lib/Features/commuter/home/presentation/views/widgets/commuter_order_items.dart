@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import '../../../../../../Core/widgets/post_pick_orders_button.dart';
@@ -40,7 +40,7 @@ class CommuterItems extends StatelessWidget {
                   width: 30,
                   height: 27,
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kCommuterPostTripView);
+                    context.pushNamed(Routes.kCommuterPostTripView);
                   },
                 ),
               ],
@@ -60,7 +60,7 @@ class CommuterItems extends StatelessWidget {
                   width: 30,
                   height: 27,
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kCommuterPickOrderView);
+                    context.pushNamed(Routes.kCommuterPickOrderView);
                   },
                 ),
               ],

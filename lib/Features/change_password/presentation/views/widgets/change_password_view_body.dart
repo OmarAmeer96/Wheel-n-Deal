@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -155,8 +155,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kForgotPasswodView);
+                            context.pushNamed(Routes.kForgotPasswodView);
                           },
                           child: Text(
                             "Forgot Password?",
@@ -286,8 +285,8 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                           text: "Reset Password",
                           onPressed: () async {
                             if (_form.currentState!.validate()) {
-                              GoRouter.of(context)
-                                  .push(AppRouter.kPasswordChanged2View);
+                              context.pushReplacementNamed(
+                                  Routes.kPasswordChanged2View);
                             }
                           },
                           color: kPrimaryColor,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -139,8 +140,8 @@ class _CommuterVodafoneCashViewBodyState
                                     CustomMainButton(
                                       text: "Back",
                                       onPressed: () {
-                                        GoRouter.of(context).push(
-                                            AppRouter.kCommuterWalletView);
+                                        context.pushNamed(
+                                            Routes.kCommuterWalletView);
                                       },
                                       color: kPrimaryColor,
                                     ),

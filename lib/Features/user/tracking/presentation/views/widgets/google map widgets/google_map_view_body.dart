@@ -142,8 +142,10 @@ class _GoogleMapViewBodyState extends State<GoogleMapViewBody> {
             setState(() {});
           });
       setState(() {});
+      // ignore: unused_catch_clause
     } on LocationServiceException catch (e) {
       // TODO: handle the exception
+      // ignore: unused_catch_clause
     } on LocationPermissionException catch (e) {
       // TODO: handle the exception
     } catch (e) {

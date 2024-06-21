@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
@@ -21,7 +22,7 @@ class UserCompletedOrderDetailsViewBody extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: InkWell(
                   onTap: () {
-                    GoRouter.of(context).pop();
+                    context.pop();
                   },
                   borderRadius: BorderRadius.circular(500),
                   child: const Padding(

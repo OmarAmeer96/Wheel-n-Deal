@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+
 import 'package:wheel_n_deal/Features/privacy_policy/presentation/views/widgets/privacy_policy_view_body.dart';
 import 'package:wheel_n_deal/Core/utils/build_app_bar.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -16,7 +17,7 @@ class PrivacyPolicyView extends StatelessWidget {
           fontSize: 18,
         ),
         onPressed: () {
-          GoRouter.of(context).pop();
+          context.pop();
         },
       ),
       body: const PrivacyPolicyViewBody(),

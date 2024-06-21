@@ -3,11 +3,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
 import 'package:wheel_n_deal/Core/functions/setup_error_state.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -66,8 +67,8 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                 );
                 if (updateUserProfileResponse.message ==
                     "Profile updated successfully.") {
-                  GoRouter.of(context).pop();
-                  GoRouter.of(context).pop();
+                  context.pop();
+                  context.pop();
                 }
               },
               error: (error) {
@@ -386,8 +387,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                     children: [
                                       Radio(
                                         focusColor: const Color(0xff99A0A8),
-                                        fillColor:
-                                            const MaterialStatePropertyAll(
+                                        fillColor: const WidgetStatePropertyAll(
                                           kPrimaryColor,
                                         ),
                                         value: 'MALE',
@@ -413,8 +413,7 @@ class _UserEditProfileViewBodyState extends State<UserEditProfileViewBody> {
                                     children: [
                                       Radio(
                                         focusColor: const Color(0xff99A0A8),
-                                        fillColor:
-                                            const MaterialStatePropertyAll(
+                                        fillColor: const WidgetStatePropertyAll(
                                           kPrimaryColor,
                                         ),
                                         value: 'FEMALE',

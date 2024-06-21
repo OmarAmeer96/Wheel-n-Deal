@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
@@ -61,9 +62,7 @@ class UserBalanceItem extends StatelessWidget {
             IconButton(
               padding: EdgeInsets.zero,
               onPressed: () {
-                isHere
-                    ? GoRouter.of(context).push(AppRouter.kUserTopUpView)
-                    : null;
+                isHere ? context.pushNamed(Routes.kUserTopUpView) : null;
               },
               icon: const Icon(
                 Icons.add,

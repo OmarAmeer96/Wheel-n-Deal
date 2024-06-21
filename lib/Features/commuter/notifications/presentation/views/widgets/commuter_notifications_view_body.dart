@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/notifications_item.dart';
@@ -42,7 +42,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: 'Tap to confirm the order',
               time: '2 m ago',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kCommuterConfirmOrder1View);
+                context.pushNamed(Routes.kCommuterConfirmOrder1View);
               },
             ),
             const SizedBox(
@@ -54,7 +54,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: 'Check your wallet to see your profit',
               time: '2 m ago',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kCommuterWalletView);
+                context.pushNamed(Routes.kCommuterWalletView);
               },
             ),
             const SizedBox(
@@ -66,7 +66,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: 'Tap to see the message',
               time: '5 m ago',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kCommuterChatView);
+                context.pushNamed(Routes.kCommuterChatView);
               },
             ),
             const SizedBox(
@@ -78,8 +78,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: 'Customer canceled order. tap to view',
               time: '7 m ago',
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kCommuterCompletedOrderDetailsView);
+                context.pushNamed(Routes.kCommuterCompletedOrderDetailsView);
               },
             ),
             const SizedBox(
@@ -91,8 +90,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: 'Tap to see the order , and deliver it',
               time: '10 m ago',
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kCustomerAcceptOrderDetailsView);
+                context.pushNamed(Routes.kCustomerAcceptOrderDetailsView);
               },
             ),
             const SizedBox(
@@ -105,8 +103,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
                   'You should scan when you take the order , and when you deliver it',
               time: '10 m ago',
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kCustomerAcceptOrderDetailsView);
+                context.pushNamed(Routes.kCustomerAcceptOrderDetailsView);
               },
             ),
             const SizedBox(
@@ -118,7 +115,7 @@ class CommuterNotificationsViewBody extends StatelessWidget {
               text2: '',
               time: '16 m ago',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kCommuterWalletView);
+                context.pushNamed(Routes.kCommuterWalletView);
               },
             ),
             const SizedBox(

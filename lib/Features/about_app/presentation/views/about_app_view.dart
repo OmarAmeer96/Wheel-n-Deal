@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Features/about_app/presentation/views/widgets/about_app_view_body.dart';
 import 'package:wheel_n_deal/Core/utils/build_app_bar.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -16,7 +16,7 @@ class AboutAppView extends StatelessWidget {
           fontSize: 18,
         ),
         onPressed: () {
-          GoRouter.of(context).pop();
+          context.pop();
         },
       ),
       body: const AboutAppViewBody(),

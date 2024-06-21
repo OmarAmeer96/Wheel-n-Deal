@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
@@ -228,8 +228,7 @@ class _SetAnotherExpectedPriceViewBodyState
                 right: 0,
                 child: CustomMainButton(
                   onPressed: () {
-                    GoRouter.of(context)
-                        .push(AppRouter.kDoneWaitForCustomerConfirmationView);
+                    context.pushNamed(Routes.kDoneWaitForCustomerConfirmationView);
                   },
                   text: "Pick with the new price",
                   color: kPrimaryColor,

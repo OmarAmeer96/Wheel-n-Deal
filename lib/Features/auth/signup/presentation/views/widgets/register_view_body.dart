@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
@@ -75,8 +75,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                 success: (loginResponse) {
                   logUserData(loginResponse);
                   SharedPrefs.getString(key: kRole) == 'USER'
-                      ? GoRouter.of(context).go(AppRouter.kUserHomeView)
-                      : GoRouter.of(context).go(AppRouter.kCommuterHomeView);
+                      ? context.pushReplacementNamed(Routes.kUserHomeView)
+                      : context.pushReplacementNamed(Routes.kCommuterHomeView);
                 },
                 error: (error) {
                   setupErrorState(context, error);
@@ -313,7 +313,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             children: [
                               Radio(
                                 focusColor: const Color(0xff99A0A8),
-                                fillColor: const MaterialStatePropertyAll(
+                                fillColor: const WidgetStatePropertyAll(
                                   kPrimaryColor,
                                 ),
                                 value: 'USER',
@@ -346,7 +346,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             children: [
                               Radio(
                                 focusColor: const Color(0xff99A0A8),
-                                fillColor: const MaterialStatePropertyAll(
+                                fillColor: const WidgetStatePropertyAll(
                                   kPrimaryColor,
                                 ),
                                 value: 'COMMUTER',
@@ -409,7 +409,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                           ),
                           InkWell(
                             onTap: () {
-                              GoRouter.of(context).pop();
+                              context.pop();
                             },
                             child: Text(
                               "Login",

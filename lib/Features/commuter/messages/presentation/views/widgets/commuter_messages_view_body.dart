@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -57,6 +57,7 @@ class _CommuterMessagesViewBodyState extends State<CommuterMessagesViewBody> {
                   inputType: TextInputType.text,
                   prefixIcon: SvgPicture.asset(
                     AssetsData.searchIcon,
+                    // ignore: deprecated_member_use
                     color: Colors.black,
                   ),
                   suffixIcon: SvgPicture.asset(
@@ -87,7 +88,7 @@ class _CommuterMessagesViewBodyState extends State<CommuterMessagesViewBody> {
                 const SizedBox(height: 17),
                 GestureDetector(
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kCommuterChatView);
+                    context.pushNamed(Routes.kCommuterChatView);
                   },
                   child: const SearchResultItem(
                     commuterName: 'Ahmed',

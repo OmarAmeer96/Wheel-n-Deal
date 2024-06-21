@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/functions/show_success_dialog.dart';
@@ -78,8 +80,8 @@ class CommuterProfileViewBody extends StatelessWidget {
                           color: const Color(0x4CA3A3A3),
                           text: 'Edit Profile',
                           onPressed: () {
-                            GoRouter.of(context).push(
-                              AppRouter.kCommuterEditProfileView,
+                            context.pushNamed(
+                              Routes.kCommuterEditProfileView,
                             );
                           },
                         ),
@@ -109,8 +111,8 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kChangeAppLanguageView,
+                    context.pushNamed(
+                      Routes.kChangeAppLanguageView,
                     );
                   },
                   text: 'Language',
@@ -121,7 +123,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kCommuterWalletView);
+                    context.pushNamed(Routes.kCommuterWalletView);
                   },
                   text: 'My Wallet',
                   icon: AssetsData.walletIcon,
@@ -139,7 +141,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kChangePasswordView);
+                    context.pushNamed(Routes.kChangePasswordView);
                   },
                   text: 'Change Password',
                   icon: AssetsData.passWord,
@@ -159,8 +161,8 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kAboutAppView,
+                    context.pushNamed(
+                      Routes.kAboutAppView,
                     );
                   },
                   text: 'About Wheel N’ Deal',
@@ -171,7 +173,7 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kAppFaqView);
+                    context.pushNamed(Routes.kAppFaqView);
                   },
                   text: 'FAQ',
                   icon: AssetsData.faqIcon,
@@ -189,8 +191,8 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kSupportView,
+                    context.pushNamed(
+                      Routes.kSupportView,
                     );
                   },
                   text: 'Support',
@@ -211,8 +213,8 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kTermsView,
+                    context.pushNamed(
+                      Routes.kTermsView,
                     );
                   },
                   text: 'Terms and Conditions',
@@ -223,8 +225,8 @@ class CommuterProfileViewBody extends StatelessWidget {
                 ),
                 UserProfileItem(
                   onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kPrivacyPolicyView,
+                    context.pushNamed(
+                      Routes.kPrivacyPolicyView,
                     );
                   },
                   text: 'Privacy Policy',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
@@ -57,7 +57,7 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
                   width: Responsive.screenWidth(context) * 0.37,
                   text: 'User',
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kUserHomeView);
+                    context.pushReplacementNamed(Routes.kUserHomeView);
                   },
                   color: kPrimaryColor,
                 ),
@@ -68,7 +68,7 @@ class SuccessfulRegisterViewBody extends StatelessWidget {
                   width: Responsive.screenWidth(context) * 0.37,
                   text: 'Commuter',
                   onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kCommuterHomeView);
+                    context.pushReplacementNamed(Routes.kCommuterHomeView);
                   },
                   color: kPrimaryColor,
                 ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -57,7 +58,7 @@ class _CommuterProfileSeenByTheUserViewBodyState
                                 size: 20,
                               ),
                               onPressed: () {
-                                GoRouter.of(context).pop();
+                                context.pop();
                               },
                             ),
                           ),
@@ -382,8 +383,7 @@ class _CommuterProfileSeenByTheUserViewBodyState
             right: 16,
             child: CustomMainButton(
               onPressed: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kChooseCommuterButNoOrderYetView);
+                context.pushNamed(Routes.kChooseCommuterButNoOrderYetView);
               },
               color: kPrimaryColor,
               text: "Choose",

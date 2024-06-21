@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 
@@ -51,7 +51,7 @@ class CommuterFavouriteItem extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                GoRouter.of(context).push(AppRouter.kCommuterChatView);
+                context.pushNamed(Routes.kCommuterChatView);
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.zero,

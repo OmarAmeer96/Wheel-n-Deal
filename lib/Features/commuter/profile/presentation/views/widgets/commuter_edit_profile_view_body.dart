@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:wheel_n_deal/Core/functions/image_picker_bottom_sheet.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/constants.dart';
 import '../../../../../../Core/utils/assets.dart';
@@ -297,7 +298,7 @@ class _CommuterEditProfileViewBodyState
                                 children: [
                                   Radio(
                                     focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
+                                    fillColor: const WidgetStatePropertyAll(
                                       kPrimaryColor,
                                     ),
                                     value: 'Male',
@@ -319,7 +320,7 @@ class _CommuterEditProfileViewBodyState
                                 children: [
                                   Radio(
                                     focusColor: const Color(0xff99A0A8),
-                                    fillColor: const MaterialStatePropertyAll(
+                                    fillColor: const WidgetStatePropertyAll(
                                       kPrimaryColor,
                                     ),
                                     value: 'Female',
@@ -355,7 +356,7 @@ class _CommuterEditProfileViewBodyState
                     text: "Save Changes",
                     onPressed: () {
                       if (_form.currentState!.validate()) {
-                        GoRouter.of(context).pop();
+                        context.pop();
                       }
                     },
                     color: kPrimaryColor,

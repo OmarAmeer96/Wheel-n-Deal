@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -47,7 +47,7 @@ class PasswordChangedViewBody extends StatelessWidget {
               CustomMainButton(
                 text: 'Back to login',
                 onPressed: () {
-                  GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+                  context.pushReplacementNamed(Routes.kLoginView);
                 },
                 color: kPrimaryColor,
               ),

@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/functions/show_success_dialog.dart';
@@ -121,8 +123,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                                   color: const Color(0x4CA3A3A3),
                                   text: 'Edit Profile',
                                   onPressed: () {
-                                    GoRouter.of(context).push(
-                                      AppRouter.kUserEditProfileView,
+                                    context.pushNamed(
+                                      Routes.kUserEditProfileView,
                                     );
                                   },
                                 ),
@@ -153,8 +155,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kChangeAppLanguageView,
+                          context.pushNamed(
+                            Routes.kChangeAppLanguageView,
                           );
                         },
                         text: 'Language',
@@ -165,7 +167,7 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(AppRouter.kUserWalletView);
+                          context.pushNamed(Routes.kUserWalletView);
                         },
                         text: 'My Wallet',
                         icon: AssetsData.walletIcon,
@@ -183,8 +185,7 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context)
-                              .push(AppRouter.kChangePasswordView);
+                          context.pushNamed(Routes.kChangePasswordView);
                         },
                         text: 'Change Password',
                         icon: AssetsData.passWord,
@@ -204,8 +205,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kAboutAppView,
+                          context.pushNamed(
+                            Routes.kAboutAppView,
                           );
                         },
                         text: 'About Wheel N’ Deal',
@@ -216,7 +217,7 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(AppRouter.kAppFaqView);
+                          context.pushNamed(Routes.kAppFaqView);
                         },
                         text: 'FAQ',
                         icon: AssetsData.faqIcon,
@@ -234,8 +235,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kSupportView,
+                          context.pushNamed(
+                            Routes.kSupportView,
                           );
                         },
                         text: 'Support',
@@ -256,8 +257,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kTermsView,
+                          context.pushNamed(
+                            Routes.kTermsView,
                           );
                         },
                         text: 'Terms and Conditions',
@@ -268,8 +269,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                       ),
                       UserProfileItem(
                         onTap: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kPrivacyPolicyView,
+                          context.pushNamed(
+                            Routes.kPrivacyPolicyView,
                           );
                         },
                         text: 'Privacy Policy',

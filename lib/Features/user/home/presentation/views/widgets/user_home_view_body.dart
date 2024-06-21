@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -64,8 +66,7 @@ class _UserHomeViewBodyState extends State<UserHomeViewBody> {
                       const Spacer(),
                       InkWell(
                         onTap: () {
-                          GoRouter.of(context)
-                              .push(AppRouter.kUserNotificationsView);
+                          context.pushNamed(Routes.kUserNotificationsView);
                         },
                         child: SvgPicture.asset(
                           AssetsData.noNotificationIcon,
@@ -113,21 +114,21 @@ class _UserHomeViewBodyState extends State<UserHomeViewBody> {
                     icon: AssetsData.ordersIcon,
                     text: 'Orders',
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kUserOrdersView);
+                      context.pushNamed(Routes.kUserOrdersView);
                     },
                   ),
                   HomeFeaturesItem(
                     icon: AssetsData.favoritesIcon,
                     text: 'Favorite',
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kUserFavouriteView);
+                      context.pushNamed(Routes.kUserFavouriteView);
                     },
                   ),
                   HomeFeaturesItem(
                     icon: AssetsData.messagesIcon,
                     text: 'Messages',
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kUserMessagesView);
+                      context.pushNamed(Routes.kUserMessagesView);
                     },
                   ),
                 ],

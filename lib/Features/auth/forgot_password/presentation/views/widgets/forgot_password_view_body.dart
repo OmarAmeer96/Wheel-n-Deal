@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/functions/is_valid_phone_number.dart';
@@ -57,7 +56,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                         duration: const Duration(seconds: 3),
                       ),
                     );
-                    GoRouter.of(context).push(AppRouter.kOtpVerificationView);
+                    context.pushNamed(Routes.kOtpVerificationView);
                   },
                   error: (error) {
                     setupErrorState(context, error);

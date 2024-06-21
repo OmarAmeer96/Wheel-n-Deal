@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 
@@ -13,7 +14,7 @@ class OnBoardingViewBody extends StatelessWidget {
     return OnBoardingSlider(
       finishButtonText: 'Get Started',
       onFinish: () {
-        GoRouter.of(context).push(AppRouter.kWelcomeView);
+        context.pushReplacementNamed(Routes.kWelcomeView);
       },
       finishButtonStyle: FinishButtonStyle(
         backgroundColor: const Color(0xffFF981A),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -46,13 +46,13 @@ class CommuterPendingOrdersItem extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kCommuterFirstScanQrCodeView);
+                context.pushNamed(Routes.kCommuterFirstScanQrCodeView);
               },
               child: Padding(
                 padding: const EdgeInsets.all(6),
                 child: SvgPicture.asset(
                   AssetsData.ordersScanQrCode,
+                  // ignore: deprecated_member_use
                   color: kFirstQRCodeColor,
                 ),
               ),
@@ -60,13 +60,13 @@ class CommuterPendingOrdersItem extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRouter.kCommuterSecondScanQrCodeView);
+                context.pushNamed(Routes.kCommuterSecondScanQrCodeView);
               },
               child: Padding(
                 padding: const EdgeInsets.all(6),
                 child: SvgPicture.asset(
                   AssetsData.ordersScanQrCode,
+                  // ignore: deprecated_member_use
                   color: kSecondQRCodeColor,
                 ),
               ),

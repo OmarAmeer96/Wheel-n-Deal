@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wheel_n_deal/Core/utils/app_router_old.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/commuter/wallet/presentation/views/widgets/payment_method_item.dart';
@@ -48,8 +49,7 @@ class CommuterWalletViewBody extends StatelessWidget {
                         InkWell(
                           borderRadius: BorderRadius.circular(500),
                           onTap: () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kCommuterWithdrawView);
+                            context.pushNamed(Routes.kCommuterWithdrawView);
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
@@ -109,7 +109,7 @@ class CommuterWalletViewBody extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kCommuterVisaView);
+                context.pushNamed(Routes.kCommuterVisaView);
               },
               borderRadius: BorderRadius.circular(14),
               child: const PaymentMethodItem(
@@ -123,7 +123,7 @@ class CommuterWalletViewBody extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kCommuterVodafoneCashView);
+                context.pushNamed(Routes.kCommuterVodafoneCashView);
               },
               borderRadius: BorderRadius.circular(14),
               child: const PaymentMethodItem(
