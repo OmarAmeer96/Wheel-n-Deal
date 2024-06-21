@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wheel_n_deal/Core/utils/google%20map%20services/map_services.dart';
+import 'package:wheel_n_deal/Core/networking/google%20map%20services/map_services.dart';
 import 'package:wheel_n_deal/Features/user/tracking/data/models/place_autocomplete_model/place_autocomplete_model.dart';
 import 'package:wheel_n_deal/Features/user/tracking/data/models/place_details_model/place_details_model.dart';
 
