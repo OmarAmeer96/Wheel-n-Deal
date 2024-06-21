@@ -1,0 +1,33 @@
+.lock {
+  width: 25.653vw;
+  height: 38.129vh;
+  display: block;
+}
+
+:host ::ng-deep .lock > * {
+  width: inherit;
+  height: inherit;
+}
+.wave {
+  display: block;
+  height: inherit;
+  width: inherit;
+}
+
+:host ::ng-deep .wave > svg {
+  // background-color: gold;
+  // height: calc(852 / 852 * 84.3vh);
+  // width: calc(150.274 / 675 * 46.86vh);
+  width: calc(150.274 / 675 * 66vh);
+}
+
+:host ::ng-deep .icon > * {
+  position: absolute;
+  top: 3.7rem;
+  left: 0;
+}
+
+:host ::ng-deep .menu-btn > * {
+  width: 2.85rem;
+  height: 2.85rem;
+}

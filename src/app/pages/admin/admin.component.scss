@@ -1,0 +1,29 @@
+@import "../../../styles";
+
+.main-container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "sidenav header"
+    "sidenav content";
+}
+
+.toolbar {
+  background-color: $color-black-primary;
+  grid-area: header;
+  height: 70px;
+  transition: all 500ms ease-in-out;
+}
+
+.sidenav {
+  z-index: 3;
+  grid-area: "sidenav";
+}
+
+.sidenav-content {
+  background-color: $color-gray-2;
+  grid-area: content;
+  transition: all 500ms ease-in-out;
+}

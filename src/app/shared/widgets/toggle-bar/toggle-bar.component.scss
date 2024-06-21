@@ -1,0 +1,39 @@
+@import "./../../../../styles";
+
+:host {
+  // @apply flex w-[836px] h-[60px] p-[15.112px] justify-center items-center gap-[15.112px] rounded-[34.037px] bg-[#F0F0F0];
+  margin-top: 20px;
+  width: 836px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 2.2rem;
+  background-color: $color-black-primary;
+  display: flex;
+}
+
+.toggle-btn {
+  display: flex;
+  width: 130px;
+  margin: 11px 0px 10px 0px;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  transition: all 0.3s;
+  border-radius: 3rem;
+  color: #fff;
+  margin-left: 12px;
+}
+.toggle-btn_active {
+  color: #000;
+  background-color: #fff;
+}
+
+button {
+  span {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+}

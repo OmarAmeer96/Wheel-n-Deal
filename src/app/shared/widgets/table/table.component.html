@@ -1,0 +1,32 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let heading of headings">{{ heading }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let row of tableData">
+      <tr
+        *ngIf="
+          activeTab.toLowerCase() === 'all' ||
+          row.Status.toLowerCase() === activeTab.toLowerCase()
+        "
+      >
+        <td>{{ row.ID }}</td>
+        <td>{{ row.Status }}</td>
+        <td>{{ row["Commuter ID"] }}</td>
+        <td>{{ row["Customer ID"] }}</td>
+        <td>{{ row.From }}</td>
+        <td>{{ row.To }}</td>
+        <td>{{ row["Order Name"] }}</td>
+        <td>{{ row["Expiry Data"] }}</td>
+        <td>{{ row.Price }}</td>
+        <td>{{ row.Amount }}</td>
+        <td>{{ row.Breakable }}</td>
+        <td>
+          <img class="order-img" [src]="row.Picture" alt="Order picture" />
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

@@ -1,0 +1,37 @@
+<nav class="sidenav" [style.width]="sidenavWidth$ | async">
+  <div class="logo-container bg-slate-700">
+    <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+      <div class="logo-text">
+        W<span class="u-inter">h</span>ee<span class="u-inter">l</span> N’
+        De<span class="u-inter">al</span>
+      </div>
+    </ng-container>
+    <app-svg name="menu" class="menu-btn" (click)="toggleSidenav()"></app-svg>
+  </div>
+  <div class="sidenav-list">
+    <ul class="sidenav-nav">
+      <li class="sidenav-nav-item" *ngFor="let item of menuItems">
+        <a
+          class="sidenav-nav-link"
+          [style.width]="sidenavWidth$"
+          [routerLink]="item.routerLink"
+        >
+          <app-svg
+            style="cursor: pointer"
+            [name]="item.icon"
+            class="navicon"
+          ></app-svg>
+          <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+            <span class="sidenav-link-text">{{ item.label }}</span>
+          </ng-container>
+        </a>
+      </li>
+    </ul>
+    <button class="logout-btn">
+      <app-svg name="logout" class="navicon"></app-svg>
+      <ng-container *ngIf="!(sidenavCollapsed$ | async)">
+        <span class="logout-btn-text" (click)="logout()">Logout</span>
+      </ng-container>
+    </button>
+  </div>
+</nav>

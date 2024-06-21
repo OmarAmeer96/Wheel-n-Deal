@@ -1,0 +1,184 @@
+@import "../../../styles";
+
+.container {
+  font-size: 1.4rem;
+  background-image: $bg-gradient-1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    height: 83.203125vh;
+    flex: 0 0 93.75vw;
+    display: flex;
+    justify-content: center;
+
+    border-radius: 2.5rem;
+    background-color: $color-white-light;
+    box-shadow: $box-shadow-login;
+
+    & > * {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    &__illutration {
+      justify-content: end;
+      border-radius: 2.5rem 0 0 2.5rem;
+      background-image: $bg-gradient-3;
+
+      // gap: 4.6934rem;
+      gap: 6.6%;
+      .lock {
+        width: 25.653vw;
+        height: 38.129vh;
+      }
+      // .wave {
+      //   height: 100%;
+      // }
+    }
+
+    &__form {
+      justify-content: center;
+      flex-direction: column;
+      gap: 6vh;
+
+      &__title {
+        color: $color-primary;
+        font-family: "Caveat";
+        font-size: clamp(6.2rem, 8vw, 9.2rem);
+        font-weight: 700;
+      }
+
+      &__details {
+        color: $color-black-primary;
+        width: calc((431 / 675)) * 100%;
+        height: calc((325 / 852)) * 100%;
+        font-family: "Inter";
+        &__input-group {
+          position: relative;
+          label {
+            font-size: $defualtFontSize;
+            display: block;
+            margin-bottom: 0.2rem;
+          }
+
+          input {
+            width: 100%;
+            font-size: 1.8rem;
+            font-family: inherit;
+            font-size: inherit;
+            border: none;
+            outline: none;
+            padding-left: 2.6rem;
+            padding-block: 1.1rem;
+            border-bottom: 2px solid $color-black-primary;
+            background-color: $color-white-light;
+            &::placeholder {
+              color: inherit;
+              font-size: 1.8rem;
+            }
+
+            &:focus {
+              outline: none;
+              box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+              border-bottom: 3px solid $color-primary;
+            }
+            &.is-valid {
+              border-bottom: 3px solid $color-green-completed;
+            }
+
+            &.is-invalid {
+              border-bottom: 3px solid $color-red-rejected;
+            }
+
+            // &:invalid:touch {
+            //   border-bottom: 3px solid $color-red-rejected;
+            // }
+          }
+        }
+
+        &__info {
+          label {
+            cursor: pointer;
+          }
+
+          input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+            border: 0.02rem solid $color-gray-5;
+            border-radius: 0.35rem;
+            position: relative;
+            background-color: $color-wborder-dark;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &::after {
+              content: "\2714";
+              color: $color-white-light;
+              display: none;
+            }
+
+            &:hover {
+              background-color: rgba($color-wborder-dark, 0.8);
+            }
+
+            &:checked {
+              background-color: $color-primary;
+            }
+
+            &:checked::after {
+              display: block;
+            }
+          }
+        }
+        .btn-signIn {
+          margin-top: calc(58.5 * 0.0695vw);
+          color: $color-white;
+          font-size: 18px;
+          font-weight: 500;
+          border-radius: 6px;
+          background-color: $color-primary;
+          width: 100%;
+          padding-block: 1.5rem;
+
+          &:hover {
+            box-shadow: $box-shadow-signIn;
+            background-color: rgba($color-primary, 0.8);
+          }
+
+          &:disabled {
+            opacity: 0.5;
+            background-color: rgba($color-primary, 0.6);
+          }
+        }
+      }
+    }
+  }
+}
+
+// .is-invalid {
+//   border-bottom: 3px solid $color-primary;
+// }
+
+// .is-valid {
+//   border-bottom: 3px solid $color-green-completed;
+// }
+
+.is-valid {
+  border-bottom: 3px solid $color-green-completed;
+}
+
+.is-invalid {
+  border-bottom: 3px solid $color-primary;
+}

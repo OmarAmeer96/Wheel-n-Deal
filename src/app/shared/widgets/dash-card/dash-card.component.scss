@@ -1,0 +1,56 @@
+@import "./../../../../styles";
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30rem;
+  border-radius: 14px;
+  border: 1px solid #fff;
+  background: #fff;
+  padding-inline: 1.832rem;
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.05);
+
+  .crad-head {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 1.689rem;
+    .card-data {
+      h3 {
+        color: $color-gray-8;
+        font-size: 16px;
+        font-weight: 600;
+        opacity: 0.7;
+      }
+      p {
+        color: $color-gray-8;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      .card-icon {
+      }
+    }
+  }
+
+  .card-tail {
+    display: flex;
+    gap: 10.67px;
+    .up-from-past {
+      color: $color-gray-8;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 1.795rem;
+    }
+
+    .arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 22.885px;
+      height: 22.885px;
+      border-radius: 24px;
+      background: rgba(255, 152, 26, 0.4);
+    }
+  }
+}
