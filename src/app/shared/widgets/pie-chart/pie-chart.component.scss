@@ -1,3 +1,112 @@
-.container {
-  margin-top: 18px;
+// .container_chart {
+//   margin-top: 18px;
+//   width: 400px;
+//   height: 300px;
+//   padding-top: 16px;
+//   padding-bottom: 16px;
+//   background: white;
+//   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+//   border-radius: 8px;
+//   border: transparent 1px solid;
+//   gap: 8px;
+
+//   h2 {
+//     background-color: beige;
+//     width: 175px;
+//     height: 22px;
+//     text-align: center;
+//     color: #333333;
+//     font-size: 24px;
+//     font-weight: 700;
+//     line-height: 22px;
+//     word-wrap: break-word;
+//   }
+
+// }
+
+@import "../../../../styles";
+
+.container_card {
+  margin-top: 16px;
+  display: flex;
+  width: 430px;
+  // height: 300px;
+  min-width: 328px;
+  max-width: 870px;
+  padding: 16px 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 8px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    color: #333;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px; /* 91.667% */
+    margin-bottom: 22px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    .chart-container {
+      // background-color: beige;
+
+      h6 {
+        color: #333;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 22px;
+        position: absolute;
+        content: "";
+        top: 45%;
+        left: 45%;
+      }
+    }
+
+    .details {
+      width: 200px;
+
+      ul {
+        list-style: disc;
+        li {
+          color: #333;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 12px; /* 100% */
+          margin-bottom: 12px;
+
+          &:nth-child(1)::marker {
+            color: $color-green-success;
+          }
+
+          &:nth-child(2)::marker {
+            color: $color-red-rejected;
+          }
+
+          &:nth-child(3)::marker {
+            color: $color-primary;
+          }
+          span {
+            font-weight: 700;
+            line-height: 14px; /* 116.667% */
+            margin-left: 16px;
+          }
+        }
+      }
+    }
+  }
 }

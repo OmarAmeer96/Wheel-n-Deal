@@ -1,17 +1,16 @@
-<!-- <highcharts-chart
-  [Highcharts]="Highcharts"
-  [constructorType]="chartConstructor"
-  [options]="chartOptions"
-  [callbackFunction]="chartCallback"
-  [(update)]="updateFlag"
-  [oneToOne]="oneToOneFlag"
-  [runOutsideAngular]="runOutsideAngular"
-  style="width: 100%; height: 400px; display: block"
-></highcharts-chart> -->
-<!-- <div class="container">
-  <highcharts-chart
-    [Highcharts]="Highcharts"
-    [options]="chartOptions"
-    style="width: 100%; height: 400px; display: block"
-  ></highcharts-chart>
-</div> -->
+<div class="container_card">
+  <h2>Total Orders</h2>
+  <div class="stats">
+    <div class="chart-container relative">
+      <h6>100</h6>
+      <canvas id="myChart"> </canvas>
+    </div>
+    <div class="details">
+      <ul>
+        <li>Success:<span>&nbsp;30</span></li>
+        <li>Failure:<span>&nbsp;&nbsp;&nbsp;35</span></li>
+        <li>Pending:<span>35</span></li>
+      </ul>
+    </div>
+  </div>
+</div>

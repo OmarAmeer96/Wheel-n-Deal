@@ -10,7 +10,7 @@ import { base_url } from '../constant/api-constant';
 export class StatService {
   constructor(private _http: HttpClient) {}
 
-  private statisticalData!: DataModel;
+  public statisticalData!: DataModel;
 
   getStatVar(...keys: (keyof DataModel)[]) {
     return keys.reduce((obj, key) => {
@@ -20,10 +20,13 @@ export class StatService {
   }
 
   getStatisticalData(): Observable<ResponseStatModel> {
-    return this._http.get<ResponseStatModel>(`${base_url}/admin/count`).pipe(
-      tap((res) => {
-        this.statisticalData = res.data;
-      })
-    );
+    return this._http
+      .get<ResponseStatModel>(`${base_url}/admin/count-all`)
+      .pipe(
+        tap((res) => {
+          console.log(res.data);
+          this.statisticalData = res.data;
+        })
+      );
   }
 }
