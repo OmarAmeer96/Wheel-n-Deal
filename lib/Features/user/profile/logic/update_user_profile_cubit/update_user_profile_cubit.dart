@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
   File? selectedImage;
 
   void emitUpdateProfileState() async {
-    log("OrderPhoto: ${selectedImage!.path}");
+    // log("OrderPhoto: ${selectedImage!.path}");
     emit(const UpdateUserProfileState.loading());
     final response = await _updateUserProfileRepo.updateUserProfile(
       SharedPrefs.getString(key: kToken)!,
