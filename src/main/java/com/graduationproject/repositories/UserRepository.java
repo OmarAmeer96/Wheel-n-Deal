@@ -20,8 +20,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     User findByRole(Role role);
     User findByStripeId(String stripeUserId);
     User findByPhoneNumber(String phoneNumber);
+
     @Query("SELECT new com.graduationproject.DTOs.UserDTO(u.id, u.phoneNumber, u.username, u.amount, u.gender, u.profilePictureUrl, u.nationalId, u.totalDelivers, u.cancelDelivers) FROM User u WHERE u.id <> 1 AND u.role = :role")
     Page<UserDTO> findUsersByRole(@Param("role") Role role, Pageable pageable);
+
     @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
     long countUsersByRole(@Param("role") Role role);
 
@@ -30,5 +32,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     List<User> findCommuterByRole(Role role);
 
-
+    @Query("SELECT SUM(u.amount) FROM User u")
+    Long findSumAmount();
 }

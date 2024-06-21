@@ -6,7 +6,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GetNumbersResponseDTO {
-    private Long numOfUsers;
+    private Long numOfAllUsers;
+    private Long numOfCustomers;
     private Long numOfCommuters;
     private Long numOfOrders;
+    private Long totalRevenue;
 }

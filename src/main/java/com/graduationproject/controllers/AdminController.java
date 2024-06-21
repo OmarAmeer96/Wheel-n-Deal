@@ -37,4 +37,9 @@ public class AdminController {
         return adminService.countAll();
     }
 
+    @GetMapping("count-all-orders")
+    public CustomResponse countOrdersByStatus() {
+        return adminService.countOrdersByStatus();
+    }
+
 }

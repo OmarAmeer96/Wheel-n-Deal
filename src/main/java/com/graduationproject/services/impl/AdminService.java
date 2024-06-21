@@ -58,9 +58,6 @@ public class AdminService {
         }
     }
 
-    public Long countUsersByRole(Role role) {
-        return userRepository.countUsersByRole(role);
-    }
     public CustomResponse findAllOrders(Integer pageNum, Integer pageSize) {
         try {
             if (pageNum < 0 || pageSize <= 0) {
@@ -97,15 +94,12 @@ public class AdminService {
         }
     }
 
-    public Long countOrders() {
-        return orderRepository.countAllOrders();
-    }
-
     public CustomResponse countAll() {
         try {
-            Long users = countUsersByRole(Role.valueOf("USER"));
-            Long commuters = countUsersByRole(Role.valueOf("COMMUTER"));
-            Long orders = countOrders(); // Assuming countOrders returns Long
+            Long users = userRepository.countUsersByRole(Role.valueOf("USER"));
+            Long commuters = userRepository.countUsersByRole(Role.valueOf("COMMUTER"));
+            Long orders = orderRepository.countAllOrders();
+            Long revenue = userRepository.findSumAmount();
 
             if (users == null || commuters == null || orders == null) {
                 return CustomResponse.builder()
@@ -116,9 +110,11 @@ public class AdminService {
             }
 
             GetNumbersResponseDTO responseDTO = new GetNumbersResponseDTO(
+                    users+commuters,
                     users.longValue(),
                     commuters.longValue(),
-                    orders
+                    orders,
+                    revenue
             );
 
             return CustomResponse.builder()
@@ -135,6 +131,31 @@ public class AdminService {
                     .build();
         }
     }
+
+    public CustomResponse countOrdersByStatus() {
+        try {
+            OrderStatusCountDTO orderStatusCountDTO = new OrderStatusCountDTO();
+
+            orderStatusCountDTO.setNumOfPendingOrders(orderRepository.countOrdersByStatus(OrderStatus.PENDING));
+            orderStatusCountDTO.setNumOfConfirmedOrders(orderRepository.countOrdersByStatus(OrderStatus.CONFIRMED));
+            orderStatusCountDTO.setNumOfInProgressOrders(orderRepository.countOrdersByStatus(OrderStatus.IN_PROGRESS));
+            orderStatusCountDTO.setNumOfFailedOrders(orderRepository.countOrdersByStatus(OrderStatus.FAILED));
+            orderStatusCountDTO.setNumOfAllOrders(orderRepository.countAllOrders());
+
+            return CustomResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Order status counts retrieved successfully")
+                    .data(orderStatusCountDTO)
+                    .build();
+        } catch (Exception e) {
+            return CustomResponse.builder()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("An error occurred while counting orders by status: " + e.getMessage())
+                    .data(null)
+                    .build();
+        }
+    }
+
 
 
 }
