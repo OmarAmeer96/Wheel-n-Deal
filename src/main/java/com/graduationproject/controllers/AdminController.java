@@ -32,14 +32,9 @@ public class AdminController {
         return adminService.findAllOrders(pageNum, pageSize);
     }
 
-    @GetMapping("count")
+    @GetMapping("count-all")
     public CustomResponse countAll() {
         return adminService.countAll();
-    }
-
-    @GetMapping("count-all-orders")
-    public CustomResponse countOrdersByStatus() {
-        return adminService.countOrdersByStatus();
     }
 
 }
