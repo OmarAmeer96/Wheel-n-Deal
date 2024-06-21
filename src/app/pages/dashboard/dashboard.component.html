@@ -1,1 +1,25 @@
-<p>dashboard works!</p>
+<div class="card-container">
+  <app-dash-card
+    title="Total Users"
+    icon="total_user_card"
+    [data]="totalUsers"
+  ></app-dash-card>
+  <app-dash-card
+    title="Total Commuters"
+    icon="total_commuter_card"
+    [data]="totalCommuter"
+  ></app-dash-card>
+  <app-dash-card
+    title="Total Orders"
+    icon="total_orders_card"
+    [data]="totalOrders"
+  ></app-dash-card>
+
+  <app-dash-card
+    title="Total Revenue"
+    icon="total_revenue_card"
+    [data]="totalRevenue"
+  ></app-dash-card>
+</div>
+
+<app-pie-chart></app-pie-chart>

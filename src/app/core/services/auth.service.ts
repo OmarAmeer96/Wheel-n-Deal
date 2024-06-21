@@ -20,7 +20,3 @@ export class AuthService {
     );
   }
 }
-// return this._http.post(
-//   'https://wheel-n-deal-production.up.railway.app/api/v1/auth/signin',
-//   formData
-// );

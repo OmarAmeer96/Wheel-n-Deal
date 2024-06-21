@@ -34,6 +34,77 @@ export class OrdersComponent implements OnInit {
     // ..
   ];
 
+  tableHeaders = [
+    'ID',
+    'Status',
+    'Customer ID',
+    'Commuter ID',
+    'From',
+    'To',
+    'Order Name',
+    'Expiry Data',
+    'Price',
+    'Amount',
+    'Breakable',
+    'Picture',
+  ];
+
+  constructor(private _order: OrdersService) {}
+
+  ngOnInit(): void {
+    this.fetchAllOrders();
+  }
+
+  mappedOrders: OrderTableData[] = [];
+
+  fetchAllOrders() {
+    this._order.getAllOrders(0, 10).subscribe((res: ApiResponse) => {
+      console.log(res.data.content[0]);
+      if (res.status === 200) {
+        this.mappedOrders = res.data.content.map((order) => ({
+          ID: order.id,
+          Status: order.orderStatus,
+          'Customer ID': order.senderPhoneNumber,
+          'Commuter ID': order.commuterPhoneNumber ?? 'N/A',
+          From: order.from,
+          To: order.to,
+          'Order Name': order.orderName,
+          'Expiry Data': order.expiryDate,
+          Price: order.expectedPrice,
+          Amount: order.countOfOrders,
+          Breakable: order.breakable,
+          Picture: order.orderPhotoUrl,
+        }));
+
+        console.log('Orders data: ', this.mappedOrders);
+      } else {
+        // Handle error
+        console.log('Failed to fetch orders with status: ' + res.status);
+      }
+    });
+  }
+
+  filteredOrders: OrderTableData[] = [];
+
+  filterOrders() {
+    this.filteredOrders = this.mappedOrders.filter(
+      (order) => order.Status.toLowerCase() === this.activeTab.toLowerCase()
+    );
+  }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log('Changes: ', changes['activeTab'].currentValue);
+  //   if (changes['activeTab'] && changes['activeTab'].currentValue) {
+  //     this.activeTab = changes['activeTab'].currentValue;
+  //     this.filterOrders();
+  //   }
+  // }
+  // setActiveTab(status: string) {
+  //   console.log('Active tab: ', status);
+  //   this.activeTab = status;
+  //   this.filterOrders();
+  // }
+
   // ordersData: IOrder[] = [
   //   {
   //     id: 1,
@@ -92,75 +163,4 @@ export class OrdersComponent implements OnInit {
   //     orderStatus: 'Pending',
   //   },
   // ];
-  tableHeaders = [
-    'ID',
-    'Status',
-    'Customer ID',
-    'Commuter ID',
-    'From',
-    'To',
-    'Order Name',
-    'Expiry Data',
-    'Price',
-    'Amount',
-    'Breakable',
-    'Picture',
-  ];
-
-  constructor(private _order: OrdersService) {}
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log('Changes: ', changes['activeTab'].currentValue);
-  //   if (changes['activeTab'] && changes['activeTab'].currentValue) {
-  //     this.activeTab = changes['activeTab'].currentValue;
-  //     this.filterOrders();
-  //   }
-  // }
-  ngOnInit(): void {
-    this.fetchAllOrders();
-  }
-
-  // filteredOrdersData: IOrder[] = [];
-
-  mappedOrders: OrderTableData[] = [];
-
-  fetchAllOrders() {
-    this._order.getAllOrders(0, 10).subscribe((res: ApiResponse) => {
-      console.log(res.data.content[0]);
-      if (res.status === 200) {
-        this.mappedOrders = res.data.content.map((order) => ({
-          ID: order.id,
-          Status: order.orderStatus,
-          'Customer ID': order.senderPhoneNumber,
-          'Commuter ID': order.receiverPhoneNumber,
-          From: order.from,
-          To: order.to,
-          'Order Name': order.orderName,
-          'Expiry Data': order.expiryDate,
-          Price: order.expectedPrice,
-          Amount: order.countOfOrders,
-          Breakable: order.breakable,
-          Picture: order.orderPhotoUrl,
-        }));
-
-        console.log('Orders data: ', this.mappedOrders);
-      } else {
-        // Handle error
-        console.log('Failed to fetch orders with status: ' + res.status);
-      }
-    });
-  }
-
-  filteredOrders: OrderTableData[] = [];
-
-  filterOrders() {
-    this.filteredOrders = this.mappedOrders.filter(
-      (order) => order.Status.toLowerCase() === this.activeTab.toLowerCase()
-    );
-  }
-
-  // setActiveTab(status: string) {
-  //   console.log('Active tab: ', status);
-  //   this.activeTab = status;
-  //   this.filterOrders();
-  // }
 }
