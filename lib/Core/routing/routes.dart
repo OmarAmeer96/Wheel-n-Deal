@@ -1,5 +1,5 @@
 class Routes {
-  static const kSplashView = '/splashView';
+  static const kSplashView = '/';
   static const kOnBoardingView = '/onBoardingView';
   static const kHomeView = '/homeView';
   static const kWelcomeView = '/welcomeView';
