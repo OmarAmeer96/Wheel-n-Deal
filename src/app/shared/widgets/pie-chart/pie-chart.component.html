@@ -2,14 +2,20 @@
   <h2>Total Orders</h2>
   <div class="stats">
     <div class="chart-container relative">
-      <h6>100</h6>
+      <h6>{{ totalOrders }}</h6>
       <canvas id="myChart"> </canvas>
     </div>
     <div class="details">
       <ul>
-        <li>Success:<span>&nbsp;30</span></li>
-        <li>Failure:<span>&nbsp;&nbsp;&nbsp;35</span></li>
-        <li>Pending:<span>35</span></li>
+        <li>
+          Success:<span>&nbsp;{{ successfulOrders }}</span>
+        </li>
+        <li>
+          Failure:<span>&nbsp;&nbsp;&nbsp;{{ failureOrders }}</span>
+        </li>
+        <li>
+          Pending:<span>{{ pendingOrders }}</span>
+        </li>
       </ul>
     </div>
   </div>

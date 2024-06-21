@@ -15,6 +15,8 @@ export class StatService {
   getStatVar(...keys: (keyof DataModel)[]) {
     return keys.reduce((obj, key) => {
       obj[key] = this.statisticalData[key];
+      console.log(obj);
+
       return obj;
     }, {} as Partial<DataModel>);
   }

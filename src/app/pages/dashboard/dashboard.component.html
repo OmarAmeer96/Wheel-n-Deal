@@ -22,4 +22,9 @@
   ></app-dash-card>
 </div>
 
-<app-pie-chart></app-pie-chart>
+<app-pie-chart
+  [successfulOrders]="successfulOrders"
+  [pendingOrders]="pendingOrders"
+  [failureOrders]="failureOrders"
+  [totalOrders]="totalOrders"
+></app-pie-chart>
