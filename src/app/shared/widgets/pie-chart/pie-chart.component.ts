@@ -11,14 +11,4 @@ Chart.register(...registerables);
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss',
 })
-export class PieChartComponent {
-  // Highcharts: typeof Highcharts = Highcharts;
-  // chartOptions: Highcharts.Options = {
-  //   series: [
-  //     {
-  //       data: [1, 2, 3],
-  //       type: 'pie',
-  //     },
-  //   ],
-  // };
-}
+export class PieChartComponent {}

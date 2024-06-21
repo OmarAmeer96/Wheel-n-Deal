@@ -1,4 +1,4 @@
-export interface ResponseModel {
+export interface ResponseStatModel {
   status: number;
   message: string;
   data: DataModel;
