@@ -9,7 +9,7 @@ export interface IOrder {
   from: string;
   to: string;
   senderPhoneNumber: string;
-  receiverPhoneNumber: string;
+  commuterPhoneNumber: string;
   orderStatus: string;
 }
 
