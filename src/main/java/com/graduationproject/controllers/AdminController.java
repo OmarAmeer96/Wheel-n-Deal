@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -35,6 +36,11 @@ public class AdminController {
     @GetMapping("count-all")
     public CustomResponse countAll() {
         return adminService.countAll();
+    }
+
+    @GetMapping("created-last-month")
+    public List<UserCountDTO> getUsersCreatedPerMonthLastYear() {
+        return adminService.getUsersCreatedPerDayLastMonth();
     }
 
 }

@@ -2,11 +2,11 @@ package com.graduationproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -122,5 +122,14 @@ public class Order {
     @JoinColumn(name = "trip_id")
     @JsonBackReference
     private Trip trip;
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date creatingDate;
+
+    @PrePersist
+    private void onCreating(){
+        creatingDate = new Date();
+    }
 
 }

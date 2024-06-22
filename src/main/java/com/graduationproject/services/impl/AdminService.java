@@ -13,6 +13,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AdminService {
@@ -126,6 +134,24 @@ public class AdminService {
                     .data(null)
                     .build();
         }
+    }
+
+    public List<UserCountDTO> getUsersCreatedPerDayLastMonth() {
+        Date startDate = Date.from(LocalDate.now().minusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<UserCountDTO> result = new ArrayList<>();
+
+        while (startDate.before(endDate)) {
+            Date nextDay = Date.from(startDate.toInstant().plus(1, ChronoUnit.DAYS));
+            Long count = userRepository.countUsersCreatedBetween(startDate, nextDay);
+            String formattedDate = new SimpleDateFormat("d MMM").format(startDate);
+            UserCountDTO userCount = new UserCountDTO(formattedDate, count);
+            result.add(userCount);
+            startDate = nextDay;
+        }
+
+        return result;
     }
 
 }

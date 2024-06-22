@@ -2,11 +2,8 @@ package com.graduationproject.repositories;
 
 import com.graduationproject.DTOs.GetAllOrders;
 import com.graduationproject.DTOs.GetOrdersDTO;
-import com.graduationproject.DTOs.UserDTO;
 import com.graduationproject.entities.Order;
 import com.graduationproject.entities.OrderStatus;
-import com.graduationproject.entities.Role;
-import com.graduationproject.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

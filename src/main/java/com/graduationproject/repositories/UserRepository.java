@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,4 +35,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query("SELECT SUM(u.amount) FROM User u")
     Long findSumAmount();
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.creatingDate >= :startDate AND u.creatingDate < :endDate")
+    Long countUsersCreatedBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

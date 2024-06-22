@@ -1,6 +1,5 @@
 package com.graduationproject.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -11,12 +10,11 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.testcontainers.shaded.org.checkerframework.common.aliasing.qual.Unique;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Entity
@@ -134,6 +132,14 @@ public class User implements UserDetails {
     @JsonManagedReference
     private List<OrderApplicants> orderApplicants;
 
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date creatingDate;
+
+    @PrePersist
+    private void onCreating(){
+        creatingDate = new Date();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
