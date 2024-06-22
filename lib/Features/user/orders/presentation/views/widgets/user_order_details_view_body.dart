@@ -58,83 +58,77 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                   const SizedBox(
                     height: 30,
                   ),
-                  if (urlController.text.isNotEmpty)
-                    Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          child: QrImageView(
-                            data: urlController.text,
-                            size: 170,
-                          ),
+                  Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        child: QrImageView(
+                          data: widget.userOrder!.senderCode.toString(),
+                          size: 170,
                         ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: SvgPicture.asset(
-                            AssetsData.qrTopRight,
-                          ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: SvgPicture.asset(
+                          AssetsData.qrTopRight,
                         ),
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          child: SvgPicture.asset(
-                            AssetsData.qrTopLeft,
-                          ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: SvgPicture.asset(
+                          AssetsData.qrTopLeft,
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: SvgPicture.asset(
-                            AssetsData.qrBottomRight,
-                          ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: SvgPicture.asset(
+                          AssetsData.qrBottomRight,
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          child: SvgPicture.asset(
-                            AssetsData.qrBottomLeft,
-                          ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: SvgPicture.asset(
+                          AssetsData.qrBottomLeft,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                  //   child: TextField(
+                  //     controller: urlController,
+                  //     decoration: InputDecoration(
+                  //       hintText: "Enter User ID",
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(15),
+                  //       ),
+                  //       labelText: "Enter User ID",
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // ElevatedButton(
+                  //   style: const ButtonStyle(
+                  //     foregroundColor: WidgetStatePropertyAll(kPrimaryColor),
+                  //   ),
+                  //   onPressed: () {
+                  //     setState(() {});
+                  //   },
+                  //   child: const Text("Generate QR Code"),
+                  // ),
+
+                  // Divider(
+                  //   color: Colors.grey.withOpacity(0.3),
+                  //   thickness: 2,
+                  // ),
                   const SizedBox(
                     height: 30,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextField(
-                      controller: urlController,
-                      decoration: InputDecoration(
-                        hintText: "Enter User ID",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        labelText: "Enter User ID",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    style: const ButtonStyle(
-                      foregroundColor: WidgetStatePropertyAll(kPrimaryColor),
-                    ),
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: const Text("Generate QR Code"),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Divider(
-                    color: Colors.grey.withOpacity(0.3),
-                    thickness: 2,
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                   Container(
                     width: double.infinity,
@@ -149,23 +143,25 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CustomReviewSummaryItem(
+                          CustomReviewSummaryItem(
                             keyText: 'Sender Name',
-                            valText: 'Omar',
+                            valText: widget.userOrder!.senderName.toString(),
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          const CustomReviewSummaryItem(
+                          CustomReviewSummaryItem(
                             keyText: 'Sender Phone Number',
-                            valText: '01554111002',
+                            valText:
+                                widget.userOrder!.senderPhoneNumber.toString(),
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          const CustomReviewSummaryItem(
+                          CustomReviewSummaryItem(
                             keyText: 'Receiver Phone Number',
-                            valText: '01554111002',
+                            valText: widget.userOrder!.receiverPhoneNumber
+                                .toString(),
                           ),
                           const SizedBox(
                             height: 20,
@@ -174,17 +170,17 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                             "Address",
                             style: Styles.manropeBold32.copyWith(fontSize: 15),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
                             child: Column(
                               children: [
                                 CustomReviewSummaryItem(
                                   keyText: 'From',
-                                  valText: 'Port-said mohammed ali St',
+                                  valText: widget.userOrder!.from.toString(),
                                 ),
                                 CustomReviewSummaryItem(
                                   keyText: 'To      ',
-                                  valText: 'Tanta',
+                                  valText: widget.userOrder!.to.toString(),
                                 ),
                               ],
                             ),
@@ -196,23 +192,25 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                             "Order Details",
                             style: Styles.manropeBold32.copyWith(fontSize: 15),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
                             child: Column(
                               children: [
                                 CustomReviewSummaryItem(
                                   keyText: 'Name   ',
-                                  valText: 'Camera',
+                                  valText:
+                                      widget.userOrder!.orderName.toString(),
                                 ),
                                 CustomReviewSummaryItem(
                                   keyText: 'Count  ',
-                                  valText: '2',
+                                  valText: widget.userOrder!.countOfOrders
+                                      .toString(),
                                 ),
                                 CustomReviewSummaryItem(
                                   keyText: 'Weight',
-                                  valText: '0.5 KG',
+                                  valText: widget.userOrder!.weight.toString(),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Align(
@@ -230,23 +228,23 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const CustomReviewSummaryItem(
+                          CustomReviewSummaryItem(
                             keyText: 'Breakable Order',
-                            valText: "Yes",
+                            valText: widget.userOrder!.breakable.toString(),
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          const CustomReviewSummaryItem(
+                          CustomReviewSummaryItem(
                             keyText: 'Expiry Date',
-                            valText: '3-5 Dayes',
+                            valText: widget.userOrder!.expiryDate.toString(),
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          const CustomReviewSummaryItem(
+                          CustomReviewSummaryItem(
                             keyText: 'Expected Price',
-                            valText: '100 LE',
+                            valText: widget.userOrder!.expectedPrice.toString(),
                           ),
                         ],
                       ),
