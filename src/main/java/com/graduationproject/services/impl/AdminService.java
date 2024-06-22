@@ -154,4 +154,20 @@ public class AdminService {
         return result;
     }
 
+    public List<OrderCountDTO> getOrdersCreatedLastWeek() {
+        Date startDate = Date.from(LocalDate.now().minusWeeks(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<OrderCountDTO> result = new ArrayList<>();
+
+        while (startDate.before(endDate)) {
+            Date nextDay = Date.from(startDate.toInstant().plus(1, ChronoUnit.DAYS));
+            Long count = orderRepository.countOrdersCreatedBetween(startDate, nextDay);
+            String formattedDate = new SimpleDateFormat("EEEE").format(startDate);
+            result.add(new OrderCountDTO(formattedDate, count));
+            startDate = nextDay;
+        }
+
+        return result;
+    }
 }

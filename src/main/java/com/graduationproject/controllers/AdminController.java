@@ -38,9 +38,14 @@ public class AdminController {
         return adminService.countAll();
     }
 
-    @GetMapping("created-last-month")
+    @GetMapping("users-created-last-month")
     public List<UserCountDTO> getUsersCreatedPerMonthLastYear() {
         return adminService.getUsersCreatedPerDayLastMonth();
+    }
+
+    @GetMapping("orders-created-last-week")
+    public List<OrderCountDTO> getOrdersCreatedLastWeek() {
+        return adminService.getOrdersCreatedLastWeek();
     }
 
 }

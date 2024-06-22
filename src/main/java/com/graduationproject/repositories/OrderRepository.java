@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -44,5 +45,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
     @Query("SELECT COUNT(o) FROM Order o ")
     long countAllOrders();
 
+    @Query("SELECT COUNT(o) FROM Order o WHERE o.creatingDate >= :startDate AND o.creatingDate < :endDate")
+    Long countOrdersCreatedBetween(Date startDate, Date endDate);
 
 }
