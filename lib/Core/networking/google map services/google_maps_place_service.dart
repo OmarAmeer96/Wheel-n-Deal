@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:wheel_n_deal/Features/user/tracking/data/models/place_autocomplete_model/place_autocomplete_model.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/place_details_model/place_details_model.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/place_autocomplete_model/place_autocomplete_model.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/place_details_model/place_details_model.dart';
 
 class PlacesService {
   final String baseUrl = 'https://maps.googleapis.com/maps/api/place';

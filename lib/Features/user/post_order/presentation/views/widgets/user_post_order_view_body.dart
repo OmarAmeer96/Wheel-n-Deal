@@ -33,6 +33,7 @@ class UserPostOrderViewBody extends StatefulWidget {
 }
 
 class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
+  String? selectedAddress;
   int currentStep = 0;
 
   // Step 1 Things
@@ -311,10 +312,15 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         ),
                         MakeOrderSelectLocationItem(
                           text: 'From',
-                          onPressed: () {
-                            context.pushNamed(
+                          onPressed: () async {
+                            final result = await context.pushNamed(
                               Routes.kUserSearchLocationView,
                             );
+                            if (result != null) {
+                              setState(() {
+                                selectedAddress = result;
+                              });
+                            }
                           },
                         ),
                         const SizedBox(

@@ -6,12 +6,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/google_maps_place_service.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/location_service.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/routes_service.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/location_info/lat_lng.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/location_info/location.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/location_info/location_info.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/place_autocomplete_model/place_autocomplete_model.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/place_details_model/place_details_model.dart';
-import 'package:wheel_n_deal/Features/user/tracking/data/models/routes_model/routes_model.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/location_info/lat_lng.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/location_info/location.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/location_info/location_info.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/place_autocomplete_model/place_autocomplete_model.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/place_details_model/place_details_model.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/routes_model/routes_model.dart';
 
 class MapServices {
   PlacesService placesService = PlacesService();
@@ -34,8 +34,7 @@ class MapServices {
     }
   }
 
-  Future<List<LatLng>> getRouteData(
-      { required LatLng desination}) async {
+  Future<List<LatLng>> getRouteData({required LatLng desination}) async {
     // create a new LocationInfoModel object with the current location
     LocationInfoModel origin = LocationInfoModel(
       location: LocationModel(
@@ -110,12 +109,12 @@ class MapServices {
 
   void updateCurrentLocation(
       {required GoogleMapController googleMapController,
-      required Set<Marker> markers,required Function onUpdateCurrentLocation}) {
+      required Set<Marker> markers,
+      required Function onUpdateCurrentLocation}) {
     // get the location data
     locationService.getRealTimeLocationData((locationData) {
       // create a new LatLng object with the location data
-       currentLocation =
-          LatLng(locationData.latitude!, locationData.longitude!);
+      currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
       Marker currentLocationMarker = Marker(
           markerId: const MarkerId('my location'), position: currentLocation!);
       // update the camera position

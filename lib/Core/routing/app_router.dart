@@ -473,7 +473,7 @@ class AppRouter {
 
       case Routes.kUserTrackOrderView:
         return MaterialPageRoute(
-          builder: (_) => const UsertrackOrderView(),
+          builder: (_) => const UserTrackOrderView(),
         );
 
       case Routes.kCustomerAcceptOrderDetailsView:
