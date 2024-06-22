@@ -8,11 +8,16 @@ import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
+import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class UserOrderDetailsViewBody extends StatefulWidget {
-  const UserOrderDetailsViewBody({super.key});
+  final GetUserOrdersResponseData? userOrder;
+  const UserOrderDetailsViewBody({
+    super.key,
+    this.userOrder,
+  });
 
   @override
   State<UserOrderDetailsViewBody> createState() =>
@@ -24,6 +29,13 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.userOrder == null) {
+      return const Scaffold(
+        body: Center(
+          child: Text('No order found'),
+        ),
+      );
+    }
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -330,7 +342,8 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                                       child: CustomMainButton(
                                         height: 25,
                                         onPressed: () {
-                                          context.pushNamed(Routes.kUserCanceledOrderView,
+                                          context.pushNamed(
+                                            Routes.kUserCanceledOrderView,
                                           );
                                         },
                                         text: "Yes",

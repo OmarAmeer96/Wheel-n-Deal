@@ -62,7 +62,10 @@ class _UserPendingOrdersBodyState extends State<UserPendingOrdersBody> {
                     final userOrder = (state).data.data[index];
                     return UserPendingOrdersItem(
                       onTap: () {
-                        context.pushNamed(Routes.kUserOrderDetailsView);
+                        context.pushNamed(
+                          Routes.kUserOrderDetailsView,
+                          arguments: userOrder,
+                        );
                       },
                       userOrder: userOrder,
                     );

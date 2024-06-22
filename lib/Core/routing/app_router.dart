@@ -59,6 +59,7 @@ import 'package:wheel_n_deal/Features/user/home/presentation/views/user_home_vie
 import 'package:wheel_n_deal/Features/user/messages/presentation/views/user_chat_view.dart';
 import 'package:wheel_n_deal/Features/user/messages/presentation/views/user_messages_view.dart';
 import 'package:wheel_n_deal/Features/user/notifications/presentation/views/user_notifications_view.dart';
+import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_canceled_order_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_completed_order_details_view.dart';
 import 'package:wheel_n_deal/Features/user/orders/presentation/views/user_order_details_view.dart';
@@ -379,7 +380,10 @@ class AppRouter {
 
       case Routes.kUserOrderDetailsView:
         return MaterialPageRoute(
-          builder: (_) => const UserOrderDetailsView(),
+          builder: (_) {
+            final userOrder = arguments as GetUserOrdersResponseData?;
+            return UserOrderDetailsView(userOrder: userOrder);
+          },
         );
 
       case Routes.kCommuterPickOrderView:
