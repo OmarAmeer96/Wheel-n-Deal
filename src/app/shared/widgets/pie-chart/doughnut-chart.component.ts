@@ -10,13 +10,13 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
-  selector: 'app-pie-chart',
+  selector: 'app-doughnut-chart',
   standalone: true,
   imports: [],
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss'],
+  templateUrl: './doughnut-chart.component.html',
+  styleUrls: ['./doughnut-chart.component.scss'],
 })
-export class PieChartComponent implements OnInit, OnChanges {
+export class DoughnutChartComponent implements OnInit, OnChanges {
   @Input() successfulOrders = 0;
   @Input() failureOrders = 0;
   @Input() pendingOrders = 0;

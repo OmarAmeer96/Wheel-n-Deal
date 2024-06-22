@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashCardComponent } from '../../shared/widgets/dash-card/dash-card.component';
-import { PieChartComponent } from '../../shared/widgets/pie-chart/pie-chart.component';
+import { DoughnutChartComponent } from '../../shared/widgets/pie-chart/doughnut-chart.component';
 import { StatService } from '../../core/services/stat.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { StatService } from '../../core/services/stat.service';
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  imports: [DashCardComponent, PieChartComponent],
+  imports: [DashCardComponent, DoughnutChartComponent],
 })
 export class DashboardComponent implements OnInit {
   numOfAllUsers!: number;
