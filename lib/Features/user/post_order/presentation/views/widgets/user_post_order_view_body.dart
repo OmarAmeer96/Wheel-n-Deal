@@ -26,7 +26,11 @@ import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets
 import 'package:wheel_n_deal/constants.dart';
 
 class UserPostOrderViewBody extends StatefulWidget {
-  const UserPostOrderViewBody({super.key});
+  final TextEditingController? addressController;
+  const UserPostOrderViewBody({
+    super.key,
+    this.addressController,
+  });
 
   @override
   State<UserPostOrderViewBody> createState() => _UserPostOrderViewBodyState();
@@ -311,6 +315,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           height: 10,
                         ),
                         MakeOrderSelectLocationItem(
+                          addressController: widget.addressController,
                           text: 'From',
                           onPressed: () async {
                             final result = await context.pushNamed(
@@ -327,6 +332,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                           height: 10,
                         ),
                         MakeOrderSelectLocationItem(
+                          addressController: widget.addressController,
                           text: 'To',
                           onPressed: () {
                             context.pushNamed(

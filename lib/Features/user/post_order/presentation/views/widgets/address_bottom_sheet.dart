@@ -111,7 +111,10 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
           text: "Confirm Location",
           onPressed: () {
             if (widget.formKey.currentState!.validate()) {
-              context.pushNamed(Routes.kUserPostOrderView);
+              context.pushNamed(
+                Routes.kUserPostOrderView,
+                arguments: widget.addressController,
+              );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Please enter a valid address')),

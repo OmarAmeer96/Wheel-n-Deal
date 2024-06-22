@@ -222,7 +222,8 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         MakeOrderSelectLocationItem(
                           text: 'From',
                           onPressed: () {
-                            context.pushNamed(Routes.kCommuterSearchLocationView,
+                            context.pushNamed(
+                              Routes.kCommuterSearchLocationView,
                             );
                           },
                         ),
@@ -232,7 +233,8 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         MakeOrderSelectLocationItem(
                           text: 'To',
                           onPressed: () {
-                            context.pushNamed(Routes.kCommuterSearchLocationView,
+                            context.pushNamed(
+                              Routes.kCommuterSearchLocationView,
                             );
                           },
                         ),

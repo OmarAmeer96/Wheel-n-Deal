@@ -310,7 +310,12 @@ class AppRouter {
 
       case Routes.kUserPostOrderView:
         return MaterialPageRoute(
-          builder: (_) => const UserPostOrderView(),
+          builder: (_) {
+            final addressController = arguments as TextEditingController?;
+            return UserPostOrderView(
+              addressController: addressController,
+            );
+          },
         );
 
       case Routes.kUserSearchLocationView:

@@ -1,16 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/location_service.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/map_services.dart';
+import 'package:wheel_n_deal/Core/routing/routes.dart';
+import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
+import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
+import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/Features/user/post_order/data/models/Google%20Map%20Models/place_autocomplete_model/place_autocomplete_model.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/google%20map%20widgets/custom_list_view.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/user_stepper_steps_item.dart';
 import 'package:wheel_n_deal/constants.dart';
-
-import 'address_bottom_sheet.dart';
 
 class UserSearchLocationViewBody extends StatefulWidget {
   const UserSearchLocationViewBody({super.key});
@@ -111,12 +117,110 @@ class _UserSearchLocationViewBodyState
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: AddressBottomSheet(
-                            addressController: addressController,
-                            formKey: _form,
-                            places: places,
-                            mapServices: mapServices,
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Container(
+                                width: 60,
+                                height: 6,
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFA3A3A3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: SvgPicture.asset(
+                                    AssetsData.locationIcon,
+                                    height: 35,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 42),
+                              StepItem(
+                                widget: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Complete Address",
+                                        style: Styles.manropeRegular15.copyWith(
+                                          fontSize: 17,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    CustomMainTextFormField(
+                                      borderColor: Colors.transparent,
+                                      fillColor: Colors.transparent,
+                                      hintText: 'Add your address..',
+                                      controller: addressController,
+                                      onChanged: (value) {
+                                        // Update the UI when the address changes
+                                      },
+                                      contentPadding: 7,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Please enter your address.";
+                                        }
+                                        return null;
+                                      },
+                                      focusedBorderColor:
+                                          const Color(0xff55433c),
+                                      enabledBorderColor: kPrimaryColor,
+                                      inputType: TextInputType.text,
+                                      prefixIcon: const Icon(Icons.person),
+                                      obscureText: false,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              CustomListView(
+                                places: places,
+                                mapServices: mapServices,
+                                addressController: addressController,
+                                onPlaceSelect: (placeDetailsModel) async {
+                                  addressController.clear();
+                                  places.clear();
+                                  setState(() {});
+                                },
+                              ),
+                              CustomMainButton(
+                                text: "Confirm Location",
+                                onPressed: () {
+                                  if (_form.currentState!.validate()) {
+                                    context.pushNamed(
+                                      Routes.kUserPostOrderView,
+                                      arguments: addressController,
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Please enter a valid address',
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                color: kPrimaryColor,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
                           ),
+                          // AddressBottomSheet(
+                          //   addressController: addressController,
+                          //   formKey: _form,
+                          //   places: places,
+                          //   mapServices: mapServices,
+                          // ),
                         ),
                       );
                     },
