@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
-import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/location_service.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/map_services.dart';
-import 'package:wheel_n_deal/Core/routing/routes.dart';
 import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/responsive.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
@@ -83,67 +81,67 @@ class _UserSearchLocationViewBodyState
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Form(
-        key: _form,
-        child: Column(
-          children: [
-            Expanded(
-              child: GoogleMap(
-                zoomControlsEnabled: false,
-                initialCameraPosition: initialCameraPosition,
-                onMapCreated: (controller) {
-                  googleMapController = controller;
-                  updateCurrentLocation();
-                },
-                markers: markers,
-              ),
+      child: Column(
+        children: [
+          Expanded(
+            child: GoogleMap(
+              zoomControlsEnabled: false,
+              initialCameraPosition: initialCameraPosition,
+              onMapCreated: (controller) {
+                googleMapController = controller;
+                updateCurrentLocation();
+              },
+              markers: markers,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomMainButton(
-                onPressed: () async {
-                  final result = await showModalBottomSheet<String>(
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40),
-                      ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomMainButton(
+              onPressed: () async {
+                final result = await showModalBottomSheet<String>(
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SizedBox(
-                        height: Responsive.screenHeight(context) * 0.7,
-                        width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 10),
-                              Container(
-                                width: 60,
-                                height: 6,
-                                decoration: ShapeDecoration(
-                                  color: const Color(0xFFA3A3A3),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                  ),
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                      height: Responsive.screenHeight(context) * 0.7,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            Container(
+                              width: 60,
+                              height: 6,
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFFA3A3A3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              const SizedBox(height: 5),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: SvgPicture.asset(
-                                    AssetsData.locationIcon,
-                                    height: 35,
-                                  ),
+                            ),
+                            const SizedBox(height: 5),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: SvgPicture.asset(
+                                  AssetsData.locationIcon,
+                                  height: 35,
                                 ),
                               ),
-                              const SizedBox(height: 42),
-                              StepItem(
+                            ),
+                            const SizedBox(height: 20),
+                            Form(
+                              key: _form,
+                              child: StepItem(
                                 widget: Column(
                                   children: [
                                     Align(
@@ -181,63 +179,55 @@ class _UserSearchLocationViewBodyState
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 16),
-                              CustomListView(
-                                places: places,
-                                mapServices: mapServices,
-                                addressController: addressController,
-                                onPlaceSelect: (placeDetailsModel) async {
-                                  addressController.clear();
-                                  places.clear();
-                                  setState(() {});
-                                },
-                              ),
-                              CustomMainButton(
-                                text: "Confirm Location",
-                                onPressed: () {
-                                  if (_form.currentState!.validate()) {
-                                    context.pushNamed(
-                                      Routes.kUserPostOrderView,
-                                      arguments: addressController,
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Please enter a valid address',
-                                        ),
+                            ),
+                            const SizedBox(height: 16),
+                            CustomListView(
+                              places: places,
+                              mapServices: mapServices,
+                              addressController: addressController,
+                              onPlaceSelect: (placeDetailsModel) async {
+                                addressController.clear();
+                                places.clear();
+                                setState(() {});
+                              },
+                            ),
+                            CustomMainButton(
+                              text: "Confirm Location",
+                              onPressed: () {
+                                if (_form.currentState!.validate()) {
+                                  Navigator.pop(
+                                      context, addressController.text);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Please enter a valid address',
                                       ),
-                                    );
-                                  }
-                                },
-                                color: kPrimaryColor,
-                              ),
-                              const SizedBox(height: 16),
-                            ],
-                          ),
-                          // AddressBottomSheet(
-                          //   addressController: addressController,
-                          //   formKey: _form,
-                          //   places: places,
-                          //   mapServices: mapServices,
-                          // ),
+                                    ),
+                                  );
+                                }
+                              },
+                              color: kPrimaryColor,
+                            ),
+                            const SizedBox(height: 16),
+                          ],
                         ),
-                      );
-                    },
-                  );
-                  if (result != null) {
-                    setState(() {
-                      address = result;
-                      addressController.text = result;
-                    });
-                  }
-                },
-                color: kPrimaryColor,
-                text: "Add Location",
-              ),
+                      ),
+                    );
+                  },
+                );
+                if (result != null) {
+                  setState(() {
+                    address = result;
+                    addressController.text = result;
+                  });
+                }
+              },
+              color: kPrimaryColor,
+              text: "Add Location",
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

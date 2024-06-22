@@ -312,9 +312,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) {
             final addressController = arguments as TextEditingController?;
-            return UserPostOrderView(
-              addressController: addressController,
-            );
+            return UserPostOrderView(addressController: addressController);
           },
         );
 
