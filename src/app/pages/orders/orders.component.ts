@@ -52,6 +52,8 @@ export class OrdersComponent implements OnInit {
   constructor(private _order: OrdersService) {}
 
   ngOnInit(): void {
+    console.log('Order initialization');
+
     this.fetchAllOrders();
   }
 

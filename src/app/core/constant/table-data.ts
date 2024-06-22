@@ -12,3 +12,15 @@ export interface OrderTableData {
   Breakable: boolean;
   Picture: string;
 }
+
+export interface UserTableData {
+  id: number;
+  username: string;
+  phone: string;
+  nationalId: string | null;
+  gender: 'MALE' | 'FEMALE' | null;
+  picture: string | null;
+  totalOrders: number;
+  canceledOrders: number;
+  wallet: number;
+}
