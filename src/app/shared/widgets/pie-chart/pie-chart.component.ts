@@ -2,25 +2,37 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
+  OnInit,
 } from '@angular/core';
-import { Chart, Legend, registerables } from 'chart.js';
-import { HighchartsChartModule } from 'highcharts-angular';
+import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
+
 @Component({
   selector: 'app-pie-chart',
   standalone: true,
-  imports: [HighchartsChartModule],
+  imports: [],
   templateUrl: './pie-chart.component.html',
-  styleUrl: './pie-chart.component.scss',
+  styleUrls: ['./pie-chart.component.scss'],
 })
 export class PieChartComponent implements OnInit, OnChanges {
   @Input() successfulOrders = 0;
   @Input() failureOrders = 0;
   @Input() pendingOrders = 0;
   @Input() totalOrders = 0;
+
+  private myChart: Chart<'doughnut', number[], string> | null = null;
+  chartData = {
+    labels: ['Success', 'Failure', 'Pending'],
+    data: [] as number[],
+  };
+
+  ngOnInit(): void {
+    this.updateChartData();
+    this.renderChart();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (
       changes['successfulOrders'] ||
@@ -33,31 +45,23 @@ export class PieChartComponent implements OnInit, OnChanges {
     }
   }
 
-  updateChartData(): void {
+  private updateChartData(): void {
     this.chartData.data = [
       this.successfulOrders,
       this.failureOrders,
       this.pendingOrders,
     ];
-  }
-
-  ngOnInit(): void {
-    this.renderChart();
-  }
-  private myChart!: Chart<'doughnut', number[], string> | null;
-  chartData = {
-    labels: ['Success', 'Failure', 'Pending'],
-    data: [this.successfulOrders, this.failureOrders, this.pendingOrders],
-  };
-
-  renderChart() {
-    if (this.myChart) {
-      // Destroy the existing chart instance
-      this.myChart.destroy();
-    }
-
     this.totalOrders =
       this.successfulOrders + this.failureOrders + this.pendingOrders;
+  }
+
+  private renderChart(): void {
+    if (this.myChart) {
+      this.myChart.data.datasets[0].data = this.chartData.data;
+      this.myChart.update();
+      return;
+    }
+
     this.myChart = new Chart('myChart', {
       type: 'doughnut',
       data: {
@@ -71,25 +75,26 @@ export class PieChartComponent implements OnInit, OnChanges {
             borderWidth: 10,
             borderRadius: 6,
             hoverBorderWidth: 0,
-            weight: 1,
+            borderAlign: 'center',
           },
         ],
       },
       options: {
-        responsive: true, // Makes the chart responsive
+        responsive: true,
+        maintainAspectRatio: true,
         plugins: {
           legend: {
             display: false,
           },
           tooltip: {
-            enabled: true, // Enables tooltips
+            enabled: true,
           },
         },
-        cutout: '70%', // Adjust the size of the inner cutout
-        rotation: 90, // Rotates the chart by -90 degrees
+        cutout: '70%',
+        rotation: 90,
         animation: {
-          animateRotate: true, // Animates the rotation of the chart
-          animateScale: true, // Animates the scaling of the chart
+          animateRotate: true,
+          animateScale: true,
         },
       },
     });
