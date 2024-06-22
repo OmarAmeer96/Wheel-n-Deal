@@ -8,7 +8,7 @@ import { ToggleBarComponent } from '../../shared/widgets/toggle-bar/toggle-bar.c
 import { SvgComponent } from '../../shared/widgets/svg/svg.component';
 import { TableComponent } from '../../shared/widgets/table/table.component';
 import { UsersService } from '../../core/services/users.service';
-import { UserResponse } from '../../core/models/interfaces/users';
+import { IUser, UserResponse } from '../../core/models/interfaces/users';
 
 @Component({
   selector: 'app-users',
@@ -44,13 +44,23 @@ export class UsersComponent {
   constructor(private _user: UsersService) {}
 
   ngOnInit(): void {
-    console.log('Starting');
-
-    this.fetchAllUsers();
+    // console.log('Starting');
+    // this.fetchAllUsers();
   }
 
   mappedUsers: UserTableData[] = [];
 
+  /*
+   id: number;
+  username: string;
+  phone: string;
+  nationalId: string | null;
+  gender: 'MALE' | 'FEMALE' | null;
+  picture: string | null;
+  totalOrders: number;
+  canceledOrders: number;
+  wallet: number;
+  */
   fetchAllUsers() {
     debugger;
     console.log('from fetch');
@@ -58,6 +68,17 @@ export class UsersComponent {
     this._user.getAllUsers(0, 10).subscribe((res: UserResponse) => {
       console.log(res.data.content[0]);
       if (res.status === 200) {
+        this.mappedUsers = res.data.content.map((user: IUser) => ({
+          id: user.id,
+          username: user.username,
+          phone: user.phoneNumber,
+          nationalId: user.nationalId,
+          gender: user.gender,
+          picture: user.profilePictureUrl,
+          totalOrders: user.totalDelivers,
+          canceledOrders: user.cancelDelivers,
+          wallet: user.amount,
+        }));
         console.log('Users data: ', this.mappedUsers);
       } else {
         // Handle error
