@@ -10,14 +10,14 @@ import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/constants.dart';
 
-class UsertrackOrderViewBody extends StatefulWidget {
-  const UsertrackOrderViewBody({super.key});
+class UserTrackOrderViewBody extends StatefulWidget {
+  const UserTrackOrderViewBody({super.key});
 
   @override
-  State<UsertrackOrderViewBody> createState() => _UsertrackOrderViewBodyState();
+  State<UserTrackOrderViewBody> createState() => _UserTrackOrderViewBodyState();
 }
 
-class _UsertrackOrderViewBodyState extends State<UsertrackOrderViewBody> {
+class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
   late CameraPosition initialCameraPosition;
 
   @override

@@ -5,8 +5,8 @@ import 'package:wheel_n_deal/Core/utils/build_app_bar.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Features/user/tracking/presentation/views/widgets/user_track_order_view_body.dart';
 
-class UsertrackOrderView extends StatelessWidget {
-  const UsertrackOrderView({super.key});
+class UserTrackOrderView extends StatelessWidget {
+  const UserTrackOrderView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class UsertrackOrderView extends StatelessWidget {
           context.pop();
         },
       ),
-      body: const UsertrackOrderViewBody(),
+      body: const UserTrackOrderViewBody(),
     );
   }
 }
