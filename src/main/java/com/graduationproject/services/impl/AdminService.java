@@ -17,9 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -170,4 +168,69 @@ public class AdminService {
 
         return result;
     }
+
+//    public Map<String, List<Map<String, Object>>> getUsersCreatedPerDay() {
+//        Date startDate = Date.from(LocalDate.now().minusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+//        List<Object[]> results = userRepository.getUsersCreatedPerDay(startDate);
+//
+//        Map<String, List<Map<String, Object>>> response = new HashMap<>();
+//        for (Object[] result : results) {
+//            Date date = (Date) result[0];
+//            int count = ((Long) result[1]).intValue();
+//            String month = new SimpleDateFormat("MMMM").format(date);
+//            int day = date.getDate();
+//
+//            Map<String, Object> dayCount = new HashMap<>();
+//            dayCount.put("day", day);
+//            dayCount.put("count", count);
+//
+//            response.computeIfAbsent(month, k -> new ArrayList<>()).add(dayCount);
+//        }
+//
+//        return response;
+//    }
+
+    public Map<String, List<Map<String, Object>>> getUsersCreatedPerDay() {
+        Date startDate = Date.from(LocalDate.now().minusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        List<Object[]> results = userRepository.getUsersCreatedPerDay(startDate);
+
+        Map<String, List<Map<String, Object>>> response = new HashMap<>();
+        for (int month = 1; month <= 12; month++) {
+            String monthName = new SimpleDateFormat("MMMM").format(new Date(2024, month - 1, 1));
+            List<Map<String, Object>> dayCounts = new ArrayList<>();
+
+            for (int day = 1; day <= getDaysInMonth(month, 2024); day++) {
+                boolean found = false;
+                for (Object[] result : results) {
+                    Date date = (Date) result[0];
+                    if (date.getMonth() == month - 1 && date.getDate() == day) {
+                        int count = ((Long) result[1]).intValue();
+                        Map<String, Object> dayCount = new HashMap<>();
+                        dayCount.put("count", count);
+                        dayCount.put("day", day);
+                        dayCounts.add(dayCount);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    Map<String, Object> dayCount = new HashMap<>();
+                    dayCount.put("day", day);
+                    dayCount.put("count", 0);
+                    dayCounts.add(dayCount);
+                }
+            }
+
+            response.put(monthName, dayCounts);
+        }
+
+        return response;
+    }
+
+    private int getDaysInMonth(int month, int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, 1);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
 }
+

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,12 @@ public class AdminController {
     @GetMapping("orders-created-last-week")
     public List<OrderCountDTO> getOrdersCreatedLastWeek() {
         return adminService.getOrdersCreatedLastWeek();
+    }
+
+    @GetMapping("users-created-per-day")
+    public ResponseEntity<Map<String, List<Map<String, Object>>>> getUsersCreatedPerDay() {
+        Map<String, List<Map<String, Object>>> response = adminService.getUsersCreatedPerDay();
+        return ResponseEntity.ok(response);
     }
 
 }
