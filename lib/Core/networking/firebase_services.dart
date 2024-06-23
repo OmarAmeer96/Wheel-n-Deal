@@ -17,9 +17,11 @@ class FirebaseService {
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
 
+    // Pring the Firebase Messaging Token
     final FCMToken = await _firebaseMessaging.getToken();
     log('$FCMToken \n---', name: 'Firebase Messaging Token');
 
+    // Print the User Token
     final userToken = SharedPrefs.getString(key: kToken);
     log('$userToken', name: 'kToken');
 
