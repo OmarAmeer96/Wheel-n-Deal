@@ -102,4 +102,11 @@ abstract class ApiService {
     @Header('Authorization') required String token,
     @Path('userId') required int userId,
   });
+
+  // Delete Not Active Order
+  @DELETE(ApiConstants.userDeleteNotActiveOrder)
+  Future<void> deleteNotActiveOrder({
+    @Header('Authorization') required String token,
+    @Path('orderId') required int orderId,
+  });
 }
