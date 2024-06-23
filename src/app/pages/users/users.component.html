@@ -18,7 +18,7 @@
     <div class="table-info w-max">
       <h3>
         Here you can see
-        <span class="text-primary">{{ activeTab }}</span> orders
+        <span class="text-primary">{{ activeTab }}</span> Users
       </h3>
     </div>
     <div class="table-operation">
@@ -28,10 +28,11 @@
       </button>
     </div>
   </div>
-  <!-- <app-table
+  <app-table
     [headings]="tableHeaders"
     [tableData]="mappedUsers"
     [activeTab]="activeTab"
+    [dataType]="'user'"
   >
-  </app-table> -->
+  </app-table>
 </div>

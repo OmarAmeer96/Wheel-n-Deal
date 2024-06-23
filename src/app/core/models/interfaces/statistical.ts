@@ -18,3 +18,8 @@ export interface DataModel {
   numOfFailedOrders: number;
   numOfInReturnedOrders: number;
 }
+
+export interface ICard {
+  record: number;
+  label: string;
+}

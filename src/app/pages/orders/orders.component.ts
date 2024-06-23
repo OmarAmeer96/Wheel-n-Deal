@@ -1,13 +1,23 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { HCardsComponent } from '../../shared/widgets/h-cards/h-cards.component';
+// Angular Core
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToggleBarComponent } from '../../shared/widgets/toggle-bar/toggle-bar.component';
-import { ToggleStaticsData } from '../../core/constant/toggle-data';
-import { TableComponent } from '../../shared/widgets/table/table.component';
+
+// Constants & Models/Interfaces
 import { ApiResponse, IOrder } from '../../core/models/interfaces/order';
-import { SvgComponent } from '../../shared/widgets/svg/svg.component';
-import { OrdersService } from '../../core/services/orders.service';
 import { OrderTableData } from '../../core/constant/table-data';
+import { ToggleStaticsData } from '../../core/constant/toggle-data';
+
+// Services
+import { OrdersService } from '../../core/services/orders.service';
+import { StatService } from '../../core/services/stat.service';
+
+// Widgets/Components
+import { HCardsComponent } from '../../shared/widgets/h-cards/h-cards.component';
+import { SvgComponent } from '../../shared/widgets/svg/svg.component';
+import { TableComponent } from '../../shared/widgets/table/table.component';
+import { ToggleBarComponent } from '../../shared/widgets/toggle-bar/toggle-bar.component';
+import { DataModel, ICard } from '../../core/models/interfaces/statistical';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -23,16 +33,32 @@ import { OrderTableData } from '../../core/constant/table-data';
   ],
 })
 export class OrdersComponent implements OnInit {
+  // Data properties
   toggleData = ToggleStaticsData;
   activeTab = ToggleStaticsData[0].status;
-  cards = [
-    { record: '849', label: 'Total orders' },
-    { record: '135', label: 'Pending orders' },
-    { record: '210', label: 'Active orders' },
-    { record: '301', label: 'In-Progress Orders' },
-    { record: '210', label: 'Canceled Orders' },
-    // ..
+
+  orderStat: Partial<DataModel> = {
+    numOfAllOrders: 0,
+    numOfPendingOrders: 0,
+    numOfInProgressOrders: 0,
+    numOfInSuccessOrders: 0,
+    numOfFailedOrders: 0,
+  };
+
+  cards: ICard[] = [
+    { record: this.orderStat.numOfAllOrders ?? 0, label: 'Total orders' },
+    { record: this.orderStat.numOfPendingOrders ?? 0, label: 'Pending orders' },
+    {
+      record: this.orderStat.numOfInProgressOrders ?? 0,
+      label: 'In-Progress Orders',
+    },
+    {
+      record: this.orderStat.numOfInSuccessOrders ?? 0,
+      label: 'Successful Orders',
+    },
+    { record: this.orderStat.numOfFailedOrders ?? 0, label: 'Failed Orders' },
   ];
+
   tableHeaders = [
     'ID',
     'Status',
@@ -48,13 +74,33 @@ export class OrdersComponent implements OnInit {
     'Picture',
   ];
 
+  // Data lists
   mappedOrders: OrderTableData[] = [];
   filteredOrders: OrderTableData[] = [];
 
-  constructor(private _order: OrdersService) {}
+  constructor(private _order: OrdersService, private _stat: StatService) {}
 
   ngOnInit(): void {
+    this.fetchCardData();
     this.fetchAllOrders();
+  }
+
+  private fetchCardData(): void {
+    this.orderStat = this._stat.getStatVar(
+      'numOfAllOrders',
+      'numOfPendingOrders',
+      'numOfInProgressOrders',
+      'numOfInSuccessOrders',
+      'numOfFailedOrders'
+    ) as Partial<DataModel>;
+
+    console.log('Order From stats: ', this.orderStat);
+  }
+
+  filterOrders() {
+    this.filteredOrders = this.mappedOrders.filter(
+      (order) => order.Status.toLowerCase() === this.activeTab.toLowerCase()
+    );
   }
 
   private fetchAllOrders(): void {
@@ -86,11 +132,5 @@ export class OrdersComponent implements OnInit {
       Picture: order.orderPhotoUrl,
     }));
     console.log('Orders data: ', this.mappedOrders);
-  }
-
-  filterOrders() {
-    this.filteredOrders = this.mappedOrders.filter(
-      (order) => order.Status.toLowerCase() === this.activeTab.toLowerCase()
-    );
   }
 }

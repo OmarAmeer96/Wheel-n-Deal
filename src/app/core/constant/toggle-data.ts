@@ -9,19 +9,42 @@ export const ToggleStaticsData: ToggleDataModel[] = [
     status: 'all',
   },
   {
+    title: 'Not_Active',
+    status: 'not_active',
+  },
+  {
     title: 'Pending',
     status: 'pending',
   },
   {
-    title: 'Active',
-    status: 'active',
+    title: 'Confirmed',
+    status: 'confirmed',
   },
   {
     title: 'In-Progress',
     status: 'in-progress',
   },
   {
-    title: 'Canceled',
-    status: 'canceled',
+    title: 'Success',
+    status: 'success',
+  },
+  {
+    title: 'Failed',
+    status: 'failed  ',
+  },
+];
+
+export const ToggleUserData: ToggleDataModel[] = [
+  {
+    title: 'All',
+    status: 'all',
+  },
+  {
+    title: 'Commuter',
+    status: 'commuter',
+  },
+  {
+    title: 'Customer',
+    status: 'customer',
   },
 ];

@@ -26,7 +26,7 @@ export class StatService {
       .get<ResponseStatModel>(`${base_url}/admin/count-all`)
       .pipe(
         tap((res) => {
-          console.log(res.data);
+          console.log('stat data ', res.data);
           this.statisticalData = res.data;
         })
       );

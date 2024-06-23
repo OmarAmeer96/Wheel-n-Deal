@@ -5,13 +5,9 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let row of tableData">
-      <tr
-        *ngIf="
-          activeTab.toLowerCase() === 'all' ||
-          row.Status.toLowerCase() === activeTab.toLowerCase()
-        "
-      >
+    <!-- Order Data Rows -->
+    <ng-container *ngIf="dataType === 'order'">
+      <tr *ngFor="let row of orderTableData">
         <td>{{ row.ID }}</td>
         <td>{{ row.Status }}</td>
         <td>{{ row["Commuter ID"] }}</td>
@@ -26,6 +22,22 @@
         <td>
           <img class="order-img" [src]="row.Picture" alt="Order picture" />
         </td>
+      </tr>
+    </ng-container>
+    <!-- User Data Rows -->
+    <ng-container *ngIf="dataType === 'user'">
+      <tr *ngFor="let row of userTableData">
+        <td>{{ row.id }}</td>
+        <td>{{ row.username }}</td>
+        <td>{{ row.phone }}</td>
+        <td>{{ row.nationalId }}</td>
+        <td>{{ row.gender }}</td>
+        <td>
+          <img class="user-img" [src]="row.picture" alt="User picture" />
+        </td>
+        <td>{{ row.totalOrders }}</td>
+        <td>{{ row.canceledOrders }}</td>
+        <td>{{ row.wallet }}</td>
       </tr>
     </ng-container>
   </tbody>

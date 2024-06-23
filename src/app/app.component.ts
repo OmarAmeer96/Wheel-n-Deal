@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { StatService } from './core/services/stat.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,14 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = "Wheel N' Deal";
+
+  constructor(private _stat: StatService) {}
+
+  // ngOnInit(): void {
+  //   this._stat.getStatisticalData().subscribe({
+  //     next: (res) => {
+  //       console.log('res', res.message);
+  //     },
+  //   });
+  // }
 }

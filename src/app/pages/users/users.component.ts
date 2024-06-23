@@ -1,15 +1,21 @@
+// Angular Core Imports
 import { Component } from '@angular/core';
-import { OrdersService } from '../../core/services/orders.service';
-import { OrderTableData, UserTableData } from '../../core/constant/table-data';
-import { ApiResponse } from '../../core/models/interfaces/order';
-import { ToggleStaticsData } from '../../core/constant/toggle-data';
+
+// Models and Services
+import { IUser, UserResponse } from '../../core/models/interfaces/users';
+import { UsersService } from '../../core/services/users.service';
+import { UserTableData } from '../../core/constant/table-data';
+import { ToggleUserData } from '../../core/constant/toggle-data';
+
+// Shared Components
 import { HCardsComponent } from '../../shared/widgets/h-cards/h-cards.component';
 import { ToggleBarComponent } from '../../shared/widgets/toggle-bar/toggle-bar.component';
 import { SvgComponent } from '../../shared/widgets/svg/svg.component';
 import { TableComponent } from '../../shared/widgets/table/table.component';
-import { UsersService } from '../../core/services/users.service';
-import { IUser, UserResponse } from '../../core/models/interfaces/users';
 
+/**```Component responsible for displaying user-related information,
+ * including a toggle bar, cards for summary, and a table for detailed view.```
+ */
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -18,8 +24,9 @@ import { IUser, UserResponse } from '../../core/models/interfaces/users';
   imports: [HCardsComponent, ToggleBarComponent, SvgComponent, TableComponent],
 })
 export class UsersComponent {
-  toggleData = ToggleStaticsData;
-  activeTab = ToggleStaticsData[0].status;
+  // UI related properties
+  toggleData = ToggleUserData;
+  activeTab = ToggleUserData[0].status;
   cards = [
     { record: '849', label: 'Total orders' },
     { record: '135', label: 'Pending orders' },
@@ -41,30 +48,23 @@ export class UsersComponent {
     'Wallet',
   ];
 
+  // Data models
+  mappedUsers: UserTableData[] = [];
+  filteredOrders: UserTableData[] = [];
+
   constructor(private _user: UsersService) {}
 
+  /** Useage
+   * Fetches all users on component initialization.
+   */
   ngOnInit(): void {
-    // console.log('Starting');
-    // this.fetchAllUsers();
+    this.fetchAllUsers();
   }
 
-  mappedUsers: UserTableData[] = [];
-
-  /*
-   id: number;
-  username: string;
-  phone: string;
-  nationalId: string | null;
-  gender: 'MALE' | 'FEMALE' | null;
-  picture: string | null;
-  totalOrders: number;
-  canceledOrders: number;
-  wallet: number;
-  */
+  /** Useage
+   * Fetches all users from the server and maps them to the UserTableData model.
+   */
   fetchAllUsers() {
-    debugger;
-    console.log('from fetch');
-
     this._user.getAllUsers(0, 10).subscribe((res: UserResponse) => {
       console.log(res.data.content[0]);
       if (res.status === 200) {
@@ -72,8 +72,8 @@ export class UsersComponent {
           id: user.id,
           username: user.username,
           phone: user.phoneNumber,
-          nationalId: user.nationalId,
-          gender: user.gender,
+          nationalId: user.nationalId ?? 'N/A',
+          gender: user.gender ?? 'N/A',
           picture: user.profilePictureUrl,
           totalOrders: user.totalDelivers,
           canceledOrders: user.cancelDelivers,
@@ -87,11 +87,9 @@ export class UsersComponent {
     });
   }
 
-  filteredOrders: OrderTableData[] = [];
-
-  // filterOrders() {
-  //   this.filteredOrders = this.mappedOrders.filter(
-  //     (order) => order.Status.toLowerCase() === this.activeTab.toLowerCase()
-  //   );
-  // }
+  /**
+   * Filters orders based on the active tab. ```=>```
+   * TODO: Change the UserTableData model to include a 'Status' property for filtering.
+   */
+  filterOrders() {}
 }

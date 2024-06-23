@@ -11,6 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class HCardsComponent {
   @Input() icon!: string;
-  @Input() record!: string;
+  @Input() record!: number;
   @Input() label!: string;
 }
