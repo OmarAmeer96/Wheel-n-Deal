@@ -11,6 +11,7 @@ import 'package:wheel_n_deal/Core/utils/assets.dart';
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
+import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_state.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
@@ -352,6 +353,13 @@ class _UserOrderDetailsViewBodyState extends State<UserOrderDetailsViewBody> {
                                       child: CustomMainButton(
                                         height: 25,
                                         onPressed: () {
+                                          context
+                                              .read<
+                                                  DeleteUserNotActiveOrderCubit>()
+                                              .emitDeleteNotActiveOrderState(
+                                                widget.userOrder!.id!,
+                                              );
+
                                           context.pushNamed(
                                             Routes.kUserCanceledOrderView,
                                           );
