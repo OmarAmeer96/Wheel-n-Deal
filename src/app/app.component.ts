@@ -11,14 +11,4 @@ import { StatService } from './core/services/stat.service';
 })
 export class AppComponent {
   title = "Wheel N' Deal";
-
-  constructor(private _stat: StatService) {}
-
-  // ngOnInit(): void {
-  //   this._stat.getStatisticalData().subscribe({
-  //     next: (res) => {
-  //       console.log('res', res.message);
-  //     },
-  //   });
-  // }
 }

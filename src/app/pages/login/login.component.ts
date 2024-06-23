@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { SvgComponent } from '../../shared/widgets/svg/svg.component';
 import {
   FormControl,
@@ -12,7 +12,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { AdminResponse, IAdmin } from '../../core/models/interfaces/admin';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { StatService } from '../../core/services/stat.service';
 
 @Component({
   selector: 'app-login',
@@ -27,10 +26,9 @@ import { StatService } from '../../core/services/stat.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   isLoading = false;
   inSubmission = false;
-  isAuth = false;
 
   username = new FormControl('', [Validators.required]);
   password = new FormControl('', [
@@ -43,43 +41,36 @@ export class LoginComponent implements OnInit {
     password: this.password,
   });
 
-  constructor(
-    private _auth: AuthService,
-    private router: Router,
-    private _stat: StatService
-  ) {}
-  ngOnInit(): void {
-    if (this.isAuth) {
-      this.fetchStatData();
-    }
-  }
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['isAuth'] && this.isAuth) {
-      this.fetchStatData();
-    }
-  }
+  constructor(private _auth: AuthService, private router: Router) {}
 
-  public login() {
+  login() {
     this.isLoading = true;
-    this._auth.logIn(this.loginForm.value as IAdmin).subscribe({
-      next: (res) => {
-        localStorage.setItem('token', res.data.token);
-        this.isAuth = true;
-      },
-      error: (error) => {
-        console.error('Error logging in:', error);
-      },
-      complete: () => {
-        this.router.navigate(['admin/dashboard']);
-        this.isLoading = false;
-      },
-    });
-  }
-  fetchStatData() {
-    this._stat.getStatisticalData().subscribe({
-      next: (res) => {
-        console.log('after login', res.data);
-      },
-    });
+
+    // Call the login method from the AuthService
+    this._auth
+      .logIn(this.loginForm.value as IAdmin)
+      .subscribe((res: AdminResponse) => {
+        console.log(res);
+        if (res.status === 200) {
+          localStorage.setItem('token', res.data.token);
+          this.router.navigate(['admin/dashboard']);
+        } else {
+          // Handle error
+          console.log('Authentication failed with status: ' + res.status);
+        }
+      });
   }
 }
+
+/**
+ *       Authentication was successful
+        console.log(res); // "Authentication successful."
+        console.log(res.data.role); // "ADMIN"
+        console.log(res.data.userId); // 1
+        console.log(res.data.token); // The token
+        console.log(res.data.refreshToken); // The refresh token
+
+        // You can now store the tokens and the user's role and ID in your application,
+        // for example in a service or in local storage, and use them for subsequent API calls.
+ *
+ */
