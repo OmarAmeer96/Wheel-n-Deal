@@ -60,12 +60,4 @@ public class UserController {
         CustomResponse response = userServiceImpl.getAllAddressesResponseForUser(userId);
         return response;
     }
-
-    @GetMapping("/commuters/details")
-    public ResponseEntity<List<AiCommuterDto>> getAllCommutersDetails() {
-        List<AiCommuterDto> commutersDetails = commuterProfileService.getAllCommutersDetails();
-        return ResponseEntity.ok(commutersDetails);
-    }
-
-
 }

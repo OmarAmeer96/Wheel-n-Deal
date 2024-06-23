@@ -1,5 +1,6 @@
 package com.graduationproject.controllers;
 
+import com.graduationproject.DTOs.AiCommuterDto;
 import com.graduationproject.DTOs.CommentClassifierDTO;
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.aiDTOs.AIReviewsDTO;
@@ -30,6 +31,12 @@ public class AIController {
     @GetMapping("get-all-users")
     public CustomResponse getAllUsers() {
         return aiService.getAllUsers();
+    }
+
+    @GetMapping("get-all-commuters")
+    public ResponseEntity<List<AiCommuterDto>> getAllCommutersDetails() {
+        List<AiCommuterDto> commutersDetails = aiService.getAllCommutersDetails();
+        return ResponseEntity.ok(commutersDetails);
     }
 
 

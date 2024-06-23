@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AIReviewsDTO {
-    private int id;
-    private int rate;
-    private User reviewer;
-    private User reviewee;
+    private Integer id;
+    private Integer rate;
+    private Integer reviewer;
+    private Integer reviewee;
 }

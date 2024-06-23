@@ -1,12 +1,18 @@
 package com.graduationproject.services.impl;
 
 
+import com.graduationproject.DTOs.AiCommuterDto;
 import com.graduationproject.DTOs.CommentClassifierDTO;
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.aiDTOs.AIReviewsDTO;
 import com.graduationproject.DTOs.aiDTOs.AIUserDTO;
+import com.graduationproject.entities.Review;
+import com.graduationproject.entities.Role;
+import com.graduationproject.entities.Trip;
+import com.graduationproject.entities.User;
 import com.graduationproject.repositories.ReviewRepository;
 import com.graduationproject.repositories.ToxicCommentClassifierClient;
+import com.graduationproject.repositories.TripRepository;
 import com.graduationproject.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -31,6 +38,8 @@ public class AIService {
     private UserRepository userRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private TripRepository tripRepository;
 
     public Integer getToxicity(CommentClassifierDTO comment) throws Exception {
         ResponseEntity<String> response = classifierClient.classifyComment(comment);
@@ -90,4 +99,28 @@ public class AIService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public List<AiCommuterDto> getAllCommutersDetails() {
+        List<User> commuters = userRepository.findCommuterByRole(Role.COMMUTER);
+        return commuters.stream().map(user -> {
+            List<Trip> trips = tripRepository.findByUserId(user.getId());
+            List<Review> reviews = reviewRepository.findByRevieweeId(user.getId());
+
+            int totalRate = reviews.stream().mapToInt(Review::getRate).sum();
+            int numberOfReviews = reviews.size();
+            double averageRate = numberOfReviews > 0 ? (double) totalRate / numberOfReviews : 0;
+
+            AiCommuterDto userDetailsDTO = new AiCommuterDto();
+            userDetailsDTO.setCommuterId(user.getId());
+            userDetailsDTO.setCity(user.getCity());
+            userDetailsDTO.setGender(user.getGender());
+            userDetailsDTO.setTotalRate(averageRate);
+            userDetailsDTO.setTrips(trips.stream()
+                    .map(trip -> new AiCommuterDto.TripDTO(trip.getId(), trip.getFrom(), trip.getTo()))
+                    .collect(Collectors.toList()));
+            return userDetailsDTO;
+        }).collect(Collectors.toList());
+    }
+
+
 }
