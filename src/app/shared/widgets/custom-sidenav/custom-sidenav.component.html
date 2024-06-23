@@ -27,10 +27,10 @@
         </a>
       </li>
     </ul>
-    <button class="logout-btn">
+    <button class="logout-btn" (click)="logout()">
       <app-svg name="logout" class="navicon"></app-svg>
       <ng-container *ngIf="!(sidenavCollapsed$ | async)">
-        <span class="logout-btn-text" (click)="logout()">Logout</span>
+        <span class="logout-btn-text">Logout</span>
       </ng-container>
     </button>
   </div>
