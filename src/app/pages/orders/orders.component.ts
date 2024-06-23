@@ -1,5 +1,5 @@
 // Angular Core
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Constants & Models/Interfaces
@@ -17,7 +17,7 @@ import { SvgComponent } from '../../shared/widgets/svg/svg.component';
 import { TableComponent } from '../../shared/widgets/table/table.component';
 import { ToggleBarComponent } from '../../shared/widgets/toggle-bar/toggle-bar.component';
 import { DataModel, ICard } from '../../core/models/interfaces/statistical';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -32,7 +32,8 @@ import { Observable, map } from 'rxjs';
     SvgComponent,
   ],
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
+  private statDataSub!: Subscription;
   // Data properties
   toggleData = ToggleStaticsData;
   activeTab = ToggleStaticsData[0].status;
@@ -46,17 +47,23 @@ export class OrdersComponent implements OnInit {
   };
 
   cards: ICard[] = [
-    { record: this.orderStat.numOfAllOrders ?? 0, label: 'Total orders' },
-    { record: this.orderStat.numOfPendingOrders ?? 0, label: 'Pending orders' },
+    { record: 0, label: 'Total orders' },
     {
-      record: this.orderStat.numOfInProgressOrders ?? 0,
+      record: 0,
+      label: 'Pending orders',
+    },
+    {
+      record: 0,
       label: 'In-Progress Orders',
     },
     {
-      record: this.orderStat.numOfInSuccessOrders ?? 0,
+      record: 0,
       label: 'Successful Orders',
     },
-    { record: this.orderStat.numOfFailedOrders ?? 0, label: 'Failed Orders' },
+    {
+      record: 0,
+      label: 'Failed Orders',
+    },
   ];
 
   tableHeaders = [
@@ -83,6 +90,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     this.fetchCardData();
     this.fetchAllOrders();
+    this.listenToStatDataSub();
   }
 
   private fetchCardData(): void {
@@ -94,7 +102,13 @@ export class OrdersComponent implements OnInit {
       'numOfFailedOrders'
     ) as Partial<DataModel>;
 
-    console.log('Order From stats: ', this.orderStat);
+    this.cards = this.cards.map((card, index) => {
+      const key = Object.keys(this.orderStat)[
+        index
+      ] as keyof Partial<DataModel>;
+      card.record = this.orderStat[key] ?? 0;
+      return card;
+    });
   }
 
   filterOrders() {
@@ -104,7 +118,7 @@ export class OrdersComponent implements OnInit {
   }
 
   private fetchAllOrders(): void {
-    this._order.getAllOrders(0, 10).subscribe({
+    this._order.getAllOrders(0, 30).subscribe({
       next: (res: ApiResponse) => {
         if (res.status === 200) {
           this.mapOrders(res.data.content);
@@ -131,6 +145,22 @@ export class OrdersComponent implements OnInit {
       Breakable: order.breakable,
       Picture: order.orderPhotoUrl,
     }));
-    console.log('Orders data: ', this.mappedOrders);
+  }
+
+  listenToStatDataSub() {
+    this.statDataSub = this._stat.statisticalData.subscribe({
+      next: (data: DataModel) => {
+        this.orderStat = data;
+        console.log('from listenToStatDataSub: ', this.orderStat);
+        this.fetchCardData();
+      },
+      error: (err) => console.error('Error fetching stat data: ', err),
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.statDataSub) {
+      this.statDataSub.unsubscribe();
+    }
   }
 }

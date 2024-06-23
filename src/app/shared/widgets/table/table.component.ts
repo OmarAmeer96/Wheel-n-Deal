@@ -31,13 +31,11 @@ export class TableComponent<T> implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.processTableData();
-    console.log('Table Data on init:', this.tableData);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] || changes['dataType'] || changes['activeTab']) {
       this.processTableData();
-      console.log('Table Data on changes:', this.tableData);
     }
   }
 

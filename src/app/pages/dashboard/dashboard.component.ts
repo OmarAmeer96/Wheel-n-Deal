@@ -26,46 +26,6 @@ export class DashboardComponent implements OnInit {
     this.getStatisticalData();
   }
 
-  // getStatisticalData() {
-  //   this._stat.getStatisticalData().subscribe({
-  //     next: (res) => {
-  //       console.log('res', res);
-  //       const {
-  //         numOfAllUsers = 0,
-  //         numOfAllOrders = 0,
-  //         numOfCommuters = 0,
-  //         totalRevenue = 0,
-  //       } = this._stat.getStatVar(
-  //         'numOfAllUsers',
-  //         'numOfAllOrders',
-  //         'numOfCommuters',
-  //         'totalRevenue'
-  //       );
-  //       this.numOfAllUsers = numOfAllUsers;
-  //       this.numOfOrders = numOfAllOrders;
-  //       this.numOfCommuters = numOfCommuters;
-  //       this.totalRevenue = totalRevenue;
-
-  //       const {
-  //         numOfInSuccessOrders = 0,
-  //         numOfFailedOrders = 0,
-  //         numOfPendingOrders = 0,
-  //       } = this._stat.getStatVar(
-  //         'numOfInSuccessOrders',
-  //         'numOfFailedOrders',
-  //         'numOfPendingOrders'
-  //       );
-  //       this.successfulOrders = numOfInSuccessOrders;
-  //       this.failureOrders = numOfFailedOrders;
-  //       this.pendingOrders = numOfPendingOrders;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching statistical data:', error);
-  //     },
-  //     complete: () => {},
-  //   });
-  // }
-
   getStatisticalData() {
     this._stat.getStatisticalData().subscribe({
       next: () => {

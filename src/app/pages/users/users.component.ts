@@ -65,8 +65,8 @@ export class UsersComponent {
    * Fetches all users from the server and maps them to the UserTableData model.
    */
   fetchAllUsers() {
-    this._user.getAllUsers(0, 10).subscribe((res: UserResponse) => {
-      console.log(res.data.content[0]);
+    this._user.getAllUsers(0, 50).subscribe((res: UserResponse) => {
+      console.log(res);
       if (res.status === 200) {
         this.mappedUsers = res.data.content.map((user: IUser) => ({
           id: user.id,
