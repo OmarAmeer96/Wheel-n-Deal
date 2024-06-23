@@ -23,3 +23,14 @@ export interface ICard {
   record: number;
   label: string;
 }
+
+export interface IUserCard {
+  record: number;
+  label: string;
+}
+
+export interface IUserStat {
+  numOfAllUsers: number;
+  numOfCustomers: number;
+  numOfCommuters: number;
+}

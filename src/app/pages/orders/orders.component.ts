@@ -112,6 +112,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   filterOrders() {
+    console.log('Filtering orders with status: ', this.activeTab);
+
     this.filteredOrders = this.mappedOrders.filter(
       (order) => order.Status.toLowerCase() === this.activeTab.toLowerCase()
     );
@@ -122,6 +124,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
       next: (res: ApiResponse) => {
         if (res.status === 200) {
           this.mapOrders(res.data.content);
+          console.log('Orders fetched successfully: ', this.mappedOrders[8]);
         } else {
           console.error('Failed to fetch orders with status: ', res.status);
         }

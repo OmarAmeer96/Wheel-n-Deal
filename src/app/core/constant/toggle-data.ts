@@ -30,7 +30,7 @@ export const ToggleStaticsData: ToggleDataModel[] = [
   },
   {
     title: 'Failed',
-    status: 'failed  ',
+    status: 'FAILED  ',
   },
 ];
 
@@ -44,7 +44,7 @@ export const ToggleUserData: ToggleDataModel[] = [
     status: 'commuter',
   },
   {
-    title: 'Customer',
-    status: 'customer',
+    title: 'User',
+    status: 'user',
   },
 ];

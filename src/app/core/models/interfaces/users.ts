@@ -10,6 +10,7 @@ export interface IUser {
   nationalId: string | null;
   totalDelivers: number;
   cancelDelivers: number;
+  role: string;
 }
 
 export interface UserData {

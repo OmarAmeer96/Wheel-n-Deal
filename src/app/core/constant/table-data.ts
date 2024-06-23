@@ -16,6 +16,7 @@ export interface OrderTableData {
 export interface UserTableData {
   id: number;
   username: string;
+  role: string;
   phone: string | null;
   nationalId: string | null;
   gender: string | null;

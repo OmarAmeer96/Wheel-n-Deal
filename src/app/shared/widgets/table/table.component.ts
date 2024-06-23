@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterContentInit,
-  AfterViewInit,
   Component,
   Input,
   OnChanges,
@@ -44,8 +42,11 @@ export class TableComponent<T> implements OnInit, OnChanges {
       this.orderTableData = (this.tableData as OrderTableData[]).filter(
         (row) =>
           this.activeTab.toLowerCase() === 'all' ||
-          row.Status.toLowerCase() === this.activeTab.toLowerCase()
+          row.Status.toLowerCase().trim() ===
+            this.activeTab.toLowerCase().trim()
       );
+      console.log('orderTableData', this.orderTableData);
+
       this.userTableData = [];
     } else if (this.dataType === 'user') {
       this.userTableData = this.tableData as UserTableData[];

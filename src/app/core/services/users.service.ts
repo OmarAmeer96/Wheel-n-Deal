@@ -12,7 +12,7 @@ export class UsersService {
 
   getAllUsers(pageNum: number, pageSize: number): Observable<UserResponse> {
     return this._http.get<UserResponse>(
-      `${base_url}/admin/users?role=USER&pageNum=${pageNum}&pageSize=${pageSize}`
+      `${base_url}/admin/users?pageNum=${pageNum}&pageSize=${pageSize}`
     );
   }
 }
