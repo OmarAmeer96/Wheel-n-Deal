@@ -150,4 +150,8 @@ class AssetsData {
   static const withdrawIcon = 'assets/svg/withdraw_icon.svg';
 
   static const verifiedIcon = 'assets/svg/verifiedIcon.svg';
+
+  static const sourceMarker = 'assets/svg/source_marker.svg';
+  static const destinationMarker = 'assets/svg/destination_marker.svg';
+  static const currentMarker = 'assets/svg/current_marker.svg';
 }

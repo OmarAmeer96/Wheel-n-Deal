@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/routing/routes.dart';
 
@@ -18,24 +22,91 @@ class UserTrackOrderViewBody extends StatefulWidget {
 }
 
 class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
-  late CameraPosition initialCameraPosition;
+  final Completer<GoogleMapController> _controller = Completer();
+  static const LatLng sourceLocation =
+      LatLng(30.715955406355206, 31.24852084527862);
+  //static const LatLng midLocation =LatLng(30.79900787528476, 31.00206213176501);
+  static const LatLng destinationLocation =
+      LatLng(30.786541739058805, 31.000364821862284);
+  List<LatLng> polylineCoordinates = [];
+  LocationData? currentLocation;
+
+  BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+
+  void getCurrentLocation() async {
+    Location location = Location();
+
+    location.getLocation().then((location) {
+      currentLocation = location;
+    });
+
+    GoogleMapController googleMapController = await _controller.future;
+
+    location.onLocationChanged.listen(
+      (newLocation) {
+        currentLocation = newLocation;
+        googleMapController.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: LatLng(newLocation.latitude!, newLocation.longitude!),
+              zoom: 11.5,
+            ),
+          ),
+        );
+        setState(() {});
+      },
+    );
+  }
+
+  void getPolyPoints() async {
+    PolylinePoints polyLinePoints = PolylinePoints();
+    PolylineResult result = await polyLinePoints.getRouteBetweenCoordinates(
+      "AIzaSyD-8J9J0Q2J9Q2J9J9Q2J9J9Q2J9J9Q2J9",
+      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        );
+        setState(() {});
+      }
+    }
+  }
+
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      AssetsData.sourceMarker,
+    ).then((icon) {
+      sourceIcon = icon;
+    });
+    BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      AssetsData.destinationMarker,
+    ).then((icon) {
+      destinationIcon = icon;
+    });
+    BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      AssetsData.currentMarker,
+    ).then((icon) {
+      currentLocationIcon = icon;
+    });
+  }
 
   @override
   void initState() {
-    initialCameraPosition = const CameraPosition(
-      target: LatLng(30.79900787528476, 31.00206213176501),
-      zoom: 13,
-    );
+    getCurrentLocation();
+    setCustomMarkerIcon();
+    getPolyPoints();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    googleMapController.dispose();
-    super.dispose();
-  }
-
-  late GoogleMapController googleMapController;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,14 +127,46 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
               height: 16,
             ),
             Expanded(
-              child: GoogleMap(
-                onMapCreated: (controller) {
-                  googleMapController = controller;
-                  initMapStyle();
-                },
-                initialCameraPosition: initialCameraPosition,
-                mapType: MapType.normal,
-              ),
+              child: currentLocation == null
+                  ? const Text("Loading...")
+                  : GoogleMap(
+                      onMapCreated: (mapController) {
+                        _controller.complete(mapController);
+                        // initMapStyle();
+                      },
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(currentLocation!.latitude!,
+                            currentLocation!.longitude!),
+                        zoom: 11.5,
+                      ),
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId("currentLocation"),
+                          icon: currentLocationIcon,
+                          position: LatLng(currentLocation!.latitude!,
+                              currentLocation!.longitude!),
+                        ),
+                        Marker(
+                          markerId: const MarkerId("source"),
+                          icon: sourceIcon,
+                          position: sourceLocation,
+                        ),
+                        Marker(
+                          markerId: const MarkerId("destination"),
+                          icon: destinationIcon,
+                          position: destinationLocation,
+                        ),
+                      },
+                      polylines: {
+                        Polyline(
+                          polylineId: const PolylineId("route"),
+                          color: kPrimaryColor,
+                          points: polylineCoordinates,
+                          width: 5,
+                        ),
+                      },
+                      mapType: MapType.normal,
+                    ),
             ),
             const SizedBox(
               height: 12,
@@ -196,10 +299,10 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
     );
   }
 
-  void initMapStyle() async {
-    var nightMapStyle = await DefaultAssetBundle.of(context)
-        .loadString('assets/map_styles/night_map_style.json');
-    // ignore: deprecated_member_use
-    googleMapController.setMapStyle(nightMapStyle);
-  }
+  // void initMapStyle() async {
+  //   var nightMapStyle = await DefaultAssetBundle.of(context)
+  //       .loadString('assets/map_styles/night_map_style.json');
+  //   // ignore: deprecated_member_use
+  //   googleMapController.setMapStyle(nightMapStyle);
+  // }
 }
