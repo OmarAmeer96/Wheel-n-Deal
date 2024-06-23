@@ -26,17 +26,27 @@ class RegisterBodyView extends StatefulWidget {
 
 class _RegisterBodyViewState extends State<RegisterBodyView> {
   String? username;
-
   String? password;
-
   String? rePassword;
-
   String? phoneNumber;
-
   String role = 'USER';
+
+  final FocusNode usernameFocusNode = FocusNode();
+  final FocusNode phoneNumberFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
+  final FocusNode rePasswordFocusNode = FocusNode();
 
   bool obscurePassText = true;
   bool obscureRePassText = true;
+
+  @override
+  void dispose() {
+    usernameFocusNode.dispose();
+    phoneNumberFocusNode.dispose();
+    passwordFocusNode.dispose();
+    rePasswordFocusNode.dispose();
+    super.dispose();
+  }
 
   void _togglePasswordIcon() {
     obscurePassText = !obscurePassText;
@@ -145,6 +155,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             child: SvgPicture.asset(AssetsData.userName),
                           ),
                           obscureText: false,
+                          focusNode: usernameFocusNode,
+                          nextFocusNode: phoneNumberFocusNode,
                         ),
                         const SizedBox(
                           height: 10,
@@ -185,6 +197,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             child: SvgPicture.asset(AssetsData.phoneIcon),
                           ),
                           obscureText: false,
+                          focusNode: phoneNumberFocusNode,
+                          nextFocusNode: passwordFocusNode,
                         ),
                         const SizedBox(
                           height: 10,
@@ -236,6 +250,8 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             ),
                           ),
                           obscureText: obscurePassText,
+                          focusNode: passwordFocusNode,
+                          nextFocusNode: rePasswordFocusNode,
                         ),
                         const SizedBox(
                           height: 10,
@@ -290,6 +306,7 @@ class _RegisterBodyViewState extends State<RegisterBodyView> {
                             ),
                           ),
                           obscureText: obscureRePassText,
+                          focusNode: rePasswordFocusNode,
                         ),
                         const SizedBox(
                           height: 10,

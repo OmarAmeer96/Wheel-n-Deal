@@ -22,6 +22,8 @@ class CustomMainTextFormField extends StatelessWidget {
     this.suffixIconOnTap,
     this.enabled = true,
     this.disabledBorder,
+    this.focusNode,
+    this.nextFocusNode,
   });
 
   final Function(String) onChanged;
@@ -42,6 +44,8 @@ class CustomMainTextFormField extends StatelessWidget {
   final Color? fillColor;
   final void Function()? suffixIconOnTap;
   final bool enabled;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +55,18 @@ class CustomMainTextFormField extends StatelessWidget {
       obscureText: obscureText,
       enabled: enabled,
       keyboardType: inputType,
+      textInputAction:
+          nextFocusNode != null ? TextInputAction.next : TextInputAction.done,
       style: Styles.poppinsSemiBold16.copyWith(
         color: Colors.black,
       ),
       decoration: InputDecoration(
-        // filled: true,
         fillColor: fillColor,
         contentPadding: EdgeInsets.symmetric(vertical: contentPadding),
         floatingLabelStyle: Styles.poppinsSemiBold16.copyWith(
           color: kPrimaryColor,
         ),
         constraints: const BoxConstraints(
-          // maxHeight: 80,
           minHeight: 60,
           maxWidth: double.infinity,
           minWidth: double.infinity,
@@ -106,6 +110,12 @@ class CustomMainTextFormField extends StatelessWidget {
         ),
       ),
       validator: validator,
+      focusNode: focusNode,
+      onFieldSubmitted: (value) {
+        if (nextFocusNode != null) {
+          nextFocusNode!.requestFocus();
+        }
+      },
     );
   }
 }

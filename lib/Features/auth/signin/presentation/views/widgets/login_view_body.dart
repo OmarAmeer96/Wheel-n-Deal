@@ -25,14 +25,22 @@ class LoginViewBody extends StatefulWidget {
 
 class _LoginViewBodyState extends State<LoginViewBody> {
   String? username;
-
   String? password;
-
   bool obscureText = true;
+
+  final FocusNode usernameFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
 
   void _togglePasswordIcon() {
     obscureText = !obscureText;
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    usernameFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -140,6 +148,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             child: SvgPicture.asset(AssetsData.userName),
                           ),
                           obscureText: false,
+                          focusNode: usernameFocusNode,
+                          nextFocusNode: passwordFocusNode,
                         ),
                         const SizedBox(
                           height: 10,
@@ -191,6 +201,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             ),
                           ),
                           obscureText: obscureText,
+                          focusNode: passwordFocusNode,
                         ),
                         const SizedBox(
                           height: 16,
