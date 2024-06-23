@@ -29,7 +29,8 @@ class _CommuterEditProfileViewBodyState
 
   final _fullNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  // final _cityController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _nationalIdController = TextEditingController();
 
   final _form = GlobalKey<FormState>();
 
@@ -215,10 +216,10 @@ class _CommuterEditProfileViewBodyState
                         onChanged: (data) {
                           phoneNumber = data;
                         },
-                        controller: _phoneNumberController,
+                        controller: _cityController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a valid phone number.';
+                            return 'Please enter a valid city name.';
                           }
                           return null;
                         },
@@ -252,10 +253,10 @@ class _CommuterEditProfileViewBodyState
                         onChanged: (data) {
                           phoneNumber = data;
                         },
-                        controller: _phoneNumberController,
+                        controller: _nationalIdController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a valid phone number.';
+                            return 'Please enter a valid national id.';
                           }
                           return null;
                         },
