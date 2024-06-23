@@ -8,7 +8,9 @@ import 'package:wheel_n_deal/Features/auth/signin/data/repos/login_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/repos/signup_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
+import 'package:wheel_n_deal/Features/user/orders/data/repos/delete_user_not_active_order.dart';
 import 'package:wheel_n_deal/Features/user/orders/data/repos/get_user_orders_repo.dart';
+import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
 import 'package:wheel_n_deal/Features/user/post_order/data/repos/post_order_repo.dart';
 import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
@@ -51,4 +53,10 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<GetUserOrdersRepo>(
       () => GetUserOrdersRepo(getIt()));
   getIt.registerFactory<GetUserOrdersCubit>(() => GetUserOrdersCubit(getIt()));
+
+  // Delete User Not Active Order Repo & Cubit
+  getIt.registerLazySingleton<DeleteUserNotActiveOrderRepo>(
+      () => DeleteUserNotActiveOrderRepo(getIt()));
+  getIt.registerFactory<DeleteUserNotActiveOrderCubit>(
+      () => DeleteUserNotActiveOrderCubit(getIt()));
 }
