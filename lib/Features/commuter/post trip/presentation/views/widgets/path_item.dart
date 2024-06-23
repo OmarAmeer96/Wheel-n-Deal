@@ -12,6 +12,8 @@ class PathItem extends StatelessWidget {
     required this.validator,
     required this.inputType,
     required this.onChanged,
+    this.focusNode,
+    this.nextFocusNode,
   }) : _locationController = locationController;
 
   final TextEditingController _locationController;
@@ -20,6 +22,8 @@ class PathItem extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType inputType;
   final Function(String?) onChanged;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,8 @@ class PathItem extends StatelessWidget {
               validator: validator,
               onChanged: onChanged,
               inputType: inputType,
+              focusNode: focusNode,
+              nextFocusNode: nextFocusNode,
             ),
           ),
         ),

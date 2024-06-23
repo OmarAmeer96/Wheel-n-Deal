@@ -12,6 +12,8 @@ class ListOfPathsTextField extends StatelessWidget {
     required this.validator,
     required this.onChanged,
     required this.inputType,
+    this.focusNode,
+    this.nextFocusNode,
   });
 
   final String hintText;
@@ -21,6 +23,8 @@ class ListOfPathsTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final TextInputType inputType;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +65,12 @@ class ListOfPathsTextField extends StatelessWidget {
               color: const Color(0xFFA3A3A3),
             ),
           ),
+          focusNode: focusNode,
+          onFieldSubmitted: (value) {
+            if (nextFocusNode != null) {
+              nextFocusNode!.requestFocus();
+            }
+          },
         ),
       ),
     );

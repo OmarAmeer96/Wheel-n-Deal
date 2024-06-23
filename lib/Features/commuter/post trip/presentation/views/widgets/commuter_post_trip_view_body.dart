@@ -44,6 +44,18 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
 
   final _form1 = GlobalKey<FormState>();
 
+  final FocusNode path1FocusNode = FocusNode();
+  final FocusNode path2FocusNode = FocusNode();
+  final FocusNode path3FocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    path1FocusNode.dispose();
+    path2FocusNode.dispose();
+    path3FocusNode.dispose();
+    super.dispose();
+  }
+
   // Step 2 Things
   final _form2 = GlobalKey<FormState>();
 
@@ -57,7 +69,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
   String? weight;
   String? expectedPrice;
 
-  final _orderNameController = TextEditingController();
+  final _orderCapacityController = TextEditingController();
 
   String? selectedCount = "1";
 
@@ -297,6 +309,8 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                                     }
                                     return null;
                                   },
+                                  focusNode: path1FocusNode,
+                                  nextFocusNode: path2FocusNode,
                                 ),
                                 PathItem(
                                   locationController: _location2Controller,
@@ -312,6 +326,8 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                                     }
                                     return null;
                                   },
+                                  focusNode: path2FocusNode,
+                                  nextFocusNode: path3FocusNode,
                                 ),
                                 PathItem(
                                   locationController: _location3Controller,
@@ -327,6 +343,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                                     }
                                     return null;
                                   },
+                                  focusNode: path3FocusNode,
                                 ),
                               ],
                             ),
@@ -408,7 +425,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                                     borderColor: Colors.transparent,
                                     fillColor: Colors.transparent,
                                     hintText: 'DD/MM/YYYY',
-                                    controller: _orderNameController,
+                                    controller: _pickedDateController,
                                     onChanged: (value) {},
                                     contentPadding: 7,
                                     validator: (value) {
@@ -501,7 +518,7 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                                 borderColor: Colors.transparent,
                                 fillColor: Colors.transparent,
                                 hintText: '3',
-                                controller: _orderNameController,
+                                controller: _orderCapacityController,
                                 onChanged: (value) {},
                                 contentPadding: 7,
                                 validator: (value) {
@@ -579,11 +596,11 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                           children: [
                             CustomReviewSummaryItem(
                               keyText: 'From',
-                              valText: 'Port-said mohammed ali St',
+                              valText: 'This is FROM test',
                             ),
                             CustomReviewSummaryItem(
                               keyText: 'To      ',
-                              valText: 'Tanta',
+                              valText: 'This is TO test',
                             ),
                           ],
                         ),
