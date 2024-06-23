@@ -89,6 +89,7 @@ export class TableComponent<T> implements OnInit, OnChanges {
     }
   }
 
+  //  CSV
   exportToCSV(): void {
     // Determine which data to export based on dataType
     const dataToExport =
