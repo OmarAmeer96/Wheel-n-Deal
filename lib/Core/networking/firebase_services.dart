@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
+import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   log('Title: ${message.notification?.title}');
@@ -16,7 +18,10 @@ class FirebaseService {
     await _firebaseMessaging.requestPermission();
 
     final FCMToken = await _firebaseMessaging.getToken();
-    log('$FCMToken', name: 'Firebase Messaging Token');
+    log('$FCMToken \n---', name: 'Firebase Messaging Token');
+
+    final userToken = SharedPrefs.getString(key: kToken);
+    log('$userToken', name: 'kToken');
 
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }

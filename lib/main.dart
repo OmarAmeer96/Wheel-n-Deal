@@ -7,6 +7,7 @@ import 'package:wheel_n_deal/Core/networking/firebase_services.dart';
 import 'package:wheel_n_deal/Core/routing/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
+import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
 import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
 import 'package:wheel_n_deal/constants.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<GetUserOrdersCubit>(
           create: (context) => getIt<GetUserOrdersCubit>(),
+        ),
+        BlocProvider<DeleteUserNotActiveOrderCubit>(
+          create: (context) => getIt<DeleteUserNotActiveOrderCubit>(),
         ),
         // Add more BlocProviders as needed
       ],
