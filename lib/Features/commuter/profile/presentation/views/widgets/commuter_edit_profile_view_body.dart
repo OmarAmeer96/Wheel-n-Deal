@@ -51,302 +51,306 @@ class _CommuterEditProfileViewBodyState
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Stack(
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Center(
-                        child: SizedBox(
-                          height: 115,
-                          width: 115,
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            fit: StackFit.expand,
-                            children: [
-                              Positioned(
-                                child: _selectedImage != null
-                                    ? CircleAvatar(
-                                        backgroundImage: FileImage(
-                                          _selectedImage!,
+                Scrollbar(
+                  thumbVisibility: true,
+                  interactive: true,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Center(
+                          child: SizedBox(
+                            height: 115,
+                            width: 115,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              fit: StackFit.expand,
+                              children: [
+                                Positioned(
+                                  child: _selectedImage != null
+                                      ? CircleAvatar(
+                                          backgroundImage: FileImage(
+                                            _selectedImage!,
+                                          ),
+                                        )
+                                      : const CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          backgroundImage: AssetImage(
+                                            AssetsData.profileImage,
+                                          ),
                                         ),
-                                      )
-                                    : const CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        backgroundImage: AssetImage(
-                                          AssetsData.profileImage,
-                                        ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: -25,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Color(0x59FF981A),
+                                          blurRadius: 8,
+                                          offset: Offset(0, 0),
+                                          spreadRadius: 0,
+                                        )
+                                      ],
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 27,
+                                      backgroundColor: Colors.white,
+                                      child: RawMaterialButton(
+                                        onPressed: () {
+                                          imagePickerBottomSheet(
+                                            context,
+                                            onTap1: () {
+                                              _pickImageFromCamera();
+                                            },
+                                            onTap2: () {
+                                              _pickImageFromGallery();
+                                            },
+                                          );
+                                        },
+                                        elevation: 2.0,
+                                        fillColor: const Color(0xFF191D31),
+                                        padding: const EdgeInsets.all(15.0),
+                                        shape: const CircleBorder(),
+                                        child: SvgPicture.asset(
+                                            AssetsData.cameraIcon),
                                       ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: -25,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Color(0x59FF981A),
-                                        blurRadius: 8,
-                                        offset: Offset(0, 0),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
-                                  child: CircleAvatar(
-                                    radius: 27,
-                                    backgroundColor: Colors.white,
-                                    child: RawMaterialButton(
-                                      onPressed: () {
-                                        imagePickerBottomSheet(
-                                          context,
-                                          onTap1: () {
-                                            _pickImageFromCamera();
-                                          },
-                                          onTap2: () {
-                                            _pickImageFromGallery();
-                                          },
-                                        );
-                                      },
-                                      elevation: 2.0,
-                                      fillColor: const Color(0xFF191D31),
-                                      padding: const EdgeInsets.all(15.0),
-                                      shape: const CircleBorder(),
-                                      child: SvgPicture.asset(
-                                          AssetsData.cameraIcon),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Full Name',
-                          style: Styles.manropeBold32.copyWith(
-                            fontSize: 16,
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Full Name',
+                            style: Styles.manropeBold32.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      CustomMainTextFormField(
-                        onChanged: (data) {
-                          fullName = data;
-                        },
-                        controller: _fullNameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a name.';
-                          }
-                          return null;
-                        },
-                        hintText: 'Input full name',
-                        borderColor: const Color(0xFFA3A3A3),
-                        focusedBorderColor: const Color(0xff55433c),
-                        enabledBorderColor: const Color(0xFFA3A3A3),
-                        inputType: TextInputType.text,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: SvgPicture.asset(AssetsData.userName),
+                        const SizedBox(
+                          height: 5,
                         ),
-                        obscureText: false,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Phone number',
-                          style: Styles.manropeBold32.copyWith(
-                            fontSize: 16,
+                        CustomMainTextFormField(
+                          onChanged: (data) {
+                            fullName = data;
+                          },
+                          controller: _fullNameController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a name.';
+                            }
+                            return null;
+                          },
+                          hintText: 'Input full name',
+                          borderColor: const Color(0xFFA3A3A3),
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: const Color(0xFFA3A3A3),
+                          inputType: TextInputType.text,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: SvgPicture.asset(AssetsData.userName),
+                          ),
+                          obscureText: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Phone number',
+                            style: Styles.manropeBold32.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      CustomMainTextFormField(
-                        onChanged: (data) {
-                          phoneNumber = data;
-                        },
-                        controller: _phoneNumberController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid phone number.';
-                          }
-                          return null;
-                        },
-                        hintText: '01222990387',
-                        borderColor: const Color(0xFFA3A3A3),
-                        focusedBorderColor: const Color(0xff55433c),
-                        enabledBorderColor: const Color(0xFFA3A3A3),
-                        inputType: TextInputType.text,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        const SizedBox(
+                          height: 5,
                         ),
-                        obscureText: false,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'City',
-                          style: Styles.manropeBold32.copyWith(
-                            fontSize: 16,
+                        CustomMainTextFormField(
+                          onChanged: (data) {
+                            phoneNumber = data;
+                          },
+                          controller: _phoneNumberController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid phone number.';
+                            }
+                            return null;
+                          },
+                          hintText: '01222990387',
+                          borderColor: const Color(0xFFA3A3A3),
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: const Color(0xFFA3A3A3),
+                          inputType: TextInputType.text,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: SvgPicture.asset(AssetsData.phoneIcon),
+                          ),
+                          obscureText: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'City',
+                            style: Styles.manropeBold32.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      CustomMainTextFormField(
-                        onChanged: (data) {
-                          phoneNumber = data;
-                        },
-                        controller: _cityController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid city name.';
-                          }
-                          return null;
-                        },
-                        hintText: 'Alex',
-                        borderColor: const Color(0xFFA3A3A3),
-                        focusedBorderColor: const Color(0xff55433c),
-                        enabledBorderColor: const Color(0xFFA3A3A3),
-                        inputType: TextInputType.text,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        const SizedBox(
+                          height: 5,
                         ),
-                        obscureText: false,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'National ID',
-                          style: Styles.manropeBold32.copyWith(
-                            fontSize: 16,
+                        CustomMainTextFormField(
+                          onChanged: (data) {
+                            phoneNumber = data;
+                          },
+                          controller: _cityController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid city name.';
+                            }
+                            return null;
+                          },
+                          hintText: 'Alex',
+                          borderColor: const Color(0xFFA3A3A3),
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: const Color(0xFFA3A3A3),
+                          inputType: TextInputType.text,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: SvgPicture.asset(AssetsData.phoneIcon),
+                          ),
+                          obscureText: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'National ID',
+                            style: Styles.manropeBold32.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      CustomMainTextFormField(
-                        onChanged: (data) {
-                          phoneNumber = data;
-                        },
-                        controller: _nationalIdController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid national id.';
-                          }
-                          return null;
-                        },
-                        hintText: 'xxxxxxxxxxxxx',
-                        borderColor: const Color(0xFFA3A3A3),
-                        focusedBorderColor: const Color(0xff55433c),
-                        enabledBorderColor: const Color(0xFFA3A3A3),
-                        inputType: TextInputType.text,
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: SvgPicture.asset(AssetsData.phoneIcon),
+                        const SizedBox(
+                          height: 5,
                         ),
-                        obscureText: false,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Gender',
-                          style: Styles.manropeBold32.copyWith(
-                            fontSize: 16,
+                        CustomMainTextFormField(
+                          onChanged: (data) {
+                            phoneNumber = data;
+                          },
+                          controller: _nationalIdController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid national id.';
+                            }
+                            return null;
+                          },
+                          hintText: 'xxxxxxxxxxxxx',
+                          borderColor: const Color(0xFFA3A3A3),
+                          focusedBorderColor: const Color(0xff55433c),
+                          enabledBorderColor: const Color(0xFFA3A3A3),
+                          inputType: TextInputType.text,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: SvgPicture.asset(AssetsData.phoneIcon),
+                          ),
+                          obscureText: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Gender',
+                            style: Styles.manropeBold32.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            AssetsData.genderSvg,
-                            width: 22,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Radio(
-                                    focusColor: const Color(0xff99A0A8),
-                                    fillColor: const WidgetStatePropertyAll(
-                                      kPrimaryColor,
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              AssetsData.genderSvg,
+                              width: 22,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio(
+                                      focusColor: const Color(0xff99A0A8),
+                                      fillColor: const WidgetStatePropertyAll(
+                                        kPrimaryColor,
+                                      ),
+                                      value: 'Male',
+                                      groupValue: selectedGender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedGender = value;
+                                        });
+                                      },
                                     ),
-                                    value: 'Male',
-                                    groupValue: selectedGender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedGender = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Male',
-                                    style: Styles.poppinsSemiBold16
-                                        .copyWith(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Radio(
-                                    focusColor: const Color(0xff99A0A8),
-                                    fillColor: const WidgetStatePropertyAll(
-                                      kPrimaryColor,
+                                    Text(
+                                      'Male',
+                                      style: Styles.poppinsSemiBold16
+                                          .copyWith(fontSize: 14),
                                     ),
-                                    value: 'Female',
-                                    groupValue: selectedGender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedGender = value;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Female',
-                                    style: Styles.poppinsSemiBold16
-                                        .copyWith(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 70,
-                      ),
-                    ],
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                      focusColor: const Color(0xff99A0A8),
+                                      fillColor: const WidgetStatePropertyAll(
+                                        kPrimaryColor,
+                                      ),
+                                      value: 'Female',
+                                      groupValue: selectedGender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedGender = value;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      'Female',
+                                      style: Styles.poppinsSemiBold16
+                                          .copyWith(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 70,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(
