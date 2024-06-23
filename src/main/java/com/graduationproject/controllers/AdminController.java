@@ -25,8 +25,8 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("users")
-    public CustomResponse findUsersByRole(@RequestParam Role role, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return adminService.findUsersByRole(role, pageNum, pageSize);
+    public CustomResponse findUsersByRole(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return adminService.findUsersByRole(pageNum, pageSize);
     }
 
     @GetMapping("orders")

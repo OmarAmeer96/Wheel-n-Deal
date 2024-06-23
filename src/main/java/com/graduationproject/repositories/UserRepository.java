@@ -22,8 +22,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     User findByStripeId(String stripeUserId);
     User findByPhoneNumber(String phoneNumber);
 
-    @Query("SELECT new com.graduationproject.DTOs.UserDTO(u.id, u.phoneNumber, u.username, u.amount, u.gender, u.profilePictureUrl, u.nationalId, u.totalDelivers, u.cancelDelivers) FROM User u WHERE u.id <> 1 AND u.role = :role")
-    Page<UserDTO> findUsersByRole(@Param("role") Role role, Pageable pageable);
+    @Query("SELECT new com.graduationproject.DTOs.UserDTO(u.id, u.phoneNumber, u.role, u.username, u.amount, u.gender, u.profilePictureUrl, u.nationalId, u.totalDelivers, u.cancelDelivers) FROM User u WHERE u.id <> 1")
+    Page<UserDTO> findUsersByRole(Pageable pageable);
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
     long countUsersByRole(@Param("role") Role role);

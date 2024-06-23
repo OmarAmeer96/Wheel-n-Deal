@@ -25,15 +25,8 @@ public class AdminService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
 
-    public CustomResponse findUsersByRole(Role role, Integer pageNum, Integer pageSize) {
+    public CustomResponse findUsersByRole(Integer pageNum, Integer pageSize) {
         try {
-            if (role == null) {
-                return new CustomResponse(
-                        HttpStatus.BAD_REQUEST.value(),
-                        "Role cannot be null",
-                        null);
-            }
-
             if (pageNum < 0) {
                 return new CustomResponse(
                         HttpStatus.BAD_REQUEST.value(),
@@ -42,7 +35,7 @@ public class AdminService {
             }
 
             Pageable page = PageRequest.of(pageNum, pageSize, Sort.by("id"));
-            Page<UserDTO> usersPage = userRepository.findUsersByRole(role, page);
+            Page<UserDTO> usersPage = userRepository.findUsersByRole(page);
 
             if (usersPage.isEmpty()) {
                 return new CustomResponse(
