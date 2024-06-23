@@ -1,12 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:wheel_n_deal/Core/helpers/extensions.dart';
+import 'package:wheel_n_deal/Core/networking/google%20map%20services/location_service.dart';
+import 'package:wheel_n_deal/Core/networking/google%20map%20services/map_services.dart';
 import 'package:wheel_n_deal/Core/routing/routes.dart';
 
 import 'package:wheel_n_deal/Core/utils/assets.dart';
@@ -22,88 +21,44 @@ class UserTrackOrderViewBody extends StatefulWidget {
 }
 
 class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
-  final Completer<GoogleMapController> _controller = Completer();
+  late CameraPosition initialCameraPosition;
+  late MapServices mapServices;
+  late GoogleMapController googleMapController;
+  Set<Marker> markers = {};
+  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
   static const LatLng sourceLocation =
       LatLng(30.715955406355206, 31.24852084527862);
-  //static const LatLng midLocation =LatLng(30.79900787528476, 31.00206213176501);
   static const LatLng destinationLocation =
       LatLng(30.786541739058805, 31.000364821862284);
   List<LatLng> polylineCoordinates = [];
-  LocationData? currentLocation;
-
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
-  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
-
-  void getCurrentLocation() async {
-    Location location = Location();
-
-    location.getLocation().then((location) {
-      currentLocation = location;
-    });
-
-    GoogleMapController googleMapController = await _controller.future;
-
-    location.onLocationChanged.listen(
-      (newLocation) {
-        currentLocation = newLocation;
-        googleMapController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: LatLng(newLocation.latitude!, newLocation.longitude!),
-              zoom: 11.5,
-            ),
-          ),
-        );
-        setState(() {});
-      },
-    );
-  }
-
-  void getPolyPoints() async {
-    PolylinePoints polyLinePoints = PolylinePoints();
-    PolylineResult result = await polyLinePoints.getRouteBetweenCoordinates(
-      "AIzaSyD-8J9J0Q2J9Q2J9J9Q2J9J9Q2J9J9Q2J9",
-      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
-      travelMode: TravelMode.driving,
-    );
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        polylineCoordinates.add(
-          LatLng(point.latitude, point.longitude),
-        );
-        setState(() {});
-      }
-    }
-  }
-
-  void setCustomMarkerIcon() {
-    BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(48, 48)),
-      AssetsData.sourceMarker,
-    ).then((icon) {
-      sourceIcon = icon;
-    });
-    BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(48, 48)),
-      AssetsData.destinationMarker,
-    ).then((icon) {
-      destinationIcon = icon;
-    });
-    BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(48, 48)),
-      AssetsData.currentMarker,
-    ).then((icon) {
-      currentLocationIcon = icon;
-    });
-  }
 
   @override
   void initState() {
-    getCurrentLocation();
-    setCustomMarkerIcon();
+    mapServices = MapServices();
+    initialCameraPosition = const CameraPosition(target: LatLng(0, 0));
     getPolyPoints();
+
+    setCustomMarkerIcon();
+    // Create markers for source and destination
+    Marker sourceMarker = Marker(
+      markerId: const MarkerId("source"),
+      position: sourceLocation,
+      icon: sourceIcon,
+      infoWindow: const InfoWindow(title: "Source"),
+    );
+
+    Marker destinationMarker = Marker(
+      markerId: const MarkerId("destination"),
+      position: destinationLocation,
+      icon: destinationIcon,
+      infoWindow: const InfoWindow(title: "Destination"),
+    );
+
+    // Add markers to the set
+    markers.add(sourceMarker);
+    markers.add(destinationMarker);
     super.initState();
   }
 
@@ -127,46 +82,29 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
               height: 16,
             ),
             Expanded(
-              child: currentLocation == null
-                  ? const Text("Loading...")
-                  : GoogleMap(
-                      onMapCreated: (mapController) {
-                        _controller.complete(mapController);
-                        // initMapStyle();
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(currentLocation!.latitude!,
-                            currentLocation!.longitude!),
-                        zoom: 11.5,
-                      ),
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId("currentLocation"),
-                          icon: currentLocationIcon,
-                          position: LatLng(currentLocation!.latitude!,
-                              currentLocation!.longitude!),
-                        ),
-                        Marker(
-                          markerId: const MarkerId("source"),
-                          icon: sourceIcon,
-                          position: sourceLocation,
-                        ),
-                        Marker(
-                          markerId: const MarkerId("destination"),
-                          icon: destinationIcon,
-                          position: destinationLocation,
-                        ),
-                      },
-                      polylines: {
-                        Polyline(
-                          polylineId: const PolylineId("route"),
-                          color: kPrimaryColor,
-                          points: polylineCoordinates,
-                          width: 5,
-                        ),
-                      },
-                      mapType: MapType.normal,
-                    ),
+              child: GoogleMap(
+                zoomControlsEnabled: true,
+                initialCameraPosition: initialCameraPosition,
+                onMapCreated: (controller) async {
+                  googleMapController = controller;
+                  updateCurrentLocation();
+                  // var points = await mapServices.getRouteData(
+                  //     desination: destinationLocation);
+                  // mapServices.displayRoute(points,
+                  //     polylines: polylines,
+                  //     googleMapController: googleMapController);
+                  setState(() {});
+                },
+                markers: markers,
+                polylines: {
+                  Polyline(
+                    polylineId: const PolylineId("route"),
+                    color: kPrimaryColor,
+                    points: polylineCoordinates,
+                    width: 5,
+                  ),
+                },
+              ),
             ),
             const SizedBox(
               height: 12,
@@ -299,10 +237,69 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
     );
   }
 
+  void updateCurrentLocation() {
+    try {
+      mapServices.updateCurrentLocation(
+          googleMapController: googleMapController,
+          markers: markers,
+          onUpdateCurrentLocation: () {
+            setState(() {});
+          });
+      setState(() {});
+      // ignore: unused_catch_clause
+    } on LocationServiceException catch (e) {
+      // TODO: handle the exception
+      // ignore: unused_catch_clause
+    } on LocationPermissionException catch (e) {
+      // TODO: handle the exception
+    } catch (e) {
+      // TODO: handle the exception
+    }
+  }
+
+  void getPolyPoints() async {
+    PolylinePoints polyLinePoints = PolylinePoints();
+    PolylineResult result = await polyLinePoints.getRouteBetweenCoordinates(
+      "AIzaSyBmhDvQXo3iFJt-j0v9VrgEihwFU6_Qa1E",
+      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      for (PointLatLng point in result.points) {
+        polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        );
+        setState(() {});
+      }
+    }
+  }
+
   // void initMapStyle() async {
   //   var nightMapStyle = await DefaultAssetBundle.of(context)
   //       .loadString('assets/map_styles/night_map_style.json');
   //   // ignore: deprecated_member_use
   //   googleMapController.setMapStyle(nightMapStyle);
   // }
+
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      AssetsData.sourceMarker,
+    ).then((icon) {
+      sourceIcon = icon;
+    });
+    BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      AssetsData.destinationMarker,
+    ).then((icon) {
+      destinationIcon = icon;
+    });
+    BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      AssetsData.currentMarker,
+    ).then((icon) {
+      currentLocationIcon = icon;
+    });
+  }
 }

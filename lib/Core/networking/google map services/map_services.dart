@@ -116,10 +116,13 @@ class MapServices {
       // create a new LatLng object with the location data
       currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
       Marker currentLocationMarker = Marker(
-          markerId: const MarkerId('my location'), position: currentLocation!);
+        markerId: const MarkerId('my location'),
+        position: currentLocation!,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+      );
       // update the camera position
       CameraPosition myCameraPosition =
-          CameraPosition(target: currentLocation!, zoom: 16);
+          CameraPosition(target: currentLocation!, zoom: 16.5);
       // animate the camera to the new position
       googleMapController
           .animateCamera(CameraUpdate.newCameraPosition(myCameraPosition));

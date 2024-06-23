@@ -6,12 +6,14 @@
 <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:label="Wheel N' Deal"
         android:name="${applicationName}"
         android:icon="@mipmap/app_icon_5">
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyBpkQaq0AHVZRt78mbrqT6liGvVD17mWcw"/>
+               android:value="AIzaSyDnBd3uicPBvTlIRjx8dEpQTs7CQT7GWg0"/>
         <meta-data
         android:name="firebase_messaging_auto_init_enabled"
         android:value="false" />
