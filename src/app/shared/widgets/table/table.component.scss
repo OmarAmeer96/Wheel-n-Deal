@@ -1,3 +1,5 @@
+@import "./../../../../styles";
+
 .order-img,
 .user-img {
   width: 30px;
@@ -17,4 +19,45 @@ th {
 :host {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+
+.table-caption {
+  display: flex;
+  padding: 20px 24px;
+  justify-content: space-between;
+  align-items: center;
+
+  .table-info {
+    h3 {
+      color: $color-gray-8;
+      font-family: Inter;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 28px;
+    }
+  }
+
+  .table-operation {
+    .btn {
+      display: flex;
+      padding: 10px 16px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-radius: 8px;
+      border: 1px solid $color-gray-6;
+      background: #fff;
+
+      span {
+        color: $color-gray-8;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+      }
+    }
+  }
 }

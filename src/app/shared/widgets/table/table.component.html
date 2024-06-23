@@ -1,3 +1,17 @@
+<div class="table-caption">
+  <div class="table-info">
+    <h3>
+      Here you can see
+      <span class="text-primary">{{ activeTab }}</span> orders
+    </h3>
+  </div>
+  <div class="table-operation">
+    <button class="btn export-btn" (click)="exportToCSV()">
+      <app-svg name="download-cloud"></app-svg>
+      <span>Export</span>
+    </button>
+  </div>
+</div>
 <table>
   <thead>
     <tr>
