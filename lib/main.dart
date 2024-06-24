@@ -6,6 +6,8 @@ import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Core/networking/firebase_services.dart';
 import 'package:wheel_n_deal/Core/routing/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
+import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
+import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
@@ -47,6 +49,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<SignupCubit>(),
+        ),
         BlocProvider<PostOrderCubit>(
           create: (context) => getIt<PostOrderCubit>(),
         ),
@@ -56,6 +64,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<DeleteUserNotActiveOrderCubit>(
           create: (context) => getIt<DeleteUserNotActiveOrderCubit>(),
         ),
+
         // Add more BlocProviders as needed
       ],
       child: MaterialApp(

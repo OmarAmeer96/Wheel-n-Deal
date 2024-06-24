@@ -11,7 +11,6 @@ import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/cr
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/forgot_password_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/otp_verification_view.dart';
 import 'package:wheel_n_deal/Features/auth/forgot_password/presentation/views/password_changed_view.dart';
-import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signin/presentation/views/login_view.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/presentation/views/register_view.dart';
@@ -123,40 +122,17 @@ class AppRouter {
 
       case Routes.kLoginView:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<LoginCubit>(),
-            child: const LoginView(),
-          ),
+          builder: (_) => const LoginView(),
         );
 
       case Routes.kUserHomeView:
         return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => getIt<LoginCubit>(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<SignupCubit>(),
-              ),
-            ],
-            child: const UserHomeView(),
-          ),
+          builder: (_) => const UserHomeView(),
         );
 
       case Routes.kCommuterHomeView:
         return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => getIt<LoginCubit>(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<SignupCubit>(),
-              ),
-            ],
-            child: const CommuterHomeView(),
-          ),
+          builder: (_) => const CommuterHomeView(),
         );
 
       case Routes.kSuccessfulRegisterView:
@@ -205,7 +181,10 @@ class AppRouter {
 
       case Routes.kCommuterEditProfileView:
         return MaterialPageRoute(
-          builder: (_) => const CommuterEditProfileView(),
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<UpdateUserProfileCubit>(),
+            child: const CommuterEditProfileView(),
+          ),
         );
 
       case Routes.kUserNotificationsView:
