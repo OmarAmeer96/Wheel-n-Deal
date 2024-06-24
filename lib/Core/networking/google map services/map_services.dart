@@ -122,7 +122,7 @@ class MapServices {
       );
       // update the camera position
       CameraPosition myCameraPosition =
-          CameraPosition(target: currentLocation!, zoom: 16.5);
+          CameraPosition(target: currentLocation!, zoom: 10);
       // animate the camera to the new position
       googleMapController
           .animateCamera(CameraUpdate.newCameraPosition(myCameraPosition));

@@ -30,6 +30,7 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
       LatLng(30.715955406355206, 31.24852084527862);
   static const LatLng destinationLocation =
       LatLng(30.786541739058805, 31.000364821862284);
+  static const LatLng midLocation = LatLng(30.718025591617625, 31.192696500026326);
   List<LatLng> polylineCoordinates = [];
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
@@ -56,8 +57,16 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
       infoWindow: const InfoWindow(title: "Destination"),
     );
 
-    // Add markers to the set
+  Marker midMarker = const Marker(
+    markerId: MarkerId("mid"),
+    position: midLocation,
+    icon: BitmapDescriptor.defaultMarker, // Use a custom icon if needed
+    infoWindow: InfoWindow(title: "Mid Location"),
+  );
+    
+
     markers.add(sourceMarker);
+    markers.add(midMarker);
     markers.add(destinationMarker);
     super.initState();
   }
@@ -157,7 +166,7 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
                                   right: -1,
                                   child: Card(
                                     elevation:
-                                        8.0, // Adjust the elevation value as needed
+                                        8.0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(999),
                                     ),
