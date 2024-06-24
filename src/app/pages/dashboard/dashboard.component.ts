@@ -3,6 +3,10 @@ import { DashCardComponent } from '../../shared/widgets/dash-card/dash-card.comp
 import { DoughnutChartComponent } from '../../shared/widgets/pie-chart/doughnut-chart.component';
 import { StatService } from '../../core/services/stat.service';
 import { BarChartComponent } from '../../shared/widgets/bar-chart/bar-chart.component';
+import {
+  OrderCreatedLastWeek,
+  chartData,
+} from '../../core/models/interfaces/charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,11 +38,26 @@ export class DashboardComponent implements OnInit {
     this.inProgressOrders +
     this.ReturnedOrders;
 
+  ordersPerDay!: OrderCreatedLastWeek[];
+  chartData: chartData = {
+    labels: [],
+    data: [],
+  };
+
   constructor(private _stat: StatService) {}
   ngOnInit(): void {
     this.getStatisticalData();
+    this.fetchChartData();
   }
 
+  private fetchChartData(): void {
+    this._stat.getOrdersLastWeek().subscribe((data: OrderCreatedLastWeek[]) => {
+      console.log('Orders last week:', data);
+
+      this.chartData.labels = data.map((order) => order.date);
+      this.chartData.data = data.map((order) => order.count);
+    });
+  }
   getStatisticalData() {
     this._stat.getStatisticalData().subscribe({
       next: () => {

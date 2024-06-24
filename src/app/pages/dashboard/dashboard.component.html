@@ -34,7 +34,12 @@
     [returnedOrders]="ReturnedOrders"
   ></app-doughnut-chart>
 
-  <app-bar-chart></app-bar-chart>
+  <app-bar-chart
+    [title]="'Orders Last Week'"
+    chartId="OrderChart"
+    [labels]="chartData.labels"
+    [data]="chartData.data"
+  ></app-bar-chart>
 </div>
 
 <div class="charts-container">

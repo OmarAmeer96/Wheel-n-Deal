@@ -1,5 +1,8 @@
 @import "../../../../styles";
 
+:host {
+  display: block;
+}
 .bar_card {
   margin-top: 16px;
   display: flex;
