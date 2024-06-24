@@ -109,4 +109,19 @@ abstract class ApiService {
     @Header('Authorization') required String token,
     @Path('orderId') required int orderId,
   });
+
+  // Commuter Post Trip
+  @POST(ApiConstants.commuterPostTrip)
+  @MultiPart()
+  Future<void> commuterPostTrip({
+    @Header('Authorization') required String token,
+    @Part(name: "from") String? from,
+    @Part(name: "to") String? to,
+    @Part(name: "paths") List<String>? paths,
+    @Part(name: "day") String? tripPhoto,
+    @Part(name: "startsAt") String? startsAt,
+    @Part(name: "endsAt") String? endsAt,
+    @Part(name: "capacity") String? capacity,
+    @Part(name: "userId") String? userId,
+  });
 }

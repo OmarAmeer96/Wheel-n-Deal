@@ -12,6 +12,8 @@ class ApiConstants {
   static const String postOrder = "user/create-update";
   static const String getAllUserOrders = "user/findAll/{userId}";
   static const String userDeleteNotActiveOrder = "user/deleteOrder/{orderId}";
+
+  static const String commuterPostTrip = "commuter/create-update/trip";
 }
 
 class ApiErrors {
