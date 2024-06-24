@@ -23,8 +23,12 @@
 </div>
 
 <app-doughnut-chart
-  [successfulOrders]="successfulOrders"
+  [totalOrders]="numOfAllOrders"
+  [not_activeOrders]="NotActiveOrders"
   [pendingOrders]="pendingOrders"
+  [confirmiedOrders]="confirmedOrders"
+  [in_progressOrders]="inProgressOrders"
+  [successfulOrders]="successfulOrders"
   [failureOrders]="failureOrders"
-  [totalOrders]="totalOrders"
+  [returnedOrders]="ReturnedOrders"
 ></app-doughnut-chart>

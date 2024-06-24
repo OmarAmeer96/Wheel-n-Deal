@@ -8,13 +8,25 @@
     <div class="details">
       <ul>
         <li>
-          Success:<span>&nbsp;{{ successfulOrders }}</span>
-        </li>
-        <li>
-          Failure:<span>&nbsp;&nbsp;&nbsp;{{ failureOrders }}</span>
+          Not_Active:<span>{{ not_activeOrders }}</span>
         </li>
         <li>
           Pending:<span>{{ pendingOrders }}</span>
+        </li>
+        <li>
+          Confirmed:<span>{{ confirmiedOrders }}</span>
+        </li>
+        <li>
+          In-Progress:<span>{{ in_progressOrders }}</span>
+        </li>
+        <li>
+          Success:<span>{{ successfulOrders }}</span>
+        </li>
+        <li>
+          Failed:<span>{{ failureOrders }}</span>
+        </li>
+        <li>
+          Returned:<span>{{ returnedOrders }}</span>
         </li>
       </ul>
     </div>

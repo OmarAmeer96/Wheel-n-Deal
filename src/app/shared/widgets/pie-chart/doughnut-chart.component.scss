@@ -73,15 +73,31 @@
           transition: all 0.3s ease-in-out;
 
           &:nth-child(1)::marker {
-            color: $color-green-success;
+            color: #d3d3d3; // Not_Active: Light Gray
           }
 
           &:nth-child(2)::marker {
-            color: $color-red-rejected;
+            color: #ffa500; // Pending: Orange
           }
 
           &:nth-child(3)::marker {
-            color: $color-primary;
+            color: #4caf50; // Confirmed: Green
+          }
+
+          &:nth-child(4)::marker {
+            color: #2196f3; // In-Progress: Blue
+          }
+
+          &:nth-child(5)::marker {
+            color: #8bc34a; // Success: Light Green
+          }
+
+          &:nth-child(6)::marker {
+            color: #f44336; // Failed: Red
+          }
+
+          &:nth-child(7)::marker {
+            color: #9c27b0; // Returned: Purple
           }
 
           &:hover {

@@ -16,16 +16,38 @@ export class DashboardComponent implements OnInit {
   numOfCommuters!: number;
   totalRevenue!: number;
 
+  numOfAllOrders = 0;
+  NotActiveOrders = 0;
+  pendingOrders = 0;
+  confirmedOrders = 0;
+  inProgressOrders = 0;
   successfulOrders = 0;
   failureOrders = 0;
-  pendingOrders = 0;
-  totalOrders = this.successfulOrders + this.failureOrders + this.pendingOrders;
+  ReturnedOrders = 0;
+  totalOrders =
+    this.successfulOrders +
+    this.failureOrders +
+    this.pendingOrders +
+    this.confirmedOrders +
+    this.NotActiveOrders +
+    this.inProgressOrders +
+    this.ReturnedOrders;
 
   constructor(private _stat: StatService) {}
   ngOnInit(): void {
     this.getStatisticalData();
   }
 
+  /*
+    numOfAllOrders: number;
+  numOfNotActiveOrders: number;
+  numOfPendingOrders: number;
+  numOfConfirmedOrders: number;
+  numOfInProgressOrders: number;
+  numOfInSuccessOrders: number;
+  numOfFailedOrders: number;
+  numOfInReturnedOrders: number;
+  */
   getStatisticalData() {
     this._stat.getStatisticalData().subscribe({
       next: () => {
@@ -34,9 +56,12 @@ export class DashboardComponent implements OnInit {
           'numOfAllOrders',
           'numOfCommuters',
           'totalRevenue',
+          'numOfNotActiveOrders',
+          'numOfPendingOrders',
+          'numOfInProgressOrders',
           'numOfInSuccessOrders',
           'numOfFailedOrders',
-          'numOfPendingOrders'
+          'numOfInReturnedOrders'
         );
 
         // Destructure with default values
@@ -45,9 +70,13 @@ export class DashboardComponent implements OnInit {
           numOfAllOrders = 0,
           numOfCommuters = 0,
           totalRevenue = 0,
+          numOfNotActiveOrders = 0,
+          numOfPendingOrders = 0,
+          numOfConfirmedOrders = 0,
+          numOfInProgressOrders = 0,
           numOfInSuccessOrders = 0,
           numOfFailedOrders = 0,
-          numOfPendingOrders = 0,
+          numOfInReturnedOrders = 0,
         } = stats;
 
         // Assign to instance variables
@@ -57,7 +86,11 @@ export class DashboardComponent implements OnInit {
         this.totalRevenue = totalRevenue;
         this.successfulOrders = numOfInSuccessOrders;
         this.failureOrders = numOfFailedOrders;
+        this.ReturnedOrders = numOfInReturnedOrders;
+        this.NotActiveOrders = numOfNotActiveOrders;
         this.pendingOrders = numOfPendingOrders;
+        this.confirmedOrders = numOfConfirmedOrders;
+        this.inProgressOrders = numOfInProgressOrders;
       },
       error: (error) => {
         console.error('Error fetching statistical data:', error);
