@@ -22,13 +22,31 @@
   ></app-dash-card>
 </div>
 
-<app-doughnut-chart
-  [totalOrders]="numOfAllOrders"
-  [not_activeOrders]="NotActiveOrders"
-  [pendingOrders]="pendingOrders"
-  [confirmiedOrders]="confirmedOrders"
-  [in_progressOrders]="inProgressOrders"
-  [successfulOrders]="successfulOrders"
-  [failureOrders]="failureOrders"
-  [returnedOrders]="ReturnedOrders"
-></app-doughnut-chart>
+<div class="charts-container">
+  <app-doughnut-chart
+    [totalOrders]="numOfAllOrders"
+    [not_activeOrders]="NotActiveOrders"
+    [pendingOrders]="pendingOrders"
+    [confirmiedOrders]="confirmedOrders"
+    [in_progressOrders]="inProgressOrders"
+    [successfulOrders]="successfulOrders"
+    [failureOrders]="failureOrders"
+    [returnedOrders]="ReturnedOrders"
+  ></app-doughnut-chart>
+
+  <app-bar-chart></app-bar-chart>
+</div>
+
+<div class="charts-container">
+  <!-- <app-bar-chart></app-bar-chart>
+  <app-doughnut-chart
+    [totalOrders]="numOfAllOrders"
+    [not_activeOrders]="NotActiveOrders"
+    [pendingOrders]="pendingOrders"
+    [confirmiedOrders]="confirmedOrders"
+    [in_progressOrders]="inProgressOrders"
+    [successfulOrders]="successfulOrders"
+    [failureOrders]="failureOrders"
+    [returnedOrders]="ReturnedOrders"
+  ></app-doughnut-chart> -->
+</div>

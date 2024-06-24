@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { DashCardComponent } from '../../shared/widgets/dash-card/dash-card.component';
 import { DoughnutChartComponent } from '../../shared/widgets/pie-chart/doughnut-chart.component';
 import { StatService } from '../../core/services/stat.service';
+import { BarChartComponent } from '../../shared/widgets/bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  imports: [DashCardComponent, DoughnutChartComponent],
+  imports: [DashCardComponent, DoughnutChartComponent, BarChartComponent],
 })
 export class DashboardComponent implements OnInit {
   numOfAllUsers!: number;
@@ -38,16 +39,6 @@ export class DashboardComponent implements OnInit {
     this.getStatisticalData();
   }
 
-  /*
-    numOfAllOrders: number;
-  numOfNotActiveOrders: number;
-  numOfPendingOrders: number;
-  numOfConfirmedOrders: number;
-  numOfInProgressOrders: number;
-  numOfInSuccessOrders: number;
-  numOfFailedOrders: number;
-  numOfInReturnedOrders: number;
-  */
   getStatisticalData() {
     this._stat.getStatisticalData().subscribe({
       next: () => {
@@ -99,11 +90,3 @@ export class DashboardComponent implements OnInit {
     });
   }
 }
-
-/*
- numOfAllUsers: number;
-  numOfCustomers: number;
-  numOfCommuters: number;
-  numOfOrders: number;
-  totalRevenue: number;
-*/

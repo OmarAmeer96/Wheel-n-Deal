@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DataModel, ResponseStatModel } from '../models/interfaces/statistical';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { base_url } from '../constant/api-constant';
+import { OrderCreatedLastWeek } from '../models/interfaces/charts';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,11 @@ export class StatService {
   // Method to allow components to subscribe to changes
   get statisticalData(): Observable<DataModel> {
     return this._statisticalData.asObservable();
+  }
+
+  getOrdersLastWeek(): Observable<OrderCreatedLastWeek[]> {
+    return this._http.get<OrderCreatedLastWeek[]>(
+      `${base_url}/admin/orders-created-last-week`
+    );
   }
 }

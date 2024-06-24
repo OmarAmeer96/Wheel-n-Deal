@@ -17,6 +17,17 @@
   // padding-top: 10.4rem;
 }
 
+.charts-container {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  height: 35.9rem;
+  width: inherit;
+  background-color: #fff;
+}
+
 .order-chart {
   padding: 20px;
 }
