@@ -38,11 +38,4 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.creatingDate >= :startDate AND u.creatingDate < :endDate")
     Long countUsersCreatedBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
-    @Query("SELECT DATE(u.creatingDate) as date, COUNT(u) as count " +
-            "FROM User u " +
-            "WHERE u.creatingDate >= :startDate " +
-            "GROUP BY DATE(u.creatingDate)")
-    List<Object[]> getUsersCreatedPerDay(@Param("startDate") Date startDate);
-
 }

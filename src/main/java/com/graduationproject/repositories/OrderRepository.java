@@ -29,10 +29,6 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
     @Query(value = "SELECT * FROM orders WHERE commuter_id = :commuterId AND order_status != 'NOT_ACTIVE'", nativeQuery = true)
     List<Order> findCommuterOrders(@Param("commuterId") Integer commuterId);
 
-    @Query("SELECT new com.graduationproject.DTOs.GetOrdersDTO(o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, o.ReceiverPhoneNumber) FROM Order o WHERE o.orderStatus = :orderStatus")
-    Page<GetOrdersDTO> findOrdersByOrderStatus(@Param("orderStatus") OrderStatus orderStatus, Pageable pageable);
-
-
     @Query("SELECT new com.graduationproject.DTOs.GetAllOrders(" +
             "o.Id, o.orderName, o.countOfOrders, o.breakable, o.expiryDate, o.expectedPrice, " +
             "o.orderPhotoUrl, o.from, o.to, o.SenderPhoneNumber, c.phoneNumber, o.orderStatus) " +

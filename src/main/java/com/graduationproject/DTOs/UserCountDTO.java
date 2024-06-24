@@ -1,18 +1,11 @@
 package com.graduationproject.DTOs;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class UserCountDTO {
-    private int day;
-    private String month;
-    private long count;
-
-    public UserCountDTO(String date, long count) {
-        String[] parts = date.split(" ");
-        this.day = Integer.parseInt(parts[0]);
-        this.month = parts[1];
-        this.count = count;
-    }
-
+    private String day;
+    private Long count;
 }

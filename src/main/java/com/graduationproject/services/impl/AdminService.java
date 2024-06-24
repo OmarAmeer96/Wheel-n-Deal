@@ -127,24 +127,6 @@ public class AdminService {
         }
     }
 
-    public List<UserCountDTO> getUsersCreatedPerDayLastMonth() {
-        Date startDate = Date.from(LocalDate.now().minusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date endDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        List<UserCountDTO> result = new ArrayList<>();
-
-        while (startDate.before(endDate)) {
-            Date nextDay = Date.from(startDate.toInstant().plus(1, ChronoUnit.DAYS));
-            Long count = userRepository.countUsersCreatedBetween(startDate, nextDay);
-            String formattedDate = new SimpleDateFormat("d MMM").format(startDate);
-            UserCountDTO userCount = new UserCountDTO(formattedDate, count);
-            result.add(userCount);
-            startDate = nextDay;
-        }
-
-        return result;
-    }
-
     public List<OrderCountDTO> getOrdersCreatedLastWeek() {
         Date startDate = Date.from(LocalDate.now().minusWeeks(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date endDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -162,68 +144,22 @@ public class AdminService {
         return result;
     }
 
-//    public Map<String, List<Map<String, Object>>> getUsersCreatedPerDay() {
-//        Date startDate = Date.from(LocalDate.now().minusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-//        List<Object[]> results = userRepository.getUsersCreatedPerDay(startDate);
-//
-//        Map<String, List<Map<String, Object>>> response = new HashMap<>();
-//        for (Object[] result : results) {
-//            Date date = (Date) result[0];
-//            int count = ((Long) result[1]).intValue();
-//            String month = new SimpleDateFormat("MMMM").format(date);
-//            int day = date.getDate();
-//
-//            Map<String, Object> dayCount = new HashMap<>();
-//            dayCount.put("day", day);
-//            dayCount.put("count", count);
-//
-//            response.computeIfAbsent(month, k -> new ArrayList<>()).add(dayCount);
-//        }
-//
-//        return response;
-//    }
+    public List<UserCountDTO> getUsersCreatedLastWeek() {
+        Date startDate = Date.from(LocalDate.now().minusWeeks(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-    public Map<String, List<Map<String, Object>>> getUsersCreatedPerDay() {
-        Date startDate = Date.from(LocalDate.now().minusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        List<Object[]> results = userRepository.getUsersCreatedPerDay(startDate);
+        List<UserCountDTO> result = new ArrayList<>();
 
-        Map<String, List<Map<String, Object>>> response = new HashMap<>();
-        for (int month = 1; month <= 12; month++) {
-            String monthName = new SimpleDateFormat("MMMM").format(new Date(2024, month - 1, 1));
-            List<Map<String, Object>> dayCounts = new ArrayList<>();
-
-            for (int day = 1; day <= getDaysInMonth(month, 2024); day++) {
-                boolean found = false;
-                for (Object[] result : results) {
-                    Date date = (Date) result[0];
-                    if (date.getMonth() == month - 1 && date.getDate() == day) {
-                        int count = ((Long) result[1]).intValue();
-                        Map<String, Object> dayCount = new HashMap<>();
-                        dayCount.put("count", count);
-                        dayCount.put("day", day);
-                        dayCounts.add(dayCount);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    Map<String, Object> dayCount = new HashMap<>();
-                    dayCount.put("day", day);
-                    dayCount.put("count", 0);
-                    dayCounts.add(dayCount);
-                }
-            }
-
-            response.put(monthName, dayCounts);
+        while (startDate.before(endDate)) {
+            Date nextDay = Date.from(startDate.toInstant().plus(1, ChronoUnit.DAYS));
+            Long count = userRepository.countUsersCreatedBetween(startDate, nextDay);
+            String formattedDate = new SimpleDateFormat("EEEE").format(startDate);
+            result.add(new UserCountDTO(formattedDate, count));
+            startDate = nextDay;
         }
 
-        return response;
+        return result;
     }
 
-    private int getDaysInMonth(int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month - 1, 1);
-        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-    }
 }
 

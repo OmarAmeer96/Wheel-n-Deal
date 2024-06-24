@@ -39,20 +39,13 @@ public class AdminController {
         return adminService.countAll();
     }
 
-    @GetMapping("users-created-last-month")
-    public List<UserCountDTO> getUsersCreatedPerMonthLastYear() {
-        return adminService.getUsersCreatedPerDayLastMonth();
-    }
-
     @GetMapping("orders-created-last-week")
     public List<OrderCountDTO> getOrdersCreatedLastWeek() {
         return adminService.getOrdersCreatedLastWeek();
     }
 
-    @GetMapping("users-created-per-day")
-    public ResponseEntity<Map<String, List<Map<String, Object>>>> getUsersCreatedPerDay() {
-        Map<String, List<Map<String, Object>>> response = adminService.getUsersCreatedPerDay();
-        return ResponseEntity.ok(response);
+    @GetMapping("users-created-last-week")
+    public List<UserCountDTO> getUsersCreatedLastWeek() {
+        return adminService.getUsersCreatedLastWeek();
     }
-
 }
