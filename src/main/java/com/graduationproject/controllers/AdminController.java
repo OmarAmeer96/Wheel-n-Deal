@@ -1,20 +1,11 @@
 package com.graduationproject.controllers;
 
 import com.graduationproject.DTOs.*;
-import com.graduationproject.entities.OrderStatus;
-import com.graduationproject.entities.Role;
 import com.graduationproject.services.impl.AdminService;
-import com.graduationproject.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 
 @CrossOrigin
