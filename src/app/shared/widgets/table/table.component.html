@@ -2,7 +2,13 @@
   <div class="table-info">
     <h3>
       Here you can see
-      <span class="text-primary">{{ activeTab }}</span> orders
+      <span class="text-primary">{{ activeTab }}</span> orders ,&nbsp;records in
+      the table :&nbsp;
+      <span class="text-primary">
+        {{
+          dataType === "order" ? orderTableData.length : userTableData.length
+        }}</span
+      >
     </h3>
   </div>
   <div class="table-operation">

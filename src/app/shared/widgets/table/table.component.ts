@@ -52,7 +52,11 @@ export class TableComponent<T> implements OnInit, OnChanges {
 
       this.userTableData = [];
     } else if (this.dataType === 'user') {
-      this.userTableData = this.tableData as UserTableData[];
+      this.userTableData = (this.tableData as UserTableData[]).filter(
+        (user) =>
+          this.activeTab.toLowerCase() === 'all' ||
+          user.role.toLowerCase().trim() === this.activeTab.toLowerCase().trim()
+      );
       this.orderTableData = [];
     }
   }
@@ -83,8 +87,11 @@ export class TableComponent<T> implements OnInit, OnChanges {
       );
       this.userTableData = [];
     } else if (this.isUserTableData(this.tableData)) {
-      // Now TypeScript knows this.tableData is UserTableData[]
-      this.userTableData = this.tableData;
+      this.userTableData = (this.tableData as UserTableData[]).filter(
+        (user) =>
+          this.activeTab.toLowerCase() === 'all' ||
+          user.role.toLowerCase().trim() === this.activeTab.toLowerCase().trim()
+      );
       this.orderTableData = [];
     }
   }
