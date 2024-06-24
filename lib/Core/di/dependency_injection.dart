@@ -12,8 +12,8 @@ import 'package:wheel_n_deal/Features/user/orders/data/repos/delete_user_not_act
 import 'package:wheel_n_deal/Features/user/orders/data/repos/get_user_orders_repo.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
-import 'package:wheel_n_deal/Features/user/post_order/data/repos/post_order_repo.dart';
-import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/repos/user_post_order_repo.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/user_post_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/profile/data/repos/update_user_profile_repo.dart';
 import 'package:wheel_n_deal/Features/user/profile/logic/update_user_profile_cubit/update_user_profile_cubit.dart';
 
@@ -46,7 +46,8 @@ Future<void> setupGetIt() async {
       () => UpdateUserProfileCubit(getIt()));
 
   // Post Order Repo & Cubit
-  getIt.registerLazySingleton<PostOrderRepo>(() => PostOrderRepo(getIt()));
+  getIt.registerLazySingleton<UserPostOrderRepo>(
+      () => UserPostOrderRepo(getIt()));
   getIt.registerFactory<PostOrderCubit>(() => PostOrderCubit(getIt()));
 
   // Get User Orders Repo & Cubit

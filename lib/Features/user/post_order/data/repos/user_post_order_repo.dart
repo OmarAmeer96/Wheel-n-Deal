@@ -5,10 +5,10 @@ import 'package:wheel_n_deal/Core/networking/api_result.dart';
 import 'package:wheel_n_deal/Core/networking/api_service.dart';
 import 'package:wheel_n_deal/Features/user/post_order/data/models/post_order_response.dart';
 
-class PostOrderRepo {
+class UserPostOrderRepo {
   final ApiService _apiServices;
 
-  PostOrderRepo(this._apiServices);
+  UserPostOrderRepo(this._apiServices);
 
   Future<ApiResult<PostOrderResponse>> postOrder(
     String token,

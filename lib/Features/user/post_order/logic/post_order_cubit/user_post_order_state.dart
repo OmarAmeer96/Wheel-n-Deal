@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'post_order_state.freezed.dart';
+part 'user_post_order_state.freezed.dart';
 
 @freezed
 class PostOrderState<T> with _$PostOrderState<T> {

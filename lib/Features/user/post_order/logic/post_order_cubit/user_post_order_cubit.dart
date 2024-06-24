@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shred_prefs_constants.dart';
-import 'package:wheel_n_deal/Features/user/post_order/data/repos/post_order_repo.dart';
-import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_state.dart';
+import 'package:wheel_n_deal/Features/user/post_order/data/repos/user_post_order_repo.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/user_post_order_state.dart';
 import '../../../../../Core/networking/shared_prefs/shared_prefs.dart';
 
 class PostOrderCubit extends Cubit<PostOrderState> {
-  final PostOrderRepo _postOrderRepo;
+  final UserPostOrderRepo _postOrderRepo;
   PostOrderCubit(this._postOrderRepo) : super(const PostOrderState.initial());
 
   final formKey = GlobalKey<FormState>();

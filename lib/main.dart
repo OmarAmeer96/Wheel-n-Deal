@@ -9,7 +9,7 @@ import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
-import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/post_order_cubit.dart';
+import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/user_post_order_cubit.dart';
 import 'package:wheel_n_deal/constants.dart';
 import 'package:wheel_n_deal/firebase_options.dart';
 import 'Core/networking/shared_prefs/shared_prefs.dart';

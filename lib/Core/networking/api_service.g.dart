@@ -468,6 +468,88 @@ class _ApiService implements ApiService {
         ))));
   }
 
+  @override
+  Future<void> commuterPostTrip({
+    required String token,
+    String? from,
+    String? to,
+    List<String>? paths,
+    String? tripPhoto,
+    String? startsAt,
+    String? endsAt,
+    String? capacity,
+    String? userId,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    if (from != null) {
+      _data.fields.add(MapEntry(
+        'from',
+        from,
+      ));
+    }
+    if (to != null) {
+      _data.fields.add(MapEntry(
+        'to',
+        to,
+      ));
+    }
+    paths?.forEach((i) {
+      _data.fields.add(MapEntry('paths', i));
+    });
+    if (tripPhoto != null) {
+      _data.fields.add(MapEntry(
+        'day',
+        tripPhoto,
+      ));
+    }
+    if (startsAt != null) {
+      _data.fields.add(MapEntry(
+        'startsAt',
+        startsAt,
+      ));
+    }
+    if (endsAt != null) {
+      _data.fields.add(MapEntry(
+        'endsAt',
+        endsAt,
+      ));
+    }
+    if (capacity != null) {
+      _data.fields.add(MapEntry(
+        'capacity',
+        capacity,
+      ));
+    }
+    if (userId != null) {
+      _data.fields.add(MapEntry(
+        'userId',
+        userId,
+      ));
+    }
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          'commuter/create-update/trip',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
