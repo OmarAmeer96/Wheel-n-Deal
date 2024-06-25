@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.NotActiveOrders +
     this.inProgressOrders +
     this.ReturnedOrders;
+  numOfCustomers = 0;
 
-  // ordersPerDay!: CreatedLastWeek[];
   chartOrderData: chartData = {
     labels: [],
     data: [],
@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   };
 
   constructor(private _stat: StatService) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chartOrderData']) {
       this.fetchOrdersData();
@@ -69,7 +70,6 @@ export class DashboardComponent implements OnInit, OnChanges {
       .subscribe((data: CreatedLastWeek[]) => {
         this.chartOrderData.labels = data.map((order) => order.date);
         this.chartOrderData.data = data.map((order) => order.count);
-        console.log('Orders last week:', this.chartOrderData.labels);
       });
   }
 
@@ -79,10 +79,8 @@ export class DashboardComponent implements OnInit, OnChanges {
         'Users last week:',
         data.map((user) => user.date)
       );
-
       this.chartUserData.labels = data.map((user) => user.day as string);
       this.chartUserData.data = data.map((user) => user.count);
-      console.log('Users last week:', this.chartUserData.labels);
     });
   }
 
@@ -90,7 +88,8 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.fetchOrdersData();
     this.fetchUsersData();
   }
-  getStatisticalData() {
+
+  private getStatisticalData(): void {
     this._stat.getStatisticalData().subscribe({
       next: () => {
         const stats = this._stat.getStatVar(
@@ -103,7 +102,8 @@ export class DashboardComponent implements OnInit, OnChanges {
           'numOfInProgressOrders',
           'numOfInSuccessOrders',
           'numOfFailedOrders',
-          'numOfInReturnedOrders'
+          'numOfInReturnedOrders',
+          'numOfCustomers'
         );
 
         // Destructure with default values
@@ -119,6 +119,7 @@ export class DashboardComponent implements OnInit, OnChanges {
           numOfInSuccessOrders = 0,
           numOfFailedOrders = 0,
           numOfInReturnedOrders = 0,
+          numOfCustomers = 0,
         } = stats;
 
         // Assign to instance variables
@@ -133,6 +134,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.pendingOrders = numOfPendingOrders;
         this.confirmedOrders = numOfConfirmedOrders;
         this.inProgressOrders = numOfInProgressOrders;
+        this.numOfCustomers = numOfCustomers;
       },
       error: (error) => {
         console.error('Error fetching statistical data:', error);

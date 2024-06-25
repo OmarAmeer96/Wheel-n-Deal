@@ -49,7 +49,7 @@ export class StatService {
       `${base_url}/admin/users-created-last-week`
     );
   }
-  getDataLastWeek(type: 'orders' | 'users'): Observable<CreatedLastWeek[]> {
+  getDataLastWeek(type: string): Observable<CreatedLastWeek[]> {
     return this._http.get<CreatedLastWeek[]>(
       `${base_url}/admin/${type}-created-last-week`
     );
