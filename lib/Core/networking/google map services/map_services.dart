@@ -23,7 +23,6 @@ class MapServices {
       {required String input,
       required String sessionToken,
       required List<PlaceAutocompleteModel> places}) async {
-    // if the text field is not empty then make a request to the google maps places service
     if (input.isNotEmpty) {
       var result = await placesService.getPredictions(
           sessionToken: sessionToken, input: input);
@@ -35,7 +34,10 @@ class MapServices {
   }
 
   Future<List<LatLng>> getRouteData({required LatLng desination}) async {
-    // create a new LocationInfoModel object with the current location
+    if (currentLocation == null) {
+      throw Exception('Current location is not set.');
+    }
+
     LocationInfoModel origin = LocationInfoModel(
       location: LocationModel(
         latLng: LatLngModel(
@@ -45,7 +47,6 @@ class MapServices {
       ),
     );
 
-    // create a new LocationInfoModel object with the destination location
     LocationInfoModel destination = LocationInfoModel(
       location: LocationModel(
           latLng: LatLngModel(
@@ -111,22 +112,17 @@ class MapServices {
       {required GoogleMapController googleMapController,
       required Set<Marker> markers,
       required Function onUpdateCurrentLocation}) {
-    // get the location data
     locationService.getRealTimeLocationData((locationData) {
-      // create a new LatLng object with the location data
       currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
       Marker currentLocationMarker = Marker(
         markerId: const MarkerId('my location'),
         position: currentLocation!,
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
       );
-      // update the camera position
       CameraPosition myCameraPosition =
           CameraPosition(target: currentLocation!, zoom: 10);
-      // animate the camera to the new position
       googleMapController
           .animateCamera(CameraUpdate.newCameraPosition(myCameraPosition));
-      // add the marker to the markers set
       markers.add(currentLocationMarker);
       onUpdateCurrentLocation();
     });
