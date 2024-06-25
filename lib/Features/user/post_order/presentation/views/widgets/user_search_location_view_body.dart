@@ -197,6 +197,8 @@ class _UserSearchLocationViewBodyState
                                 if (_form.currentState!.validate()) {
                                   Navigator.pop(
                                       context, addressController.text);
+                                  Navigator.pop(
+                                      context, addressController.text);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
