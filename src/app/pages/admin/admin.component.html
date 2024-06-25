@@ -1,5 +1,7 @@
 <div class="main-container">
-  <header class="toolbar" [style.margin-left]="sidenavWidth$ | async"></header>
+  <header class="toolbar" [style.margin-left]="sidenavWidth$ | async">
+    <app-toolbar></app-toolbar>
+  </header>
   <div class="sidenav">
     <app-custom-sidenav></app-custom-sidenav>
   </div>

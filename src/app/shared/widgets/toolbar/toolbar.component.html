@@ -1,0 +1,24 @@
+<div class="toolbar">
+  <div class="toolbar__left">
+    <h2>Dashboard</h2>
+    <p>
+      <span>{{ today | date : "EEEE" }}</span>
+      {{ today | date : "dd MMMM yyyy" }}
+    </p>
+  </div>
+  <div class="toolbar__right">
+    <app-svg name="noti" class="noti"></app-svg>
+    <div class="avtar">
+      <img
+        src="./../../../../assets/SVGs/avatar.png"
+        width="40px"
+        height="40px"
+        alt="Avatar"
+      />
+    </div>
+    <div class="details">
+      <p class="userName">Hello, Omar</p>
+      <span>Admin</span>
+    </div>
+  </div>
+</div>

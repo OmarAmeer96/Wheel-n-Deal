@@ -5,13 +5,19 @@ import { SidenavService } from '../../core/services/sidenav.service';
 import { CommonModule } from '@angular/common';
 import { CustomSidenavComponent } from '../../shared/widgets/custom-sidenav/custom-sidenav.component';
 import { StatService } from '../../core/services/stat.service';
+import { ToolbarComponent } from '../../shared/widgets/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [RouterModule, CustomSidenavComponent, CommonModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
+  imports: [
+    RouterModule,
+    CustomSidenavComponent,
+    CommonModule,
+    ToolbarComponent,
+  ],
 })
 export class AdminComponent implements OnInit {
   sidenavWidth$ = this.sidenavService.sidenavState$.pipe(
