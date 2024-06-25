@@ -88,49 +88,7 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
             ),
           ),
         ),
-        child:
-            //BlocListener<PostOrderCubit, PostOrderState>(
-            //   listenWhen: (previous, current) =>
-            //       current is Loading || current is Success || current is Error,
-            //   listener: (context, state) {
-            //     state.whenOrNull(
-            //       loading: () {
-            //         showDialog(
-            //           context: context,
-            //           builder: (context) => const Center(
-            //             child: CircularProgressIndicator(
-            //               color: kPrimaryColor,
-            //             ),
-            //           ),
-            //         );
-            //       },
-            //       success: (postOrderResponse) {
-            //         ScaffoldMessenger.of(context).showSnackBar(
-            //           SnackBar(
-            //             content: Text(postOrderResponse.message),
-            //             duration: const Duration(seconds: 3),
-            //           ),
-            //         );
-            //         if (postOrderResponse.message == "Order Created Successfully") {
-            //           context.pop();
-            //         }
-            //         isPostPubic
-            //             ? GoRouter.of(context).push(
-            //                 AppRouter.kUserOrdersView,
-            //               )
-            //             : GoRouter.of(context).push(
-            //                 AppRouter.kDoneNotifyFavCommutersView,
-            //               );
-            //       },
-            //       error: (error) {
-            //         setupErrorState(
-            //           context,
-            //           error,
-            //         );
-            //       },
-            //     );
-            //   },
-            Stepper(
+        child: Stepper(
           type: StepperType.horizontal,
           steps: getSteps(),
           currentStep: currentStep,
