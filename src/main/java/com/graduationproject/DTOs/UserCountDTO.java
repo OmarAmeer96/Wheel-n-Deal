@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserCountDTO {
-    private String day;
+    private String date;
     private Long count;
 }
