@@ -21,15 +21,19 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/user_post_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/user_post_order_state.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
-import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_from_select_location_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/user_stepper_steps_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
+import 'make_order_to_select_location_item.dart';
+
 class UserPostOrderViewBody extends StatefulWidget {
-  final TextEditingController? addressController;
+  final TextEditingController? fromAddressController;
+  final TextEditingController? toAddressController;
   const UserPostOrderViewBody({
     super.key,
-    this.addressController,
+    this.fromAddressController,
+    this.toAddressController,
   });
 
   @override
@@ -37,7 +41,8 @@ class UserPostOrderViewBody extends StatefulWidget {
 }
 
 class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
-  String? selectedAddress;
+  String? fromSelectedAddress;
+  String? toSelectedAddress;
   int currentStep = 0;
 
   // Step 1 Things
@@ -314,32 +319,42 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationItem(
-                          addressController: widget.addressController,
+                        MakeOrderFromSelectLocationItem(
+                          fromAddressController: widget.fromAddressController,
                           text: 'From',
+                          fromSelectedAddress:
+                              fromSelectedAddress ?? "Select New Address",
                           onPressed: () async {
                             final result = await context.pushNamed(
                               Routes.kUserSearchLocationView,
                             );
                             if (result != null) {
                               setState(() {
-                                selectedAddress = result;
+                                fromSelectedAddress = result;
+                                widget.fromAddressController?.text = result;
                               });
                             }
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
-                        MakeOrderSelectLocationItem(
-                          addressController: widget.addressController,
-                          text: 'To',
-                          onPressed: () {
-                            context.pushNamed(
-                              Routes.kUserSearchLocationView,
-                            );
-                          },
-                        ),
+                        MakeOrderToSelectLocationItem(
+                            toAddressController: widget.toAddressController,
+                            text: 'To',
+                            toSelectedAddress:
+                                toSelectedAddress ?? "Select New Address",
+                            onPressed: () async {
+                              final result = await context.pushNamed(
+                                Routes.kUserSearchLocationView,
+                              );
+                              if (result != null) {
+                                setState(() {
+                                  toSelectedAddress = result;
+                                  widget.toAddressController?.text = result;
+                                });
+                              }
+                            }),
                       ],
                     ),
                   ),

@@ -10,13 +10,17 @@ import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/custom_time_picker_item.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/path_item.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/post_trip_from_select_location_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/custom_review_summary_item.dart';
-import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_select_location_item.dart';
+import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/make_order_to_select_location_item.dart';
 import 'package:wheel_n_deal/Features/user/post_order/presentation/views/widgets/user_stepper_steps_item.dart';
 import 'package:wheel_n_deal/constants.dart';
 
 class CommuterPostTripViewBody extends StatefulWidget {
-  const CommuterPostTripViewBody({super.key});
+  final TextEditingController? fromAddressController;
+  final TextEditingController? toAddressController;
+  const CommuterPostTripViewBody(
+      {super.key, this.fromAddressController, this.toAddressController});
 
   @override
   State<CommuterPostTripViewBody> createState() =>
@@ -34,10 +38,8 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
   String? location2;
   String? location3;
 
-  // ignore: unused_field
-  final _fromController = TextEditingController();
-  // ignore: unused_field
-  final _toController = TextEditingController();
+  String? fromSelectedAddress;
+  String? toSelectedAddress;
   final _location1Controller = TextEditingController();
   final _location2Controller = TextEditingController();
   final _location3Controller = TextEditingController();
@@ -231,23 +233,41 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationItem(
+                        PostTripFromSelectLocationItem(
+                          fromAddressController: widget.fromAddressController,
                           text: 'From',
-                          onPressed: () {
-                            context.pushNamed(
+                          fromSelectedAddress:
+                              fromSelectedAddress ?? "Select New Address",
+                          onPressed: () async {
+                            final result = await context.pushNamed(
                               Routes.kCommuterSearchLocationView,
                             );
+                            if (result != null) {
+                              setState(() {
+                                fromSelectedAddress = result;
+                                widget.fromAddressController?.text = result;
+                              });
+                            }
                           },
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        MakeOrderSelectLocationItem(
+                        MakeOrderToSelectLocationItem(
+                          toAddressController: widget.toAddressController,
                           text: 'To',
-                          onPressed: () {
-                            context.pushNamed(
+                          toSelectedAddress:
+                              toSelectedAddress ?? "Select New Address",
+                          onPressed: () async {
+                            final result = await context.pushNamed(
                               Routes.kCommuterSearchLocationView,
                             );
+                            if (result != null) {
+                              setState(() {
+                                fromSelectedAddress = result;
+                                widget.fromAddressController?.text = result;
+                              });
+                            }
                           },
                         ),
                       ],

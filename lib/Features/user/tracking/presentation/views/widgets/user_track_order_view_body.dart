@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/location_service.dart';
 import 'package:wheel_n_deal/Core/networking/google%20map%20services/map_services.dart';
@@ -30,19 +29,19 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
       LatLng(30.715955406355206, 31.24852084527862);
   static const LatLng destinationLocation =
       LatLng(30.786541739058805, 31.000364821862284);
-  static const LatLng midLocation = LatLng(30.718025591617625, 31.192696500026326);
+  static const LatLng midLocation =
+      LatLng(30.718025591617625, 31.192696500026326);
   List<LatLng> polylineCoordinates = [];
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
+  Set<Polyline> polylines = {};
 
   @override
   void initState() {
     mapServices = MapServices();
     initialCameraPosition = const CameraPosition(target: LatLng(0, 0));
-    getPolyPoints();
-
     setCustomMarkerIcon();
-    // Create markers for source and destination
+
     Marker sourceMarker = Marker(
       markerId: const MarkerId("source"),
       position: sourceLocation,
@@ -57,17 +56,17 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
       infoWindow: const InfoWindow(title: "Destination"),
     );
 
-  Marker midMarker = const Marker(
-    markerId: MarkerId("mid"),
-    position: midLocation,
-    icon: BitmapDescriptor.defaultMarker, // Use a custom icon if needed
-    infoWindow: InfoWindow(title: "Mid Location"),
-  );
-    
+    Marker midMarker = const Marker(
+      markerId: MarkerId("mid"),
+      position: midLocation,
+      icon: BitmapDescriptor.defaultMarker,
+      infoWindow: InfoWindow(title: "Mid Location"),
+    );
 
     markers.add(sourceMarker);
     markers.add(midMarker);
     markers.add(destinationMarker);
+
     super.initState();
   }
 
@@ -96,13 +95,22 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
                 initialCameraPosition: initialCameraPosition,
                 onMapCreated: (controller) async {
                   googleMapController = controller;
-                  updateCurrentLocation();
-                  // var points = await mapServices.getRouteData(
-                  //     desination: destinationLocation);
-                  // mapServices.displayRoute(points,
-                  //     polylines: polylines,
-                  //     googleMapController: googleMapController);
-                  setState(() {});
+                  await updateCurrentLocation();
+
+                  if (mapServices.currentLocation != null) {
+                    var points = await mapServices.getRouteData(
+                      desination: destinationLocation,
+                    );
+                    mapServices.displayRoute(
+                      points,
+                      polylines: polylines,
+                      googleMapController: googleMapController,
+                    );
+                    setState(() {});
+                  } else {
+                    // Handle the case where currentLocation is still null
+                    print('Current location is not set.');
+                  }
                 },
                 markers: markers,
                 polylines: {
@@ -165,8 +173,7 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
                                   left: -1,
                                   right: -1,
                                   child: Card(
-                                    elevation:
-                                        8.0,
+                                    elevation: 8.0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(999),
                                     ),
@@ -211,8 +218,7 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
                             ),
                             InkWell(
                               onTap: () {
-                                context.pushNamed(Routes
-                                    .kCommuterProfileSeenByUserFromTrackingView);
+                                context.pushNamed(Routes.kCommuterProfileSeenByUserFromTrackingView);
                               },
                               borderRadius: BorderRadius.circular(8),
                               child: Padding(
@@ -246,65 +252,48 @@ class _UserTrackOrderViewBodyState extends State<UserTrackOrderViewBody> {
     );
   }
 
-  void updateCurrentLocation() {
+  Future<void> getPolyPoints() async {
+    var points = await mapServices.getRouteData(desination: destinationLocation);
+    setState(() {
+      polylineCoordinates.addAll(points);
+    });
+  }
+
+  Future<void> updateCurrentLocation() async {
     try {
-      mapServices.updateCurrentLocation(
-          googleMapController: googleMapController,
-          markers: markers,
-          onUpdateCurrentLocation: () {
-            setState(() {});
-          });
-      setState(() {});
-      // ignore: unused_catch_clause
-    } on LocationServiceException catch (e) {
-      // TODO: handle the exception
-      // ignore: unused_catch_clause
-    } on LocationPermissionException catch (e) {
-      // TODO: handle the exception
+       mapServices.updateCurrentLocation(
+        googleMapController: googleMapController,
+        markers: markers,
+        onUpdateCurrentLocation: () {
+          setState(() {});
+        }
+      );
+      setState(() {
+        initialCameraPosition = CameraPosition(target: mapServices.currentLocation!, zoom: 14);
+      });
+    } on LocationServiceException {
+      // handle the exception
+    } on LocationPermissionException {
+      // handle the exception
     } catch (e) {
-      // TODO: handle the exception
+      // handle the exception
     }
   }
-
-  void getPolyPoints() async {
-    PolylinePoints polyLinePoints = PolylinePoints();
-    PolylineResult result = await polyLinePoints.getRouteBetweenCoordinates(
-      "AIzaSyBmhDvQXo3iFJt-j0v9VrgEihwFU6_Qa1E",
-      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
-      travelMode: TravelMode.driving,
-    );
-    if (result.points.isNotEmpty) {
-      for (PointLatLng point in result.points) {
-        polylineCoordinates.add(
-          LatLng(point.latitude, point.longitude),
-        );
-        setState(() {});
-      }
-    }
-  }
-
-  // void initMapStyle() async {
-  //   var nightMapStyle = await DefaultAssetBundle.of(context)
-  //       .loadString('assets/map_styles/night_map_style.json');
-  //   // ignore: deprecated_member_use
-  //   googleMapController.setMapStyle(nightMapStyle);
-  // }
 
   void setCustomMarkerIcon() {
-    BitmapDescriptor.asset(
+    BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(48, 48)),
       AssetsData.sourceMarker,
     ).then((icon) {
       sourceIcon = icon;
     });
-    BitmapDescriptor.asset(
+    BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(48, 48)),
       AssetsData.destinationMarker,
     ).then((icon) {
       destinationIcon = icon;
     });
-    BitmapDescriptor.asset(
+    BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(48, 48)),
       AssetsData.currentMarker,
     ).then((icon) {
