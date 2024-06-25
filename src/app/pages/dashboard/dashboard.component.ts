@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DashCardComponent } from '../../shared/widgets/dash-card/dash-card.component';
 import { DoughnutChartComponent } from '../../shared/widgets/pie-chart/doughnut-chart.component';
 import { StatService } from '../../core/services/stat.service';
 import { BarChartComponent } from '../../shared/widgets/bar-chart/bar-chart.component';
 import {
-  OrderCreatedLastWeek,
+  CreatedLastWeek,
   chartData,
 } from '../../core/models/interfaces/charts';
 
@@ -15,7 +15,7 @@ import {
   styleUrl: './dashboard.component.scss',
   imports: [DashCardComponent, DoughnutChartComponent, BarChartComponent],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
   numOfAllUsers!: number;
   numOfOrders!: number;
   numOfCommuters!: number;
@@ -38,25 +38,57 @@ export class DashboardComponent implements OnInit {
     this.inProgressOrders +
     this.ReturnedOrders;
 
-  ordersPerDay!: OrderCreatedLastWeek[];
-  chartData: chartData = {
+  // ordersPerDay!: CreatedLastWeek[];
+  chartOrderData: chartData = {
+    labels: [],
+    data: [],
+  };
+
+  chartUserData: chartData = {
     labels: [],
     data: [],
   };
 
   constructor(private _stat: StatService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['chartOrderData']) {
+      this.fetchOrdersData();
+    }
+    if (changes['chartUserData']) {
+      this.fetchUsersData();
+    }
+  }
   ngOnInit(): void {
     this.getStatisticalData();
     this.fetchChartData();
   }
 
-  private fetchChartData(): void {
-    this._stat.getOrdersLastWeek().subscribe((data: OrderCreatedLastWeek[]) => {
-      console.log('Orders last week:', data);
+  private fetchOrdersData(): void {
+    this._stat
+      .getDataLastWeek('orders')
+      .subscribe((data: CreatedLastWeek[]) => {
+        this.chartOrderData.labels = data.map((order) => order.date);
+        this.chartOrderData.data = data.map((order) => order.count);
+        console.log('Orders last week:', this.chartOrderData.labels);
+      });
+  }
 
-      this.chartData.labels = data.map((order) => order.date);
-      this.chartData.data = data.map((order) => order.count);
+  private fetchUsersData(): void {
+    this._stat.getDataLastWeek('users').subscribe((data: CreatedLastWeek[]) => {
+      console.log(
+        'Users last week:',
+        data.map((user) => user.date)
+      );
+
+      this.chartUserData.labels = data.map((user) => user.day as string);
+      this.chartUserData.data = data.map((user) => user.count);
+      console.log('Users last week:', this.chartUserData.labels);
     });
+  }
+
+  private fetchChartData(): void {
+    this.fetchOrdersData();
+    this.fetchUsersData();
   }
   getStatisticalData() {
     this._stat.getStatisticalData().subscribe({

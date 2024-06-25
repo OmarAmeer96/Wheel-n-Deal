@@ -37,21 +37,16 @@
   <app-bar-chart
     [title]="'Orders Last Week'"
     chartId="OrderChart"
-    [labels]="chartData.labels"
-    [data]="chartData.data"
+    [labels]="chartOrderData.labels"
+    [data]="chartOrderData.data"
   ></app-bar-chart>
 </div>
 <!--  -->
 <div class="charts-container">
-  <!-- <app-bar-chart></app-bar-chart>
-  <app-doughnut-chart
-    [totalOrders]="numOfAllOrders"
-    [not_activeOrders]="NotActiveOrders"
-    [pendingOrders]="pendingOrders"
-    [confirmiedOrders]="confirmedOrders"
-    [in_progressOrders]="inProgressOrders"
-    [successfulOrders]="successfulOrders"
-    [failureOrders]="failureOrders"
-    [returnedOrders]="ReturnedOrders"
-  ></app-doughnut-chart> -->
+  <app-bar-chart
+    [title]="'User Last Week'"
+    chartId="UserChart"
+    [labels]="chartUserData.labels"
+    [data]="chartUserData.data"
+  ></app-bar-chart>
 </div>

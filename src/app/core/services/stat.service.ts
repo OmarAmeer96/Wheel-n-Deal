@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { DataModel, ResponseStatModel } from '../models/interfaces/statistical';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { base_url } from '../constant/api-constant';
-import { OrderCreatedLastWeek } from '../models/interfaces/charts';
+import { CreatedLastWeek } from '../models/interfaces/charts';
 
 @Injectable({
   providedIn: 'root',
@@ -38,9 +38,21 @@ export class StatService {
     return this._statisticalData.asObservable();
   }
 
-  getOrdersLastWeek(): Observable<OrderCreatedLastWeek[]> {
-    return this._http.get<OrderCreatedLastWeek[]>(
+  getOrdersLastWeek(): Observable<CreatedLastWeek[]> {
+    return this._http.get<CreatedLastWeek[]>(
       `${base_url}/admin/orders-created-last-week`
     );
   }
+
+  getUsersLastWeek(): Observable<CreatedLastWeek[]> {
+    return this._http.get<CreatedLastWeek[]>(
+      `${base_url}/admin/users-created-last-week`
+    );
+  }
+  getDataLastWeek(type: 'orders' | 'users'): Observable<CreatedLastWeek[]> {
+    return this._http.get<CreatedLastWeek[]>(
+      `${base_url}/admin/${type}-created-last-week`
+    );
+  }
 }
+// users-created-last-week

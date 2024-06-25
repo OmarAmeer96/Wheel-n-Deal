@@ -50,7 +50,6 @@ export class LoginComponent {
     this._auth
       .logIn(this.loginForm.value as IAdmin)
       .subscribe((res: AdminResponse) => {
-        console.log(res);
         if (res.status === 200) {
           localStorage.setItem('token', res.data.token);
           this.router.navigate(['admin/dashboard']);
@@ -61,16 +60,3 @@ export class LoginComponent {
       });
   }
 }
-
-/**
- *       Authentication was successful
-        console.log(res); // "Authentication successful."
-        console.log(res.data.role); // "ADMIN"
-        console.log(res.data.userId); // 1
-        console.log(res.data.token); // The token
-        console.log(res.data.refreshToken); // The refresh token
-
-        // You can now store the tokens and the user's role and ID in your application,
-        // for example in a service or in local storage, and use them for subsequent API calls.
- *
- */
