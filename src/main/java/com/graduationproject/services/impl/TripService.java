@@ -1,5 +1,6 @@
 package com.graduationproject.services.impl;
 
+import com.graduationproject.DTOs.CommuterTripDTO;
 import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.TripDTO;
 import com.graduationproject.DTOs.TripSearchResultDTO;

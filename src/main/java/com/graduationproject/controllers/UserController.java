@@ -60,4 +60,9 @@ public class UserController {
         CustomResponse response = userServiceImpl.getAllAddressesResponseForUser(userId);
         return response;
     }
+
+    @GetMapping("getCommuterTripDTO")
+    public List<CommuterTripDTO> getCommuterTripDto(){
+        return userServiceImpl.getCommuterTripDto();
+    }
 }

@@ -1,8 +1,10 @@
 package com.graduationproject.repositories;
 
+import com.graduationproject.DTOs.CommuterTripDTO;
 import com.graduationproject.entities.Trip;
 import com.graduationproject.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

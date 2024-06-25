@@ -1,10 +1,11 @@
 package com.graduationproject.services.impl;
 
 import com.graduationproject.DTOs.AddressDTO;
+import com.graduationproject.DTOs.CommuterTripDTO;
 import com.graduationproject.DTOs.CustomResponse;
-import com.graduationproject.entities.Address;
-import com.graduationproject.entities.User;
+import com.graduationproject.entities.*;
 import com.graduationproject.repositories.AddressRepository;
+import com.graduationproject.repositories.ReviewRepository;
 import com.graduationproject.repositories.UserRepository;
 import com.graduationproject.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AddressRepository addressRepository;
+
+    private final ReviewRepository reviewRepository;
     @Override
     public UserDetailsService userDetailsService(){
         return new UserDetailsService() {
@@ -82,4 +86,42 @@ public class UserServiceImpl implements UserService {
                 .message("User not found")
                 .build();
     }
+
+
+    public List<CommuterTripDTO> getCommuterTripDto(){
+        List<User> commuterList = userRepository.findCommuterByRole(Role.COMMUTER);
+        List<CommuterTripDTO> commuterTripDTOList = new ArrayList<>();
+        List<Review> commuterRewiewsList = new ArrayList<>();
+
+        for (User commuter : commuterList){
+            CommuterTripDTO commuterTripDTO = new CommuterTripDTO();
+            commuterTripDTO.setCommuterId(commuter.getId());
+            commuterTripDTO.setCity(commuter.getCity());
+            commuterTripDTO.setGender(commuter.getGender());
+            commuterRewiewsList = reviewRepository.findByRevieweeId(commuter.getId());
+            int commuterTotalRate = 0;
+            for (Review review: commuterRewiewsList) {
+                commuterTotalRate += review.getRate();
+            }
+            double commuterAvgRate = 0 ;
+            if (commuterRewiewsList.size()==0){
+                commuterAvgRate = 0 ;
+            }else {
+                commuterAvgRate = commuterTotalRate/commuterRewiewsList.size();
+            }
+            commuterTripDTO.setAvgRate(commuterAvgRate);
+
+            List<Trip> commuterTripList = commuter.getUserTrips();
+            for (Trip trip:commuterTripList) {
+                String from = trip.getFrom();
+                String to = trip.getTo();
+                commuterTripDTO.setMovingFrom(from);
+                commuterTripDTO.setGoesTo(to);
+                commuterTripDTOList.add(commuterTripDTO);
+            }
+
+        }
+        return commuterTripDTOList;
+    }
+
 }
