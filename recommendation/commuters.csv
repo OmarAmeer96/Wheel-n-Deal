@@ -1,0 +1,41 @@
+commuterId,city,gender,avgRate,movingFrom,goesTo
+41,New York,Male,8,Brooklyn,Manhattan
+42,San Francisco,Female,7,Daly City,San Francisco
+43,Chicago,Male,9,Hyde Park,Loop
+44,Boston,Female,6,Cambridge,Boston
+45,Los Angeles,Female,7,Pasadena,Los Angeles
+46,Seattle,Male,8,Bellevue,Seattle
+47,Denver,Female,6,Aurora,Denver
+48,Miami,Male,7,Coral Gables,Miami
+49,Houston,Female,9,Sugar Land,Houston
+50,Atlanta,Male,8,Marietta,Atlanta
+51,New York,Female,5,Queens,Manhattan
+52,San Francisco,Male,6,Oakland,San Francisco
+53,Chicago,Female,7,Evanston,Chicago
+54,Boston,Male,8,Somerville,Boston
+55,Los Angeles,Male,6,Glendale,Los Angeles
+56,Seattle,Female,7,Redmond,Seattle
+57,Denver,Male,9,Lakewood,Denver
+58,Miami,Female,8,Hialeah,Miami
+59,Houston,Male,7,The Woodlands,Houston
+60,Atlanta,Female,6,Decatur,Atlanta
+61,New York,Male,7,Staten Island,Manhattan
+62,San Francisco,Female,8,South San Francisco,San Francisco
+63,Chicago,Male,6,Oak Park,Chicago
+64,Boston,Female,7,Newton,Boston
+65,Los Angeles,Male,8,Long Beach,Los Angeles
+66,Seattle,Female,6,Shoreline,Seattle
+67,Denver,Male,7,Westminster,Denver
+68,Miami,Female,9,Doral,Miami
+69,Houston,Male,8,Pearland,Houston
+70,Atlanta,Female,7,Sandy Springs,Atlanta
+71,New York,Female,6,Hoboken,New York
+72,San Francisco,Male,9,Berkeley,San Francisco
+73,Chicago,Female,8,Wicker Park,Chicago
+74,Boston,Male,7,Brookline,Boston
+75,Los Angeles,Female,5,Inglewood,Los Angeles
+76,Seattle,Male,8,Kirkland,Seattle
+77,Denver,Female,6,Highlands Ranch,Denver
+78,Miami,Male,7,Little Havana,Miami
+79,Houston,Female,9,Memorial,Houston
+80,Atlanta,Male,8,Buckhead,Atlanta

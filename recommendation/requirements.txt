@@ -1,0 +1,8 @@
+Flask
+numpy
+tensorflow
+keras
+tf-keras
+gunicorn
+scikit-learn
+APScheduler
