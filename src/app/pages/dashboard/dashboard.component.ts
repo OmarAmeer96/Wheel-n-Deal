@@ -1,19 +1,25 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DashCardComponent } from '../../shared/widgets/dash-card/dash-card.component';
-import { DoughnutChartComponent } from '../../shared/widgets/pie-chart/doughnut-chart.component';
+import { DoughnutChartComponent } from '../../shared/widgets/doughut-chart/doughnut-chart.component';
 import { StatService } from '../../core/services/stat.service';
 import { BarChartComponent } from '../../shared/widgets/bar-chart/bar-chart.component';
 import {
   CreatedLastWeek,
   chartData,
 } from '../../core/models/interfaces/charts';
+import { PieChartComponent } from '../../shared/widgets/pie-chart/pie-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  imports: [DashCardComponent, DoughnutChartComponent, BarChartComponent],
+  imports: [
+    DashCardComponent,
+    DoughnutChartComponent,
+    BarChartComponent,
+    PieChartComponent,
+  ],
 })
 export class DashboardComponent implements OnInit, OnChanges {
   numOfAllUsers!: number;
@@ -79,7 +85,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         'Users last week:',
         data.map((user) => user.date)
       );
-      this.chartUserData.labels = data.map((user) => user.day as string);
+      this.chartUserData.labels = data.map((user) => user.date as string);
       this.chartUserData.data = data.map((user) => user.count);
     });
   }
