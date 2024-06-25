@@ -1,0 +1,8 @@
+Flask
+torch
+numpy
+tensorflow
+keras
+transformers
+tf-keras
+gunicorn
