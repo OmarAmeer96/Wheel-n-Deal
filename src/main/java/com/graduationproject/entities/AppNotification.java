@@ -22,5 +22,7 @@ public class AppNotification {
     private String message;
     // 1 - SomeOne choose you to deliver the order
     // 2 - Your order canceled
+    // 3- order confirmed
+    // 4- order decliend
     private Integer code;
 }

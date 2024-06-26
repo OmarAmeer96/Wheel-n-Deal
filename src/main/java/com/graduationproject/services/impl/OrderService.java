@@ -723,9 +723,11 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
+            User user = order.getUser();
             order.setCommuter(null);
             order.setTrip(null);
             orderRepository.save(order);
+            appNotificationService.sendNotification(user.getId(),orderId,"The commuter that you choosed decliend your order",4);
             return CustomResponse.builder()
                     .status(200) // Success status
                     .message("Order Declined Successfully")
@@ -759,6 +761,7 @@ public class OrderService {
                 admin.setAmount(adminAmount);
                 userRepository.save(user);
                 userRepository.save(admin);
+                appNotificationService.sendNotification(user.getId(),orderId,"Order has been confirmed, The commuter will take it soon",3);
             }
             orderRepository.save(order);
             return CustomResponse.builder()
