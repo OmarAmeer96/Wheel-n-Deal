@@ -458,12 +458,12 @@ public class OrderService {
             if (cancler.equals(Role.COMMUTER)){
                 appNotificationService.sendNotification(orderOwner.getId()
                     ,orderId
-                    ,"Your order had been canceled by + " + commuter.getFullName(),
+                    ,"Your order had been canceled by  " + commuter.getFullName(),
                     2);}
             else {
                 appNotificationService.sendNotification(commuter.getId()
                         ,orderId
-                        ,"Your order had been canceled by + " + orderOwner.getFullName(),
+                        ,"Your order had been canceled by  " + orderOwner.getFullName(),
                         2);
             }
 

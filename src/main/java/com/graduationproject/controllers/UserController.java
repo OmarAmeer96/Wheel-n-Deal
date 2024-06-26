@@ -1,11 +1,9 @@
 package com.graduationproject.controllers;
 
 import com.graduationproject.DTOs.*;
+import com.graduationproject.entities.AppNotification;
 import com.graduationproject.entities.User;
-import com.graduationproject.services.impl.CommuterProfileService;
-import com.graduationproject.services.impl.TripService;
-import com.graduationproject.services.impl.UserProfileService;
-import com.graduationproject.services.impl.UserServiceImpl;
+import com.graduationproject.services.impl.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +18,7 @@ public class UserController {
     private final UserServiceImpl userServiceImpl;
     private final TripService tripService;
     private final CommuterProfileService commuterProfileService;
+    private final AppNotificationService appNotificationService;
 
     @PutMapping("update")
     public CustomResponse updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
@@ -64,5 +63,10 @@ public class UserController {
     @GetMapping("getCommuterTripDTO")
     public List<CommuterTripDTO> getCommuterTripDto(){
         return userServiceImpl.getCommuterTripDto();
+    }
+
+    @GetMapping("getUserNotifications/{userId}")
+    public List<AppNotification> findUserNotifications(@PathVariable Integer userId){
+        return appNotificationService.findUserNotifications(userId);
     }
 }

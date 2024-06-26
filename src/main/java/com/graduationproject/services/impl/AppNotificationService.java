@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppNotificationService {
 
@@ -29,5 +31,11 @@ public class AppNotificationService {
         appNotification.setCode(code);
         appNotification.setMessage(message);
         return repo.save(appNotification);
+    }
+
+    public List<AppNotification> findUserNotifications(Integer userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        return repo.findByUser(user);
     }
 }
