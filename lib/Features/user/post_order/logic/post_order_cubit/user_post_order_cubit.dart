@@ -14,10 +14,8 @@ class PostOrderCubit extends Cubit<PostOrderState> {
 
   final formKey = GlobalKey<FormState>();
   // Step 1
-  TextEditingController fromController =
-      TextEditingController(text: "This is FROM test");
-  TextEditingController toController =
-      TextEditingController(text: "This is TO test");
+  TextEditingController fromAddressController = TextEditingController();
+  TextEditingController toAddressController = TextEditingController();
   TextEditingController senderNameController =
       TextEditingController(text: SharedPrefs.getString(key: kFullName)!);
   TextEditingController senderPhoneNumberController =
@@ -50,8 +48,8 @@ class PostOrderCubit extends Cubit<PostOrderState> {
       orderExpiryDateController.text,
       double.parse(expectedPriceController.text),
       orderPhoto,
-      fromController.text,
-      toController.text,
+      fromAddressController.text,
+      toAddressController.text,
       senderNameController.text,
       senderPhoneNumberController.text,
       receiverNameController.text,

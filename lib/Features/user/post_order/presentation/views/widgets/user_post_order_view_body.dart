@@ -1098,14 +1098,14 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                               keyText: 'From',
                               valText: context
                                   .read<PostOrderCubit>()
-                                  .fromController
+                                  .fromAddressController
                                   .text,
                             ),
                             CustomReviewSummaryItem(
                               keyText: 'To      ',
                               valText: context
                                   .read<PostOrderCubit>()
-                                  .toController
+                                  .toAddressController
                                   .text,
                             ),
                           ],
