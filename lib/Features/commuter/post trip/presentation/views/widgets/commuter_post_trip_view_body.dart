@@ -150,12 +150,10 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                               ),
                             );
                             if (postOrderResponse.message ==
-                                "Order Created Successfully") {
+                                "Trip Created Successfully") {
                               context.pop();
                             }
-                            context.pushNamed(
-                              Routes.kUserOrdersView,
-                            );
+                            context.pushNamed(Routes.kCommuterTripsView);
                           },
                           error: (error) {
                             setupErrorState(
@@ -188,7 +186,9 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                               ),
                               CustomMainButton(
                                 onPressed: () {
-                                  context.pushNamed(Routes.kCommuterTripsView);
+                                  BlocProvider.of<CommuterPostTripCubit>(
+                                          context)
+                                      .emitPostTripState();
                                 },
                                 text: "Post",
                                 color: kPrimaryColor,
@@ -281,15 +281,20 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                         PostTripFromSelectLocationItem(
                           fromAddressController: widget.fromAddressController,
                           text: 'From',
-                          fromSelectedAddress:
-                              fromSelectedAddress ?? "Select New Address",
+                          fromSelectedAddress: context
+                              .read<CommuterPostTripCubit>()
+                              .fromAddressController
+                              .text,
                           onPressed: () async {
                             final result = await context.pushNamed(
                               Routes.kCommuterSearchLocationView,
                             );
                             if (result != null) {
                               setState(() {
-                                fromSelectedAddress = result;
+                                context
+                                    .read<CommuterPostTripCubit>()
+                                    .fromAddressController
+                                    .text = result;
                                 widget.fromAddressController?.text = result;
                               });
                             }

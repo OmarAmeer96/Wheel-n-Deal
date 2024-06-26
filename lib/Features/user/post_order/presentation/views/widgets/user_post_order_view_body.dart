@@ -1090,23 +1090,27 @@ class _UserPostOrderViewBodyState extends State<UserPostOrderViewBody> {
                         "Address",
                         style: Styles.manropeBold32.copyWith(fontSize: 15),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
                         child: Column(
                           children: [
                             CustomReviewSummaryItem(
                               keyText: 'From',
-                              valText: context
-                                  .read<PostOrderCubit>()
-                                  .fromAddressController
-                                  .text,
+                              valText:
+                                  //      context
+                                  //     .read<PostOrderCubit>()
+                                  //     .fromAddressController
+                                  //     .text,
+                                  "Zifta, Madinet Zefta, Zefta, Gharbia Governorate, Egypt",
                             ),
                             CustomReviewSummaryItem(
                               keyText: 'To      ',
-                              valText: context
-                                  .read<PostOrderCubit>()
-                                  .toAddressController
-                                  .text,
+                              valText:
+                                  // context
+                                  // .read<PostOrderCubit>()
+                                  // .toAddressController
+                                  // .text,
+                                  "Tanta, Tanta Qism 2, Tanta, Egypt",
                             ),
                           ],
                         ),

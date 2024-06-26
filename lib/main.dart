@@ -9,6 +9,7 @@ import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
 import 'package:wheel_n_deal/Features/commuter/home/domain/entities/message_entity.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/logic/commuter_post_trip_cubit/commuter_post_trip_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/post_order_cubit/get_user_orders_cubit.dart';
 import 'package:wheel_n_deal/Features/user/post_order/logic/post_order_cubit/user_post_order_cubit.dart';
@@ -64,7 +65,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<DeleteUserNotActiveOrderCubit>(
           create: (context) => getIt<DeleteUserNotActiveOrderCubit>(),
         ),
-
+        BlocProvider<CommuterPostTripCubit>(
+          create: (context) => getIt<CommuterPostTripCubit>(),
+        ),
         // Add more BlocProviders as needed
       ],
       child: MaterialApp(

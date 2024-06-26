@@ -19,8 +19,10 @@ class CustomReviewSummaryItem extends StatelessWidget {
         CustomReviewSummaryKeyText(
           text: '$keyText: ',
         ),
-        CustomReviewSummaryValueText(
-          text: valText,
+        Expanded(
+          child: CustomReviewSummaryValueText(
+            text: valText,
+          ),
         ),
       ],
     );

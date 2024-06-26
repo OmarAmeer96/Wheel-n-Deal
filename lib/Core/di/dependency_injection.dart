@@ -8,6 +8,8 @@ import 'package:wheel_n_deal/Features/auth/signin/data/repos/login_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/repos/signup_repo.dart';
 import 'package:wheel_n_deal/Features/auth/signup/logic/signup_cubit/signup_cubit.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/data/repos/commuter_post_trip_repo.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/logic/commuter_post_trip_cubit/commuter_post_trip_cubit.dart';
 import 'package:wheel_n_deal/Features/user/orders/data/repos/delete_user_not_active_order.dart';
 import 'package:wheel_n_deal/Features/user/orders/data/repos/get_user_orders_repo.dart';
 import 'package:wheel_n_deal/Features/user/orders/logic/delete_user_not_active_order_cubit/delete_user_not_active_order_cubit.dart';
@@ -60,4 +62,10 @@ Future<void> setupGetIt() async {
       () => DeleteUserNotActiveOrderRepo(getIt()));
   getIt.registerFactory<DeleteUserNotActiveOrderCubit>(
       () => DeleteUserNotActiveOrderCubit(getIt()));
+
+  // Commuter Post Trip Repo & Cubit
+  getIt.registerLazySingleton<CommuterPostTripRepo>(
+      () => CommuterPostTripRepo(getIt()));
+  getIt.registerFactory<CommuterPostTripCubit>(
+      () => CommuterPostTripCubit(getIt()));
 }
