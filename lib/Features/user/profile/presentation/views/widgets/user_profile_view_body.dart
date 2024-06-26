@@ -82,9 +82,8 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                                 SizedBox(
                                   height: 56,
                                   width: 56,
-                                  child: (SharedPrefs.getString(
-                                                  key: kProfilePhotoURL) ??
-                                              '')
+                                  child: SharedPrefs.getString(
+                                              key: kProfilePhotoURL)!
                                           .isNotEmpty
                                       ? ClipOval(
                                           child: CachedNetworkImage(
@@ -112,13 +111,11 @@ class _UserProfileViewBodyState extends State<UserProfileViewBody> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      SharedPrefs.getString(key: kUsername) ??
-                                          'Username',
+                                      SharedPrefs.getString(key: kUsername)!,
                                       style: Styles.cairoSemiBold,
                                     ),
                                     Text(
-                                      SharedPrefs.getString(key: kPhone) ??
-                                          'Phone Number',
+                                      SharedPrefs.getString(key: kPhone)!,
                                       style: Styles.cairoSemiBold,
                                     ),
                                   ],

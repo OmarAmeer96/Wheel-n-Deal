@@ -19,8 +19,11 @@ import 'package:wheel_n_deal/constants.dart';
 class CommuterPostTripViewBody extends StatefulWidget {
   final TextEditingController? fromAddressController;
   final TextEditingController? toAddressController;
-  const CommuterPostTripViewBody(
-      {super.key, this.fromAddressController, this.toAddressController});
+  const CommuterPostTripViewBody({
+    super.key,
+    this.fromAddressController,
+    this.toAddressController,
+  });
 
   @override
   State<CommuterPostTripViewBody> createState() =>
