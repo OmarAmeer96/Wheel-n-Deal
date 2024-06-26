@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wheel_n_deal/Core/networking/shared_prefs/shared_prefs.dart';
@@ -15,51 +12,40 @@ class CommuterPostTripCubit extends Cubit<CommuterPostTripState> {
 
   final formKey = GlobalKey<FormState>();
   // Step 1
-  TextEditingController fromController =
+  TextEditingController fromAddressController =
       TextEditingController(text: "This is FROM test");
-  TextEditingController toController =
+  TextEditingController toAddressController =
       TextEditingController(text: "This is TO test");
-  TextEditingController senderNameController =
-      TextEditingController(text: SharedPrefs.getString(key: kFullName)!);
-  TextEditingController senderPhoneNumberController =
-      TextEditingController(text: SharedPrefs.getString(key: kPhone)!);
-  TextEditingController receiverNameController = TextEditingController();
-  TextEditingController receiverPhoneNumberController = TextEditingController();
+  TextEditingController location1Controller = TextEditingController();
+  TextEditingController location2Controller = TextEditingController();
+  TextEditingController location3Controller = TextEditingController();
 
   // Step 2
-  TextEditingController orderNameController = TextEditingController();
-  TextEditingController countOfOrdersController =
-      TextEditingController(text: "1");
-  TextEditingController orderWeightController = TextEditingController();
-  TextEditingController expectedPriceController = TextEditingController();
-  TextEditingController orderExpiryDateController =
-      TextEditingController(text: "1-2 Days");
-  File? orderPhoto;
-  bool switchValue = false;
+  TextEditingController timeOfTheTripController = TextEditingController();
+  TextEditingController startAtController = TextEditingController();
+  TextEditingController endAtController = TextEditingController();
+  TextEditingController capacityController = TextEditingController();
 
-  void emitPostOrderState() async {
-    log("OrderPhoto: ${orderPhoto!.path}");
+  void emitPostTripState() async {
     emit(const CommuterPostTripState.loading());
 
-    final response = await _commuterPostTripRepo.postOrder(
+    final response = await _commuterPostTripRepo.commuterPostTrip(
       SharedPrefs.getString(key: kToken)!,
+      fromAddressController.text,
+      toAddressController.text,
+      [
+        location1Controller.text,
+        location2Controller.text,
+        location3Controller.text,
+      ],
+      timeOfTheTripController.text,
+      startAtController.text,
+      endAtController.text,
+      capacityController.text,
       SharedPrefs.getInt(key: kUserId)!,
-      orderNameController.text,
-      int.parse(countOfOrdersController.text),
-      int.parse(orderWeightController.text),
-      switchValue.toString(),
-      orderExpiryDateController.text,
-      double.parse(expectedPriceController.text),
-      orderPhoto,
-      fromController.text,
-      toController.text,
-      senderNameController.text,
-      senderPhoneNumberController.text,
-      receiverNameController.text,
-      receiverPhoneNumberController.text,
     );
 
-    // Save a list of order IDs
+    /* // Save a list of order IDs
     Future<void> saveOrderIds(List<String> orderIds) async {
       await SharedPrefs.setStringList(key: kOrderIds, value: orderIds);
     }
@@ -74,24 +60,24 @@ class CommuterPostTripCubit extends Cubit<CommuterPostTripState> {
       List<String> orderIds = await loadOrderIds();
       orderIds.add(orderId);
       await saveOrderIds(orderIds);
-    }
+    } */
 
     response.when(
-      success: (postOrderResponse) async {
-        if (postOrderResponse.status != 200) {
+      success: (commuterPostTripResponse) async {
+        if (commuterPostTripResponse.status != 200) {
           emit(
             CommuterPostTripState.error(
-              error: postOrderResponse.message ?? '',
+              error: commuterPostTripResponse.message ?? '',
             ),
           );
         } else {
-          // Save the order ID to the list
-          await addOrderId(
-            postOrderResponse.postOrderResponseData!.orderId.toString(),
-          );
-          log("Order ID: ${postOrderResponse.postOrderResponseData!.orderId}");
-          log("Order IDs: ${await loadOrderIds()}");
-          emit(CommuterPostTripState.success(postOrderResponse));
+          // // Save the order ID to the list
+          // await addOrderId(
+          //   commuterPostTripResponse.postOrderResponseData!.orderId.toString(),
+          // );
+          // log("Order ID: ${commuterPostTripResponse.postOrderResponseData!.orderId}");
+          // log("Order IDs: ${await loadOrderIds()}");
+          emit(CommuterPostTripState.success(commuterPostTripResponse));
         }
       },
       failure: (error) {

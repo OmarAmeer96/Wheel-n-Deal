@@ -12,6 +12,7 @@ import 'package:wheel_n_deal/Features/auth/signin/data/models/login_request_body
 import 'package:wheel_n_deal/Features/auth/signin/data/models/login_response.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_request_body.dart';
 import 'package:wheel_n_deal/Features/auth/signup/data/models/signup_response.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/data/models/commuter_post_trip_response.dart';
 import 'package:wheel_n_deal/Features/user/orders/data/models/get_user_orders_response.dart';
 import 'package:wheel_n_deal/Features/user/post_order/data/models/post_order_response.dart';
 import 'package:wheel_n_deal/Features/user/profile/data/models/update_user_profile_response.dart';
@@ -113,7 +114,7 @@ abstract class ApiService {
   // Commuter Post Trip
   @POST(ApiConstants.commuterPostTrip)
   @MultiPart()
-  Future<void> commuterPostTrip({
+  Future<CommuterPostTripResponse> commuterPostTrip({
     @Header('Authorization') required String token,
     @Part(name: "from") String? from,
     @Part(name: "to") String? to,
@@ -122,6 +123,6 @@ abstract class ApiService {
     @Part(name: "startsAt") String? startsAt,
     @Part(name: "endsAt") String? endsAt,
     @Part(name: "capacity") String? capacity,
-    @Part(name: "userId") String? userId,
+    @Part(name: "userId") required int userId,
   });
 }

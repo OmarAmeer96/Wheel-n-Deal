@@ -1,49 +1,35 @@
-import 'dart:io';
-
 import 'package:wheel_n_deal/Core/networking/api_error_handler.dart';
 import 'package:wheel_n_deal/Core/networking/api_result.dart';
 import 'package:wheel_n_deal/Core/networking/api_service.dart';
-import 'package:wheel_n_deal/Features/user/post_order/data/models/post_order_response.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/data/models/commuter_post_trip_response.dart';
 
 class CommuterPostTripRepo {
   final ApiService _apiServices;
 
   CommuterPostTripRepo(this._apiServices);
 
-  Future<ApiResult<PostOrderResponse>> postOrder(
+  Future<ApiResult<CommuterPostTripResponse>> commuterPostTrip(
     String token,
-    int userId,
-    String orderName,
-    int countOfOrders,
-    int weight,
-    String breakable,
-    String expiryDate,
-    double expectedPrice,
-    File? orderPhoto,
     String from,
     String to,
-    String senderName,
-    String senderPhoneNumber,
-    String receiverName,
-    String receiverPhoneNumber,
+    List<String> paths,
+    String tripPhoto,
+    String startsAt,
+    String endsAt,
+    String capacity,
+    int userId,
   ) async {
     try {
-      final response = await _apiServices.postOrder(
+      final response = await _apiServices.commuterPostTrip(
         token: 'Bearer $token',
-        userId: userId,
-        orderName: orderName,
-        countOfOrders: countOfOrders,
-        weight: weight,
-        breakable: breakable,
-        expiryDate: expiryDate,
-        expectedPrice: expectedPrice,
-        orderPhoto: orderPhoto,
         from: from,
         to: to,
-        senderName: senderName,
-        senderPhoneNumber: senderPhoneNumber,
-        receiverName: receiverName,
-        receiverPhoneNumber: receiverPhoneNumber,
+        paths: paths,
+        tripPhoto: tripPhoto,
+        startsAt: startsAt,
+        endsAt: endsAt,
+        capacity: capacity,
+        userId: userId,
       );
       return ApiResult.success(response);
     } catch (error) {

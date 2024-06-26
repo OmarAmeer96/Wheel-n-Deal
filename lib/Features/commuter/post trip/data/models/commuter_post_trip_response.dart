@@ -3,15 +3,15 @@ part 'commuter_post_trip_response.g.dart';
 
 @JsonSerializable()
 class CommuterPostTripResponse {
+  int? status;
   String? message;
   @JsonKey(name: 'data')
   CommuterPostTripResponseData? commuterPostTripResponseData;
-  int? status;
 
   CommuterPostTripResponse({
+    this.status,
     this.message,
     this.commuterPostTripResponseData,
-    this.status,
   });
 
   factory CommuterPostTripResponse.fromJson(Map<String, dynamic> json) =>
@@ -20,10 +20,7 @@ class CommuterPostTripResponse {
 
 @JsonSerializable()
 class CommuterPostTripResponseData {
-  int? orderId;
-  CommuterPostTripResponseData({
-    this.orderId,
-  });
+  CommuterPostTripResponseData();
 
   factory CommuterPostTripResponseData.fromJson(Map<String, dynamic> json) =>
       _$CommuterPostTripResponseDataFromJson(json);

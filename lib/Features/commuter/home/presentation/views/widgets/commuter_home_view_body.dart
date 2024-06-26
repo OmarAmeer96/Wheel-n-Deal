@@ -147,7 +147,7 @@ class _CommuterHomeViewBodyState extends State<CommuterHomeViewBody> {
                       icon: AssetsData.ordersIcon,
                       text: 'My Trips',
                       onTap: () {
-                        context.pushNamed(Routes.kMyTripsView);
+                        context.pushNamed(Routes.kCommuterTripsView);
                       },
                     ),
                     HomeFeaturesItem(

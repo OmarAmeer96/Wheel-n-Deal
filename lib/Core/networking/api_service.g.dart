@@ -469,7 +469,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<void> commuterPostTrip({
+  Future<CommuterPostTripResponse> commuterPostTrip({
     required String token,
     String? from,
     String? to,
@@ -478,7 +478,7 @@ class _ApiService implements ApiService {
     String? startsAt,
     String? endsAt,
     String? capacity,
-    String? userId,
+    required int userId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -525,29 +525,30 @@ class _ApiService implements ApiService {
         capacity,
       ));
     }
-    if (userId != null) {
-      _data.fields.add(MapEntry(
-        'userId',
-        userId,
-      ));
-    }
-    await _dio.fetch<void>(_setStreamType<void>(Options(
+    _data.fields.add(MapEntry(
+      'userId',
+      userId.toString(),
+    ));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommuterPostTripResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
       contentType: 'multipart/form-data',
     )
-        .compose(
-          _dio.options,
-          'commuter/create-update/trip',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+            .compose(
+              _dio.options,
+              'commuter/create-update/trip',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = CommuterPostTripResponse.fromJson(_result.data!);
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

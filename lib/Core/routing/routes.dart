@@ -67,7 +67,7 @@ class Routes {
       '/doneWaitForCustomerConfirmationView';
   static const kCommuterFavouriteView = '/commuterFavouriteView';
   static const kUserFavouriteView = '/userFavouriteView';
-  static const kMyTripsView = '/myTripsView';
+  static const kCommuterTripsView = '/myTripsView';
   static const kCommuterPostTripView = '/postTripView';
   static const kTripDeletedView = '/tripDeletedView';
   static const kCommuterReviewsView = '/commuterReviewsView';

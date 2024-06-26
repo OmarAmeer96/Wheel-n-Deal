@@ -428,9 +428,9 @@ class AppRouter {
           builder: (_) => const UserFavouriteView(),
         );
 
-      case Routes.kMyTripsView:
+      case Routes.kCommuterTripsView:
         return MaterialPageRoute(
-          builder: (_) => const MyTripsView(),
+          builder: (_) => const CommuterTripsView(),
         );
 
       case Routes.kCommuterPostTripView:

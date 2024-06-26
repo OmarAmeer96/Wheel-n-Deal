@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer';
 
 import 'package:intl/intl.dart';
+import 'package:wheel_n_deal/Core/functions/setup_error_state.dart';
 import 'package:wheel_n_deal/Core/helpers/extensions.dart';
 import 'package:wheel_n_deal/Core/routing/routes.dart';
 
 import 'package:wheel_n_deal/Core/utils/styles.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_button.dart';
 import 'package:wheel_n_deal/Core/widgets/custom_main_text_form_field.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/logic/commuter_post_trip_cubit/commuter_post_trip_cubit.dart';
+import 'package:wheel_n_deal/Features/commuter/post%20trip/logic/commuter_post_trip_cubit/commuter_post_trip_state.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/custom_time_picker_item.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/path_item.dart';
 import 'package:wheel_n_deal/Features/commuter/post%20trip/presentation/views/widgets/post_trip_from_select_location_item.dart';
@@ -124,38 +128,76 @@ class _CommuterPostTripViewBodyState extends State<CommuterPostTripViewBody> {
                 builder: (context) {
                   return SizedBox(
                     width: double.infinity,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 60,
-                              height: 6,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFFA3A3A3),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                    child: BlocListener<CommuterPostTripCubit,
+                        CommuterPostTripState>(
+                      listener: (context, state) {
+                        state.whenOrNull(
+                          loading: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const Center(
+                                child: CircularProgressIndicator(
+                                  color: kPrimaryColor,
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            CustomMainButton(
-                              onPressed: () {
-                                context.pushNamed(Routes.kMyTripsView);
-                              },
-                              text: "Post",
-                              color: kPrimaryColor,
-                            ),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                          ],
+                            );
+                          },
+                          success: (postOrderResponse) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(postOrderResponse.message),
+                                duration: const Duration(seconds: 3),
+                              ),
+                            );
+                            if (postOrderResponse.message ==
+                                "Order Created Successfully") {
+                              context.pop();
+                            }
+                            context.pushNamed(
+                              Routes.kUserOrdersView,
+                            );
+                          },
+                          error: (error) {
+                            setupErrorState(
+                              context,
+                              error,
+                            );
+                          },
+                        );
+                      },
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: 60,
+                                height: 6,
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFA3A3A3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              CustomMainButton(
+                                onPressed: () {
+                                  context.pushNamed(Routes.kCommuterTripsView);
+                                },
+                                text: "Post",
+                                color: kPrimaryColor,
+                              ),
+                              const SizedBox(
+                                height: 26,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
