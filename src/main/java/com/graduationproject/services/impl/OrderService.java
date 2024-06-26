@@ -35,6 +35,8 @@ public class OrderService {
     private final TripRepository tripRepository;
     private final CloudinaryImageService cloudinaryImageService;
 
+    private final AppNotificationService appNotificationService;
+
     @Transactional
     public CustomResponse createOrUpdateOrder(OrderDTO orderDTO) {
         if (orderDTO.getId() != null) {
@@ -272,7 +274,7 @@ public class OrderService {
 
 
 
-
+    @Transactional
     public CustomResponse assignExistingOrder(Integer orderId, Integer tripId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         Optional<Trip> optionalTrip = tripRepository.findById(tripId);
@@ -292,6 +294,10 @@ public class OrderService {
                     existingOrder.setCommuter(existingCommuter);
                     existingOrder.setTrip(existingTrip);
                     orderRepository.save(existingOrder);
+                    appNotificationService.sendNotification(existingCommuter.getId()
+                            ,orderId
+                            ,"Someone choose you to deliver the order ",
+                            1);
 
                     return CustomResponse.builder()
                             .status(200)
@@ -312,6 +318,7 @@ public class OrderService {
 
 
 
+    @Transactional
     public CustomResponse createOrderAndAssignIt(OrderDTO orderDTO, Integer tripId) {
         Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
         Optional<Trip> optionalTrip = tripRepository.findById(tripId);
@@ -345,6 +352,10 @@ public class OrderService {
         order.setOrderStatus(OrderStatus.NOT_ACTIVE);
 
         orderRepository.save(order);
+        appNotificationService.sendNotification(order.getUser().getId()
+                ,order.getId()
+                ,"Someone choose you to deliver the order ",
+                1);
         return CustomResponse.builder()
                 .status(200) // Success status
                 .message("Order saved and assigned successfully, waiting for the commuter to agree")
@@ -444,6 +455,17 @@ public class OrderService {
             userRepository.save(commuter);
             userRepository.save(admin);
             orderRepository.save(existingOrder);
+            if (cancler.equals(Role.COMMUTER)){
+                appNotificationService.sendNotification(orderOwner.getId()
+                    ,orderId
+                    ,"Your order had been canceled by + " + commuter.getFullName(),
+                    2);}
+            else {
+                appNotificationService.sendNotification(commuter.getId()
+                        ,orderId
+                        ,"Your order had been canceled by + " + orderOwner.getFullName(),
+                        2);
+            }
 
             return CustomResponse.builder()
                     .status(200)

@@ -132,6 +132,10 @@ public class User implements UserDetails {
     @JsonManagedReference
     private List<OrderApplicants> orderApplicants;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<AppNotification> appNotifications;
+
     @NotNull
     @Temporal(TemporalType.DATE)
     private Date creatingDate;
