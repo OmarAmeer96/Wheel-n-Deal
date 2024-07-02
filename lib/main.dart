@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wheel_n_deal/Core/di/dependency_injection.dart';
 import 'package:wheel_n_deal/Core/networking/firebase_services.dart';
-
 import 'package:wheel_n_deal/Core/routing/app_router.dart';
 import 'package:wheel_n_deal/Core/utils/simple_bloc_observer.dart';
 import 'package:wheel_n_deal/Features/auth/signin/logic/login_cubit/login_cubit.dart';
