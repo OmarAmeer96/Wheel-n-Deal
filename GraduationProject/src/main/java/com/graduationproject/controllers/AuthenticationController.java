@@ -2,6 +2,7 @@ package com.graduationproject.controllers;
 
 import com.graduationproject.DTOs.*;
 import com.graduationproject.services.AuthenticationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +18,17 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
     @PostMapping("signup")
-    public JwtAuthenticationResponse signup(@Validated @RequestBody SignUpRequest signUpRequest, BindingResult bindingResult) {
+    public ResponseEntity<?> signup(@Validated @RequestBody SignUpRequest signUpRequest, BindingResult bindingResult) {
         return authenticationService.signup(signUpRequest, bindingResult);
     }
 
     @PostMapping("signin")
-    public JwtAuthenticationResponse signin(@RequestBody SignInRequest signInRequest)  {
+    public ResponseEntity<?> signin(@RequestBody SignInRequest signInRequest)  {
         return authenticationService.signin(signInRequest);
     }
 
     @PostMapping("refresh")
-    public JwtAuthenticationResponse refresh(@RequestBody RefreshTokenRequest refreshTokenRequest)  {
+    public ResponseEntity<?> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest)  {
         return authenticationService.refreshToken(refreshTokenRequest);
     }
 }

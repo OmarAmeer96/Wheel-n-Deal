@@ -20,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -63,29 +65,26 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return customer.getId();
     }
-
-    public JwtAuthenticationResponse signup(SignUpRequest signUpRequest, BindingResult bindingResult) {
-
+    public ResponseEntity<?> signup(SignUpRequest signUpRequest, BindingResult bindingResult) {
         if (!signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword())) {
-            return JwtAuthenticationResponse.builder()
-                    .status(400)
-                    .message("Passwords do not match")
-                    .build();
+            return ResponseEntity.badRequest().body("Passwords do not match.");
         }
-
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessageBuilder = new StringBuilder("Validation failed. Errors: ");
             for (FieldError error : bindingResult.getFieldErrors()) {
                 errorMessageBuilder.append(error.getDefaultMessage()).append("; ");
             }
             String errorMessage = errorMessageBuilder.toString();
-
-            return JwtAuthenticationResponse.builder()
-                    .status(400)
-                    .message(errorMessage)
-                    .build();
+            return ResponseEntity.badRequest().body(errorMessage);
         }
-
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Username already exists.");
+        }
+        if (userRepository.existsByPhoneNumber(signUpRequest.getPhone())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Phone number already exists.");
+        }
         try {
             CreateStripeUserRequestDTO request = new CreateStripeUserRequestDTO();
             request.setPhoneNumber(signUpRequest.getPhone());
@@ -110,19 +109,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("token", jwtToken);
             responseData.put("refreshToken", jwtRefreshToken);
 
-            return JwtAuthenticationResponse.builder()
-                    .status(200)
-                    .message("Request processed successfully.")
-                    .data(responseData)
-                    .build();
+            return ResponseEntity.ok(responseData);
         } catch (Exception e) {
-            return JwtAuthenticationResponse.builder()
-                    .status(500)
-                    .message("An error occurred while processing the request.")
-                    .build();
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while processing the signup request: " + e.getMessage());
         }
     }
-
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -133,12 +126,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
         tokenRepository.save(token);
     }
-
-    public JwtAuthenticationResponse signin(SignInRequest signinRequest) {
+    public ResponseEntity<?> signin(SignInRequest signinRequest) {
+        if (signinRequest.getUsername() == null || signinRequest.getUsername().isEmpty()) {
+            return ResponseEntity.badRequest().body("Username is required.");
+        }
+        if (signinRequest.getPassword() == null || signinRequest.getPassword().isEmpty()) {
+            return ResponseEntity.badRequest().body("Password is required.");
+        }
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getUsername(),
-                    signinRequest.getPassword()));
-
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(signinRequest.getUsername(), signinRequest.getPassword())
+            );
             var user = userRepository.findByUsername(signinRequest.getUsername())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid Username or password"));
 
@@ -149,23 +147,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseData.put("stripeId", user.getStripeId());
             responseData.put("token", jwt);
             responseData.put("refreshToken", refreshToken);
+
             revokeAllUserTokens(user);
             saveUserToken(user, jwt);
 
-            return JwtAuthenticationResponse.builder()
-                    .status(200)
-                    .message("Authentication successful.")
-                    .data(responseData)
-                    .build();
+            return ResponseEntity.ok()
+                    .body(Map.of(
+                            "message", "Authentication successful.",
+                            "data", responseData
+                    ));
 
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Authentication failed: " + e.getMessage()));
         } catch (Exception e) {
-            return JwtAuthenticationResponse.builder()
-                    .status(401)
-                    .message("Authentication failed: " + e.getMessage())
-                    .build();
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "An error occurred during authentication: " + e.getMessage()));
         }
     }
-
     public void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -176,23 +176,32 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+    public ResponseEntity<?> refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        try {
+            String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
+            User user = userRepository.findByUsername(userEmail).orElseThrow(() ->
+                    new IllegalArgumentException("User not found"));
 
-    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-        String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByUsername(userEmail).orElseThrow();
-        if (jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
-            var jwt = jwtService.generateToken(user);
+            if (jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
+                var jwt = jwtService.generateToken(user);
 
-            Map<String, String> responseData = new HashMap<>();
-            responseData.put("token", jwt);
-            responseData.put("refreshToken", refreshTokenRequest.getToken());
+                Map<String, String> responseData = new HashMap<>();
+                responseData.put("token", jwt);
+                responseData.put("refreshToken", refreshTokenRequest.getToken());
 
-            return JwtAuthenticationResponse.builder()
-                    .status(200)
-                    .message("Authentication successful.")
-                    .data(responseData)
-                    .build();
+                return ResponseEntity.ok()
+                        .body(Map.of("data", responseData));
+            }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Invalid refresh token"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "An error occurred during token refresh: " + e.getMessage()));
         }
-        return JwtAuthenticationResponse.builder().build();
     }
+
 }

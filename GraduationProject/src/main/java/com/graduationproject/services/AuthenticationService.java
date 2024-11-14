@@ -1,12 +1,13 @@
 package com.graduationproject.services;
 
 import com.graduationproject.DTOs.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.BindingResult;
 
 @Repository
 public interface AuthenticationService {
-    JwtAuthenticationResponse signup(SignUpRequest signUpRequest, BindingResult bindingResult);
-    JwtAuthenticationResponse signin(SignInRequest signInRequest);
-    JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
+    ResponseEntity<?> signup(SignUpRequest signUpRequest, BindingResult bindingResult);
+    ResponseEntity<?> signin(SignInRequest signInRequest);
+    ResponseEntity<?> refreshToken(RefreshTokenRequest refreshTokenRequest);
 }

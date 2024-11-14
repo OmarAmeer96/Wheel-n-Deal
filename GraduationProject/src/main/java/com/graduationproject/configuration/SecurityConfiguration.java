@@ -20,10 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-/**
- * Configuration class for defining security settings.
- * This class enables web security and defines security filter chains.
- */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
