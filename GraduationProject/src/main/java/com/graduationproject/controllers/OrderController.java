@@ -1,15 +1,11 @@
 package com.graduationproject.controllers;
 
 import com.graduationproject.DTOs.*;
-import com.graduationproject.entities.Order;
 import com.graduationproject.services.impl.OrderService;
-import com.graduationproject.services.impl.PromocodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -17,7 +13,6 @@ import java.util.Optional;
 public class OrderController {
 
     private final OrderService orderService;
-    private final PromocodeService promocodeService;
 
     @PostMapping("create-update")
     public CustomResponse createOrder(@ModelAttribute OrderDTO orderDTO) {
@@ -35,7 +30,7 @@ public class OrderController {
     }
 
     @GetMapping("find-not-active/{userId}")
-    public CustomResponse findNotActiveOrders(@PathVariable Integer userId){
+    public ResponseEntity<Object> findNotActiveOrders(@PathVariable Integer userId){
         return orderService.findNotActiveOrders(userId);
     }
 
@@ -62,7 +57,7 @@ public class OrderController {
     //TODO : handle the security stuff to make this endpoint only allowed for commuter
     // (must use commuter token and make sure that the id in the token is the same one that the will be passed)
     @PostMapping("findCommuterOrders/{commuterId}")
-    public CustomResponse findCommuterOrders(@PathVariable Integer commuterId){
+    public ResponseEntity<Object> findCommuterOrders(@PathVariable Integer commuterId){
         return orderService.findCommuterOrders(commuterId);
     }
 
@@ -98,7 +93,7 @@ public class OrderController {
     }
 
     @PostMapping("confirmOrder/{orderId}")
-    public CustomResponse confirmOrder(@PathVariable Integer orderId){
+    public ResponseEntity<Object> confirmOrder(@PathVariable Integer orderId){
         return orderService.confirmOrder(orderId);
     }
 

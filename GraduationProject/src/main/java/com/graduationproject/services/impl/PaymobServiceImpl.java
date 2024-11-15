@@ -3,7 +3,6 @@ package com.graduationproject.services.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.paymobPaymentDTOs.PayResponseDTO;
 import com.graduationproject.DTOs.paymobPaymentDTOs.SecondRequest;
 import com.graduationproject.DTOs.paymobPaymentDTOs.ThirdRequest;
@@ -17,12 +16,12 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @Service
 public class PaymobServiceImpl {
-
     @Autowired
     private PaymobResponseRepository paymobResponseRepository;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -50,7 +49,6 @@ public class PaymobServiceImpl {
             return "Error occurred: " + response.getStatusCode();
         }
     }
-
     public String createEcommerceOrder(SecondRequest secondRequest) throws JsonProcessingException {
         String orderUrl = "https://accept.paymob.com/api/ecommerce/orders";
 
@@ -72,7 +70,6 @@ public class PaymobServiceImpl {
             return "Error occurred: " + response.getStatusCode();
         }
     }
-
     public String sendPaymentKeyRequest(ThirdRequest thirdRequest) throws JsonProcessingException {
         String paymentKeyUrl = "https://accept.paymob.com/api/acceptance/payment_keys";
 
@@ -97,7 +94,6 @@ public class PaymobServiceImpl {
             return "Error occurred: " + response.getStatusCode();
         }
     }
-
     public void savePayResponse(PayResponseDTO payResponse) {
         PaymobResponse responseEntity = new PaymobResponse();
         responseEntity.setExternalId(payResponse.getId());
@@ -107,13 +103,12 @@ public class PaymobServiceImpl {
 
         paymobResponseRepository.save(responseEntity);
     }
-
-    public CustomResponse sendPaymentRequest(WalletRequest walletRequest) {
-        if (walletRequest == null || walletRequest.getPayment_token() == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Invalid wallet request or payment token.")
-                    .build();
+    public ResponseEntity<?> sendPaymentRequest(WalletRequest walletRequest) {
+        // Validate wallet request and payment token
+        if (walletRequest == null || walletRequest.getPayment_token() == null || walletRequest.getPayment_token().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "message", "Invalid wallet request or payment token."
+            ));
         }
 
         String paymentUrl = "https://accept.paymob.com/api/acceptance/payments/pay";
@@ -140,10 +135,9 @@ public class PaymobServiceImpl {
                 User user = userRepository.findByPhoneNumber(phoneNumber);
 
                 if (user == null) {
-                    return CustomResponse.builder()
-                            .status(404)
-                            .message("User with phone number " + phoneNumber + " does not exist.")
-                            .build();
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                            "message", "User with phone number " + phoneNumber + " does not exist."
+                    ));
                 }
 
                 // Update user's wallet amount
@@ -153,33 +147,27 @@ public class PaymobServiceImpl {
 
                 savePayResponse(walletResponse);
 
-                return CustomResponse.builder()
-                        .status(200)
-                        .message("Payment request successful.")
-                        .data(walletResponse)
-                        .build();
+                return ResponseEntity.ok(Map.of(
+                        "message", "Payment request successful.",
+                        "data", walletResponse
+                ));
 
             } else {
-                return CustomResponse.builder()
-                        .status(response.getStatusCodeValue())
-                        .message("Payment request failed with status: " + response.getStatusCode())
-                        .build();
+                return ResponseEntity.status(response.getStatusCode()).body(Map.of(
+                        "message", "Payment request failed with status: " + response.getStatusCode()
+                ));
             }
 
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("Failed to process payment response.")
-                    .data(e.getMessage())
-                    .build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "message", "Failed to process payment response.",
+                    "details", e.getMessage()
+            ));
         } catch (Exception e) {
-            e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An error occurred while sending the payment request.")
-                    .data(e.getMessage())
-                    .build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "message", "An error occurred while sending the payment request.",
+                    "details", e.getMessage()
+            ));
         }
     }
 

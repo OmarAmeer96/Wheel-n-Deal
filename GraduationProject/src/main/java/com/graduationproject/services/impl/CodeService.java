@@ -1,6 +1,5 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.entities.Order;
 import com.graduationproject.entities.OrderStatus;
 import com.graduationproject.entities.User;
@@ -9,8 +8,10 @@ import com.graduationproject.repositories.UserRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,7 +20,6 @@ import java.util.UUID;
 @Service
 public class CodeService {
     private final OrderRepository orderRepository;
-
     private final UserRepository userRepository;
 
     public void generateCode(Integer orderId) {
@@ -38,151 +38,152 @@ public class CodeService {
             orderRepository.save(order);
         }
     }
-    //TODO : Don't forget the payment process
-    public CustomResponse checkSenderCode(Integer orderId, String enteredCode) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order existingOrder = optionalOrder.get();
-            OrderStatus orderStatus = existingOrder.getOrderStatus();
-            if (orderStatus.equals(OrderStatus.PENDING)) {
-                String senderCode = existingOrder.getSenderCode();
-                if (senderCode.equals(enteredCode)) {
-                    existingOrder.setOrderStatus(OrderStatus.IN_PROGRESS);
-                    User commuter = existingOrder.getCommuter();
-                    Integer commuterTotalDelivers = commuter.getTotalDelivers();
-                    commuterTotalDelivers += 1;
-                    commuter.setTotalDelivers(commuterTotalDelivers);
-                    userRepository.save(commuter);
-                    orderRepository.save(existingOrder);
-                    return CustomResponse.builder()
-                            .status(HttpStatus.OK.value())
-                            .message("Sender code verified successfully. Order status updated to IN_PROGRESS.")
-                            .build();
-                } else {
-                    return CustomResponse.builder()
-                            .status(HttpStatus.BAD_REQUEST.value())
-                            .message("Incorrect sender code.")
-                            .build();
-                }
-            } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .message("Order is not in PENDING status.")
-                        .build();
-            }
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Order not found with ID: " + orderId)
-                    .build();
-        }
-    }
 
+    //TODO : Don't forget the payment process
+    public ResponseEntity<?> checkSenderCode(Integer orderId, String enteredCode) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Invalid order ID provided."));
+        }
+        if (enteredCode == null || enteredCode.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Entered code cannot be null or empty."));
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Order not found with ID: " + orderId));
+        }
+
+        Order existingOrder = optionalOrder.get();
+
+        if (!existingOrder.getOrderStatus().equals(OrderStatus.PENDING)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Order is not in PENDING status."));
+        }
+
+        String senderCode = existingOrder.getSenderCode();
+        if (!senderCode.equals(enteredCode)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Incorrect sender code."));
+        }
+
+        existingOrder.setOrderStatus(OrderStatus.IN_PROGRESS);
+        User commuter = existingOrder.getCommuter();
+        if (commuter != null) {
+            Integer commuterTotalDelivers = commuter.getTotalDelivers();
+            commuter.setTotalDelivers(commuterTotalDelivers + 1);
+            userRepository.save(commuter);
+        }
+        orderRepository.save(existingOrder);
+
+        return ResponseEntity.ok("Sender code verified successfully. Order status updated to IN_PROGRESS.");
+    }
 
     //TODO : here add the order money to the commuter amount
-    public CustomResponse checkReceiverCode(Integer orderId, String enteredCode) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order existingOrder = optionalOrder.get();
-            OrderStatus orderStatus = existingOrder.getOrderStatus();
-            if (orderStatus.equals(OrderStatus.IN_PROGRESS)) {
-                String receiverCode = existingOrder.getReceiverCode();
-                if (receiverCode.equals(enteredCode)) {
-                    existingOrder.setOrderStatus(OrderStatus.SUCCESS);
-                    orderRepository.save(existingOrder);
-                    return CustomResponse.builder()
-                            .status(HttpStatus.OK.value())
-                            .message("Receiver code verified successfully. Order status updated to SUCCESS.")
-                            .build();
-                } else {
-                    return CustomResponse.builder()
-                            .status(HttpStatus.BAD_REQUEST.value())
-                            .message("Incorrect receiver code.")
-                            .build();
-                }
-            } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .message("Order is not in IN_PROGRESS status.")
-                        .build();
-            }
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Order not found with ID: " + orderId)
-                    .build();
+    public ResponseEntity<?> checkReceiverCode(Integer orderId, String enteredCode) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Invalid order ID provided."));
         }
+        if (enteredCode == null || enteredCode.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Entered code cannot be null or empty."));
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Order not found with ID: " + orderId));
+        }
+
+        Order existingOrder = optionalOrder.get();
+
+        if (!existingOrder.getOrderStatus().equals(OrderStatus.IN_PROGRESS)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Order is not in IN_PROGRESS status."));
+        }
+
+        String receiverCode = existingOrder.getReceiverCode();
+        if (!receiverCode.equals(enteredCode)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Incorrect receiver code."));
+        }
+
+        existingOrder.setOrderStatus(OrderStatus.SUCCESS);
+        orderRepository.save(existingOrder);
+
+        return ResponseEntity.ok("Receiver code verified successfully. Order status updated to SUCCESS.");
     }
 
-    public CustomResponse checkFailureCode(Integer orderId, String enteredCode) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order existingOrder = optionalOrder.get();
-            OrderStatus orderStatus = existingOrder.getOrderStatus();
-            if (orderStatus.equals(OrderStatus.FAILED)) {
-                String failureCode = existingOrder.getSenderCode();
-                if (failureCode.equals(enteredCode)) {
-                    existingOrder.setOrderStatus(OrderStatus.RETURNED);
-                    orderRepository.save(existingOrder);
-                    return CustomResponse.builder()
-                            .status(HttpStatus.OK.value())
-                            .message("Failure code verified successfully. Order status updated to RETURNED.")
-                            .build();
-                } else {
-                    return CustomResponse.builder()
-                            .status(HttpStatus.BAD_REQUEST.value())
-                            .message("Incorrect failure code.")
-                            .build();
-                }
-            } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .message("Order is not in FAILED status.")
-                        .build();
-            }
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Order not found with ID: " + orderId)
-                    .build();
+    public ResponseEntity<?> checkFailureCode(Integer orderId, String enteredCode) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Invalid order ID provided."));
         }
+        if (enteredCode == null || enteredCode.trim().isEmpty()) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Failure code cannot be null or empty."));
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Order not found with ID: " + orderId));
+        }
+
+        Order existingOrder = optionalOrder.get();
+
+        if (!existingOrder.getOrderStatus().equals(OrderStatus.FAILED)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Order is not in FAILED status."));
+        }
+
+        String failureCode = existingOrder.getSenderCode();
+        if (!failureCode.equals(enteredCode)) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Incorrect failure code."));
+        }
+
+        existingOrder.setOrderStatus(OrderStatus.RETURNED);
+        orderRepository.save(existingOrder);
+
+        return ResponseEntity.ok().build();
     }
 
-
-    public CustomResponse getSenderCode(Integer orderId) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            String senderCode = optionalOrder.get().getSenderCode();
-            return CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Sender code retrieved successfully.")
-                    .data(senderCode)
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Order not found with ID: " + orderId)
-                    .build();
-        }
+    public ResponseEntity<?> getSenderCode(Integer orderId) {
+    if (orderId == null || orderId <= 0) {
+        return ResponseEntity.badRequest()
+                .body(Map.of("message", "Invalid order ID provided."));
     }
 
+    Optional<Order> optionalOrder = orderRepository.findById(orderId);
 
-    public CustomResponse getReceiverCode(Integer orderId) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            String receiverCode = optionalOrder.get().getReceiverCode();
-            return CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Receiver code retrieved successfully.")
-                    .data(receiverCode)
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Order not found with ID: " + orderId)
-                    .build();
-        }
+    if (optionalOrder.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("message", "Order not found with ID: " + orderId));
     }
 
+    String senderCode = optionalOrder.get().getSenderCode();
+
+    return ResponseEntity.ok(Map.of("senderCode", senderCode));
+}
+
+    public ResponseEntity<?> getReceiverCode(Integer orderId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Invalid order ID provided."));
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Order not found with ID: " + orderId));
+        }
+
+        String receiverCode = optionalOrder.get().getReceiverCode();
+
+        return ResponseEntity.ok(Map.of("receiverCode", receiverCode));
+    }
 
 }
