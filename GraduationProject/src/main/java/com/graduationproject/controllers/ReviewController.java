@@ -22,4 +22,5 @@ public class ReviewController {
     public ResponseEntity<?> deleteReview(@PathVariable int reviewId){
         return reviewService.deleteReview(reviewId);
     }
+
 }
