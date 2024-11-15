@@ -1,6 +1,5 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.optDTOs.OtpResponseDTO;
 import com.graduationproject.DTOs.optDTOs.OtpStatus;
 import com.graduationproject.DTOs.optDTOs.OtpValidationRequest;
@@ -11,6 +10,8 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,136 +28,152 @@ public class SmsServiceImpl {
     private UserRepository userRepository;
     @Autowired
     private TwilioConfiguration twilioConfig;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public ResponseEntity<Object> forgetPassword(String phoneNumber, String newPassword) {
+        if (phoneNumber != null) {
+            phoneNumber = phoneNumber.trim();
+        }
 
-    public CustomResponse forgetPassword(String phoneNumber, String newPassword) {
-        System.out.println(phoneNumber);
-        phoneNumber = phoneNumber.trim();
-        System.out.println(phoneNumber);
-        if (phoneNumber == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Phone number is required.")
-                    .build();
+        if (phoneNumber == null || phoneNumber.isBlank()) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Phone number is required."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         if (newPassword == null || newPassword.isBlank() || newPassword.length() < 6) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("New password must be at least 6 characters long and not empty.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "New password must be at least 6 characters long and not empty."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         try {
-            User user = userRepository.findByPhoneNumber("+20" + phoneNumber.trim());
+            // Search for user by phone number (assuming phone number is prefixed with country code)
+            User user = userRepository.findByPhoneNumber("+20" + phoneNumber);
 
             if (user == null) {
-                return CustomResponse.builder()
-                        .status(404)
-                        .message("User with phone number " + "+20" + phoneNumber.trim() + " does not exist.")
-                        .build();
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "User with phone number " + "+20" + phoneNumber + " does not exist."),
+                        HttpStatus.NOT_FOUND
+                );
             }
 
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Password updated successfully.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.OK.value(), "message", "Password updated successfully."),
+                    HttpStatus.OK
+            );
 
         } catch (Exception ex) {
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An error occurred while updating the password.")
-                    .data(ex.getMessage())
-                    .build();
+            ex.printStackTrace();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "An error occurred while updating the password.", "data", ex.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
     // Map to store OTPs sent to phone numbers
     Map<String, String> otpMap = new HashMap<>();
 
-    public CustomResponse sendSMS(String phoneNumber) {
+    public ResponseEntity<Object> sendSMS(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isBlank()) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Phone number cannot be null or empty.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Phone number cannot be null or empty."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         try {
+            // Format the phone number and initialize Twilio phone number
             PhoneNumber to = new PhoneNumber("+20" + phoneNumber);
-            System.out.println(to);
-
             PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber());
+
+            if (from == null || twilioConfig.getPhoneNumber().isBlank()) {
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "Twilio phone number is not configured."),
+                        HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            // Generate OTP
             String otp = generateOTP();
             String otpMessage = "Dear Customer, Your OTP is " + otp + ", welcome to Wheel n' Deal family. Thank You.";
 
+            // Send the OTP via Twilio
             Message message = Message.creator(to, from, otpMessage).create();
 
+            // Store OTP in a map for verification
             otpMap.put(phoneNumber, otp);
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("OTP sent successfully.")
-                    .data(new OtpResponseDTO(OtpStatus.DELIVERED, otpMessage))
-                    .build();
+            // Respond with success
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.OK.value(), "message", "OTP sent successfully.", "data", new OtpResponseDTO(OtpStatus.DELIVERED, otpMessage)),
+                    HttpStatus.OK
+            );
 
+        } catch (IllegalArgumentException e) {
+            // Handle invalid phone number format (Twilio-specific)
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Invalid phone number format."),
+                    HttpStatus.BAD_REQUEST
+            );
         } catch (Exception e) {
             e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("Failed to send OTP.")
-                    .data(e.getMessage())
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "Failed to send OTP.", "data", e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
-    public CustomResponse validateOtp(OtpValidationRequest otpValidationRequest) {
+    public ResponseEntity<Object> validateOtp(OtpValidationRequest otpValidationRequest) {
         if (otpValidationRequest.getPhoneNumber() == null || otpValidationRequest.getOtpNumber() == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Phone number and OTP must be provided.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Phone number and OTP must be provided."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         String phoneNumber = otpValidationRequest.getPhoneNumber();
-
         String providedOtp = otpValidationRequest.getOtpNumber();
 
+        // Check if OTP exists for the provided phone number
         if (!otpMap.containsKey(phoneNumber)) {
-            return CustomResponse.builder()
-                    .status(404)
-                    .message("No OTP found for the provided phone number.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "No OTP found for the provided phone number."),
+                    HttpStatus.NOT_FOUND
+            );
         }
 
         String storedOtp = otpMap.get(phoneNumber);
 
+        // Validate OTP
         if (storedOtp.equals(providedOtp)) {
             try {
+                // Remove OTP after successful validation
                 otpMap.remove(phoneNumber);
-                return CustomResponse.builder()
-                        .status(200)
-                        .message("OTP is valid!")
-                        .build();
 
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.OK.value(), "message", "OTP is valid!"),
+                        HttpStatus.OK
+                );
             } catch (Exception e) {
-                return CustomResponse.builder()
-                        .status(500)
-                        .message("An error occurred")
-                        .data(e.getMessage())
-                        .build();
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "An error occurred while validating OTP.", "data", e.getMessage()),
+                        HttpStatus.INTERNAL_SERVER_ERROR
+                );
             }
         } else {
-            return CustomResponse.builder()
-                    .status(401)
-                    .message("OTP is invalid!")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.UNAUTHORIZED.value(), "message", "OTP is invalid!"),
+                    HttpStatus.UNAUTHORIZED
+            );
         }
     }
 
@@ -174,4 +191,5 @@ public class SmsServiceImpl {
             throw new RuntimeException("An error occurred while generating OTP.", e);
         }
     }
+
 }
