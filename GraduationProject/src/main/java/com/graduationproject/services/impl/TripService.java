@@ -283,7 +283,7 @@ public class TripService {
             if (trip.getOrders() != null) {
                 List<Order> orderList = trip.getOrders();
                 for (Order order : orderList) {
-                    orderService.cancleOrder(order.getId(), commuterId);
+                    orderService.cancelOrder(order.getId(), commuterId);
                 }
             }
 

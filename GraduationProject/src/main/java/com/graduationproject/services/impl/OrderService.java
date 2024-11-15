@@ -28,80 +28,116 @@ public class OrderService {
     private final TripRepository tripRepository;
 
     @Transactional
-    public CustomResponse createOrUpdateOrder(OrderDTO orderDTO) {
+    public ResponseEntity<Object> createOrUpdateOrder(OrderDTO orderDTO) {
+        if (orderDTO == null) {
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.BAD_REQUEST.value(),
+                    "message", "OrderDTO cannot be null."
+            ), HttpStatus.BAD_REQUEST);
+        }
+
         if (orderDTO.getId() != null) {
             Optional<Order> optionalOrder = orderRepository.findById(orderDTO.getId());
 
             if (optionalOrder.isPresent()) {
                 Order existingOrder = optionalOrder.get();
-                if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
-                updateOrderFromDTO(existingOrder, orderDTO);
-                orderRepository.save(existingOrder);
-                return CustomResponse.builder().status(HttpStatus.OK.value()).message("Order updated Successfully").build();
-                }else {
-                    return CustomResponse.builder().status(HttpStatus.FORBIDDEN.value()).message("You are allowed only for updating non active orders").build();
+
+                // Check if the order status is NOT_ACTIVE (can only update non-active orders)
+                if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)) {
+                    updateOrderFromDTO(existingOrder, orderDTO);
+                    orderRepository.save(existingOrder);
+
+                    return new ResponseEntity<>(Map.of(
+                            "status", HttpStatus.OK.value(),
+                            "message", "Order updated successfully"
+                    ), HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(Map.of(
+                            "status", HttpStatus.FORBIDDEN.value(),
+                            "message", "You are allowed to update only non-active orders"
+                    ), HttpStatus.FORBIDDEN);
                 }
             } else {
-                return CustomResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Order not found with ID: " + orderDTO.getId()).build();
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.NOT_FOUND.value(),
+                        "message", "Order not found with ID: " + orderDTO.getId()
+                ), HttpStatus.NOT_FOUND);
             }
         } else {
-            CustomResponse newOrder = saveNewOrderFromDTO(orderDTO);
-            if (newOrder != null) {
-                return CustomResponse.builder().status(HttpStatus.OK.value()).message("Order Created Successfully").data(Map.of("orderId", newOrder.getData().toString())).build();
+            ResponseEntity<Object> newOrderResponse = saveNewOrderFromDTO(orderDTO);
+
+            if (newOrderResponse.getStatusCode() == HttpStatus.OK) {
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.CREATED.value(),
+                        "message", "Order created successfully",
+                        "orderId", newOrderResponse.getBody()
+                ), HttpStatus.CREATED);
             } else {
-                return CustomResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Failed to create order").build();
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                        "message", "Failed to create order"
+                ), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
     }
-
 
     @Transactional
-    protected CustomResponse saveNewOrderFromDTO(OrderDTO orderDTO) {
-        Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
-        if (optionalUser.isPresent()) {
-            Order order = new Order();
-            updateOrderFromDTO(order, orderDTO);
-
-            User user = optionalUser.get();
-            order.setUser(user);
-            order.setOrderStatus(OrderStatus.NOT_ACTIVE);
-
-            Order savedOrder = orderRepository.save(order);
-
-            return CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Order Created Successfully")
-                    .data(Map.of("orderId", savedOrder.getId().toString()))
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("User not found with ID: " + orderDTO.getUserId())
-                    .build();
+    protected ResponseEntity<Object> saveNewOrderFromDTO(OrderDTO orderDTO) {
+        if (orderDTO == null) {
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.BAD_REQUEST.value(),
+                    "message", "OrderDTO cannot be null."
+            ), HttpStatus.BAD_REQUEST);
         }
+
+        Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
+
+        // Check if the user exists
+        if (!optionalUser.isPresent()) {
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.NOT_FOUND.value(),
+                    "message", "User not found with ID: " + orderDTO.getUserId()
+            ), HttpStatus.NOT_FOUND);
+        }
+
+        // Create a new order if the user exists
+        Order order = new Order();
+        updateOrderFromDTO(order, orderDTO);
+
+        User user = optionalUser.get();
+        order.setUser(user);
+        order.setOrderStatus(OrderStatus.NOT_ACTIVE);
+
+        Order savedOrder = orderRepository.save(order);
+
+        return new ResponseEntity<>(Map.of(
+                "status", HttpStatus.OK.value(),
+                "message", "Order created successfully",
+                "orderId", savedOrder.getId()
+        ), HttpStatus.OK);
     }
 
-    public CustomResponse updateOrderFromDTO(Order order, OrderDTO orderDTO) {
+    public ResponseEntity<Object> updateOrderFromDTO(Order order, OrderDTO orderDTO) {
         if (order == null) {
-            return CustomResponse.builder()
-                    .status(404)
-                    .message("Order not found.")
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.NOT_FOUND.value(),
+                    "message", "Order not found."
+            ), HttpStatus.NOT_FOUND);
         }
 
         try {
             if (orderDTO == null) {
-                return CustomResponse.builder()
-                        .status(400)
-                        .message("OrderDTO is null.")
-                        .build();
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.BAD_REQUEST.value(),
+                        "message", "OrderDTO is null."
+                ), HttpStatus.BAD_REQUEST);
             }
 
             if (orderDTO.getOrderName() == null || orderDTO.getFrom() == null || orderDTO.getTo() == null) {
-                return CustomResponse.builder()
-                        .status(400)
-                        .message("Missing required fields in OrderDTO.")
-                        .build();
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.BAD_REQUEST.value(),
+                        "message", "Missing required fields in OrderDTO."
+                ), HttpStatus.BAD_REQUEST);
             }
 
             order.setOrderName(orderDTO.getOrderName());
@@ -118,35 +154,35 @@ public class OrderService {
             order.setReceiverName(orderDTO.getReceiverName());
             order.setReceiverPhoneNumber(orderDTO.getReceiverPhoneNumber());
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Order updated successfully.")
-                    .data(order)
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.OK.value(),
+                    "message", "Order updated successfully.",
+                    "data", order
+            ), HttpStatus.OK);
 
         } catch (Exception e) {
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An error occurred while updating the order.")
-                    .data(e.getMessage())
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "message", "An error occurred while updating the order.",
+                    "data", e.getMessage()
+            ), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public CustomResponse updateSearchOrderDTOFromOrder(SearchOrderDTO searchOrderDTO, Order order) {
+    public ResponseEntity<Object> updateSearchOrderDTOFromOrder(SearchOrderDTO searchOrderDTO, Order order) {
         if (searchOrderDTO == null || order == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("SearchOrderDTO or Order is null.")
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.BAD_REQUEST.value(),
+                    "message", "SearchOrderDTO or Order is null."
+            ), HttpStatus.BAD_REQUEST);
         }
 
         try {
             if (order.getUser() == null || order.getUser().getId() == null) {
-                return CustomResponse.builder()
-                        .status(422)
-                        .message("User information is missing in Order.")
-                        .build();
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                        "message", "User information is missing in Order."
+                ), HttpStatus.UNPROCESSABLE_ENTITY);
             }
 
             searchOrderDTO.setId(order.getId());
@@ -165,28 +201,27 @@ public class OrderService {
             searchOrderDTO.setReceiverName(order.getReceiverName());
             searchOrderDTO.setReceiverPhoneNumber(order.getReceiverPhoneNumber());
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("SearchOrderDTO updated successfully.")
-                    .data(searchOrderDTO)
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.OK.value(),
+                    "message", "SearchOrderDTO updated successfully.",
+                    "data", searchOrderDTO
+            ), HttpStatus.OK);
 
         } catch (Exception ex) {
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An error occurred while updating SearchOrderDTO.")
-                    .data(ex.getMessage())
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "message", "An error occurred while updating SearchOrderDTO.",
+                    "data", ex.getMessage()
+            ), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-
-    public CustomResponse searchForOrder(String from, String to) {
+    public ResponseEntity<Object> searchForOrder(String from, String to) {
         if (from == null || to == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Origin and destination must not be null.")
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.BAD_REQUEST.value(),
+                    "message", "Origin and destination must not be null."
+            ), HttpStatus.BAD_REQUEST);
         }
 
         try {
@@ -194,56 +229,69 @@ public class OrderService {
             List<Order> existingOrders = orderRepository.findByFromAndTo(from, to);
 
             if (existingOrders == null || existingOrders.isEmpty()) {
-                return CustomResponse.builder()
-                        .status(404)
-                        .message("No orders found between " + from + " and " + to + ".")
-                        .build();
+                return new ResponseEntity<>(Map.of(
+                        "status", HttpStatus.NOT_FOUND.value(),
+                        "message", "No orders found between " + from + " and " + to + "."
+                ), HttpStatus.NOT_FOUND);
             }
 
             for (Order order : existingOrders) {
                 SearchOrderDTO searchOrderDTO = new SearchOrderDTO();
-                CustomResponse response = updateSearchOrderDTOFromOrder(searchOrderDTO, order);
+                ResponseEntity<Object> response = updateSearchOrderDTOFromOrder(searchOrderDTO, order);
 
-                if (response.getStatus() == 200) {
-                    searchOrderDTOS.add((SearchOrderDTO) response.getData());
-                } else {
+                if (response.getStatusCode() != HttpStatus.OK) {
                     return response;
                 }
+
+                Map<String, Object> responseBody = (Map<String, Object>) response.getBody();
+                SearchOrderDTO updatedSearchOrderDTO = (SearchOrderDTO) responseBody.get("data");
+                searchOrderDTOS.add(updatedSearchOrderDTO);
             }
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Search results successfully retrieved.")
-                    .data(searchOrderDTOS)
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.OK.value(),
+                    "message", "Search results successfully retrieved.",
+                    "data", searchOrderDTOS
+            ), HttpStatus.OK);
 
         } catch (Exception ex) {
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An error occurred during the search.")
-                    .data(ex.getMessage())
-                    .build();
+            return new ResponseEntity<>(Map.of(
+                    "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "message", "An error occurred during the search.",
+                    "data", ex.getMessage()
+            ), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    public ResponseEntity<?> findAllByUserId(Integer userId) {
+        if (userId == null || userId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid user ID. User ID must be a positive integer."
+                    )
+            );
+        }
 
-
-    public CustomResponse findAllByUserId(Integer userId) {
         List<Order> orders = orderRepository.findAllByUserId(userId);
-        if (!orders.isEmpty()) {
-            return CustomResponse.builder()
-                    .status(200) // Success status
-                    .message("Orders found")
-                    .data(orders)
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("No orders found for the user")
-                    .build();
-        }
-    }
 
+        if (orders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "No orders found for the user."
+                    )
+            );
+        }
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Orders found.",
+                        "data", orders
+                )
+        );
+    }
 
     public ResponseEntity<Object> findNotActiveOrders(Integer userId) {
         if (userId == null || userId <= 0) {
@@ -268,62 +316,86 @@ public class OrderService {
         );
     }
 
-
-
-    public CustomResponse assignExistingOrder(Integer orderId, Integer tripId) {
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-        if (optionalOrder.isPresent() && optionalTrip.isPresent()) {
-
-            Order existingOrder = optionalOrder.get();
-            Trip existingTrip = optionalTrip.get();
-            User existingCommuter = optionalTrip.get().getUser();
-
-            if (existingOrder.getCommuter() != null){
-                return CustomResponse.builder()
-                        .status(400) // You can set appropriate status codes
-                        .message("Order already assigned")
-                        .build();
-            } else {
-
-                if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)){
-
-                    existingOrder.setCommuter(existingCommuter);
-                    existingOrder.setTrip(existingTrip);
-                    orderRepository.save(existingOrder);
-
-                    CustomResponse.builder()
-                            .status(200)
-                            .message("Order assigned successfully, waiting for commuter to agree")
-                            .build();
-                }
-                return CustomResponse.builder()
-                        .status(400)
-                        .message("Order status must be NOT_ACTIVE to assign it")
-                        .build();
-            }
-        } else return CustomResponse.builder()
-                .status(404)
-                .message("Error: User ID or Order ID not found")
-                .build();
-    }
-
-    public CustomResponse createOrderAndAssignIt(OrderDTO orderDTO, Integer tripId) {
-        Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
-        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-
-        if (optionalUser.isEmpty()) {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("User ID not found")
-                    .build();
+    public ResponseEntity<?> assignExistingOrder(Integer orderId, Integer tripId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID."
+                    )
+            );
         }
 
+        if (tripId == null || tripId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid trip ID."
+                    )
+            );
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
+
+        if (optionalOrder.isPresent() && optionalTrip.isPresent()) {
+            Order existingOrder = optionalOrder.get();
+            Trip existingTrip = optionalTrip.get();
+            User existingCommuter = existingTrip.getUser();
+
+            if (existingOrder.getCommuter() != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        Map.of(
+                                "status", HttpStatus.BAD_REQUEST.value(),
+                                "message", "Order already assigned"
+                        )
+                );
+            }
+
+            if (existingOrder.getOrderStatus().equals(OrderStatus.NOT_ACTIVE)) {
+                existingOrder.setCommuter(existingCommuter);
+                existingOrder.setTrip(existingTrip);
+                orderRepository.save(existingOrder);
+
+                return ResponseEntity.ok(
+                        Map.of(
+                                "status", HttpStatus.OK.value(),
+                                "message", "Order assigned successfully, waiting for commuter to agree"
+                        )
+                );
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        Map.of(
+                                "status", HttpStatus.BAD_REQUEST.value(),
+                                "message", "Order status must be NOT_ACTIVE to assign it"
+                        )
+                );
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Error: User ID or Order ID not found"
+                    )
+            );
+        }
+    }
+
+    public ResponseEntity<Object> createOrderAndAssignIt(OrderDTO orderDTO, Integer tripId) {
+        Optional<User> optionalUser = userRepository.findById(orderDTO.getUserId());
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>(
+                    Map.of("status", 404, "message", "User ID not found"),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
+        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
         if (optionalTrip.isEmpty()) {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Commuter ID not found")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", 404, "message", "Trip ID not found"),
+                    HttpStatus.NOT_FOUND
+            );
         }
 
         Order order = new Order();
@@ -333,213 +405,340 @@ public class OrderService {
         order.setUser(user);
 
         Trip trip = optionalTrip.get();
-        User commuter =trip.getUser();
-
+        User commuter = trip.getUser();
         order.setCommuter(commuter);
         order.setTrip(trip);
 
         order.setOrderStatus(OrderStatus.NOT_ACTIVE);
 
         orderRepository.save(order);
-        return CustomResponse.builder()
-                .status(200) // Success status
-                .message("Order saved and assigned successfully, waiting for the commuter to agree")
-                .build();
+
+        return new ResponseEntity<>(
+                Map.of("status", 200, "message", "Order saved and assigned successfully, waiting for the commuter to agree"),
+                HttpStatus.OK
+        );
     }
 
     //the userId in the params refer to user or commuter IDs (who make the cancle)
-    public CustomResponse cancleOrder(Integer orderId, Integer cancelerId) {
+    public ResponseEntity<?> cancelOrder(Integer orderId, Integer cancelerId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID."
+                    )
+            );
+        }
+
+        if (cancelerId == null || cancelerId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid canceler ID."
+                    )
+            );
+        }
+
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found"
+                    )
+            );
+        }
 
-            Order existingOrder = optionalOrder.get();
-            OrderStatus orderStatus = existingOrder.getOrderStatus();
+        Order existingOrder = optionalOrder.get();
+        OrderStatus orderStatus = existingOrder.getOrderStatus();
 
-            //Who is the cancler
-            Role cancler = null;
+        // Who is the canceller
+        Role canceller = null;
 
-            //orderOwner
-            User orderOwner = existingOrder.getUser();
+        // Order owner
+        User orderOwner = existingOrder.getUser();
 
-            //This for who will cancle the order may be user or commuter
-            User canclerUser = userRepository.findById(cancelerId).get();
+        // This is for who will cancel the order, may be user or commuter
+        Optional<User> optionalCancellerUser = userRepository.findById(cancelerId);
+        if (optionalCancellerUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Canceller not found"
+                    )
+            );
+        }
+        User cancellerUser = optionalCancellerUser.get();
 
-            //This is for the commuter that delivers the order (commuter only)
-            User commuter = existingOrder.getCommuter();
+        // This is for the commuter that delivers the order (commuter only)
+        User commuter = existingOrder.getCommuter();
 
-            User admin = userRepository.findById(1).get();
+        User admin = userRepository.findById(1).orElse(null);
+        if (admin == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    Map.of(
+                            "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            "message", "Admin user not found"
+                    )
+            );
+        }
 
-            if (canclerUser.equals(orderOwner)){
-                cancler = Role.USER;
-            } else if (canclerUser.equals(commuter)) {
-                cancler = Role.COMMUTER;
-            }
+        if (cancellerUser.equals(orderOwner)) {
+            canceller = Role.USER;
+        } else if (cancellerUser.equals(commuter)) {
+            canceller = Role.COMMUTER;
+        }
 
-            //user amount
-            Long orderOwnerAmount = orderOwner.getAmount();
+        // Amount adjustments
+        Long orderOwnerAmount = orderOwner.getAmount();
+        Long commuterAmount = commuter != null ? commuter.getAmount() : 0L;
+        Long adminAmount = admin.getAmount();
+        Long orderPrice = (long) existingOrder.getExpectedPrice();
 
-            //Who carries the order
-            Long commuterAmount = commuter.getAmount();
-
-            Long adminAmount = admin.getAmount();
-
-            Long orderPrice = (long)existingOrder.getExpectedPrice();
-
-            //return full (not full pending comes after confirmed(treated like confirmed))
-            if (orderStatus.equals(OrderStatus.PENDING)) {
-                if (cancler.equals(Role.USER)){
-                    orderOwnerAmount -= (orderPrice * 10 / 100);
-                    commuterAmount += (orderPrice * 10 / 100);
-
-                } else if (cancler.equals(Role.COMMUTER)) {
-                    commuterAmount -= (orderPrice * 10 / 100);
-                    orderOwnerAmount += (orderPrice * 10 / 100);
-                }
+        // Handle order cancellation based on status
+        if (orderStatus.equals(OrderStatus.PENDING)) {
+            if (canceller.equals(Role.USER)) {
+                orderOwnerAmount -= (orderPrice * 10 / 100);
+                commuterAmount += (orderPrice * 10 / 100);
+            } else if (canceller.equals(Role.COMMUTER)) {
+                commuterAmount -= (orderPrice * 10 / 100);
+                orderOwnerAmount += (orderPrice * 10 / 100);
             }
             // user pay 200 %
             // commuter pay 10%
-            else if (orderStatus.equals(OrderStatus.IN_PROGRESS)) {
-                Integer commuterCancledDelivers = 0;
-                commuterCancledDelivers = commuter.getCancelDelivers();
-                commuterCancledDelivers += 1;
-                commuter.setCancelDelivers(commuterCancledDelivers);
+        } else if (orderStatus.equals(OrderStatus.IN_PROGRESS)) {
+            if (commuter != null) {
+                commuter.setCancelDelivers(commuter.getCancelDelivers() + 1);
+            }
 
-                if (cancler.equals(Role.USER)){
-                    System.out.println("in_progess");
-                    orderOwnerAmount -= (orderPrice * 2);
-
+            if (canceller.equals(Role.USER)) {
+                orderOwnerAmount -= (orderPrice * 2);
                     //TODO : make a relation that said that the commuter have x money for order x to give it to him when he return the order
-                    adminAmount +=(orderPrice * 2);
-                } else if (cancler.equals(Role.COMMUTER)) {
-                    commuterAmount -= (orderPrice * 10 / 100);
-
-                    PromoCode promoCode = new PromoCode();
-                    promoCode.setUser(orderOwner);
-                    promocodeService.generatePromoCode(orderId);
-                    promoCode.setPromocodeStatus(PromocodeStatus.ACTIVE);
-                    promoCode.setDiscountAmount(orderPrice * 10 / 100);
-                }
+                adminAmount += (orderPrice * 2);
+            } else if (canceller.equals(Role.COMMUTER)) {
+                commuterAmount -= (orderPrice * 10 / 100);
+                PromoCode promoCode = new PromoCode();
+                promoCode.setUser(orderOwner);
+                promocodeService.generatePromoCode(orderId);
+                promoCode.setPromocodeStatus(PromocodeStatus.ACTIVE);
+                promoCode.setDiscountAmount(orderPrice * 10 / 100);
             }
             // The other will take 10%
-            else if (orderStatus.equals(OrderStatus.CONFIRMED)) {
-                if (cancler.equals(Role.USER)){
-                    orderOwnerAmount -= (orderPrice * 10 / 100);
-                    commuterAmount += (orderPrice * 10 / 100);
-                } else if (cancler.equals(Role.COMMUTER)) {
-                    commuterAmount -= (orderPrice * 10 / 100);
-                    orderOwnerAmount += (orderPrice * 10 / 100);
-                }
+        } else if (orderStatus.equals(OrderStatus.CONFIRMED)) {
+            if (canceller.equals(Role.USER)) {
+                orderOwnerAmount -= (orderPrice * 10 / 100);
+                commuterAmount += (orderPrice * 10 / 100);
+            } else if (canceller.equals(Role.COMMUTER)) {
+                commuterAmount -= (orderPrice * 10 / 100);
+                orderOwnerAmount += (orderPrice * 10 / 100);
             }
-
-            orderOwner.setAmount(orderOwnerAmount);
-            commuter.setAmount(commuterAmount);
-            admin.setAmount(adminAmount);
-            existingOrder.setOrderStatus(OrderStatus.FAILED);
-            userRepository.save(orderOwner);
-            userRepository.save(commuter);
-            userRepository.save(admin);
-            orderRepository.save(existingOrder);
-
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Order canceled successfully")
-                    .build();
-
-        }else return CustomResponse.builder()
-                .status(404) // Not Found status
-                .message("Order ID not found" )
-                .build();
-    }
-
-    public CustomResponse findCommuterOrders(Integer commuterId) {
-        Optional<User> optionalCommuter = userRepository.findById(commuterId);
-        if (optionalCommuter.isPresent()){
-            List<Order> orderList = orderRepository.findCommuterOrders(commuterId);
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Order canceled successfully")
-                    .data(orderList)
-                    .build();
-        }else return CustomResponse.builder()
-                .status(404) // Not Found status
-                .message("Commuter ID not found" )
-                .build();
-    }
-
-
-
-    public CustomResponse negotiate(NegotiationDTO negotiationDTO) {
-        Optional<Order> optionalOrder = orderRepository.findById(negotiationDTO.getOrderId());
-        if (optionalOrder.isPresent()) {
-            Order existingOrder = optionalOrder.get();
-            existingOrder.setNegotiationPrice(negotiationDTO.getNewPrice());
-            orderRepository.save(existingOrder);
-            return CustomResponse.builder()
-                    .status(200) // Success status
-                    .message("Negotiation successful. We will inform the customer about the new price and await their response.")
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order not found")
-                    .build();
         }
 
+        // Update amounts and save entities
+        orderOwner.setAmount(orderOwnerAmount);
+        if (commuter != null) commuter.setAmount(commuterAmount);
+        admin.setAmount(adminAmount);
+        existingOrder.setOrderStatus(OrderStatus.FAILED);
+
+        userRepository.save(orderOwner);
+        if (commuter != null) userRepository.save(commuter);
+        userRepository.save(admin);
+        orderRepository.save(existingOrder);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Order canceled successfully"
+                )
+        );
     }
 
-    public CustomResponse pickOrder(OrderPickDTO orderPickDTO) {
+    public ResponseEntity<?> findCommuterOrders(Integer commuterId) {
+        if (commuterId == null || commuterId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid commuter ID"
+                    )
+            );
+        }
+
+        Optional<User> optionalCommuter = userRepository.findById(commuterId);
+        if (!optionalCommuter.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Commuter ID not found"
+                    )
+            );
+        }
+
+        List<Order> orderList = orderRepository.findCommuterOrders(commuterId);
+        if (orderList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(
+                    Map.of(
+                            "status", HttpStatus.NO_CONTENT.value(),
+                            "message", "No orders found for this commuter"
+                    )
+            );
+        }
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Orders retrieved successfully",
+                        "data", orderList
+                )
+        );
+    }
+
+    public ResponseEntity<?> negotiate(NegotiationDTO negotiationDTO) {
+        if (negotiationDTO == null || negotiationDTO.getOrderId() == null || negotiationDTO.getNewPrice() == null) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid negotiation details. Order ID and new price are required."
+                    )
+            );
+        }
+
+        if (negotiationDTO.getNewPrice() <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid price. Price must be greater than zero."
+                    )
+            );
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(negotiationDTO.getOrderId());
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found"
+                    )
+            );
+        }
+
+        Order existingOrder = optionalOrder.get();
+        existingOrder.setNegotiationPrice(negotiationDTO.getNewPrice());
+        orderRepository.save(existingOrder);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Negotiation successful. We will inform the customer about the new price and await their response."
+                )
+        );
+    }
+
+    public ResponseEntity<?> pickOrder(OrderPickDTO orderPickDTO) {
         Integer orderId = orderPickDTO.getOrderId();
         Integer commuterId = orderPickDTO.getCommuterId();
         double price = orderPickDTO.getApllicantPrice();
 
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        Optional<User> optionalCommuter = userRepository.findById(commuterId);
-
-        if (optionalOrder.isPresent()) {
-            Order existingOrder = optionalOrder.get();
-
-            if (optionalCommuter.isPresent()) {
-                User existingCommuter = optionalCommuter.get();
-                OrderApplicants orderApplicants = orderApplicantsRepository.findByOrderAndCommuter(existingOrder, existingCommuter);
-
-                if (orderApplicants == null) {
-                    OrderApplicants orderApplicant = new OrderApplicants();
-                    orderApplicant.setCommuter(existingCommuter);
-                    orderApplicant.setOrder(existingOrder);
-                    orderApplicant.setApllicantPrice(price);
-
-                    orderApplicantsRepository.save(orderApplicant);
-
-                    return CustomResponse.builder()
-                            .status(200) // Success status
-                            .message("Order picked successfully. We will inform you when the user accepts.")
-                            .build();
-                } else {
-                    return CustomResponse.builder()
-                            .status(400) // Bad Request status
-                            .message("You have already given an offer before. Please be patient until the user sees your order.")
-                            .build();
-                }
-            } else {
-                return CustomResponse.builder()
-                        .status(404) // Not Found status
-                        .message("Commuter does not exist")
-                        .build();
-            }
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order does not exist")
-                    .build();
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID."
+                    )
+            );
         }
+
+        if (commuterId == null || commuterId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid commuter ID."
+                    )
+            );
+        }
+
+        if (price <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Price must be greater than zero."
+                    )
+            );
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order does not exist."
+                    )
+            );
+        }
+
+        Order existingOrder = optionalOrder.get();
+
+        Optional<User> optionalCommuter = userRepository.findById(commuterId);
+        if (!optionalCommuter.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Commuter does not exist."
+                    )
+            );
+        }
+
+        User existingCommuter = optionalCommuter.get();
+
+        OrderApplicants orderApplicants = orderApplicantsRepository.findByOrderAndCommuter(existingOrder, existingCommuter);
+        if (orderApplicants != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "You have already given an offer before. Please be patient until the user sees your offer."
+                    )
+            );
+        }
+
+        OrderApplicants orderApplicant = new OrderApplicants();
+        orderApplicant.setCommuter(existingCommuter);
+        orderApplicant.setOrder(existingOrder);
+        orderApplicant.setApllicantPrice(price);
+
+        orderApplicantsRepository.save(orderApplicant);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Order picked successfully. We will inform you when the user accepts."
+                )
+        );
     }
 
+    public ResponseEntity<?> getOrderApplicants(Integer orderId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID."
+                    )
+            );
+        }
 
-    public CustomResponse getOrderApplicants(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
             Order existingOrder = optionalOrder.get();
+
             List<OrderApplicants> orderApplicationList = orderApplicantsRepository.findByOrder(existingOrder);
+
+            if (orderApplicationList == null || orderApplicationList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        Map.of(
+                                "status", HttpStatus.NOT_FOUND.value(),
+                                "message", "No applicants found for this order."
+                        )
+                );
+            }
+
             List<ApplicantDTO> applicantDTOList = new ArrayList<>();
             for (OrderApplicants orderApplicant : orderApplicationList) {
                 ApplicantDTO applicantDTO = new ApplicantDTO();
@@ -549,47 +748,111 @@ public class OrderService {
                 applicantDTO.setCommuterId(orderApplicant.getCommuter().getId());
                 applicantDTOList.add(applicantDTO);
             }
-            return CustomResponse.builder()
-                    .status(200) // Success status
-                    .message("Applicants found for the order")
-                    .data(applicantDTOList) // You can include relevant data
-                    .build();
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "status", HttpStatus.OK.value(),
+                            "message", "Applicants found for the order",
+                            "data", applicantDTOList
+                    )
+            );
         } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order not found")
-                    .build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found"
+                    )
+            );
         }
     }
 
-
-    public CustomResponse confirmPickingUp(ConfirmPickingUpDTO confirmPickingUpDTO) {
+    public ResponseEntity<?> confirmPickingUp(ConfirmPickingUpDTO confirmPickingUpDTO) {
         double actualPrice = confirmPickingUpDTO.getPrice();
         double appPenefits = actualPrice * 7 / 100;
         double commuterMoney = actualPrice - appPenefits;
         Integer orderId = confirmPickingUpDTO.getOrderId();
         Integer commuterId = confirmPickingUpDTO.getCommuterId();
 
-        // Retrieve the commuter
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID."
+                    )
+            );
+        }
+
+        if (commuterId == null || commuterId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid commuter ID."
+                    )
+            );
+        }
+
         Optional<User> optionalCommuter = userRepository.findById(commuterId);
         if (optionalCommuter.isEmpty()) {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Commuter not found")
-                    .build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Commuter not found"
+                    )
+            );
         }
         User commuter = optionalCommuter.get();
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found"
+                    )
+            );
+        }
+        Order existingOrder = optionalOrder.get();
+        User user = existingOrder.getUser();
 
         PaymentMethod paymentMethod = confirmPickingUpDTO.getPaymentMethod();
         String promoCode = confirmPickingUpDTO.getPromoCode();
 
-        Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order existingOrder = optionalOrder.get();
-            User user = existingOrder.getUser();
-            if (paymentMethod.equals(PaymentMethod.WALLET)) {
-                if (promoCode == null) {
-                    // Decrease user amount and increase admin amount
+        if (paymentMethod.equals(PaymentMethod.WALLET)) {
+            if (promoCode == null) {
+                // Decrease user amount and increase admin amount
+                Long userAmount = user.getAmount();
+                userAmount -= (long) actualPrice;
+                user.setAmount(userAmount);
+
+                User admin = userRepository.findById(1).orElse(null);
+                if (admin != null) {
+                    Long adminAmount = admin.getAmount();
+                    adminAmount += (long) actualPrice;
+                    admin.setAmount(adminAmount);
+
+                    existingOrder.setOrderStatus(OrderStatus.PENDING);
+                    Integer commuterTotalDelivers = commuter.getTotalDelivers();
+                    commuterTotalDelivers++;
+                    commuter.setTotalDelivers(commuterTotalDelivers);
+
+                    userRepository.save(admin);
+                    userRepository.save(user);
+                    existingOrder.setCommuter(commuter);
+                    orderRepository.save(existingOrder);
+
+                    return ResponseEntity.ok(
+                            Map.of(
+                                    "status", HttpStatus.OK.value(),
+                                    "message", "Order assigned successfully. Proceed to pick it up."
+                            )
+                    );
+                }
+            } else if (promocodeService.checkPromoCode(promoCode)) {
+                PromoCode promoCode1 = promoCodeRepository.findByPromoCode(promoCode);
+                if (promoCode1 != null && promoCode1.getUser().equals(user)
+                        && promoCode1.getPromocodeStatus().equals(PromocodeStatus.ACTIVE)) {
+                    actualPrice -= promoCode1.getDiscountAmount();
+
                     Long userAmount = user.getAmount();
                     userAmount -= (long) actualPrice;
                     user.setAmount(userAmount);
@@ -601,131 +864,163 @@ public class OrderService {
                         admin.setAmount(adminAmount);
 
                         existingOrder.setOrderStatus(OrderStatus.PENDING);
-                        Integer commuterTotalDelivers = commuter.getTotalDelivers();
-                        commuterTotalDelivers++;
-                        commuter.setTotalDelivers(commuterTotalDelivers);
+                        promoCode1.setPromocodeStatus(PromocodeStatus.NON_ACTIVE);
 
                         userRepository.save(admin);
                         userRepository.save(user);
                         existingOrder.setCommuter(commuter);
                         orderRepository.save(existingOrder);
 
-                        return CustomResponse.builder()
-                                .status(200) // Success status
-                                .message("Order assigned successfully. Proceed to pick it up.")
-                                .build();
+                        return ResponseEntity.ok(
+                                Map.of(
+                                        "status", HttpStatus.OK.value(),
+                                        "message", "Order assigned successfully. Proceed to pick it up."
+                                )
+                        );
                     }
-                } else if (promocodeService.checkPromoCode(promoCode)) {
-                    PromoCode promoCode1 = promoCodeRepository.findByPromoCode(promoCode);
-                    if (promoCode1 != null && promoCode1.getUser().equals(user)
-                            && promoCode1.getPromocodeStatus().equals(PromocodeStatus.ACTIVE)) {
-                        actualPrice -= promoCode1.getDiscountAmount();
-
-                        Long userAmount = user.getAmount();
-                        userAmount -= (long) actualPrice;
-                        user.setAmount(userAmount);
-
-                        User admin = userRepository.findById(1).orElse(null);
-                        if (admin != null) {
-                            Long adminAmount = admin.getAmount();
-                            adminAmount += (long) actualPrice;
-                            admin.setAmount(adminAmount);
-
-                            existingOrder.setOrderStatus(OrderStatus.PENDING);
-                            promoCode1.setPromocodeStatus(PromocodeStatus.NON_ACTIVE);
-
-                            userRepository.save(admin);
-                            userRepository.save(user);
-                            existingOrder.setCommuter(commuter);
-                            orderRepository.save(existingOrder);
-
-                            return CustomResponse.builder()
-                                    .status(200) // Success status
-                                    .message("Order assigned successfully. Proceed to pick it up.")
-                                    .build();
-                        }
-                    } else {
-                        return CustomResponse.builder()
-                                .status(400) // Bad Request status
-                                .message("This promo code does not belong to this user or is not active.")
-                                .build();
-                    }
+                } else {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                            Map.of(
+                                    "status", HttpStatus.BAD_REQUEST.value(),
+                                    "message", "This promo code does not belong to this user or is not active."
+                            )
+                    );
                 }
-            } else if (paymentMethod.equals(PaymentMethod.CASH)) {
-                existingOrder.setCommuter(commuter);
-                existingOrder.setOrderStatus(OrderStatus.PENDING);
-                orderRepository.save(existingOrder);
-
-                return CustomResponse.builder()
-                        .status(200) // Success status
-                        .message("Order assigned successfully. Proceed to pick it up.")
-                        .build();
             }
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order not found")
-                    .build();
+        }
+        // Handle payment method - CASH
+        else if (paymentMethod.equals(PaymentMethod.CASH)) {
+            existingOrder.setCommuter(commuter);
+            existingOrder.setOrderStatus(OrderStatus.PENDING);
+            orderRepository.save(existingOrder);
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "status", HttpStatus.OK.value(),
+                            "message", "Order assigned successfully. Proceed to pick it up."
+                    )
+            );
         }
 
-        return CustomResponse.builder()
-                .status(404) // Not Found status
-                .message("Error: Commuter or order not found.")
-                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                Map.of(
+                        "status", HttpStatus.BAD_REQUEST.value(),
+                        "message", "Invalid payment method."
+                )
+        );
     }
 
-    public CustomResponse findById(Integer orderId) {
+    public ResponseEntity<?> findById(Integer orderId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID. Order ID must be a positive integer."
+                    )
+            );
+        }
+
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order order = optionalOrder.get();
-            return CustomResponse.builder()
-                    .status(200) // Success status
-                    .message("Order found")
-                    .data(order)
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order not found")
-                    .build();
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found."
+                    )
+            );
         }
+
+        Order order = optionalOrder.get();
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Order found.",
+                        "data", order
+                )
+        );
     }
 
+    public ResponseEntity<?> declineOrder(Integer orderId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID. Order ID must be a positive integer."
+                    )
+            );
+        }
 
-    public CustomResponse declineOrder(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order order = optionalOrder.get();
-            order.setCommuter(null);
-            orderRepository.save(order);
-            return CustomResponse.builder()
-                    .status(200) // Success status
-                    .message("Order Declined Successfully")
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order not found")
-                    .build();
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found"
+                    )
+            );
         }
+
+        Order order = optionalOrder.get();
+        if (order.getCommuter() == null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                    Map.of(
+                            "status", HttpStatus.CONFLICT.value(),
+                            "message", "Order has no assigned commuter to decline."
+                    )
+            );
+        }
+
+        order.setCommuter(null);
+        orderRepository.save(order);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Order declined successfully."
+                )
+        );
     }
 
+    public ResponseEntity<?> confirmOrder(Integer orderId) {
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest().body(
+                    Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value(),
+                            "message", "Invalid order ID. Order ID must be a positive integer."
+                    )
+            );
+        }
 
-    public CustomResponse confirmOrder(Integer orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-        if (optionalOrder.isPresent()) {
-            Order order = optionalOrder.get();
-            order.setOrderStatus(OrderStatus.PENDING);
-            orderRepository.save(order);
-            return CustomResponse.builder()
-                    .status(200) // Success status
-                    .message("Order confirmed successfully, go and pick it up")
-                    .build();
-        } else {
-            return CustomResponse.builder()
-                    .status(404) // Not Found status
-                    .message("Order not found")
-                    .build();
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of(
+                            "status", HttpStatus.NOT_FOUND.value(),
+                            "message", "Order not found."
+                    )
+            );
         }
+
+        Order order = optionalOrder.get();
+
+        if (order.getOrderStatus() == OrderStatus.PENDING || order.getOrderStatus() == OrderStatus.CONFIRMED) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                    Map.of(
+                            "status", HttpStatus.CONFLICT.value(),
+                            "message", "Order is already confirmed or completed."
+                    )
+            );
+        }
+
+        order.setOrderStatus(OrderStatus.PENDING);
+        orderRepository.save(order);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Order confirmed successfully. Go and pick it up."
+                )
+        );
     }
+
 }
