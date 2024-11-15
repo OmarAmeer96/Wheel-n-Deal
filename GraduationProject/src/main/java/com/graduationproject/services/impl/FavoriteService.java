@@ -1,6 +1,5 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.NormalProfileDTO;
 import com.graduationproject.entities.Favorite;
 import com.graduationproject.entities.User;

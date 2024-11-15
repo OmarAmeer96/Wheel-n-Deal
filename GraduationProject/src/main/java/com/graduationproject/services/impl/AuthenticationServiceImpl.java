@@ -43,7 +43,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     @Qualifier("JWTServiceImpl")
     private JWTService jwtService;
-
     @Autowired
     private Environment env;
 
@@ -65,6 +64,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return customer.getId();
     }
+
     public ResponseEntity<?> signup(SignUpRequest signUpRequest, BindingResult bindingResult) {
         if (!signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword())) {
             return ResponseEntity.badRequest().body("Passwords do not match.");
@@ -116,6 +116,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .body("An error occurred while processing the signup request: " + e.getMessage());
         }
     }
+
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -126,6 +127,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
         tokenRepository.save(token);
     }
+
     public ResponseEntity<?> signin(SignInRequest signinRequest) {
         if (signinRequest.getUsername() == null || signinRequest.getUsername().isEmpty()) {
             return ResponseEntity.badRequest().body("Username is required.");
@@ -166,6 +168,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .body(Map.of("message", "An error occurred during authentication: " + e.getMessage()));
         }
     }
+
     public void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -176,6 +179,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+
     public ResponseEntity<?> refreshToken(RefreshTokenRequest refreshTokenRequest) {
         try {
             String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());

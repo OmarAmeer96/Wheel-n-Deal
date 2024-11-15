@@ -16,8 +16,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Data
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CodeService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
@@ -151,22 +151,22 @@ public class CodeService {
     }
 
     public ResponseEntity<?> getSenderCode(Integer orderId) {
-    if (orderId == null || orderId <= 0) {
-        return ResponseEntity.badRequest()
-                .body(Map.of("message", "Invalid order ID provided."));
+        if (orderId == null || orderId <= 0) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Invalid order ID provided."));
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "Order not found with ID: " + orderId));
+        }
+
+        String senderCode = optionalOrder.get().getSenderCode();
+
+        return ResponseEntity.ok(Map.of("senderCode", senderCode));
     }
-
-    Optional<Order> optionalOrder = orderRepository.findById(orderId);
-
-    if (optionalOrder.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("message", "Order not found with ID: " + orderId));
-    }
-
-    String senderCode = optionalOrder.get().getSenderCode();
-
-    return ResponseEntity.ok(Map.of("senderCode", senderCode));
-}
 
     public ResponseEntity<?> getReceiverCode(Integer orderId) {
         if (orderId == null || orderId <= 0) {
