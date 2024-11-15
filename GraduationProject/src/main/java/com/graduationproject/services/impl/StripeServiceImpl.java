@@ -1,6 +1,5 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.stripePaymentDTOs.ChargeUserDTO;
 import com.graduationproject.entities.StripePaymentEntity;
 import com.graduationproject.entities.User;
@@ -12,6 +11,8 @@ import com.stripe.model.*;
 import com.stripe.param.PaymentIntentCreateParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,27 +29,27 @@ public class StripeServiceImpl {
     @Autowired
     private Environment env;
 
-    public CustomResponse chargeUser(ChargeUserDTO chargeUserDTO) {
+    public ResponseEntity<Object> chargeUser(ChargeUserDTO chargeUserDTO) {
         if (chargeUserDTO == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("ChargeUserDTO cannot be null.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "ChargeUserDTO cannot be null."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         if (chargeUserDTO.getAmount() == null || chargeUserDTO.getStripeUserId() == null) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Amount and Stripe User ID must be provided.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Amount and Stripe User ID must be provided."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         String stripeApiKey = env.getProperty("stripe.api.secretKey");
         if (stripeApiKey == null) {
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("Stripe API key is not configured.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "Stripe API key is not configured."),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
 
         try {
@@ -56,32 +57,29 @@ public class StripeServiceImpl {
 
             Long amountInCents = chargeUserDTO.getAmount() * 100;
 
-            PaymentIntentCreateParams params =
-                    PaymentIntentCreateParams.builder()
-                            .setAmount(amountInCents)
-                            .setCurrency("EGP")
-                            .setConfirm(true)
-                            .setPaymentMethod("pm_card_visa")
-                            .setAutomaticPaymentMethods(
-                                    PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
-                                            .setEnabled(true)
-                                            .setAllowRedirects(
-                                                    PaymentIntentCreateParams.AutomaticPaymentMethods.AllowRedirects.NEVER
-                                            )
-                                            .build()
-                            )
-                            .setCustomer(chargeUserDTO.getStripeUserId())
-                            .setSetupFutureUsage(PaymentIntentCreateParams.SetupFutureUsage.OFF_SESSION)
-                            .build();
+            PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                    .setAmount(amountInCents)
+                    .setCurrency("EGP")
+                    .setConfirm(true)
+                    .setPaymentMethod("pm_card_visa")
+                    .setAutomaticPaymentMethods(
+                            PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
+                                    .setEnabled(true)
+                                    .setAllowRedirects(PaymentIntentCreateParams.AutomaticPaymentMethods.AllowRedirects.NEVER)
+                                    .build()
+                    )
+                    .setCustomer(chargeUserDTO.getStripeUserId())
+                    .setSetupFutureUsage(PaymentIntentCreateParams.SetupFutureUsage.OFF_SESSION)
+                    .build();
 
             PaymentIntent paymentIntent = PaymentIntent.create(params);
 
             User customer = userRepository.findByStripeId(chargeUserDTO.getStripeUserId());
             if (customer == null) {
-                return CustomResponse.builder()
-                        .status(404)
-                        .message("User with Stripe ID " + chargeUserDTO.getStripeUserId() + " not found.")
-                        .build();
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "User with Stripe ID " + chargeUserDTO.getStripeUserId() + " not found."),
+                        HttpStatus.NOT_FOUND
+                );
             }
 
             Long newAmount = customer.getAmount() + chargeUserDTO.getAmount();
@@ -94,42 +92,40 @@ public class StripeServiceImpl {
             payment.setStripeUserId(chargeUserDTO.getStripeUserId());
             paymentRepository.save(payment);
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Charge completed successfully.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.OK.value(), "message", "Charge completed successfully."),
+                    HttpStatus.OK
+            );
 
         } catch (StripeException e) {
             e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("Stripe error: " + e.getMessage())
-                    .data(e.getMessage())
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "Stripe error: " + e.getMessage(), "data", e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         } catch (Exception e) {
             e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An error occurred while processing the charge.")
-                    .data(e.getMessage())
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "An error occurred while processing the charge.", "data", e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
-    public CustomResponse getAllUserCharges(String stripeUserId) {
+    public ResponseEntity<Object> getAllUserCharges(String stripeUserId) {
         if (stripeUserId == null || stripeUserId.isBlank()) {
-            return CustomResponse.builder()
-                    .status(400)
-                    .message("Stripe User ID must be provided.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Stripe User ID must be provided."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
         String stripeApiKey = env.getProperty("stripe.api.secretKey");
         if (stripeApiKey == null) {
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("Stripe API key is not configured.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "Stripe API key is not configured."),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
 
         try {
@@ -141,32 +137,30 @@ public class StripeServiceImpl {
             ChargeCollection charges = Charge.list(params);
 
             if (charges.getData().isEmpty()) {
-                return CustomResponse.builder()
-                        .status(404)
-                        .message("No charges found for the specified Stripe User ID.")
-                        .build();
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "No charges found for the specified Stripe User ID."),
+                        HttpStatus.NOT_FOUND
+                );
             }
 
-            return CustomResponse.builder()
-                    .status(200)
-                    .message("Charges retrieved successfully.")
-                    .data(charges.getData())
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.OK.value(), "message", "Charges retrieved successfully.", "data", charges.getData()),
+                    HttpStatus.OK
+            );
 
         } catch (StripeException e) {
             e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("Stripe error: " + e.getMessage())
-                    .data(e.getMessage())
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "Stripe error: " + e.getMessage(), "data", e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         } catch (Exception e) {
             e.printStackTrace();
-            return CustomResponse.builder()
-                    .status(500)
-                    .message("An unexpected error occurred while retrieving charges.")
-                    .data(e.getMessage())
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "An unexpected error occurred while retrieving charges.", "data", e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
+
 }
