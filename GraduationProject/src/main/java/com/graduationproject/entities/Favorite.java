@@ -7,8 +7,8 @@ import lombok.*;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

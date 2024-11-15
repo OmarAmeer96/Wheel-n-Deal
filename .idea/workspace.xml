@@ -9,9 +9,7 @@
       <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/OTPController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/OTPController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/StripeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/UserProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/UserProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/StripeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/GraduationProject/src/main/java/com/graduationproject/services/impl/StripeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +170,7 @@
       <option name="presentableId" value="Default" />
       <updated>1702576465330</updated>
       <workItem from="1731615469877" duration="9897000" />
-      <workItem from="1731674085654" duration="10761000" />
+      <workItem from="1731674085654" duration="12751000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -310,7 +308,31 @@
       <option name="project" value="LOCAL" />
       <updated>1731685244355</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update responses">
+      <option name="closed" value="true" />
+      <created>1731687458752</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1731687458752</updated>
+    </task>
+    <task id="LOCAL-00019" summary="updates">
+      <option name="closed" value="true" />
+      <created>1731688364940</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1731688364940</updated>
+    </task>
+    <task id="LOCAL-00020" summary="updates">
+      <option name="closed" value="true" />
+      <created>1731688459934</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1731688459934</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

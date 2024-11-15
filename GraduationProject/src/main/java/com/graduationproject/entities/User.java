@@ -1,6 +1,5 @@
 package com.graduationproject.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -11,7 +10,6 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.testcontainers.shaded.org.checkerframework.common.aliasing.qual.Unique;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -21,7 +19,6 @@ import java.util.List;
 @Entity
 @Table(name="app_user")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -92,10 +89,6 @@ public class User implements UserDetails {
     @JsonManagedReference
     private List<Order> orders;
 
-    /**
-     * this is the assigned order after the sucess (the commuter can )
-    take multiple orders with him
-     */
     @OneToMany(mappedBy = "commuter",cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Order> assignedOrders;

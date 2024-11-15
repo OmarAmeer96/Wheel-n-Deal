@@ -1,7 +1,6 @@
 package com.graduationproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -13,10 +12,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

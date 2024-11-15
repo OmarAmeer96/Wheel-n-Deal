@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "visa_payments")
 public class StripePaymentEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,7 +2,6 @@ package com.graduationproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -119,5 +118,4 @@ public class Order {
     @JoinColumn(name = "trip_id")
     @JsonBackReference
     private Trip trip;
-
 }
