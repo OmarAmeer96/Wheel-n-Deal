@@ -1,6 +1,5 @@
 package com.graduationproject.services.impl;
 
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.TripDTO;
 import com.graduationproject.DTOs.TripSearchResultDTO;
 import com.graduationproject.entities.Order;
@@ -18,14 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-/**
- * Service class for managing trip-related operations.
- */
 @Data
 @Service
 @RequiredArgsConstructor
@@ -33,40 +26,52 @@ public class TripService {
 
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
-
     private final OrderService orderService;
 
-
-    public CustomResponse postOrUpdateTrip(TripDTO tripDTO) {
+    public ResponseEntity<Object> postOrUpdateTrip(TripDTO tripDTO) {
         if (!isCommuter()) {
-            return CustomResponse.builder()
-                    .status(HttpStatus.UNAUTHORIZED.value())
-                    .message("Access denied. Only COMMUTER users are allowed to access this endpoint.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.UNAUTHORIZED.value(), "message", "Access denied. Only COMMUTER users are allowed to access this endpoint."),
+                    HttpStatus.UNAUTHORIZED
+            );
         }
 
-        if (tripDTO.getId() != null) {
-            Optional<Trip> optionalTrip = tripRepository.findById(tripDTO.getId());
-            if (optionalTrip.isPresent()) {
-                Trip existingTrip = optionalTrip.get();
-                updateTripFromDTO(existingTrip, tripDTO);
-                tripRepository.save(existingTrip);
-                return CustomResponse.builder()
-                        .status(HttpStatus.OK.value())
-                        .message("Trip updated Successfully")
-                        .build();
+        if (tripDTO == null) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Trip data cannot be null."),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        try {
+            if (tripDTO.getId() != null) {
+                Optional<Trip> optionalTrip = tripRepository.findById(tripDTO.getId());
+                if (optionalTrip.isPresent()) {
+                    Trip existingTrip = optionalTrip.get();
+                    updateTripFromDTO(existingTrip, tripDTO);
+                    tripRepository.save(existingTrip);
+                    return new ResponseEntity<>(
+                            Map.of("status", HttpStatus.OK.value(), "message", "Trip updated successfully"),
+                            HttpStatus.OK
+                    );
+                } else {
+                    return new ResponseEntity<>(
+                            Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "Trip not found with ID: " + tripDTO.getId()),
+                            HttpStatus.NOT_FOUND
+                    );
+                }
             } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
-                        .message("Trip not found with ID: " + tripDTO.getId())
-                        .build();
+                saveNewTripFromDTO(tripDTO);
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.CREATED.value(), "message", "Trip created successfully"),
+                        HttpStatus.CREATED
+                );
             }
-        } else {
-            saveNewTripFromDTO(tripDTO);
-            return CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Trip Created Successfully")
-                    .build();
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "An error occurred while processing the trip."),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -92,50 +97,77 @@ public class TripService {
         trip.setCapacity(tripDTO.getCapacity());
     }
 
-    public CustomResponse deleteTrip(int tripId) {
+    public ResponseEntity<Object> deleteTrip(Integer tripId) {
+        if (tripId <= 0) {
+            return new ResponseEntity<>(
+                    Map.of("status", 400, "message", "Invalid tripId provided"),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
         try {
             tripRepository.deleteById(tripId);
-            return CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Trip deleted Successfully")
-                    .build();
+
+            return new ResponseEntity<>(
+                    Map.of("status", 200, "message", "Trip deleted successfully"),
+                    HttpStatus.OK
+            );
+
         } catch (EmptyResultDataAccessException e) {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Trip not found with ID: " + tripId)
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", 404, "message", "Trip not found with ID: " + tripId),
+                    HttpStatus.NOT_FOUND
+            );
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    Map.of("status", 500, "message", "An error occurred while deleting the trip"),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
-
-
-    public CustomResponse searchForTrip(String from, String to) {
-        // Check if the user is authorized to access this endpoint
+    public ResponseEntity<Object> searchForTrip(String from, String to) {
         if (!isUser()) {
-            return CustomResponse.builder()
-                    .status(HttpStatus.UNAUTHORIZED.value())
-                    .message("Access denied. Only authenticated users are allowed to access this endpoint.")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.UNAUTHORIZED.value(), "message", "Access denied. Only authenticated users are allowed to access this endpoint."),
+                    HttpStatus.UNAUTHORIZED
+            );
         }
 
-        List<TripSearchResultDTO> tripSearchResultDTOS = new ArrayList<>();
-        List<Trip> existingTrips = tripRepository.findByFromAndTo(from, to);
-        for (Trip trip : existingTrips) {
-            TripSearchResultDTO tripResultDetails = new TripSearchResultDTO();
-            tripResultDetails.setId(trip.getId());
-            tripResultDetails.setFrom(trip.getFrom());
-            tripResultDetails.setTo(trip.getTo());
-            tripResultDetails.setUsername(trip.getUser().getUsername());
-            tripResultDetails.setPhoneNumber(trip.getUser().getPhoneNumber());
-            tripResultDetails.setCommuterProfilePhotoURL(trip.getUser().getProfilePictureUrl());
-            tripSearchResultDTOS.add(tripResultDetails);
-        }
+        try {
+            List<Trip> existingTrips = tripRepository.findByFromAndTo(from, to);
 
-        return CustomResponse.builder()
-                .status(HttpStatus.OK.value())
-                .message("Trips retrieved successfully")
-                .data(tripSearchResultDTOS)
-                .build();
+            if (existingTrips.isEmpty()) {
+                return new ResponseEntity<>(
+                        Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "No trips found from " + from + " to " + to),
+                        HttpStatus.NOT_FOUND
+                );
+            }
+
+            List<TripSearchResultDTO> tripSearchResultDTOS = new ArrayList<>();
+            for (Trip trip : existingTrips) {
+                TripSearchResultDTO tripResultDetails = new TripSearchResultDTO();
+                tripResultDetails.setId(trip.getId());
+                tripResultDetails.setFrom(trip.getFrom());
+                tripResultDetails.setTo(trip.getTo());
+                tripResultDetails.setUsername(trip.getUser().getUsername());
+                tripResultDetails.setPhoneNumber(trip.getUser().getPhoneNumber());
+                tripResultDetails.setCommuterProfilePhotoURL(trip.getUser().getProfilePictureUrl());
+                tripSearchResultDTOS.add(tripResultDetails);
+            }
+
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.OK.value(), "message", "Trips retrieved successfully", "data", tripSearchResultDTOS),
+                    HttpStatus.OK
+            );
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", "An error occurred while searching for trips"),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     private boolean isCommuter(){
@@ -160,92 +192,113 @@ public class TripService {
         return false;
     }
 
+    public ResponseEntity<Object> findCommuterTrips(Integer commuterId) {
+        if (commuterId == null || commuterId <= 0) {
+            return new ResponseEntity<>(
+                    Map.of("status", 400, "message", "Invalid commuterId provided"),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
 
-    public CustomResponse findCommuterTrips(Integer commuterId) {
         try {
             User commuter = userRepository.findById(commuterId).orElse(null);
+
             if (commuter == null) {
-                return CustomResponse.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
-                        .message("User not found with ID: " + commuterId)
-                        .data(null)
-                        .build();
+                return new ResponseEntity<>(
+                        Map.of("status", 404, "message", "User not found with ID: " + commuterId),
+                        HttpStatus.NOT_FOUND
+                );
             }
 
             List<Trip> trips = tripRepository.findByUser(commuter);
-            return CustomResponse.builder()
-                    .status(HttpStatus.OK.value())
-                    .message("Commuter trips retrieved successfully")
-                    .data(trips)
-                    .build();
+
+            return new ResponseEntity<>(
+                    Map.of("status", 200, "message", "Commuter trips retrieved successfully", "data", trips),
+                    HttpStatus.OK
+            );
+
         } catch (Exception e) {
-            return CustomResponse.builder()
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("An error occurred while retrieving commuter trips")
-                    .data(null)
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", 500, "message", "An error occurred while retrieving commuter trips"),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
+    public ResponseEntity<Object> findTripOrders(Integer tripId) {
+        if (tripId == null || tripId <= 0) {
+            return new ResponseEntity<>(
+                    Map.of("status", 400, "message", "Invalid tripId provided"),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
 
-    public CustomResponse findTripOrders(Integer tripId) {
         try {
             Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-            if (optionalTrip.isPresent()) {
-                Trip existingTrip = optionalTrip.get();
-                List<Order> orderList = existingTrip.getOrders();
-                return CustomResponse.builder()
-                        .status(HttpStatus.OK.value())
-                        .message("Trip orders retrieved successfully")
-                        .data(orderList)
-                        .build();
-            } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
-                        .message("Trip not found with ID: " + tripId)
-                        .data(null)
-                        .build();
+
+            if (!optionalTrip.isPresent()) {
+                return new ResponseEntity<>(
+                        Map.of("status", 404, "message", "Trip not found with ID: " + tripId),
+                        HttpStatus.NOT_FOUND
+                );
             }
+
+            Trip existingTrip = optionalTrip.get();
+            List<Order> orderList = existingTrip.getOrders();
+
+            return new ResponseEntity<>(
+                    Map.of("status", 200, "message", "Trip orders retrieved successfully", "data", orderList),
+                    HttpStatus.OK
+            );
+
         } catch (Exception e) {
-            return CustomResponse.builder()
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("An error occurred while retrieving trip orders")
-                    .data(null)
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", 500, "message", "An error occurred while retrieving trip orders"),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
+    public ResponseEntity<Object> cancelTrip(Integer tripId) {
+        if (tripId == null || tripId <= 0) {
+            return new ResponseEntity<>(
+                    Map.of("status", 400, "message", "Invalid tripId provided"),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
 
-    public CustomResponse cancelTrip(Integer tripId) {
         try {
             Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-            if (optionalTrip.isPresent()) {
-                Trip trip = optionalTrip.get();
-                Integer commuterId = trip.getUser().getId();
-                if (trip.getOrders() == null) {
-                    tripRepository.deleteById(tripId);
-                } else {
-                    List<Order> orderList = trip.getOrders();
-                    for (Order order : orderList) {
-                        orderService.cancleOrder(order.getId(), commuterId);
-                    }
-                    tripRepository.deleteById(tripId);
+
+            if (!optionalTrip.isPresent()) {
+                return new ResponseEntity<>(
+                        Map.of("status", 404, "message", "Trip not found with ID: " + tripId),
+                        HttpStatus.NOT_FOUND
+                );
+            }
+
+            Trip trip = optionalTrip.get();
+            Integer commuterId = trip.getUser().getId();
+
+            if (trip.getOrders() != null) {
+                List<Order> orderList = trip.getOrders();
+                for (Order order : orderList) {
+                    orderService.cancleOrder(order.getId(), commuterId);
                 }
-                return CustomResponse.builder()
-                        .status(HttpStatus.OK.value())
-                        .message("Trip canceled successfully")
-                        .build();
-            } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
-                        .message("Trip not found")
-                        .build();
             }
+
+            tripRepository.deleteById(tripId);
+
+            return new ResponseEntity<>(
+                    Map.of("status", 200, "message", "Trip canceled successfully"),
+                    HttpStatus.OK
+            );
+
         } catch (Exception e) {
-            return CustomResponse.builder()
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .message("An error occurred while canceling the trip")
-                    .build();
+            return new ResponseEntity<>(
+                    Map.of("status", 500, "message", "An error occurred while canceling the trip"),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 

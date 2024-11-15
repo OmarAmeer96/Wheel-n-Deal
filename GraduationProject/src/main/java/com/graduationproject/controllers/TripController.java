@@ -1,40 +1,42 @@
 package com.graduationproject.controllers;
 
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.TripDTO;
 import com.graduationproject.services.impl.TripService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("api/v1/commuter")
 @RequiredArgsConstructor
+@RequestMapping("api/v1/commuter")
 public class TripController {
+
     private final TripService tripService;
 
     @PostMapping("create-update/trip")
-    public CustomResponse PostOrUpdateTrip(@RequestBody TripDTO tripDTO){
+    public ResponseEntity<Object> PostOrUpdateTrip(@RequestBody TripDTO tripDTO){
         return tripService.postOrUpdateTrip(tripDTO);
     }
 
     @DeleteMapping("delete-trip/{tripId}")
-    public CustomResponse deleteTripById(@PathVariable int tripId){
+    public ResponseEntity<Object> deleteTripById(@PathVariable int tripId){
         return tripService.deleteTrip(tripId);
     }
 
     @GetMapping("findAllTripsById/{commuterId}")
-    public CustomResponse findAllTripsById(@PathVariable Integer commuterId){
+    public ResponseEntity<Object> findAllTripsById(@PathVariable Integer commuterId){
         return tripService.findCommuterTrips(commuterId);
     }
 
     @GetMapping("findTripOrders/{tripId}")
-    public CustomResponse findTripOrders(@PathVariable Integer tripId){
+    public ResponseEntity<Object> findTripOrders(@PathVariable Integer tripId){
         return tripService.findTripOrders(tripId);
     }
+
     //TODO : see why forbidden
     @PostMapping("cancleTrip/{tripId}")
-    public CustomResponse cancelTrip(@PathVariable Integer tripId){
+    public ResponseEntity<Object> cancelTrip(@PathVariable Integer tripId){
         return tripService.cancelTrip(tripId);
     }
+
 }
