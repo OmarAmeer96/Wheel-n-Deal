@@ -24,4 +24,5 @@ public class FavoriteController {
     public ResponseEntity<?> getUserFavorites(@PathVariable Integer userId){
         return favoriteService.getUserFavorites(userId);
     }
+
 }

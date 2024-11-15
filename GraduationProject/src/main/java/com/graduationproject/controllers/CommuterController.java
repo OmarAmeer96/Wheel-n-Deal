@@ -13,4 +13,5 @@ public class CommuterController {
     public ResponseEntity<String> sayHello(){
         return ResponseEntity.ok("Hi Commuter");
     }
+
 }
