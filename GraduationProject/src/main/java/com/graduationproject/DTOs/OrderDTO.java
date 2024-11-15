@@ -10,7 +10,7 @@ public class OrderDTO {
     private Integer userId;
     private Integer countOfOrders;
     private Integer weight;
-    private Boolean breakable;
+    private boolean breakable;
     private String expiryDate;
     private Double expectedPrice;
     private MultipartFile orderPhoto;
@@ -20,6 +20,7 @@ public class OrderDTO {
     private String senderPhoneNumber;
     private String receiverName;
     private String receiverPhoneNumber;
+
 
     //TODO : deal with dates and the price with the length of the way
 }
