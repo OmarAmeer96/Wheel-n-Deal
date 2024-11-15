@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
 public class UserController {
+
     private final UserProfileService userProfileService;
     private final UserServiceImpl userServiceImpl;
     private final TripService tripService;
     private final CommuterProfileService commuterProfileService;
 
     @PutMapping("update")
-    public CustomResponse updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
+    public ResponseEntity<Object> updateUserProfile(@ModelAttribute UserProfileDTO userProfileDTO) {
         return userProfileService.updateUserProfile(userProfileDTO);
     }
 
     @GetMapping("get-normal-user-porfile")
-    public CustomResponse getNormalUserProfile(@RequestParam Integer id){
+    public ResponseEntity<Object> getNormalUserProfile(@RequestParam Integer id){
         return userProfileService.getNormalUserProfile(id);
     }
 
@@ -34,17 +35,18 @@ public class UserController {
     }
 
     @PostMapping("search-for-trip/{from}/{to}")
-    public CustomResponse searchForTrip(@PathVariable String from, @PathVariable String to){
+    public ResponseEntity<Object> searchForTrip(@PathVariable String from, @PathVariable String to){
         return tripService.searchForTrip(from,to);
     }
 
     @GetMapping("get-commuter-profile/{commuterId}")
-    public CustomResponse getCommuterProfile(@PathVariable Integer commuterId){
+    public ResponseEntity<Object> getCommuterProfile(@PathVariable Integer commuterId){
         return commuterProfileService.getFullCommuterProfile(commuterId);
     }
 
     @PutMapping("change-password")
-    public CustomResponse changePassword(@RequestBody ChangePasswordDTO changePasswordDTO){
+    public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO){
         return userProfileService.changePassword(changePasswordDTO);
     }
+
 }

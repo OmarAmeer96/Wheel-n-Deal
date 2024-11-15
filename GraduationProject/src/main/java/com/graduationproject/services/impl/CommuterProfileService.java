@@ -1,7 +1,6 @@
 package com.graduationproject.services.impl;
 
 import com.graduationproject.DTOs.CommuterProfileDTO;
-import com.graduationproject.DTOs.CustomResponse;
 import com.graduationproject.DTOs.ProfileReviewsDTO;
 import com.graduationproject.DTOs.ProfileTripDetailsDTO;
 import com.graduationproject.entities.Review;
@@ -14,10 +13,12 @@ import com.graduationproject.repositories.UserRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -29,42 +30,45 @@ public class CommuterProfileService {
     private final UserRepository userRepository;
     private final TripRepository tripRepository;
 
-    public CustomResponse getFullCommuterProfile(Integer commuterId) {
-        Optional<User> optionalUser = userRepository.findById(commuterId);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-
-            if (user.getRole() == Role.COMMUTER) {
-                CommuterProfileDTO commuterProfileDTO = new CommuterProfileDTO();
-                commuterProfileDTO.setUsername(user.getUsername());
-                commuterProfileDTO.setTotalRate(calculateCommuterTotalRate(user.getId()));
-                commuterProfileDTO.setTotalDelivers(user.getTotalDelivers());
-                commuterProfileDTO.setCancelDelivers(user.getCancelDelivers());
-                commuterProfileDTO.setPhoneNumber(user.getPhoneNumber());
-                commuterProfileDTO.setCommuterPhotoURL(user.getProfilePictureUrl());
-                commuterProfileDTO.setProfileTripDetailsDTOs(profileTripDetailsDTOList(user.getId()));
-                commuterProfileDTO.setProfileReviewsDTOS(profileReviewsDTOS(user.getId()));
-
-                return CustomResponse.builder()
-                        .status(HttpStatus.OK.value())
-                        .message("Commuter profile retrieved successfully")
-                        .data(commuterProfileDTO)
-                        .build();
-            } else {
-                return CustomResponse.builder()
-                        .status(HttpStatus.FORBIDDEN.value())
-                        .message("Unauthorized role: User is not a commuter")
-                        .data(null)
-                        .build();
-            }
-        } else {
-            return CustomResponse.builder()
-                    .status(HttpStatus.NOT_FOUND.value())
-                    .message("Commuter not found for ID: " + commuterId)
-                    .data(null)
-                    .build();
+    public ResponseEntity<Object> getFullCommuterProfile(Integer commuterId) {
+        if (commuterId == null) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "Commuter ID must be provided."),
+                    HttpStatus.BAD_REQUEST
+            );
         }
+
+        Optional<User> optionalUser = userRepository.findById(commuterId);
+        if (optionalUser.isEmpty()) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.NOT_FOUND.value(), "message", "Commuter not found for ID: " + commuterId),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
+        User user = optionalUser.get();
+
+        if (user.getRole() != Role.COMMUTER) {
+            return new ResponseEntity<>(
+                    Map.of("status", HttpStatus.FORBIDDEN.value(), "message", "Unauthorized role: User is not a commuter"),
+                    HttpStatus.FORBIDDEN
+            );
+        }
+
+        CommuterProfileDTO commuterProfileDTO = new CommuterProfileDTO();
+        commuterProfileDTO.setUsername(user.getUsername());
+        commuterProfileDTO.setTotalRate(calculateCommuterTotalRate(user.getId()));
+        commuterProfileDTO.setTotalDelivers(user.getTotalDelivers());
+        commuterProfileDTO.setCancelDelivers(user.getCancelDelivers());
+        commuterProfileDTO.setPhoneNumber(user.getPhoneNumber());
+        commuterProfileDTO.setCommuterPhotoURL(user.getProfilePictureUrl());
+        commuterProfileDTO.setProfileTripDetailsDTOs(profileTripDetailsDTOList(user.getId()));
+        commuterProfileDTO.setProfileReviewsDTOS(profileReviewsDTOS(user.getId()));
+
+        return new ResponseEntity<>(
+                Map.of("status", HttpStatus.OK.value(), "message", "Commuter profile retrieved successfully", "data", commuterProfileDTO),
+                HttpStatus.OK
+        );
     }
 
     private double calculateCommuterTotalRate(int commuterId){
@@ -123,4 +127,5 @@ public class CommuterProfileService {
             return null;
         }
     }
+
 }
