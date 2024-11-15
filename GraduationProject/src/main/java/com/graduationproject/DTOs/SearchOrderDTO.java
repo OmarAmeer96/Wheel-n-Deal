@@ -9,9 +9,9 @@ public class SearchOrderDTO {
     private Integer userId;
     private Integer countOfOrders;
     private Integer weight;
-    private boolean breakable;
+    private Boolean breakable;
     private String expiryDate;
-    private double expectedPrice;
+    private Double expectedPrice;
     private String orderPhotoURL;
     private String from;
     private String to;

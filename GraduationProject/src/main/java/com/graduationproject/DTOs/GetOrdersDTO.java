@@ -10,9 +10,9 @@ public class GetOrdersDTO {
     private Integer Id;
     private String orderName;
     private Integer countOfOrders;
-    private boolean breakable;
+    private Boolean breakable;
     private String expiryDate;
-    private double expectedPrice;
+    private Double expectedPrice;
     private String orderPhotoUrl;
     private String from;
     private String to;

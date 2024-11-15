@@ -10,9 +10,9 @@ public class OrderDTO {
     private Integer userId;
     private Integer countOfOrders;
     private Integer weight;
-    private boolean breakable;
+    private Boolean breakable;
     private String expiryDate;
-    private double expectedPrice;
+    private Double expectedPrice;
     private MultipartFile orderPhoto;
     private String from;
     private String to;

@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class NegotiationDTO {
     private Integer orderId;
-    private double newPrice;
+    private Double newPrice;
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 public class ApplicantDTO {
     private Integer commuterId;
     private String commuterPhotoURL;
-    private double price;
+    private Double price;
     private String fullName;
 }

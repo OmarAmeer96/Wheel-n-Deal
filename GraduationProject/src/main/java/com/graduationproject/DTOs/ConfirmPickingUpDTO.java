@@ -10,5 +10,5 @@ public class ConfirmPickingUpDTO {
     private Integer commuterId;
     //I will get the UserId from the orderId
     private Integer orderId;
-    private double price;
+    private Double price;
 }

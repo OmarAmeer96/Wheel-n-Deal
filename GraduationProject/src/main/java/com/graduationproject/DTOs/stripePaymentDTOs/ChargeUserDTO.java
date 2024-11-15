@@ -1,7 +1,6 @@
 package com.graduationproject.DTOs.stripePaymentDTOs;
 
 import lombok.Data;
-import java.util.Date;
 
 @Data
 public class ChargeUserDTO {
@@ -13,5 +12,5 @@ public class ChargeUserDTO {
     private String expiryMonth;
     private String expiryYear;
     private String cVC;
-    private boolean saved;
+    private Boolean saved;
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 @Data
 public class SecondRequest {
      private String auth_token;
-     private boolean delivery_needed;
+     private Boolean delivery_needed;
      private String amount_cents;
      private String currency;
      private ArrayList<String> items;

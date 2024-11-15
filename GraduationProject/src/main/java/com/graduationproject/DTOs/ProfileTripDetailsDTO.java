@@ -9,5 +9,5 @@ public class ProfileTripDetailsDTO {
     private String day;
     private String startsAt;
     private String endsAt;
-    private int capacity;
+    private Integer capacity;
 }

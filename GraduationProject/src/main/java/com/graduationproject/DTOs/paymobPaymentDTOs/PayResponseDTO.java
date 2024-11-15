@@ -7,7 +7,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PayResponseDTO {
     private Long id;
-    private boolean pending;
+    private Boolean pending;
     private Long amount_cents;
     private String currency;
     private SourceData source_data;

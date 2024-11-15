@@ -13,6 +13,6 @@ public class TripDTO {
     private String day;
     private String startsAt;
     private String endsAt;
-    private int capacity;
-    private int userId;
+    private Integer capacity;
+    private Integer userId;
 }
