@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<CommuterPostTripCubit>(
           create: (context) => getIt<CommuterPostTripCubit>(),
         ),
-        // Add more BlocProviders as needed
+        // Add more ....
       ],
       child: MaterialApp(
         theme: ThemeData.light().copyWith(
